@@ -1,0 +1,2 @@
+[paths]
+default = ssh://hg@192.168.207.10/robot

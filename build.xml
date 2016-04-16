@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<project name="Sispro Robot Manager" default="package" basedir=".">
+
+	<description>
+        Build process of the Sispro Robot Managager
+    </description>
+
+	<property name="srm" location="/RobotManager/dist/SRM.exe" />
+	<property name="unistall" value="/unistallRobot/dist/uninstaller.exe" />
+	<property name="inInstaller" value="/InstallerRobot/resources/inInstaller" />
+	<property name="setup" value="setup" />
+	
+	<target name="clean">
+		<delete dir="${setup}" />
+		<mkdir dir="${setup}"/>
+	</target>
+	
+	<target name="compile" depends="clean">
+		<ant antfile="/unistallRobot/build.xml" target="generate_exe" />
+		<ant antfile="/InstallerRobot/build.xml" target="generate_exe" />
+	</target>
+
+	<target name="copy" depends="compile" description="copies the packages">
+
+
+
+		<copy file="${srm}" todir="${inInstaller}"/>
+		<copy file="${unistall}" todir="${inInstaller}" />
+
+	</target>
+	
+	<target name="compileSetup" depends="copy" description="make steup.exe">
+		<ant antfile="/InstallerRobot/build.xml" target="generate_exe" />
+		
+	</target>
+
+</project>
+
+
+

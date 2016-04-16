@@ -1,0 +1,8 @@
+.project
+.classpath
+.settings
+.*\.class$
+build
+bin
+dist
+development/source/build/aliases
