@@ -194,13 +194,19 @@ public class RobotManagerGui extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				SwingUtilities.invokeLater( new Runnable() {
+					public void run() {
+						DeleteRobotPanel deleterPanel=new DeleteRobotPanel();
+						deleterPanel.setVisible(true);
+						
+					}
+				});
 			}
 		});
 		
 		mnAr.add(updateMenu);
 		mnAr.add(mnA);
-		mnA.add(deleteMenu);
+		mnAr.add(deleteMenu);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
@@ -410,19 +416,22 @@ public class RobotManagerGui extends JFrame {
 //			System.out.println("borrando datos del arbol");
 			// appTree.clearSelection();
 			// appTree.setModel(new TreeModelElements());
-			appTree.removeTreeSelectionListener(listenerTree);
-
-			appTree.setModel(new TreeModelElements(getDataForTree()));
-			appTree.addTreeSelectionListener(listenerTree);
-			// DefaultTreeModel model = (DefaultTreeModel)appTree.getModel();
-			// DefaultMutableTreeNode
-			// root=(DefaultMutableTreeNode)model.getRoot();
-			// root.add(new DefaultMutableTreeNode(getDataForTree()));
-			// model.reload();
-
+			if(RobotManager.isRunningScan()){
+				
+				appTree.removeTreeSelectionListener(listenerTree);
+				
+				appTree.setModel(new TreeModelElements(getDataForTree()));
+				appTree.addTreeSelectionListener(listenerTree);
+				// DefaultTreeModel model = (DefaultTreeModel)appTree.getModel();
+				// DefaultMutableTreeNode
+				// root=(DefaultMutableTreeNode)model.getRoot();
+				// root.add(new DefaultMutableTreeNode(getDataForTree()));
+				// model.reload();
+				
 //			System.out.println("esperando a siguente actializadicon");
-			expandAll();
-
+				expandAll();
+				
+			}
 			Thread.sleep(10000);
 
 		} catch (Exception e) {

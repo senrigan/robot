@@ -5,6 +5,7 @@ import java.net.URL;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
+import java.util.logging.Logger;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
@@ -14,10 +15,14 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 import javax.xml.ws.WebServiceException;
 
+import com.gdc.nms.robot.gui.RobotManager;
 import com.gdc.nms.robot.util.Constants;
 import com.gdc.nms.robot.util.registry.CommandExecutor;
 
+import sun.util.logging.resources.logging_es;
+
 public class CreatorRobotWebService {
+	private static final Logger LOGGER=Logger.getLogger(RobotManager.class.toString());
 
 	private static int generaNumeroAleatorio(int minimo, int maximo){
         
@@ -106,8 +111,17 @@ public class CreatorRobotWebService {
 	}
 	
 	public static boolean deleteRobot(long idRobot){
+		try {
+			fixUntrustCertificate();
+		} catch (KeyManagementException e) {
+			e.printStackTrace();
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
 		WebservicePortType port=getPort();
 		String deleteRobot = port.deleteRobot(""+idRobot);
+		LOGGER.info("deleting robotid"+idRobot +"webservices respose : "+ deleteRobot);
+		
 		
 		return (deleteRobot.equals("1")?true:false);
 		

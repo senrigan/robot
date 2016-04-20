@@ -9,6 +9,7 @@ import javax.swing.border.EmptyBorder;
 import org.apache.commons.io.FileUtils;
 
 import com.gdc.nms.robot.util.AppExaminator;
+import com.gdc.nms.robot.util.DeleteServiceController;
 import com.gdc.nms.robot.util.indexer.AppInformation;
 import com.gdc.robothelper.webservice.robot.CreatorRobotWebService;
 
@@ -83,6 +84,7 @@ public class DeleteRobotPanel extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 150);
 		setResizable(false);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -127,7 +129,8 @@ public class DeleteRobotPanel extends JFrame {
 						,"Eliminador de Robots",JOptionPane.YES_NO_OPTION);
 				if(optionSelected==YES_OPTION){
 					AppInformation app=(AppInformation)comboBox.getSelectedItem();
-					if(CreatorRobotWebService.deleteRobot(app.getIdRobot())){
+					DeleteServiceController deleter=new DeleteServiceController(app);
+					if(deleter.deleteService()){
 						JOptionPane.showMessageDialog(null,"El robot del servicio "+app.getAlias()+"ha sido eliminado correctamente");
 					}else{
 						JOptionPane.showMessageDialog(null,"No es posible eliminar el robot del servicio "+app.getAlias());
@@ -142,38 +145,7 @@ public class DeleteRobotPanel extends JFrame {
 	
 	
 	
-	private void moveServiceToDelete(String serviceFolderPath){
-		Path serviceFolder = Paths.get(serviceFolderPath);
-		
-	}
-	
-	
-	private boolean existInDelete(Path serviceFolder) throws IOException{
-		Path servicesFolderPath = RobotManager.getServicesFolderPath();
-		createTrashFolder(servicesFolderPath);
-		Path trashFolder = serviceFolder.resolve("TRASH");
-		Path serviceTrash = trashFolder.resolve(serviceFolder.getFileName());
-		if(Files.exists(serviceTrash)){
-			String name = serviceFolder.getFileName().toString();
-//			FileUtils.copyDirectoryToDirectory(serviceFolder.toFile(), );
-		}else{
-			
-		}
-		
-		return false;
-	}
-	
-	/**
-	 * create the trash folder only if exist
-	 * @param folder
-	 * @throws IOException
-	 */
-	private void createTrashFolder(Path folder) throws IOException{
-		Path trashFolder = folder.resolve("TRASH");
-		if(!Files.exists(trashFolder)){
-			Files.createDirectory(trashFolder);
-		}
-	}
+
 	
 	
 	private void initData(){

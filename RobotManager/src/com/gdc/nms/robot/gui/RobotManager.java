@@ -41,6 +41,7 @@ public class RobotManager extends JFrame {
 	private static final Logger LOGGER=Logger.getLogger(RobotManager.class.toString());
 	private static boolean valueStart=false;
 	private static boolean valueStop=false;
+	private static boolean executeScan=true;
 	public RobotManager() {
 		Path regInstallationPath = AppExaminator.getInstallationPath();
 		setInstallationPath(regInstallationPath);
@@ -463,6 +464,24 @@ public class RobotManager extends JFrame {
 		return AppExaminator.getInstalledApps();
 	}
 	
+	
+	
+	public static void StopScanServices(){
+		LOGGER.info("changing the status of scanning stoping services");
+		RobotManager.executeScan=false;
+	}
+	
+	public static void StartScanServices(){
+		LOGGER.info("changing the status of scanning starting services");
+
+		RobotManager.executeScan=true;
+	}
+	
+	
+	
+	public static boolean isRunningScan(){
+		return executeScan;
+	}
 	
 	
 	
