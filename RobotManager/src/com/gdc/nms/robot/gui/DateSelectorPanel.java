@@ -7,6 +7,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 
 import com.gdc.nms.robot.util.CreatorRobotManager;
+import com.gdc.nms.robot.util.InfoRobotMaker;
 import com.gdc.nms.robot.util.ValidatorManagement;
 import com.gdc.nms.robot.util.indexer.AppJsonObject;
 import com.gdc.nms.robot.util.indexer.FlujoInformation;
@@ -30,11 +31,14 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JSpinner;
-import javax.swing.JList;
 import javax.swing.JComboBox;
 
 public class DateSelectorPanel extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private DateTimePicker datePickerElement;
 	private JButton ContinueButton;
@@ -46,7 +50,7 @@ public class DateSelectorPanel extends JFrame {
 	private JLabel lblNewLabel_1;
 	private JSpinner retries;
 	private JLabel lblNewLabel_2;
-	private JComboBox timeLapse;
+	private JComboBox<Integer> timeLapse;
 
 
 
@@ -102,6 +106,7 @@ public class DateSelectorPanel extends JFrame {
 		contentPane.add(lblNewLabel_1, gbc_lblNewLabel_1);
 		
 		retries = new JSpinner();
+		retries.setValue(3);
 		GridBagConstraints gbc_retries = new GridBagConstraints();
 		gbc_retries.insets = new Insets(0, 0, 5, 5);
 		gbc_retries.gridx = 2;
@@ -115,7 +120,7 @@ public class DateSelectorPanel extends JFrame {
 		gbc_lblNewLabel_2.gridy = 5;
 		contentPane.add(lblNewLabel_2, gbc_lblNewLabel_2);
 		
-		timeLapse = new JComboBox();
+		timeLapse = new JComboBox<Integer>();
 		GridBagConstraints gbc_timeLapse = new GridBagConstraints();
 		gbc_timeLapse.insets = new Insets(0, 0, 5, 5);
 		gbc_timeLapse.fill = GridBagConstraints.HORIZONTAL;
@@ -164,6 +169,10 @@ public class DateSelectorPanel extends JFrame {
 					ArrayList<FlujoInformation> validFlujos;
 					final InstallerRobotPanel installer=new InstallerRobotPanel();
 					Path data;
+					final InfoRobotMaker infoRobotM=new InfoRobotMaker();
+					infoRobotM.setTimeLapse((Integer)timeLapse.getSelectedItem());
+					infoRobotM.setRetries((Integer)retries.getValue());
+					infoRobotM.setDateForRun(dateTimePicker.getDate());
 					if(ValidatorManagement.isValidMainFolder(path)){
 						
 						validFlujos = ValidatorManagement.getValidFlujos(path.resolve("application"),selectedItem.getId());
@@ -171,14 +180,19 @@ public class DateSelectorPanel extends JFrame {
 							closeWindows();
 						}
 						data=path.resolve("data");
-						final Path dataPath=data;
-						final ArrayList<FlujoInformation> validFinalFlujos=validFlujos;
-						final AppJsonObject finalJsonObject=selectedItem;
+//						final Path dataPath=data;
+//						final ArrayList<FlujoInformation> validFinalFlujos=validFlujos;
+//						final AppJsonObject finalJsonObject=selectedItem;
+						infoRobotM.setAppSelected(selectedItem);
+						infoRobotM.setDataFolder(data);
+						infoRobotM.setFlujos(validFlujos);
+					
+						
 						SwingUtilities.invokeLater(new Runnable() {
 							
 							@Override
 							public void run() {
-								installer.createFlujosWithData(dataPath, validFinalFlujos, finalJsonObject, dateTimePicker.getDate());
+								installer.createFlujosWithData(infoRobotM);
 
 							}
 						});
@@ -190,13 +204,17 @@ public class DateSelectorPanel extends JFrame {
 							closeWindows();
 						
 						}
-						final ArrayList<FlujoInformation> validFinalFlujos=validFlujos;
-						final AppJsonObject finalJsonObject=selectedItem;
+//						final ArrayList<FlujoInformation> validFinalFlujos=validFlujos;
+//						final AppJsonObject finalJsonObject=selectedItem;
+						infoRobotM.setAppSelected(selectedItem);
+						infoRobotM.setFlujos(validFlujos);
+						
+						
 						SwingUtilities.invokeLater(new Runnable() {
 							
 							@Override
 							public void run() {
-								installer.createFlujosWithoutData(validFinalFlujos, finalJsonObject,dateTimePicker.getDate());
+								installer.createFlujosWithoutData(infoRobotM);
 								
 
 							}
@@ -252,6 +270,8 @@ public class DateSelectorPanel extends JFrame {
 //				validTime.add(i);
 			}
 		}
+		timeLapse.setSelectedItem(new Integer(15));
+//		timeLapse.setSelectedItem(12);
 //		return validTime;
 	}
 	

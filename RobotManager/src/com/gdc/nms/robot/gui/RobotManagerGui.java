@@ -131,40 +131,21 @@ public class RobotManagerGui extends JFrame {
 		JMenu mnAr = new JMenu("Archivo");
 		menuBar.add(mnAr);
 		setButtonsListeners();
-		JMenuItem mnA = new JMenuItem("Agregar Robot");
+		JMenuItem addRobotMenu = new JMenuItem("Agregar Robot");
 		JMenuItem updateMenu = new JMenuItem("Actualizar Robots");
 		JMenuItem deleteMenu=new JMenuItem("Eliminar Robots");
 		
-		mnA.addActionListener(new ActionListener() {
+		addRobotMenu.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// new Thread(new Runnable() {
-				// @Override
-				// public void run() {
-				// JDialog f = new JDialog();
-				// JPanel p = new JPanel();
-				// p.setLayout(new FlowLayout());
-				// p.add(new JTextField());
-				// p.add(new JButton("Buscar"));
-				// p.add(new JButton("Validar"));
-				// f.add(p, BorderLayout.CENTER);
-				// f.setSize(400, 300);
-				// f.setLayout(new BorderLayout());
-				// f.setModal(true);
-				// f.setVisible(true);
-				// }
-				// }).start();
+
 				SwingUtilities.invokeLater(new Runnable() {
 					@Override
 					public void run() {
-//						if (ValidatorManagement.getAppsName() != null) {
 
 							SelectorApp selector = new SelectorApp();
 							selector.setVisible(true);
-//						} else {
-//							JOptionPane.showMessageDialog(null, "No es Posible Registrar Robots en este momento",
-//									"Error", JOptionPane.ERROR_MESSAGE);
-//						}
+
 					}
 				});
 
@@ -205,7 +186,7 @@ public class RobotManagerGui extends JFrame {
 		});
 		
 		mnAr.add(updateMenu);
-		mnAr.add(mnA);
+		mnAr.add(addRobotMenu);
 		mnAr.add(deleteMenu);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}

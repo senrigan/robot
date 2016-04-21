@@ -135,19 +135,19 @@ public class SelectorApp extends JFrame {
 		Alias aliasComp=new Alias();
 		java.util.Collections.sort(appsName,aliasComp);
 		for (AppJsonObject appJsonObject : appsName) {
-			String alias = appJsonObject.getAlias();
+//			String alias = appJsonObject.getAlias();
 			comboBox.addItem(appJsonObject);
 		}
 	}
 	
-	private void setTestApplicatioNames(){
-		for (int i = 0; i < 10; i++) {
-			AppJsonObject js=new AppJsonObject();
-			js.setAlias("hola");
-			js.setId(i);
-			comboBox.addItem(js);
-		}
-	}
+//	private void setTestApplicatioNames(){
+//		for (int i = 0; i < 10; i++) {
+//			AppJsonObject js=new AppJsonObject();
+//			js.setAlias("hola");
+//			js.setId(i);
+//			comboBox.addItem(js);
+//		}
+//	}
 	
 	private void setButtonListener(){
 		cancelButton.addActionListener(new ActionListener() {

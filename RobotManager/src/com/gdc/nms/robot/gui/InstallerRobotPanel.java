@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import com.gdc.nms.robot.util.CreatorRobotManager;
+import com.gdc.nms.robot.util.InfoRobotMaker;
 import com.gdc.nms.robot.util.indexer.AppInformation;
 import com.gdc.nms.robot.util.indexer.AppJsonObject;
 import com.gdc.nms.robot.util.indexer.FlujoInformation;
@@ -152,8 +153,11 @@ public class InstallerRobotPanel extends JFrame {
 	
 	
 	
-	public void createFlujosWithData(Path data,final ArrayList<FlujoInformation> validFlujos,
-			final AppJsonObject selectedItem, final Date calculateTime ){
+	public void createFlujosWithData(final InfoRobotMaker infoRobotM ){
+		Path data=infoRobotM.getDataFolder();
+		final ArrayList<FlujoInformation> validFlujos=infoRobotM.getFlujos();
+		final AppJsonObject selectedItem=infoRobotM.getAppSelected();
+		final Date calculateTime=infoRobotM.getDateForRun();
 		boolean addFiles=false;
 		if(checkIfExistApp(selectedItem.getAlias(), selectedItem.getId())){
 			JOptionPane.showMessageDialog(null, "Se ha detectado Que la aplicacion Ya se Encuentra Instalada Solo se procedera a Agregar Nuevos Flujos", "Correcto", JOptionPane.INFORMATION_MESSAGE);
@@ -169,7 +173,7 @@ public class InstallerRobotPanel extends JFrame {
 				public void actionPerformed(ActionEvent e) {
 					CreatorRobotManager creator=new CreatorRobotManager();
 
-					if(creator.createRobot(selectedItem.getAlias(),selectedItem.getId(),validFlujos,addFilesRobot,calculateTime)){
+					if(creator.createRobot(infoRobotM ,addFilesRobot)){
 						
 						
 						JOptionPane.showMessageDialog(null, "La carpeta fue insatalada correctamente.", "Correcto", JOptionPane.INFORMATION_MESSAGE);
@@ -191,8 +195,10 @@ public class InstallerRobotPanel extends JFrame {
 			closeWindows();
 		}
 	}
-	public void createFlujosWithoutData(final ArrayList<FlujoInformation> validFlujos,
-			final AppJsonObject selectedItem , final Date calculateTime){
+	public void createFlujosWithoutData(final InfoRobotMaker infoRobot){
+		final  ArrayList<FlujoInformation> validFlujos=infoRobot.getFlujos();
+		final AppJsonObject selectedItem=infoRobot.getAppSelected();
+		final Date calculateTime=infoRobot.getDateForRun();
 		boolean addFiles=false;
 		if(checkIfExistApp(selectedItem.getAlias(), selectedItem.getId())){
 			JOptionPane.showMessageDialog(null, "Se ha detectado Que la aplicacion Ya se Encuentra Instalada Solo se procedera a Agregar Nuevos Flujos", "Correcto", JOptionPane.INFORMATION_MESSAGE);
@@ -212,7 +218,7 @@ public class InstallerRobotPanel extends JFrame {
 				public void actionPerformed(ActionEvent e) {
 					CreatorRobotManager creator=new CreatorRobotManager();
 
-					if(creator.createRobot(selectedItem.getAlias(),selectedItem.getId(),validFlujos,addFilesRobot,calculateTime)){
+					if(creator.createRobot(infoRobot,addFilesRobot)){
 						
 						
 						JOptionPane.showMessageDialog(null, "La carpeta fue insatalada correctamente.", "Correcto", JOptionPane.INFORMATION_MESSAGE);
@@ -264,6 +270,8 @@ public class InstallerRobotPanel extends JFrame {
 		}
 		return false;
 	}
+
+	
 	
 
 }

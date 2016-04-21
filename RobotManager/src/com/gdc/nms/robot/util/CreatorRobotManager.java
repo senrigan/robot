@@ -46,26 +46,33 @@ public class CreatorRobotManager {
 	private Path dataPath;
 	private boolean addFiles;
 	private Date initDate;
+	private int retries;
+	private int timeLapse;
 	public CreatorRobotManager(){
 		
 	}
 	
-	public  boolean createRobot(String applicationName,long idApp,ArrayList<FlujoInformation> flujos,boolean addFiles,Date initDate){
-		this.applicationName=applicationName;
-		this.idApp=idApp;
-		this.flujos=flujos;
+	public  boolean createRobot(InfoRobotMaker infoRobotM,boolean addFiles){
+		this.applicationName=infoRobotM.getAppSelected().getAlias();
+		this.idApp=infoRobotM.getAppSelected().getId();
+		this.flujos=infoRobotM.getFlujos();
 		this.addFiles=addFiles;
-		this.initDate=initDate;
+		this.initDate=infoRobotM.getDateForRun();
+		this.timeLapse=infoRobotM.getTimeLapse();
+		this.retries=infoRobotM.getRetries();
+
 		return createFilesForRobot();
 	}
 	
-	public  boolean createRobot(Path dataPath,String applicationName,long idApp,ArrayList<FlujoInformation> flujos,boolean addFiles , Date initDate){
-		this.applicationName=applicationName;
-		this.idApp=idApp;
-		this.flujos=flujos;
-		this.dataPath=dataPath;
+	public  boolean createRobotWithPath(InfoRobotMaker infoRobotM,boolean addFiles ){
+		this.applicationName=infoRobotM.getAppSelected().getAlias();
+		this.idApp=infoRobotM.getAppSelected().getId();
+		this.flujos=infoRobotM.getFlujos();
+		this.dataPath=infoRobotM.getDataFolder();
 		this.addFiles=addFiles;
-		this.initDate=initDate;
+		this.initDate=infoRobotM.getDateForRun();
+		this.timeLapse=infoRobotM.getTimeLapse();
+		this.retries=infoRobotM.getRetries();
 		return createFilesForRobot();
 	}
 	
@@ -105,7 +112,7 @@ public class CreatorRobotManager {
 	private boolean createNewRobot(){
 		System.out.println("//// calculateInitDateWebServices"+ getInitDateForWebServices());
 		String location=RobotManager.getUbication();
-		String idRobot = CreatorRobotWebService.getIdRobot(applicationName, "0", location, ""+idApp, "3","15", getInitDateForWebServices());
+		String idRobot = CreatorRobotWebService.getIdRobot(applicationName, "0", location, ""+idApp, ""+retries,""+timeLapse, getInitDateForWebServices());
 		try{
 			realRobot=Long.parseLong(idRobot);
 			System.out.println(realRobot);
@@ -206,6 +213,7 @@ public class CreatorRobotManager {
 			e.printStackTrace();
 			bw.close();
 		}
+		
 
 	}
 	
@@ -453,6 +461,7 @@ public class CreatorRobotManager {
 		        jarUpdated = true;
 		     }
 		     catch (Exception ex) {
+		    	 
 		    	 ex.printStackTrace();
 		        System.out.println(ex);
 
@@ -463,8 +472,8 @@ public class CreatorRobotManager {
 		     }
 		     finally {
 		        tempJar.close();
+		        jar.close();
 		     }
-		     jar.close();
 		  }
 		  finally {
 		     jar.close();

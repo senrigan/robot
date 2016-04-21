@@ -228,6 +228,12 @@ public class AppExaminator {
 		return stepsFiles;
 	}
 	
+	
+	
+	public static void main(String [] args) {
+		ArrayList<FlujoInformation> flujosApp = AppExaminator.getFlujosApp(Paths.get("C:\\Users\\senrigan\\Desktop\\CITASAT\\CITASAT"));
+		System.out.println(flujosApp);
+	}
 
 
 	
