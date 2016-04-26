@@ -14,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.plaf.synth.SynthSeparatorUI;
@@ -24,6 +25,7 @@ import com.gdc.nms.robot.util.Environment;
 import com.gdc.nms.robot.util.RobotInformation;
 import com.gdc.nms.robot.util.VirtualMachineExaminator;
 import com.gdc.nms.robot.util.indexer.AppInformation;
+import com.gdc.nms.robot.util.jade.InitPlataform;
 import com.gdc.nms.robot.util.registry.CommandExecutor;
 import com.gdc.robothelper.webservice.SisproRobotManagerHelper;
 import com.gdc.robothelper.webservice.SisproRobotManagerHelperService;
@@ -82,11 +84,16 @@ public class RobotManager extends JFrame {
 				
 			}
 		});
+		StartAgentPlatform();
 		hilo.start();
 		RobotManagerGui robotGui=new RobotManagerGui();
 	}
 	
-	
+	private void StartAgentPlatform(){
+		if(!InitPlataform.getInstance().runAgentContainer()){
+			JOptionPane.showMessageDialog(null, "No se pudo iniciar correctamente el escaneo ", "Agent Container", JOptionPane.ERROR_MESSAGE);
+		}
+	}
 	private void checkWindowsRegistry(){
 		LOGGER.log(Level.INFO, "reading and creating windows registry necessary for sysprorobotmanager");
 		checkRegistryRobotMustRun();
@@ -482,6 +489,9 @@ public class RobotManager extends JFrame {
 	public static boolean isRunningScan(){
 		return executeScan;
 	}
+	
+	
+	
 	
 	
 	
