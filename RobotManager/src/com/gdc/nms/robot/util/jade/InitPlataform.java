@@ -7,8 +7,8 @@ import java.net.ServerSocket;
 //import jade.core.AgentContainer;
 import jade.core.Profile;
 import jade.core.ProfileImpl;
+import jade.util.leap.Properties;
 //import jade.wrapper.AgentController;
-import jade.core.Runtime;
 
 public class InitPlataform {
 //	private static AgentController controller;
@@ -16,8 +16,8 @@ public class InitPlataform {
 	private static InitPlataform instance=null;
 	
 	private InitPlataform(){
-		
-	};
+
+	}
 	
 	public static InitPlataform getInstance(){
 		if(instance==null){
@@ -44,15 +44,25 @@ public class InitPlataform {
 	
 	
 	private static Profile getProfile(){
-		Profile profile = new ProfileImpl("localhost",1192,"robot_platform");
+		Properties props = new Properties();
+		props.setProperty(ProfileImpl.MAIN, "true");
+		props.setProperty(ProfileImpl.PLATFORM_ID, "robot_platform");
+		props.setProperty(ProfileImpl.MAIN_PORT, "1192");
+		props.setProperty(ProfileImpl.GUI, "true");
+		props.setProperty(ProfileImpl.MAIN_HOST, "localhost");
+		Profile profile = new ProfileImpl(props);
+		
+//		Profile profile = new ProfileImpl("127.0.0.1",1192,"robot_platform");
+
 		return profile;
 	}
 	
 	
 	private static void createContainer() throws IllegalStateException{
-		Runtime rt=Runtime.instance();
-		 mainContainer= rt.createAgentContainer(getProfile());
-//		 DFManager.initScan();
+		jade.core.Runtime rt=jade.core.Runtime.instance();
+		Profile profile =getProfile();		
+        mainContainer =rt.createMainContainer(profile);
+		 DFManager.initScan();
 	}
 	
 	

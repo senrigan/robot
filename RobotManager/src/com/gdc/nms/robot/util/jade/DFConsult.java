@@ -1,6 +1,7 @@
 package com.gdc.nms.robot.util.jade;
 
 import java.util.Iterator;
+import java.util.Vector;
 
 import jade.core.AID;
 import jade.core.Agent;
@@ -12,10 +13,10 @@ import jade.domain.FIPAAgentManagement.SearchConstraints;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 
 public class DFConsult  extends Agent  {
+	public static Vector<AID> services;
 	protected void setup() {
 	  	// Search for services of type "weather-forecast"
 	
-	  	
 	  	
 	  	
 	  	this.addBehaviour(new Behaviour() {
@@ -33,7 +34,6 @@ public class DFConsult  extends Agent  {
 						getDFSubscriptos();
 						Thread.sleep(DFManager.TIMERESCAN);
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
@@ -44,7 +44,7 @@ public class DFConsult  extends Agent  {
 	
 	
 	private void getDFSubscriptos(){
-	 	System.out.println("Agent "+getLocalName()+" searching for services of type \"weather-forecast\"");
+	 	System.out.println("Agent "+getLocalName()+" searching for services of type \"robots\"");
 	  	try {
 	  		// Build the description used as template for the search
 	  		DFAgentDescription template = new DFAgentDescription();
@@ -72,13 +72,14 @@ public class DFConsult  extends Agent  {
 	  					
 	  					System.out.println("all adress agent"+provider.getAllAddresses());
 	  					if (sd.getType().equals(DFManager.DFTYPE)) {
+	  						services.add(provider);
 	  						System.out.println("- Service \""+sd.getName()+"\" provided by agent "+provider.getName());
 	  					}
 	  				}
 	  			}
 	  		}	
 	  		else {
-	  			System.out.println("Agent "+getLocalName()+" did not find any weather-forecast service");
+	  			System.out.println("Agent "+getLocalName()+" did not find any robot service");
 	  		}
 	  	}
 	  	catch (FIPAException fe) {

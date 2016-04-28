@@ -6,7 +6,7 @@ import jade.wrapper.StaleProxyException;
 
 public class DFManager {
 	public static String DFTYPE="robot";
-	public static Long TIMERESCAN=60000L;
+	public static Long TIMERESCAN=6000L;
 	
 	
 	public static void initScan(){

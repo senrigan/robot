@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Vector;
 
 import javax.sql.rowset.spi.SyncResolver;
 import javax.xml.parsers.DocumentBuilder;
@@ -24,8 +25,11 @@ import org.w3c.dom.Document;
 import com.gdc.nms.robot.util.indexer.AppInformation;
 import com.gdc.nms.robot.util.indexer.FlujoInformation;
 import com.gdc.nms.robot.util.indexer.StepInformation;
+import com.gdc.nms.robot.util.jade.DFConsult;
 import com.gdc.nms.robot.util.registry.CommandExecutor;
 import com.sun.tools.hat.internal.parser.Reader;
+
+import jade.core.AID;
 
 
 public class AppExaminator {
@@ -71,15 +75,16 @@ public class AppExaminator {
 	
 	
 	public static  ArrayList<AppInformation>  getRunningApps(){
-		ArrayList<RobotInformation> runningRobot = VirtualMachineExaminator.getRunningRobot();
-		
+		Vector<AID> services = DFConsult.services;
+//		ArrayList<RobotInformation> runningRobot = VirtualMachineExaminator.getRunningRobot();
+		System.out.println(services);
 		ArrayList<AppInformation> running=new ArrayList<AppInformation>();
-		for(RobotInformation robot:runningRobot){
-			AppInformation applicationInfo = robot.getApplicationInfo();
-			running.add(applicationInfo);
-		}
-		if(!running.isEmpty())
-			Collections.sort(running);
+//		for(RobotInformation robot:runningRobot){
+//			AppInformation applicationInfo = robot.getApplicationInfo();
+//			running.add(applicationInfo);
+//		}
+//		if(!running.isEmpty())
+//			Collections.sort(running);
 		return running;
 	}
 	
