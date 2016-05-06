@@ -173,7 +173,7 @@ public class InstallerRobotPanel extends JFrame {
 				public void actionPerformed(ActionEvent e) {
 					CreatorRobotManager creator=new CreatorRobotManager();
 
-					if(creator.createRobot(infoRobotM ,addFilesRobot)){
+					if(creator.createRobotWithPath(infoRobotM ,addFilesRobot)){
 						
 						
 						JOptionPane.showMessageDialog(null, "La carpeta fue insatalada correctamente.", "Correcto", JOptionPane.INFORMATION_MESSAGE);

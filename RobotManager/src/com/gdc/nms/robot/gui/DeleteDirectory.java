@@ -30,7 +30,6 @@ public class DeleteDirectory
            }
         }
  
-    	System.out.println("Done");
     }
     
     public static void delete(File file)

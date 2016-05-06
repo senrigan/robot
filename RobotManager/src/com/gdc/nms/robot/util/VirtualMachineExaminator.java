@@ -112,7 +112,7 @@ public class VirtualMachineExaminator {
              	   String idString = Integer.toString((Integer)id);
              	   VirtualMachine vmT=VirtualMachine.attach(idString);
          			String robotId = vmT.getSystemProperties().getProperty("robotId");
-         			System.out.println(robotId);
+         			System.out.println("robotid"+robotId);
 					if(robotId!=null){
 						RobotInformation robotInfo=new RobotInformation();
 						robotInfo.setIdProcess((Integer)id);

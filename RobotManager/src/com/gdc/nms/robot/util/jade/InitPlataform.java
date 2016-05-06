@@ -3,22 +3,27 @@ package com.gdc.nms.robot.util.jade;
 import java.io.IOException;
 import java.net.DatagramSocket;
 import java.net.ServerSocket;
+import java.util.HashMap;
 
+import jade.core.AID;
 //import jade.core.AgentContainer;
 import jade.core.Profile;
 import jade.core.ProfileImpl;
 import jade.util.leap.Properties;
 //import jade.wrapper.AgentController;
+import jade.wrapper.ControllerException;
 
 public class InitPlataform {
 //	private static AgentController controller;
 	private static jade.wrapper.AgentContainer mainContainer;
 	private static InitPlataform instance=null;
+	private static HashMap<String,AID> robotRegister;
 	
 	private InitPlataform(){
 
 	}
 	
+
 	public static InitPlataform getInstance(){
 		if(instance==null){
 			instance=new InitPlataform();
@@ -27,7 +32,19 @@ public class InitPlataform {
 		return instance;
 	}
 	
+	public static  HashMap<String,AID> getRobotRegister(){
+		return robotRegister;
+	}
 	
+	
+	public static void registerRobot(String robotName,AID senderId){
+		robotRegister.put(robotName, senderId);
+	}
+	
+	
+	public static void deRegisterRobot(String robotName){
+		robotRegister.remove(robotName);
+	}
 	public static jade.wrapper.AgentContainer getContainer(){
 		return mainContainer;
 	}
@@ -62,7 +79,15 @@ public class InitPlataform {
 		jade.core.Runtime rt=jade.core.Runtime.instance();
 		Profile profile =getProfile();		
         mainContainer =rt.createMainContainer(profile);
+        robotRegister=new HashMap<String,AID>();
+        try {
+			System.out.println("container name"+mainContainer.getContainerName()+"platform name"+mainContainer.getPlatformName()+"name"+mainContainer.getName());
+		} catch (ControllerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		 DFManager.initScan();
+		 MailBoxRobot.initReciver();
 	}
 	
 	

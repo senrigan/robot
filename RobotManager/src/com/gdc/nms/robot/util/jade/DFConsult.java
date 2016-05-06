@@ -44,7 +44,7 @@ public class DFConsult  extends Agent  {
 	
 	
 	private void getDFSubscriptos(){
-	 	System.out.println("Agent "+getLocalName()+" searching for services of type \"robots\"");
+//	 	System.out.println("Agent "+getLocalName()+" searching for services of type \"robots\"");
 	  	try {
 	  		// Build the description used as template for the search
 	  		DFAgentDescription template = new DFAgentDescription();
@@ -60,7 +60,7 @@ public class DFConsult  extends Agent  {
 	  		
 	  		
 	  		if (results.length > 0) {
-	  			System.out.println("Agent "+getLocalName()+" found the following robot services:");
+//	  			System.out.println("Agent "+getLocalName()+" found the following robot services:");
 	  			for (int i = 0; i < results.length; ++i) {
 	  				DFAgentDescription dfd = results[i];
 	  				AID provider = dfd.getName();
@@ -70,7 +70,7 @@ public class DFConsult  extends Agent  {
 	  				while (it.hasNext()) {
 	  					ServiceDescription sd = (ServiceDescription) it.next();
 	  					
-	  					System.out.println("all adress agent"+provider.getAllAddresses());
+//	  					System.out.println("all adress agent"+provider.getAllAddresses());
 	  					if (sd.getType().equals(DFManager.DFTYPE)) {
 	  						services.add(provider);
 	  						System.out.println("- Service \""+sd.getName()+"\" provided by agent "+provider.getName());
@@ -79,7 +79,7 @@ public class DFConsult  extends Agent  {
 	  			}
 	  		}	
 	  		else {
-	  			System.out.println("Agent "+getLocalName()+" did not find any robot service");
+//	  			System.out.println("Agent "+getLocalName()+" did not find any robot service");
 	  		}
 	  	}
 	  	catch (FIPAException fe) {

@@ -144,7 +144,6 @@ public class DateSelectorPanel extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("algo cambio"+datePickerElement.getDate());
 				if(datePickerElement.getDate()!=null){
 					ContinueButton.setEnabled(true);
 				}else{

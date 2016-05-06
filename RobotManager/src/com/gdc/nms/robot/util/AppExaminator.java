@@ -77,7 +77,7 @@ public class AppExaminator {
 	public static  ArrayList<AppInformation>  getRunningApps(){
 		Vector<AID> services = DFConsult.services;
 //		ArrayList<RobotInformation> runningRobot = VirtualMachineExaminator.getRunningRobot();
-		System.out.println(services);
+//		System.out.println("running roboits"+runningRobot);
 		ArrayList<AppInformation> running=new ArrayList<AppInformation>();
 //		for(RobotInformation robot:runningRobot){
 //			AppInformation applicationInfo = robot.getApplicationInfo();

@@ -63,9 +63,7 @@ public class LoadingFrame extends JFrame {
 
     public static void main(String[] args) {
     	Path currrentRelativePath =Paths.get("");
-    	System.out.println(currrentRelativePath.toAbsolutePath().toString());
     
-    	System.out.println();
 //    	System.out.println(LoadingFrame.class.getClass().getResource("loading.gif"));
         LoadingFrame test=new LoadingFrame();
         try {

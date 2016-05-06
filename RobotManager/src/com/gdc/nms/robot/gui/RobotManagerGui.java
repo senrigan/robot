@@ -7,6 +7,7 @@ import java.util.Enumeration;
 import java.util.Vector;
 import java.util.concurrent.CountDownLatch;
 
+import javax.lang.model.util.Elements;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenuItem;
@@ -72,10 +73,8 @@ public class RobotManagerGui extends JFrame {
 	}
 	
 	private void initComponents(){
-		System.out.println("procesando arbol");
 		model = new TreeModelElements(getDataForTree());
 		appTree = new JTree(model);
-		System.out.println("pprosesando deamas cosas");
 		appTree.setEditable(false);
 		listenerTree = new TreeListener(RobotManagerGui.this, appTree);
 		appTree.addTreeSelectionListener(listenerTree);
@@ -166,7 +165,6 @@ public class RobotManagerGui extends JFrame {
 						}
 					});
 				} else {
-					System.out.println("se cerro");
 				}
 			}
 		});
@@ -197,10 +195,14 @@ public class RobotManagerGui extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Element element = (Element) appTree.getLastSelectedPathComponent();
+				
+				
 				AppInformation appinfo = element.getAppinfo();
+				
 				long idRobot = appinfo.getIdRobot();
+				long idApp=appinfo.getIdApp();
 				LoadingFrame loading=new LoadingFrame();
-				if (RobotManager.runRobot(idRobot)) {
+				if (RobotManager.runRobotWithGui(idRobot,idApp)) {
 					loading.close();
 					enableButton(ButtonType.START, false);
 					JOptionPane.showMessageDialog(null, "el robot se inicio correctamente", "Info",
@@ -369,9 +371,7 @@ public class RobotManagerGui extends JFrame {
 		// @Override
 		// public void run() {
 		// try{
-		// System.out.println("actualizando running");
 		// updateNodes(runningNode, getElementRunning());
-		// System.out.println("actualizando no running");
 		// updateNodes(notRunningNode, getElementNotRunning());
 		//
 		// }catch(Exception ex){
@@ -393,8 +393,7 @@ public class RobotManagerGui extends JFrame {
 
 	private  void updateTree() {
 		try {
-//			System.out.println("E: " + SwingUtilities.isEventDispatchThread());
-//			System.out.println("borrando datos del arbol");
+
 			// appTree.clearSelection();
 			// appTree.setModel(new TreeModelElements());
 			if(RobotManager.isRunningScan()){
@@ -409,14 +408,14 @@ public class RobotManagerGui extends JFrame {
 				// root.add(new DefaultMutableTreeNode(getDataForTree()));
 				// model.reload();
 				
-//			System.out.println("esperando a siguente actializadicon");
 				expandAll();
+				enableButton(ButtonType.START, false);
+				enableButton(ButtonType.STOP, false);
 				
 			}
 			Thread.sleep(10000);
 
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -440,7 +439,6 @@ public class RobotManagerGui extends JFrame {
 			while (childrenNode.hasMoreElements()) {
 				Element object2 = childrenNode.nextElement();
 				if (object.toString().equals(object2.toString())) {
-					System.out.println("elemenetos iguales" + object.toString());
 					if (elementsToAdd.contains(object2)) {
 						elementsToAdd.remove(object2);
 					}
@@ -456,7 +454,6 @@ public class RobotManagerGui extends JFrame {
 		}
 		for (Element element : elementsToAdd) {
 			if (!foundElements.contains(element)) {
-				System.out.println("boorando elemento" + element);
 				toUpdate.remove(element);
 
 			}
@@ -478,10 +475,22 @@ public class RobotManagerGui extends JFrame {
 
 	public  Element getDataForTree() {
 //		Vector<Thread> hilos=new Vector<>();
-		System.out.println("procesando elementos del arbol");
 		final CountDownLatch latch= new CountDownLatch(2);
 
-		final Element elementTree = new Element("Aplication");
+		final Element elementTree = new Element("Aplicación");
+		Thread hilo2=new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				setName("hlo 2");
+				
+				elementTree.add(getElementRunning());
+				latch.countDown();
+			}
+		},"hilo 2");
+//		hilos.add(hilo2);
+		hilo2.start();
+		
 		Thread hilo=new Thread(new Runnable() {
 			
 			@Override
@@ -493,20 +502,6 @@ public class RobotManagerGui extends JFrame {
 		},"hilo 1");
 		hilo.start();
 		
-		Thread hilo2=new Thread(new Runnable() {
-			
-			@Override
-			public void run() {
-				setName("hlo 2");
-
-				elementTree.add(getElementRunning());
-				System.out.println("++elementos que corren");
-				latch.countDown();
-			}
-		},"hilo 2");
-//		hilos.add(hilo2);
-		hilo2.start();
-		
 		try {
 			latch.await();
 		} catch (InterruptedException e) {
@@ -515,9 +510,7 @@ public class RobotManagerGui extends JFrame {
 		}
 //		for (Thread thread : hilos) {
 //			try {
-//				System.out.println("esperando el thread"+thread.getName());
 //				thread.join();
-//				System.out.println("termindo de esperar "+ thread.getName());
 //			} catch (InterruptedException e) {
 //				e.printStackTrace();
 //			}
@@ -529,10 +522,8 @@ public class RobotManagerGui extends JFrame {
 	}
 
 	private  Element getElementRunning() {
-		System.out.println("opteninando apps");
-		Element element = new Element("Running");
+		Element element = new Element("En ejecución");
 		ArrayList<AppInformation> runningApps = AppExaminator.getRunningApps();
-		 System.out.println("running apps \n"+runningApps+"\n");
 		for (AppInformation appInformation : runningApps) {
 			Element elementNode = new Element(appInformation.getAppName());
 			elementNode.setAppinfo(appInformation);
@@ -540,12 +531,11 @@ public class RobotManagerGui extends JFrame {
 			element.add(elementNode);
 
 		}
-		System.out.println("termino getlementrunning"+element);
 		return element;
 	}
 
 	private  Element getElementNotRunning() {
-		Element element = new Element("Not Running");
+		Element element = new Element("Detenidos");
 		ArrayList<AppInformation> notRunningApps = AppExaminator.getNotRunnigApps();
 		for (AppInformation appInformation : notRunningApps) {
 			Element elementNode = new Element(appInformation.getAppName());

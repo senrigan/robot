@@ -241,6 +241,20 @@ public class RobotManager extends JFrame {
 	}
 	
 	
+	public static void main(String[] args) {
+		String robotIds;
+		try {
+			robotIds = CommandExecutor.readRegistrySpecificRegistry(Constants.LOCALREGISTRY,"robotmustRun","REG_SZ");
+			System.out.println("resultado"+robotIds);
+			if(robotIds==null)
+			robotIds = CommandExecutor.readRegistrySpecificRegistry(Constants.LOCALREGISTRY,"robotnotRun","REG_SZ");
+			System.out.println("resultado"+robotIds);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	private static void checkUbicationRegistry(){
 		try {
 			String ubicationRegist = CommandExecutor.readRegistrySpecificRegistry(Constants.LOCALREGISTRY, "ubicationRobot","REG_SZ");
@@ -306,6 +320,21 @@ public class RobotManager extends JFrame {
 		return false;
 	}
 	
+	
+	public static boolean runRobotWithGui(long idRobot,long idApp){
+		ArrayList<AppInformation> notRunnigApps = AppExaminator.getNotRunnigApps();
+		for (AppInformation appInformation : notRunnigApps) {
+			System.out.println(appInformation.getAppName()+" idapp"+appInformation.getIdApp());
+			System.out.println(appInformation.getIdApp() +" idrobot"+idRobot);
+			if(appInformation.getIdRobot()==idRobot && appInformation.getIdApp()==idApp){
+				LOGGER.info("starup the robot id :"+idRobot);
+				return runJarRobot(appInformation.getAppName());
+			}
+		}
+		return false;
+	}
+	
+	
 	private static boolean runJarRobot(final String appName){
 		
 		final CountDownLatch latch=new CountDownLatch(1);
@@ -320,16 +349,17 @@ public class RobotManager extends JFrame {
 				String command=java +" -Dname=\"Robot_"+appName+"\" "+" -jar "+jar;
 				try {
 					System.out.println("command"+command);
-					Process exec = Runtime.getRuntime().exec(command);
-					BufferedReader in=new BufferedReader(new InputStreamReader(exec.getInputStream()));
-					String line;
-					while((line=in.readLine())!=null){
-						System.out.println("stopjar lines"+line);
-						if(line.contains("Robot has been started")){
-							value =true;
-						}
-						
-					}
+					Runtime.getRuntime().exec(command);
+//					Process exec = Runtime.getRuntime().exec(command);
+//					BufferedReader in=new BufferedReader(new InputStreamReader(exec.getInputStream()));
+//					String line;
+//					while((line=in.readLine())!=null){
+//						System.out.println("stopjar lines"+line);
+//						if(line.contains("Robot has been started")){
+//							value =true;
+//						}
+//						
+//					}
 				} catch (IOException e) {
 					e.printStackTrace();
 					value=false;

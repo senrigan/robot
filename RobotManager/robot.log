@@ -1,0 +1,200 @@
+2016-05-03 18:30:34 INFO  RobotManager:375 - Trying to start the robot.
+2016-05-03 18:30:34 INFO  RobotManager:104 - Reading robot configuration.
+2016-05-03 18:30:34 INFO  RobotManager:120 - Reading robot properties.
+2016-05-03 18:30:34 INFO  RobotManager:157 - Loading application.
+2016-05-03 18:30:34 INFO  RobotManager:186 - Load monitors of 32D.
+2016-05-03 18:30:34 INFO  RobotManager:192 - Monitor Found: 99.OpinionCumplimiento
+2016-05-03 18:30:34 INFO  RobotManager:243 - Creating the execution Thread Pool with 1 threads.
+2016-05-03 18:30:34 INFO  RobotManager:249 - Init insert pool.
+2016-05-03 18:30:35 WARN  RobotManager:357 - Unable to connect with the server.
+javax.xml.ws.WebServiceException: Failed to access the WSDL at: https://samyg2pp.sispro.mx/wsendusersamyg2/wssamyg/status/soapFlujosV2.php?wsdl. It failed with: 
+	Got samyg2pp.sispro.mx while opening stream from https://samyg2pp.sispro.mx/wsendusersamyg2/wssamyg/status/soapFlujosV2.php?wsdl.
+	at com.sun.xml.internal.ws.wsdl.parser.RuntimeWSDLParser.tryWithMex(RuntimeWSDLParser.java:173)
+	at com.sun.xml.internal.ws.wsdl.parser.RuntimeWSDLParser.parse(RuntimeWSDLParser.java:155)
+	at com.sun.xml.internal.ws.wsdl.parser.RuntimeWSDLParser.parse(RuntimeWSDLParser.java:120)
+	at com.sun.xml.internal.ws.client.WSServiceDelegate.parseWSDL(WSServiceDelegate.java:258)
+	at com.sun.xml.internal.ws.client.WSServiceDelegate.<init>(WSServiceDelegate.java:221)
+	at com.sun.xml.internal.ws.client.WSServiceDelegate.<init>(WSServiceDelegate.java:169)
+	at com.sun.xml.internal.ws.spi.ProviderImpl.createServiceDelegate(ProviderImpl.java:101)
+	at javax.xml.ws.Service.<init>(Service.java:77)
+	at webservice.Webservice.<init>(Webservice.java:40)
+	at com.gdc.robot.RobotManager.getRobotData(RobotManager.java:349)
+	at com.gdc.robot.RobotManager.addPoller(RobotManager.java:255)
+	at com.gdc.robot.RobotManager.initTimer(RobotManager.java:296)
+	at com.gdc.robot.RobotManager.start(RobotManager.java:381)
+	at com.gdc.robot.Main.main(Main.java:142)
+Caused by: java.io.IOException: Got samyg2pp.sispro.mx while opening stream from https://samyg2pp.sispro.mx/wsendusersamyg2/wssamyg/status/soapFlujosV2.php?wsdl
+	at com.sun.xml.internal.ws.wsdl.parser.RuntimeWSDLParser.createReader(RuntimeWSDLParser.java:842)
+	at com.sun.xml.internal.ws.wsdl.parser.RuntimeWSDLParser.resolveWSDL(RuntimeWSDLParser.java:283)
+	at com.sun.xml.internal.ws.wsdl.parser.RuntimeWSDLParser.parse(RuntimeWSDLParser.java:140)
+	... 12 more
+Caused by: java.net.UnknownHostException: samyg2pp.sispro.mx
+	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:178)
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:172)
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+	at java.net.Socket.connect(Socket.java:579)
+	at sun.security.ssl.SSLSocketImpl.connect(SSLSocketImpl.java:625)
+	at sun.security.ssl.BaseSSLSocketImpl.connect(BaseSSLSocketImpl.java:160)
+	at sun.net.NetworkClient.doConnect(NetworkClient.java:180)
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:432)
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:527)
+	at sun.net.www.protocol.https.HttpsClient.<init>(HttpsClient.java:275)
+	at sun.net.www.protocol.https.HttpsClient.New(HttpsClient.java:371)
+	at sun.net.www.protocol.https.AbstractDelegateHttpsURLConnection.getNewHttpClient(AbstractDelegateHttpsURLConnection.java:191)
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:933)
+	at sun.net.www.protocol.https.AbstractDelegateHttpsURLConnection.connect(AbstractDelegateHttpsURLConnection.java:177)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1301)
+	at sun.net.www.protocol.https.HttpsURLConnectionImpl.getInputStream(HttpsURLConnectionImpl.java:254)
+	at java.net.URL.openStream(URL.java:1037)
+	at com.sun.xml.internal.ws.wsdl.parser.RuntimeWSDLParser.createReader(RuntimeWSDLParser.java:827)
+	... 14 more
+2016-05-04 11:19:04 INFO  RobotManager:376 - Trying to start the robot.
+2016-05-04 11:19:04 INFO  RobotManager:376 - Trying to start the robot.
+2016-05-04 11:19:04 INFO  RobotManager:104 - Reading robot configuration.
+2016-05-04 11:19:04 INFO  RobotManager:104 - Reading robot configuration.
+2016-05-04 11:19:04 INFO  RobotManager:121 - Reading robot properties.
+2016-05-04 11:19:04 INFO  RobotManager:121 - Reading robot properties.
+2016-05-04 11:19:04 INFO  RobotManager:158 - Loading application.
+2016-05-04 11:19:04 INFO  RobotManager:158 - Loading application.
+2016-05-04 11:19:04 INFO  RobotManager:187 - Load monitors of SCADE II.
+2016-05-04 11:19:04 INFO  RobotManager:187 - Load monitors of SCADE II.
+2016-05-04 11:19:04 INFO  RobotManager:194 - Monitor Found: 87.DIOT
+2016-05-04 11:19:04 INFO  RobotManager:194 - Monitor Found: 87.DIOT
+2016-05-04 11:19:04 INFO  RobotManager:194 - Monitor Found: 88.IETU
+2016-05-04 11:19:04 INFO  RobotManager:194 - Monitor Found: 88.IETU
+2016-05-04 11:19:04 INFO  RobotManager:245 - Creating the execution Thread Pool with 2 threads.
+2016-05-04 11:19:04 INFO  RobotManager:245 - Creating the execution Thread Pool with 2 threads.
+2016-05-04 11:19:04 INFO  RobotManager:251 - Init insert pool.
+2016-05-04 11:19:04 INFO  RobotManager:251 - Init insert pool.
+2016-05-04 11:21:46 INFO  RobotManager:376 - Trying to start the robot.
+2016-05-04 11:21:46 INFO  RobotManager:376 - Trying to start the robot.
+2016-05-04 11:21:46 INFO  RobotManager:104 - Reading robot configuration.
+2016-05-04 11:21:46 INFO  RobotManager:104 - Reading robot configuration.
+2016-05-04 11:21:46 INFO  RobotManager:121 - Reading robot properties.
+2016-05-04 11:21:46 INFO  RobotManager:121 - Reading robot properties.
+2016-05-04 11:21:46 INFO  RobotManager:158 - Loading application.
+2016-05-04 11:21:46 INFO  RobotManager:158 - Loading application.
+2016-05-04 11:21:46 INFO  RobotManager:187 - Load monitors of SCADE II.
+2016-05-04 11:21:46 INFO  RobotManager:187 - Load monitors of SCADE II.
+2016-05-04 11:21:46 INFO  RobotManager:194 - Monitor Found: 87.DIOT
+2016-05-04 11:21:46 INFO  RobotManager:194 - Monitor Found: 87.DIOT
+2016-05-04 11:21:46 INFO  RobotManager:194 - Monitor Found: 88.IETU
+2016-05-04 11:21:46 INFO  RobotManager:194 - Monitor Found: 88.IETU
+2016-05-04 11:21:46 INFO  RobotManager:245 - Creating the execution Thread Pool with 2 threads.
+2016-05-04 11:21:46 INFO  RobotManager:245 - Creating the execution Thread Pool with 2 threads.
+2016-05-04 11:21:46 INFO  RobotManager:251 - Init insert pool.
+2016-05-04 11:21:46 INFO  RobotManager:251 - Init insert pool.
+2016-05-04 11:23:04 INFO  RobotManager:376 - Trying to start the robot.
+2016-05-04 11:23:04 INFO  RobotManager:376 - Trying to start the robot.
+2016-05-04 11:23:04 INFO  RobotManager:104 - Reading robot configuration.
+2016-05-04 11:23:04 INFO  RobotManager:104 - Reading robot configuration.
+2016-05-04 11:23:05 INFO  RobotManager:121 - Reading robot properties.
+2016-05-04 11:23:05 INFO  RobotManager:121 - Reading robot properties.
+2016-05-04 11:23:05 INFO  RobotManager:158 - Loading application.
+2016-05-04 11:23:05 INFO  RobotManager:158 - Loading application.
+2016-05-04 11:23:05 INFO  RobotManager:187 - Load monitors of SCADE II.
+2016-05-04 11:23:05 INFO  RobotManager:187 - Load monitors of SCADE II.
+2016-05-04 11:23:05 INFO  RobotManager:194 - Monitor Found: 87.DIOT
+2016-05-04 11:23:05 INFO  RobotManager:194 - Monitor Found: 87.DIOT
+2016-05-04 11:23:05 INFO  RobotManager:194 - Monitor Found: 88.IETU
+2016-05-04 11:23:05 INFO  RobotManager:194 - Monitor Found: 88.IETU
+2016-05-04 11:23:05 INFO  RobotManager:245 - Creating the execution Thread Pool with 2 threads.
+2016-05-04 11:23:05 INFO  RobotManager:245 - Creating the execution Thread Pool with 2 threads.
+2016-05-04 11:23:05 INFO  RobotManager:251 - Init insert pool.
+2016-05-04 11:23:05 INFO  RobotManager:251 - Init insert pool.
+2016-05-04 11:30:08 INFO  RobotManager:377 - Trying to start the robot.
+2016-05-04 11:30:09 INFO  RobotManager:124 - Reading robot properties.
+2016-05-04 11:30:09 INFO  RobotManager:106 - Reading robot configuration.
+2016-05-04 11:30:09 INFO  RobotManager:164 - Loading application.
+2016-05-04 11:30:09 INFO  RobotManager:198 - Load monitors of 32D.
+2016-05-04 11:30:09 INFO  RobotManager:205 - Monitor Found: 99.OpinionCumplimiento
+2016-05-04 11:30:09 INFO  RobotManager:263 - Creating the execution Thread Pool with 1 threads.
+2016-05-04 11:30:09 INFO  RobotManager:270 - Init insert pool.
+2016-05-04 11:30:11 INFO  RobotManager:301 - The flow will run at Wed May 04 11:35:00 CDT 2016 every 5 minute(s).
+2016-05-04 11:30:11 INFO  RobotManager:388 - Robot has been started.!
+2016-05-04 11:35:00 INFO  PollMonitorTask:133 - Starting polling of 'OpinionCumplimiento'
+2016-05-04 11:35:00 FATAL PollMonitorTask:402 - Unknown error: 
+java.lang.UnsatisfiedLinkError: no jacob-1.18-x64 in java.library.path
+	at java.lang.ClassLoader.loadLibrary(ClassLoader.java:1886)
+	at java.lang.Runtime.loadLibrary0(Runtime.java:849)
+	at java.lang.System.loadLibrary(System.java:1088)
+	at com.jacob.com.LibraryLoader.loadJacobLibrary(LibraryLoader.java:184)
+	at com.jacob.com.JacobObject.<clinit>(JacobObject.java:110)
+	at com.gdc.robot.task.PollMonitorTask.run(PollMonitorTask.java:139)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+2016-05-04 11:40:01 INFO  PollMonitorTask:133 - Starting polling of 'OpinionCumplimiento'
+2016-05-04 11:40:01 FATAL PollMonitorTask:402 - Unknown error: 
+java.lang.NoClassDefFoundError: Could not initialize class com.jacob.activeX.ActiveXComponent
+	at com.gdc.robot.task.PollMonitorTask.run(PollMonitorTask.java:139)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+2016-05-04 11:45:00 INFO  PollMonitorTask:133 - Starting polling of 'OpinionCumplimiento'
+2016-05-04 11:45:00 FATAL PollMonitorTask:402 - Unknown error: 
+java.lang.NoClassDefFoundError: Could not initialize class com.jacob.activeX.ActiveXComponent
+	at com.gdc.robot.task.PollMonitorTask.run(PollMonitorTask.java:139)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+2016-05-04 11:48:27 INFO  RobotManager:377 - Trying to start the robot.
+2016-05-04 11:48:27 FATAL Unique:41 - Another instance is already running
+2016-05-04 11:50:01 INFO  PollMonitorTask:133 - Starting polling of 'OpinionCumplimiento'
+2016-05-04 11:50:01 FATAL PollMonitorTask:402 - Unknown error: 
+java.lang.NoClassDefFoundError: Could not initialize class com.jacob.activeX.ActiveXComponent
+	at com.gdc.robot.task.PollMonitorTask.run(PollMonitorTask.java:139)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+2016-05-04 11:50:27 INFO  RobotManager:377 - Trying to start the robot.
+2016-05-04 11:50:27 FATAL Unique:41 - Another instance is already running
+2016-05-04 11:55:01 INFO  PollMonitorTask:133 - Starting polling of 'OpinionCumplimiento'
+2016-05-04 11:55:01 FATAL PollMonitorTask:402 - Unknown error: 
+java.lang.NoClassDefFoundError: Could not initialize class com.jacob.activeX.ActiveXComponent
+	at com.gdc.robot.task.PollMonitorTask.run(PollMonitorTask.java:139)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+2016-05-04 12:00:01 INFO  PollMonitorTask:133 - Starting polling of 'OpinionCumplimiento'
+2016-05-04 12:00:01 FATAL PollMonitorTask:402 - Unknown error: 
+java.lang.NoClassDefFoundError: Could not initialize class com.jacob.activeX.ActiveXComponent
+	at com.gdc.robot.task.PollMonitorTask.run(PollMonitorTask.java:139)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+2016-05-04 12:05:01 INFO  PollMonitorTask:133 - Starting polling of 'OpinionCumplimiento'
+2016-05-04 12:05:01 FATAL PollMonitorTask:402 - Unknown error: 
+java.lang.NoClassDefFoundError: Could not initialize class com.jacob.activeX.ActiveXComponent
+	at com.gdc.robot.task.PollMonitorTask.run(PollMonitorTask.java:139)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+2016-05-04 12:10:00 INFO  PollMonitorTask:133 - Starting polling of 'OpinionCumplimiento'
+2016-05-04 12:10:00 FATAL PollMonitorTask:402 - Unknown error: 
+java.lang.NoClassDefFoundError: Could not initialize class com.jacob.activeX.ActiveXComponent
+	at com.gdc.robot.task.PollMonitorTask.run(PollMonitorTask.java:139)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+2016-05-04 12:15:01 INFO  PollMonitorTask:133 - Starting polling of 'OpinionCumplimiento'
+2016-05-04 12:15:01 FATAL PollMonitorTask:402 - Unknown error: 
+java.lang.NoClassDefFoundError: Could not initialize class com.jacob.activeX.ActiveXComponent
+	at com.gdc.robot.task.PollMonitorTask.run(PollMonitorTask.java:139)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+2016-05-04 12:20:01 INFO  PollMonitorTask:133 - Starting polling of 'OpinionCumplimiento'
+2016-05-04 12:20:01 FATAL PollMonitorTask:402 - Unknown error: 
+java.lang.NoClassDefFoundError: Could not initialize class com.jacob.activeX.ActiveXComponent
+	at com.gdc.robot.task.PollMonitorTask.run(PollMonitorTask.java:139)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+2016-05-04 12:25:01 INFO  PollMonitorTask:133 - Starting polling of 'OpinionCumplimiento'
+2016-05-04 12:25:01 FATAL PollMonitorTask:402 - Unknown error: 
+java.lang.NoClassDefFoundError: Could not initialize class com.jacob.activeX.ActiveXComponent
+	at com.gdc.robot.task.PollMonitorTask.run(PollMonitorTask.java:139)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
