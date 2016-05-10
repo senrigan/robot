@@ -26,6 +26,7 @@ public class ValidatorManagement {
 	
 	public static ArrayList<AppJsonObject> getAppsName(){
 		String appName = ClientWebService.getAppName();
+		System.out.println();
 		if(appName!=null){
 			ArrayList<AppJsonObject> appsJson=new ArrayList<AppJsonObject>();
 			JSONArray fromXML;

@@ -29,7 +29,7 @@
 	</target>
 
 	<target name="compile" depends="clean">
-		<javac srcdir="${src}" destdir="${bin}" includeantruntime="no">
+		<javac srcdir="${src}" destdir="${bin}" includeantruntime="no" encoding="utf-8">
 			<classpath refid="src.classpath" />
 		</javac>
 	

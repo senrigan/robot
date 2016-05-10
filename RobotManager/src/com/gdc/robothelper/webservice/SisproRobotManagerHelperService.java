@@ -17,9 +17,9 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.2
  * 
  */
-@WebServiceClient(name = "SisproRobotManagerHelperService", targetNamespace = "http://webservice.samyg.gdc.com/", wsdlLocation = "http://samyg2pp.sispro.mx:8080/helper/SRMHelper?wsdl")
+//@WebServiceClient(name = "SisproRobotManagerHelperService", targetNamespace = "http://webservice.samyg.gdc.com/", wsdlLocation = "http://samyg2pp.sispro.mx:8080/helper/SRMHelper?wsdl")
 
-//@WebServiceClient(name = "SisproRobotManagerHelperService", targetNamespace = "http://webservice.samyg.gdc.com/", wsdlLocation = "http://samyg2.sispro.mx:8080/helper/SRMHelper?wsdl")
+@WebServiceClient(name = "SisproRobotManagerHelperService", targetNamespace = "http://webservice.samyg.gdc.com/", wsdlLocation = "http://samyg2.sispro.mx:8080/helper/SRMHelper?wsdl")
 //@WebServiceClient(name = "SisproRobotManagerHelperService", targetNamespace = "http://webservice.samyg.gdc.com/", wsdlLocation = "http://samyg2test.sispro.mx:8080/helper/SRMHelper?wsdl")
 
 public class SisproRobotManagerHelperService
@@ -34,8 +34,8 @@ public class SisproRobotManagerHelperService
         URL url = null;
         WebServiceException e = null;
         try {
-//            url = new URL("http://samyg2.sispro.mx:8080/helper/SRMHelper?wsdl");
-            url = new URL("http://samyg2pp.sispro.mx:8080/helper/SRMHelper?wsdl");
+            url = new URL("http://samyg2.sispro.mx:8080/helper/SRMHelper?wsdl");
+//            url = new URL("http://samyg2pp.sispro.mx:8080/helper/SRMHelper?wsdl");
 
 
 //            url = new URL("http://samyg2test.sispro.mx:8080/helper/SRMHelper?wsdl");

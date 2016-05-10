@@ -44,6 +44,7 @@ public class RobotManager extends JFrame {
 	private static boolean valueStart=false;
 	private static boolean valueStop=false;
 	private static boolean executeScan=true;
+	private static RobotManagerGui robotManagerGui;
 	public RobotManager() {
 		Path regInstallationPath = AppExaminator.getInstallationPath();
 		setInstallationPath(regInstallationPath);
@@ -86,9 +87,14 @@ public class RobotManager extends JFrame {
 		});
 		StartAgentPlatform();
 		hilo.start();
-		RobotManagerGui robotGui=new RobotManagerGui();
+		robotManagerGui=new RobotManagerGui();
 	}
 	
+	
+	
+	public static RobotManagerGui getGuiManager(){
+		return robotManagerGui;
+	}
 	private void StartAgentPlatform(){
 		if(!InitPlataform.getInstance().runAgentContainer()){
 			JOptionPane.showMessageDialog(null, "No se pudo iniciar correctamente el escaneo ", "Agent Container", JOptionPane.ERROR_MESSAGE);

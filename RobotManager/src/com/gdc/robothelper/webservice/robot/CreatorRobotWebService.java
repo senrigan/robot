@@ -185,8 +185,8 @@ public class CreatorRobotWebService {
 }
 	public static void main(String[] args) {
 		CreatorRobotWebService.getElement();
-//		String idRobot = CreatorRobotWebService.getIdRobot("prueba", "0", "computadora de prueba", "20", "2", "10","prueba");
-//		System.out.println("numero de id"+idRobot);
+		String idRobot = CreatorRobotWebService.getIdRobot("prueba", "0", "computadora de prueba", "20", "2", "10","prueba");
+		System.out.println("numero de id"+idRobot);
 //		String dateServer = CreatorRobotWebService.getDateServer();
 //		System.out.println(dateServer);
 //		SimpleDateFormat dateForm=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

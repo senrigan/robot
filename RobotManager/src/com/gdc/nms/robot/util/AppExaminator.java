@@ -3,7 +3,6 @@ package com.gdc.nms.robot.util;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -13,10 +12,9 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
+import java.util.HashMap;
 import java.util.Vector;
 
-import javax.sql.rowset.spi.SyncResolver;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -27,7 +25,6 @@ import com.gdc.nms.robot.util.indexer.FlujoInformation;
 import com.gdc.nms.robot.util.indexer.StepInformation;
 import com.gdc.nms.robot.util.jade.DFConsult;
 import com.gdc.nms.robot.util.registry.CommandExecutor;
-import com.sun.tools.hat.internal.parser.Reader;
 
 import jade.core.AID;
 
@@ -57,6 +54,52 @@ public class AppExaminator {
 			ex.printStackTrace();
 		}
 		return apps;
+	}
+	
+	
+	public static HashMap<String,AppInformation> getInstalledAppsMap(){
+		HashMap<String, AppInformation> apps= new HashMap<String,AppInformation>();
+		try {
+			Path installationPath = getInstallationPath();
+
+			Path dataInstallation = installationPath.resolve("data");
+			File dataFolder = dataInstallation.toFile();
+			File[] listFiles = dataFolder.listFiles();
+			Arrays.sort(listFiles);
+			for(File  file:listFiles){
+				if(file.isDirectory()){
+					
+					if(validAppFolde(file.toPath())){
+						apps.put(file.getName(), getAppData(file.toPath()));
+					}
+				}
+			}
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}
+		return apps;
+	}
+	
+	
+	public static boolean validAppFolde(Path pathFolder){
+		Path applicationFolder = pathFolder.resolve("application");
+		System.out.println(""+Files.exists(pathFolder.resolve("bot-1.0.jar"))+" "+Files.exists(applicationFolder)+" "+Files.exists(applicationFolder.resolve("app-config.xml")));
+		if(Files.exists(pathFolder.resolve("bot-1.0.jar"))&&
+				Files.exists(applicationFolder)&& Files.exists(applicationFolder.resolve("app-config.xml"))){
+			File[] listFiles = applicationFolder.toFile().listFiles();
+			for (File file : listFiles) {
+				if(file.isDirectory()){
+					File[] listFiles2 = file.listFiles();
+					for (File file2 : listFiles2) {
+						System.out.println(file2.getName());
+						if(file2.getName().endsWith(".iim")){
+							return true;
+						}
+					}
+				}
+			}
+		}
+		return false;
 	}
 	
 	
@@ -232,14 +275,6 @@ public class AppExaminator {
 		}
 		return stepsFiles;
 	}
-	
-	
-	
-	public static void main(String [] args) {
-		ArrayList<FlujoInformation> flujosApp = AppExaminator.getFlujosApp(Paths.get("C:\\Users\\senrigan\\Desktop\\CITASAT\\CITASAT"));
-		System.out.println(flujosApp);
-	}
-
 
 	
 	

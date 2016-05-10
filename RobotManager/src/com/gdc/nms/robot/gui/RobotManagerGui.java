@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Set;
 import java.util.Vector;
 import java.util.concurrent.CountDownLatch;
 
@@ -67,7 +69,7 @@ public class RobotManagerGui extends JFrame {
 		
 		
 		setNodesParent();
-		runTask();
+//		runTask();
 		expandAll();
 		
 	}
@@ -364,54 +366,102 @@ public class RobotManagerGui extends JFrame {
 		}
 	}
 
-	public void runTask() {
-		// Timer timer=new Timer();
-		// TimerTask task=new TimerTask() {
-		//
-		// @Override
-		// public void run() {
-		// try{
-		// updateNodes(runningNode, getElementRunning());
-		// updateNodes(notRunningNode, getElementNotRunning());
-		//
-		// }catch(Exception ex){
-		// ex.printStackTrace();
-		// }
-		//
-		// }
-		// };
-		// timer.schedule(task, 0,30000);
-		Thread hilo = new Thread(new Runnable() {
-			public void run() {
-				while (true) {
-					updateTree();
-				}
+//	public void runTask() {
+//		// Timer timer=new Timer();
+//		// TimerTask task=new TimerTask() {
+//		//
+//		// @Override
+//		// public void run() {
+//		// try{
+//		// updateNodes(runningNode, getElementRunning());
+//		// updateNodes(notRunningNode, getElementNotRunning());
+//		//
+//		// }catch(Exception ex){
+//		// ex.printStackTrace();
+//		// }
+//		//
+//		// }
+//		// };
+//		// timer.schedule(task, 0,30000);
+//		Thread hilo = new Thread(new Runnable() {
+//			public void run() {
+//				while (true) {
+//					updateTree();
+//				}
+//			}
+//		});
+//		hilo.start();
+//	}
+
+//	private  void updateTree() {
+//		try {
+//
+//			// appTree.clearSelection();
+//			// appTree.setModel(new TreeModelElements());
+//			if(RobotManager.isRunningScan()){
+//				
+//				appTree.removeTreeSelectionListener(listenerTree);
+//				
+//				appTree.setModel(new TreeModelElements(getDataForTree()));
+//				appTree.addTreeSelectionListener(listenerTree);
+//				// DefaultTreeModel model = (DefaultTreeModel)appTree.getModel();
+//				// DefaultMutableTreeNode
+//				// root=(DefaultMutableTreeNode)model.getRoot();
+//				// root.add(new DefaultMutableTreeNode(getDataForTree()));
+//				// model.reload();
+//				
+//				expandAll();
+//				enableButton(ButtonType.START, false);
+//				enableButton(ButtonType.STOP, false);
+//				
+//			}
+//			Thread.sleep(10000);
+//
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//	}
+	
+	
+	
+	public  void UpdateTree(Set<String> runningApp){
+		HashMap<String, AppInformation> installedAppsMap = AppExaminator.getInstalledAppsMap();
+		Element elementRun = new Element("En Ejecucion");
+		Element elementStop=new Element("Detenidos");
+		for (String key:runningApp) {
+			AppInformation appInformation = installedAppsMap.get(key);
+			if(appInformation!=null){
+				Element elementNode=new Element(appInformation.getAppName());
+				elementNode.setAppinfo(appInformation);
+				elementNode.setStopAble(true);
+				elementRun.add(elementNode);
+			}else{
+				Element elementN=new Element(appInformation.getAppName());
+				elementN.setAppinfo(appInformation);
+				elementN.setStopAble(false);
+				elementStop.add(elementN);
 			}
-		});
-		hilo.start();
+		}
+		
+		Element elementTree = new Element("Aplicacion");
+		elementTree.add(elementRun);
+		elementTree.add(elementStop);
+		updateTree(elementTree);
+	
 	}
-
-	private  void updateTree() {
+	
+	
+	
+	private  void updateTree(Element dataElement) {
 		try {
-
-			// appTree.clearSelection();
-			// appTree.setModel(new TreeModelElements());
+			
 			if(RobotManager.isRunningScan()){
-				
 				appTree.removeTreeSelectionListener(listenerTree);
-				
-				appTree.setModel(new TreeModelElements(getDataForTree()));
+				appTree.setModel(new TreeModelElements(dataElement));
 				appTree.addTreeSelectionListener(listenerTree);
-				// DefaultTreeModel model = (DefaultTreeModel)appTree.getModel();
-				// DefaultMutableTreeNode
-				// root=(DefaultMutableTreeNode)model.getRoot();
-				// root.add(new DefaultMutableTreeNode(getDataForTree()));
-				// model.reload();
-				
 				expandAll();
 				enableButton(ButtonType.START, false);
 				enableButton(ButtonType.STOP, false);
-				
 			}
 			Thread.sleep(10000);
 
@@ -477,7 +527,7 @@ public class RobotManagerGui extends JFrame {
 //		Vector<Thread> hilos=new Vector<>();
 		final CountDownLatch latch= new CountDownLatch(2);
 
-		final Element elementTree = new Element("Aplicación");
+		final Element elementTree = new Element("Aplicacion");
 		Thread hilo2=new Thread(new Runnable() {
 			
 			@Override
@@ -522,7 +572,7 @@ public class RobotManagerGui extends JFrame {
 	}
 
 	private  Element getElementRunning() {
-		Element element = new Element("En ejecución");
+		Element element = new Element("En ejecucion");
 		ArrayList<AppInformation> runningApps = AppExaminator.getRunningApps();
 		for (AppInformation appInformation : runningApps) {
 			Element elementNode = new Element(appInformation.getAppName());

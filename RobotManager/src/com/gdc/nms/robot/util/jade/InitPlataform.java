@@ -18,7 +18,7 @@ public class InitPlataform {
 	private static jade.wrapper.AgentContainer mainContainer;
 	private static InitPlataform instance=null;
 	private static HashMap<String,AID> robotRegister;
-	
+	private static SRMAgentManager srmAgentManager;
 	private InitPlataform(){
 
 	}
@@ -83,13 +83,19 @@ public class InitPlataform {
         try {
 			System.out.println("container name"+mainContainer.getContainerName()+"platform name"+mainContainer.getPlatformName()+"name"+mainContainer.getName());
 		} catch (ControllerException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		 DFManager.initScan();
-		 MailBoxRobot.initReciver();
+        if(srmAgentManager!=null){
+        	srmAgentManager=new SRMAgentManager();
+        	srmAgentManager.init();
+        }
+		
 	}
 	
+	
+	public SRMAgentManager getAgentManager(){
+		return srmAgentManager;
+	}
 	
 	public static jade.wrapper.AgentContainer getMainContainer(){
 		return mainContainer;

@@ -132,6 +132,7 @@ public class SelectorApp extends JFrame {
 	
 	private void setApplicationNames(){
 		ArrayList<AppJsonObject> appsName = ValidatorManagement.getAppsName();
+		System.out.println("appsname"+appsName);
 		Alias aliasComp=new Alias();
 		java.util.Collections.sort(appsName,aliasComp);
 		for (AppJsonObject appJsonObject : appsName) {
