@@ -30,7 +30,11 @@ import com.gdc.nms.robot.util.AppExaminator;
 import com.gdc.nms.robot.util.Constants;
 import com.gdc.nms.robot.util.ValidatorManagement;
 import com.gdc.nms.robot.util.indexer.AppInformation;
+import com.gdc.nms.robot.util.jade.InitPlataform;
+import com.gdc.nms.robot.util.jade.SRMAgentManager;
 import com.gdc.nms.robot.util.registry.CommandExecutor;
+
+import jade.core.AID;
 
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -196,28 +200,37 @@ public class RobotManagerGui extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Element element = (Element) appTree.getLastSelectedPathComponent();
-				
-				
-				AppInformation appinfo = element.getAppinfo();
-				
-				long idRobot = appinfo.getIdRobot();
-				long idApp=appinfo.getIdApp();
-				LoadingFrame loading=new LoadingFrame();
-				if (RobotManager.runRobotWithGui(idRobot,idApp)) {
-					loading.close();
-					enableButton(ButtonType.START, false);
-					JOptionPane.showMessageDialog(null, "el robot se inicio correctamente", "Info",
-							JOptionPane.INFORMATION_MESSAGE);
-					enableButton(ButtonType.STOP, false);
-					removeRegistryNotRunning(idRobot);
-					registryRunningRobot(idRobot);
-				} else {
-					loading.close();
-					JOptionPane.showMessageDialog(null, "No es Posible Iniciar al Robot en este momento", "Error",
-							JOptionPane.ERROR_MESSAGE);
-					enableButton(ButtonType.START, false);
-
+//				Element element = (Element) appTree.getLastSelectedPathComponent();
+//				
+//				
+//				AppInformation appinfo = element.getAppinfo();
+//				
+//				long idRobot = appinfo.getIdRobot();
+//				long idApp=appinfo.getIdApp();
+//				LoadingFrame loading=new LoadingFrame();
+//				if (RobotManager.runRobotWithGui(idRobot,idApp)) {
+//					loading.close();
+//					enableButton(ButtonType.START, false);
+//					JOptionPane.showMessageDialog(null, "el robot se inicio correctamente", "Info",
+//							JOptionPane.INFORMATION_MESSAGE);
+//					enableButton(ButtonType.STOP, false);
+//					removeRegistryNotRunning(idRobot);
+//					registryRunningRobot(idRobot);
+//				} else {
+//					loading.close();
+//					JOptionPane.showMessageDialog(null, "No es Posible Iniciar al Robot en este momento", "Error",
+//							JOptionPane.ERROR_MESSAGE);
+//					enableButton(ButtonType.START, false);
+//
+//				}
+				System.out.println("obteniuendo robost registrados");
+				HashMap<String, AID> robotRegister = InitPlataform.getRobotRegister();
+				Set<String> keySet = robotRegister.keySet();
+				System.out.println("robots registrados"+keySet);
+				SRMAgentManager agentManager = InitPlataform.getAgentManager();
+				for (String string : keySet) {
+					AID aid = robotRegister.get(string);
+					agentManager.stopAgent(aid);
 				}
 			}
 		});
@@ -425,25 +438,48 @@ public class RobotManagerGui extends JFrame {
 	
 	
 	public  void UpdateTree(Set<String> runningApp){
+		System.out.println("running app with updatetree"+runningApp);
 		HashMap<String, AppInformation> installedAppsMap = AppExaminator.getInstalledAppsMap();
+		System.out.println("installer apps");
 		Element elementRun = new Element("En Ejecucion");
 		Element elementStop=new Element("Detenidos");
-		for (String key:runningApp) {
-			AppInformation appInformation = installedAppsMap.get(key);
-			if(appInformation!=null){
-				Element elementNode=new Element(appInformation.getAppName());
-				elementNode.setAppinfo(appInformation);
+		Set<String> keySet = installedAppsMap.keySet();
+		for (String string : keySet) {
+			AppInformation appInformation2 = installedAppsMap.get(string);
+			if(runningApp.contains(string)){
+				Element elementNode=new Element(appInformation2.getAppName());
+				elementNode.setAppinfo(appInformation2);
 				elementNode.setStopAble(true);
 				elementRun.add(elementNode);
+				runningApp.remove(string);
 			}else{
-				Element elementN=new Element(appInformation.getAppName());
-				elementN.setAppinfo(appInformation);
+				
+				Element elementN=new Element(appInformation2.getAppName());
+				elementN.setAppinfo(appInformation2);
 				elementN.setStopAble(false);
 				elementStop.add(elementN);
 			}
+//			for (String key:runningApp) {
+//				AppInformation appInformation = installedAppsMap.get(key);
+//				if(appInformation!=null){
+//				}else{
+//				}
+//			}
+		}
+		Element elementTree = new Element("Aplicacion");
+		System.out.println("running apps "+runningApp);
+		if(!runningApp.isEmpty()){
+			Element unknowElement=new Element("Desconocidos");
+			for (String string : runningApp) {
+				Element elementUnknow=new Element(string);
+				elementUnknow.setAppinfo(new AppInformation());
+				elementUnknow.setStopAble(true);
+				unknowElement.add(elementUnknow);
+				elementTree.add(unknowElement);
+			}
+			
 		}
 		
-		Element elementTree = new Element("Aplicacion");
 		elementTree.add(elementRun);
 		elementTree.add(elementStop);
 		updateTree(elementTree);

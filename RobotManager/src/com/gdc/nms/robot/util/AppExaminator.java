@@ -83,7 +83,7 @@ public class AppExaminator {
 	
 	public static boolean validAppFolde(Path pathFolder){
 		Path applicationFolder = pathFolder.resolve("application");
-		System.out.println(""+Files.exists(pathFolder.resolve("bot-1.0.jar"))+" "+Files.exists(applicationFolder)+" "+Files.exists(applicationFolder.resolve("app-config.xml")));
+//		System.out.println(""+Files.exists(pathFolder.resolve("bot-1.0.jar"))+" "+Files.exists(applicationFolder)+" "+Files.exists(applicationFolder.resolve("app-config.xml")));
 		if(Files.exists(pathFolder.resolve("bot-1.0.jar"))&&
 				Files.exists(applicationFolder)&& Files.exists(applicationFolder.resolve("app-config.xml"))){
 			File[] listFiles = applicationFolder.toFile().listFiles();
@@ -91,7 +91,7 @@ public class AppExaminator {
 				if(file.isDirectory()){
 					File[] listFiles2 = file.listFiles();
 					for (File file2 : listFiles2) {
-						System.out.println(file2.getName());
+//						System.out.println(file2.getName());
 						if(file2.getName().endsWith(".iim")){
 							return true;
 						}

@@ -92,6 +92,42 @@ public interface WebservicePortType {
      * @param name
      * @param retries
      * @param intExt
+     * @param flujos
+     * @return
+     *     returns java.lang.String
+     */
+    @WebMethod(action = "urn:webservice#createRobot")
+    @WebResult(partName = "return")
+    public String createRobot(
+        @WebParam(name = "name", partName = "name")
+        String name,
+        @WebParam(name = "location", partName = "location")
+        String location,
+        @WebParam(name = "idApp", partName = "idApp")
+        String idApp,
+        @WebParam(name = "intExt", partName = "intExt")
+        String intExt,
+        @WebParam(name = "testEvery", partName = "testEvery")
+        String testEvery,
+        @WebParam(name = "retries", partName = "retries")
+        String retries,
+        @WebParam(name = "timeStart", partName = "timeStart")
+        String timeStart,
+        @WebParam(name = "flujos", partName = "flujos")
+        String flujos);
+    
+    
+    /**
+     * crear registro robot en la bd
+     * 
+     * @param timeStart
+     * @param idApp
+     * @param testEvery
+     * @param location
+     * @param name
+     * @param retries
+     * @param intExt
+     * @param flujos
      * @return
      *     returns java.lang.String
      */

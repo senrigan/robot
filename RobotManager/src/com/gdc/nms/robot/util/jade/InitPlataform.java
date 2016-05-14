@@ -66,7 +66,18 @@ public class InitPlataform {
 		props.setProperty(ProfileImpl.PLATFORM_ID, "robot_platform");
 		props.setProperty(ProfileImpl.MAIN_PORT, "1192");
 		props.setProperty(ProfileImpl.GUI, "true");
-		props.setProperty(ProfileImpl.MAIN_HOST, "localhost");
+		props.setProperty(ProfileImpl.MAIN_HOST, "127.0.0.1");
+		props.setProperty(ProfileImpl.LOCAL_HOST, "127.0.0.1");
+//		props.setProperty(ProfileImpl.LOCALHOST_CONSTANT, "senrigan3");
+		
+//		props.setProperty(ProfileImpl.LOCAL_PORT, "1191");
+//		props.setProperty(ProfileImpl.EXPORT_PORT, "3580");
+//		props.setProperty(ProfileImpl.IMTP,"3850" );
+		props.setProperty("jade_mtp_http_port","7778");
+//		props.setProperty("jade_mtp_http_proxyHost","10.42.0.92");
+
+		
+//		props.setProperty("jade_mtp_http_proxyHost","http://senrigan:7778/acc");
 		Profile profile = new ProfileImpl(props);
 		
 //		Profile profile = new ProfileImpl("127.0.0.1",1192,"robot_platform");
@@ -77,7 +88,8 @@ public class InitPlataform {
 	
 	private static void createContainer() throws IllegalStateException{
 		jade.core.Runtime rt=jade.core.Runtime.instance();
-		Profile profile =getProfile();		
+		Profile profile =getProfile();	
+		
         mainContainer =rt.createMainContainer(profile);
         robotRegister=new HashMap<String,AID>();
         try {
@@ -85,7 +97,7 @@ public class InitPlataform {
 		} catch (ControllerException e) {
 			e.printStackTrace();
 		}
-        if(srmAgentManager!=null){
+        if(srmAgentManager==null){
         	srmAgentManager=new SRMAgentManager();
         	srmAgentManager.init();
         }
@@ -93,7 +105,7 @@ public class InitPlataform {
 	}
 	
 	
-	public SRMAgentManager getAgentManager(){
+	public static SRMAgentManager getAgentManager(){
 		return srmAgentManager;
 	}
 	

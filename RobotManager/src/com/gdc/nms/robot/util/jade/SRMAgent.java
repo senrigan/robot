@@ -25,11 +25,16 @@ public class SRMAgent  extends Agent{
 	
 	
 	
-	public void senMessage(AID reciver,String content){
+	public String senMessage(AID reciver,String content){
 		ACLMessage msg=new ACLMessage(ACLMessage.REQUEST);
 		msg.addReceiver(reciver);
 		msg.setContent(content);
 		send(msg);
+		jade.lang.acl.ACLMessage msgResponse=blockingReceive(MessageTemplate.MatchPerformative(ACLMessage.CONFIRM),SRMAgentManager.WAITTIMEOUT);
+		if(msgResponse!=null){
+			return msgResponse.getContent();
+		}
+		return null;
 	}
 
 
@@ -42,12 +47,14 @@ public class SRMAgent  extends Agent{
 			for (String string : keySet) {
 				AID aid = robotRegister.get(string);
 				if(!sendMessage(aid, SRMAgentManager.AYA,SRMAgentManager.IAA)){
+					System.out.println("no respondio el agente"+aid);
 					InitPlataform.deRegisterRobot(string);
 				}
 				
 			}
 			RobotManagerGui guiManager = RobotManager.getGuiManager();
 			if(guiManager!=null){
+				
 				guiManager.UpdateTree(InitPlataform.getRobotRegister().keySet());
 			}
 			try {
@@ -64,8 +71,12 @@ public class SRMAgent  extends Agent{
 			msg.setContent(content);
 			send(msg);
 			ACLMessage messageRecive = blockingReceive(MessageTemplate.MatchPerformative(ACLMessage.CONFIRM),SRMAgentManager.WAITTIMEOUT);
-			if(messageRecive!=null && messageRecive.equals(responseWaiting))
+//			System.out.println("se recibio el mensaje de "+messageRecive);
+			if(messageRecive!=null ){
+				System.out.println("mens"+messageRecive.getContent());
 				return true;
+				
+			}
 			return false;
 		}
 		
@@ -94,9 +105,10 @@ public class SRMAgent  extends Agent{
 			String content = msg.getContent();
 			if(content.equalsIgnoreCase(SRMAgentManager.IAA)){
 				AID sender = msg.getSender();
+//				System.out.println("registrando sender"+sender.getLocalName()+"sender"+sender);
 				InitPlataform.registerRobot(sender.getLocalName(), sender);
 				ACLMessage replyMessage = msg.createReply();
-				replyMessage.setPerformative(ACLMessage.INFORM);
+				replyMessage.setPerformative(ACLMessage.CONFIRM);
 				replyMessage.setContent(ALIVE_RESPONSE);
 				send(replyMessage);
 			}

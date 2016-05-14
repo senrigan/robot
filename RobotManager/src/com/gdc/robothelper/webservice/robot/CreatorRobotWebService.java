@@ -60,7 +60,7 @@ public class CreatorRobotWebService {
 		return null;
 	}
 	public static String getIdRobot(String nameApp,String status,String location,
-				String idApp, String retries ,String period,String jsonSteps){
+				String idApp, String retries ,String period,String startTime,String flujos){
 		String robotID="-1";
 		try{
 			System.out.println("\n Obteniendo WebService Lllego un robot  nombre"+nameApp+"\n status"+status+
@@ -81,16 +81,22 @@ public class CreatorRobotWebService {
 								
 	//			//TODO LEER ARCHIVO APP.XML / APPLICATION Y SACAR EL NOMBRE DE APLICAION Y ID
 				//-1 id de aplicacion 
-
+				
 				try{
+					if(flujos==null||flujos.equals("")){
+						System.out.println("creadno rbotsimple");
+						 robotID= port.createRobot(nameApp,location , idApp,status, period, retries,startTime);
+					}else{
+						 robotID= port.createRobot(nameApp,location , idApp,status, period, retries,startTime,flujos);
 
-					 robotID= port.createRobot(nameApp,location , idApp,status, period, retries,jsonSteps);
+					}
+//					 robotID= port.createRobot(nameApp,location , idApp,status, period, retries,startTime,flujos);
 					System.out.println(robotID);
 	//				return robotID;
 				}catch( WebServiceException e){
 					System.out.println("retry .. webservices consult");
 
-					robotID = port.createRobot(nameApp,location , idApp,status, period,retries,jsonSteps);
+					robotID = port.createRobot(nameApp,location , idApp,status, period,retries,startTime,flujos);
 					System.out.println(robotID);
 					
 				}
@@ -185,7 +191,7 @@ public class CreatorRobotWebService {
 }
 	public static void main(String[] args) {
 		CreatorRobotWebService.getElement();
-		String idRobot = CreatorRobotWebService.getIdRobot("prueba", "0", "computadora de prueba", "20", "2", "10","prueba");
+		String idRobot = CreatorRobotWebService.getIdRobot("32D", "1", "computadora de prueba", "20", "2", "10","2016-04-05 15:31:00",null);
 		System.out.println("numero de id"+idRobot);
 //		String dateServer = CreatorRobotWebService.getDateServer();
 //		System.out.println(dateServer);

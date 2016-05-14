@@ -17,9 +17,9 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.2
  * 
  */
-@WebServiceClient(name = "webservice", targetNamespace = "urn:webservice", wsdlLocation = "https://samyg2.sispro.mx/wsendusersamyg2/wssamyg/status/soapFlujosV2.php?wsdl")
+//@WebServiceClient(name = "webservice", targetNamespace = "urn:webservice", wsdlLocation = "https://samyg2.sispro.mx/wsendusersamyg2/wssamyg/status/soapFlujosV2.php?wsdl")
 //@WebServiceClient(name = "webservice", targetNamespace = "urn:webservice", wsdlLocation = "https://samyg2test.sispro.mx/wsendusersamyg2/wssamyg/status/soapFlujosV2.php?wsdl")
-//@WebServiceClient(name = "webservice", targetNamespace = "urn:webservice", wsdlLocation = "https://samyg2pp.sispro.mx/wsendusersamyg2/wssamyg/status/soapFlujosV2.php?wsdl")
+@WebServiceClient(name = "webservice", targetNamespace = "urn:webservice", wsdlLocation = "https://samyg2pp.sispro.mx/wsendusersamyg2/wssamyg/status/soapFlujosV2.php?wsdl")
 
 
 public class Webservice
@@ -34,9 +34,9 @@ public class Webservice
         URL url = null;
         WebServiceException e = null;
         try {
-            url = new URL("https://samyg2.sispro.mx/wsendusersamyg2/wssamyg/status/soapFlujosV2.php?wsdl");
+//            url = new URL("https://samyg2.sispro.mx/wsendusersamyg2/wssamyg/status/soapFlujosV2.php?wsdl");
 //        	 url = new URL("https://samyg2test.sispro.mx/wsendusersamyg2/wssamyg/status/soapFlujosV2.php?wsdl");
-//            url = new URL("https://samyg2pp.sispro.mx/wsendusersamyg2/wssamyg/status/soapFlujosV2.php?wsdl");
+            url = new URL("https://samyg2pp.sispro.mx/wsendusersamyg2/wssamyg/status/soapFlujosV2.php?wsdl");
 
         } catch (MalformedURLException ex) {
             e = new WebServiceException(ex);
