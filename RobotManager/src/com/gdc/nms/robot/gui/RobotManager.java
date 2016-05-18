@@ -3,6 +3,8 @@ package com.gdc.nms.robot.gui;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.URISyntaxException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -19,6 +21,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.plaf.synth.SynthSeparatorUI;
 
+import com.gdc.nms.robot.Main;
 import com.gdc.nms.robot.util.AppExaminator;
 import com.gdc.nms.robot.util.Constants;
 import com.gdc.nms.robot.util.Environment;
@@ -27,6 +30,7 @@ import com.gdc.nms.robot.util.VirtualMachineExaminator;
 import com.gdc.nms.robot.util.indexer.AppInformation;
 import com.gdc.nms.robot.util.jade.InitPlataform;
 import com.gdc.nms.robot.util.registry.CommandExecutor;
+import com.gdc.nms.robot.util.registry.CommandExecutor.REGISTRY_TYPE;
 import com.gdc.robothelper.webservice.SisproRobotManagerHelper;
 import com.gdc.robothelper.webservice.SisproRobotManagerHelperService;
 import com.gdc.robothelper.webservice.robot.Webservice;
@@ -77,16 +81,16 @@ public class RobotManager extends JFrame {
 		} catch (UnsupportedLookAndFeelException e) {
 			e.printStackTrace();
 		}
-		Thread hilo=new Thread(new Runnable() {
-			
-			@Override
-			public void run() {
-				initRobot();
-				
-			}
-		});
+//		Thread hilo=new Thread(new Runnable() {
+//			
+//			@Override
+//			public void run() {
+//				initRobot();
+//				
+//			}
+//		});
 		StartAgentPlatform();
-		hilo.start();
+//		hilo.start();
 		robotManagerGui=new RobotManagerGui();
 	}
 	
@@ -208,6 +212,7 @@ public class RobotManager extends JFrame {
 			LOGGER.info("Actual robot not running"+robotNotRunning.keySet());
 			
 			final ArrayList<AppInformation> runningApps = AppExaminator.getRunningApps();
+			System.out.println("split"+split+"size"+split.length);
 			for (int i = 0; i < split.length; i++) {
 				final int b = i;
 				Thread hilo=new Thread(new Runnable() {
@@ -217,6 +222,7 @@ public class RobotManager extends JFrame {
 							if(split[b].length()>0){
 								
 								long  idRobot=Long.parseLong(split[b]);
+								System.out.println("idRobot"+idRobot);
 								if(!robotNotRunning.containsKey(idRobot)){
 									boolean alreadyRunning=false;
 									for (AppInformation appInformation : runningApps) {
@@ -250,11 +256,10 @@ public class RobotManager extends JFrame {
 	public static void main(String[] args) {
 		String robotIds;
 		try {
-			robotIds = CommandExecutor.readRegistrySpecificRegistry(Constants.LOCALREGISTRY,"robotmustRun","REG_SZ");
-			System.out.println("resultado"+robotIds);
-			if(robotIds==null)
-			robotIds = CommandExecutor.readRegistrySpecificRegistry(Constants.LOCALREGISTRY,"robotnotRun","REG_SZ");
-			System.out.println("resultado"+robotIds);
+			Path regInstallationPath = AppExaminator.getInstallationPath();
+			setInstallationPath(regInstallationPath);
+			boolean runJarRobot = RobotManager.runJarRobot("32D");
+			System.out.println("run jar"+runJarRobot);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -263,12 +268,44 @@ public class RobotManager extends JFrame {
 	
 	private static void checkUbicationRegistry(){
 		try {
-			String ubicationRegist = CommandExecutor.readRegistrySpecificRegistry(Constants.LOCALREGISTRY, "ubicationRobot","REG_SZ");
+			String ubicationRegist = CommandExecutor.readRegistrySpecificRegistry(Constants.LOCALREGISTRY, "installationPath","REG_SZ");
 			setUbication(ubicationRegist);
 		} catch (Exception e) {
+			createUbicationPathRegistry();
 			e.printStackTrace();
 		}
 	}
+	
+	
+	private static void createUbicationPathRegistry(){
+		try {
+			CommandExecutor.addRegistryWindows(Constants.LOCALREGISTRY, "installationPath", "C:\\Users\\senrigan\\Documents\\pruebas\\GDC\\RobotScript", REGISTRY_TYPE.REG_SZ);
+//			CommandExecutor.addRegistryWindows(Constants.LOCALREGISTRY, "installationPath", getCurrentPath().toString(), REGISTRY_TYPE.REG_SZ);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+	
+	
+	public static Path getCurrentPath() {
+        try {
+            Path currentPath = Paths.get(Main.class.getProtectionDomain().getCodeSource().getLocation().toURI());
+
+            if (Files.isRegularFile(currentPath, new java.nio.file.LinkOption[0])) {
+                return currentPath.getParent();
+            }
+            return currentPath;
+        } catch (URISyntaxException e) {
+        }
+        return null;
+    }
+
+	
 	
 	private static HashMap<Long,String> getRobotNotRunning(){
 		HashMap<Long,String> robotNotRun=new HashMap<Long,String>();
@@ -351,11 +388,15 @@ public class RobotManager extends JFrame {
 				boolean value=false;
 				String java ="\""+Environment.getJava()+"\"";
 				Path robotJar=Paths.get(installationPath.resolve("data").resolve(appName).resolve(Constants.JARNAME).toString());
+				Path appPath=robotJar.getParent();
 				String jar="\""+robotJar.toString()+"\"";
-				String command=java +" -Dname=\"Robot_"+appName+"\" "+" -jar "+jar;
+//				String command="cd  \""+appPath+"\" && "+java +" -Dname=\"Robot_"+appName+"\" "+" -jar "+robotJar.getFileName();
+				String command=java +" -Dname=\"Robot_"+appName+"\" "+" -jar "+robotJar.getFileName();
+
 				try {
 					System.out.println("command"+command);
-					Runtime.getRuntime().exec(command);
+//					Runtime.getRuntime().exec(command);
+					Runtime.getRuntime().exec(command,null,appPath.toFile());
 //					Process exec = Runtime.getRuntime().exec(command);
 //					BufferedReader in=new BufferedReader(new InputStreamReader(exec.getInputStream()));
 //					String line;
@@ -366,6 +407,7 @@ public class RobotManager extends JFrame {
 //						}
 //						
 //					}
+					value=true;
 				} catch (IOException e) {
 					e.printStackTrace();
 					value=false;

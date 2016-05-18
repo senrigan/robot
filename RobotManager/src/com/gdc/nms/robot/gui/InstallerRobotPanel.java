@@ -27,6 +27,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Date;
 import java.awt.event.ActionEvent;
+import javax.swing.JCheckBox;
 
 public class InstallerRobotPanel extends JFrame {
 
@@ -37,7 +38,6 @@ public class InstallerRobotPanel extends JFrame {
 	private JPanel contentPane;
 	private JLabel lblNewLabel;
 	private JScrollPane scrollPane;
-	private JTextArea textArea;
 	private JButton cancelButton;
 	private JButton continueButton;
 //	private  ArrayList<FlujoInformation> validFlujos;
@@ -101,11 +101,6 @@ public class InstallerRobotPanel extends JFrame {
 		gbc_scrollPane.gridy = 3;
 		contentPane.add(scrollPane, gbc_scrollPane);
 		
-		textArea = new JTextArea();
-		textArea.setEditable(false);
-		textArea.setOpaque(false);
-		scrollPane.setViewportView(textArea);
-		
 		cancelButton = new JButton("Cancelar");
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -130,11 +125,11 @@ public class InstallerRobotPanel extends JFrame {
 	}
 	
 	
-	private void setText(String text){
-		
-		this.textArea.setText(text);
-		System.out.println("texteando area");
-	}
+//	private void setText(String text){
+//		
+//		this.textArea.setText(text);
+//		System.out.println("texteando area");
+//	}
 	
 	
 
@@ -151,7 +146,9 @@ public class InstallerRobotPanel extends JFrame {
 		});
 	}
 	
-	
+	public void generateCheckData(){
+		
+	}
 	
 	public void createFlujosWithData(final InfoRobotMaker infoRobotM ){
 		Path data=infoRobotM.getDataFolder();
@@ -257,7 +254,7 @@ public class InstallerRobotPanel extends JFrame {
 			builder.append("\t"+data.getFileName());
 			System.out.println(data.getFileName());
 		}
-		setText(builder.toString());
+//		setText(builder.toString());
 		
 	}
 	private boolean checkIfExistApp(String appName,long idApp){
@@ -270,8 +267,6 @@ public class InstallerRobotPanel extends JFrame {
 		}
 		return false;
 	}
-
 	
-	
-
 }
+

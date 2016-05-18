@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.Vector;
 import java.util.concurrent.CountDownLatch;
@@ -194,44 +195,57 @@ public class RobotManagerGui extends JFrame {
 		mnAr.add(deleteMenu);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
-
+	public static void  showMessage(String message){
+		JOptionPane.showMessageDialog(null, message, "Info",
+				JOptionPane.INFORMATION_MESSAGE);
+	}
 	private void setButtonsListeners() {
 		startButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-//				Element element = (Element) appTree.getLastSelectedPathComponent();
-//				
-//				
-//				AppInformation appinfo = element.getAppinfo();
-//				
-//				long idRobot = appinfo.getIdRobot();
-//				long idApp=appinfo.getIdApp();
-//				LoadingFrame loading=new LoadingFrame();
-//				if (RobotManager.runRobotWithGui(idRobot,idApp)) {
-//					loading.close();
-//					enableButton(ButtonType.START, false);
-//					JOptionPane.showMessageDialog(null, "el robot se inicio correctamente", "Info",
-//							JOptionPane.INFORMATION_MESSAGE);
-//					enableButton(ButtonType.STOP, false);
-//					removeRegistryNotRunning(idRobot);
-//					registryRunningRobot(idRobot);
-//				} else {
-//					loading.close();
-//					JOptionPane.showMessageDialog(null, "No es Posible Iniciar al Robot en este momento", "Error",
-//							JOptionPane.ERROR_MESSAGE);
-//					enableButton(ButtonType.START, false);
-//
-//				}
-				System.out.println("obteniuendo robost registrados");
-				HashMap<String, AID> robotRegister = InitPlataform.getRobotRegister();
-				Set<String> keySet = robotRegister.keySet();
-				System.out.println("robots registrados"+keySet);
-				SRMAgentManager agentManager = InitPlataform.getAgentManager();
-				for (String string : keySet) {
-					AID aid = robotRegister.get(string);
-					agentManager.stopAgent(aid);
+				Element element = (Element) appTree.getLastSelectedPathComponent();
+				
+				
+				AppInformation appinfo = element.getAppinfo();
+				
+				long idRobot = appinfo.getIdRobot();
+				long idApp=appinfo.getIdApp();
+				LoadingFrame loading=new LoadingFrame();
+				if (RobotManager.runRobotWithGui(idRobot,idApp)) {
+					loading.close();
+					
+					HashMap<String, AID> robotRegister = InitPlataform.getRobotRegister();
+					JOptionPane.showMessageDialog(null, "Espere unos minutos a que el robot inicie", "Info",
+							JOptionPane.INFORMATION_MESSAGE);
+					enableButton(ButtonType.STOP, false);
+					enableButton(ButtonType.START, false);
+
+//					if(robotRegister.containsKey(appinfo.getAlias())){
+//						
+//						JOptionPane.showMessageDialog(null, "el robot se inicio correctamente", "Info",
+//								JOptionPane.INFORMATION_MESSAGE);
+//						removeRegistryNotRunning(idRobot);
+//						registryRunningRobot(idRobot);
+//					}else{
+//						System.out.println("el robot no se ha registrado todavia");
+//					}
+				} else {
+					loading.close();
+					JOptionPane.showMessageDialog(null, "No es Posible Iniciar al Robot en este momento", "Error",
+							JOptionPane.ERROR_MESSAGE);
+					enableButton(ButtonType.START, false);
+
 				}
+//				System.out.println("obteniuendo robost registrados");
+//				HashMap<String, AID> robotRegister = InitPlataform.getRobotRegister();
+//				Set<String> keySet = robotRegister.keySet();
+//				System.out.println("robots registrados"+keySet);
+//				SRMAgentManager agentManager = InitPlataform.getAgentManager();
+//				for (String string : keySet) {
+//					AID aid = robotRegister.get(string);
+//					agentManager.stopAgent(aid);
+//				}
 			}
 		});
 
@@ -241,20 +255,23 @@ public class RobotManagerGui extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				Element element = (Element) appTree.getLastSelectedPathComponent();
 				AppInformation appinfo = element.getAppinfo();
-				long idRobot = appinfo.getIdRobot();
+//				long idRobot = appinfo.getIdRobot();
 				LoadingFrame loading=new LoadingFrame();
 				try {
-					RobotManager.stopRobot(idRobot);
+					AID aid = InitPlataform.getRobotRegister().get(appinfo.getAlias());
+					SRMAgentManager.stopAgent(aid);
+//					RobotManager.stopRobot(idRobot);
 					loading.close();
 					enableButton(ButtonType.STOP, false);
-
-					JOptionPane.showMessageDialog(null, "El robot se detuvo correctamente", "Error",
-							JOptionPane.INFORMATION_MESSAGE);
 					enableButton(ButtonType.START, false);
 
-					setInformation(" ");
-					removeRegistryRunningRobot(idRobot);
-					registryStopedRobot(idRobot);
+
+					JOptionPane.showMessageDialog(null, "Espere unos minutos mientras el robot es detenido", "Error",
+							JOptionPane.INFORMATION_MESSAGE);
+
+//					setInformation(" ");
+//					removeRegistryRunningRobot(idRobot);
+//					registryStopedRobot(idRobot);
 				} catch (Exception e1) {
 					loading.close();
 					JOptionPane.showMessageDialog(null, "No es Posible Detener al Robot en este momento", "Error",
@@ -438,22 +455,31 @@ public class RobotManagerGui extends JFrame {
 	
 	
 	public  void UpdateTree(Set<String> runningApp){
-		System.out.println("running app with updatetree"+runningApp);
+		Set<String > newRunning=new HashSet<String>();
+		newRunning.addAll(runningApp);
+		System.out.println("running app with updatetree"+newRunning);
 		HashMap<String, AppInformation> installedAppsMap = AppExaminator.getInstalledAppsMap();
 		System.out.println("installer apps");
 		Element elementRun = new Element("En Ejecucion");
 		Element elementStop=new Element("Detenidos");
 		Set<String> keySet = installedAppsMap.keySet();
+		System.out.println("keyset"+keySet);
 		for (String string : keySet) {
 			AppInformation appInformation2 = installedAppsMap.get(string);
-			if(runningApp.contains(string)){
+			if(newRunning.contains(string)){
+				System.out.println("si se encontro el elemento");
 				Element elementNode=new Element(appInformation2.getAppName());
 				elementNode.setAppinfo(appInformation2);
 				elementNode.setStopAble(true);
 				elementRun.add(elementNode);
-				runningApp.remove(string);
+				System.out.println("removiendo de corriendo");
+				newRunning.remove(string);
+				if(checkListToKill(appInformation2.getAlias())){
+					elementNode.setStopAble(false);
+					
+				}
 			}else{
-				
+				System.out.println("descnonosco el elemento");
 				Element elementN=new Element(appInformation2.getAppName());
 				elementN.setAppinfo(appInformation2);
 				elementN.setStopAble(false);
@@ -468,9 +494,9 @@ public class RobotManagerGui extends JFrame {
 		}
 		Element elementTree = new Element("Aplicacion");
 		System.out.println("running apps "+runningApp);
-		if(!runningApp.isEmpty()){
+		if(!newRunning.isEmpty()){
 			Element unknowElement=new Element("Desconocidos");
-			for (String string : runningApp) {
+			for (String string : newRunning) {
 				Element elementUnknow=new Element(string);
 				elementUnknow.setAppinfo(new AppInformation());
 				elementUnknow.setStopAble(true);
@@ -480,12 +506,19 @@ public class RobotManagerGui extends JFrame {
 			
 		}
 		
+		
 		elementTree.add(elementRun);
 		elementTree.add(elementStop);
 		updateTree(elementTree);
 	
 	}
 	
+	
+	private boolean checkListToKill(String app){
+		if(InitPlataform.getMapToKill()!=null)
+			return InitPlataform.getMapToKill().containsKey(app);
+		return false;
+	}
 	
 	
 	private  void updateTree(Element dataElement) {
@@ -631,23 +664,24 @@ public class RobotManagerGui extends JFrame {
 		}
 		return element;
 	}
-
-	public void setInformation(String info) {
+	
+	public void  setInformation(String info){
 		this.textArea.setText(info);
 	}
-
-	public void enableButton(ButtonType type, boolean status) {
-		switch (type) {
+	
+	public void enableButton(ButtonType type,boolean status){
+		switch(type){
 		case START:
-			startButton.setEnabled(status);
-			break;
+				startButton.setEnabled(status);
+				break;
 		case STOP:
-			stopButton.setEnabled(status);
-			break;
+				stopButton.setEnabled(status);
+				break;
 		}
 	}
-
-	public enum ButtonType {
-		START, STOP
+	
+	public enum ButtonType{
+		START,STOP
 	}
+
 }

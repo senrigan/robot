@@ -112,7 +112,7 @@ public class CreatorRobotManager {
 	private boolean createNewRobot(){
 		System.out.println("//// calculateInitDateWebServices"+ getInitDateForWebServices());
 		String location=RobotManager.getUbication();
-		String idRobot = CreatorRobotWebService.getIdRobot(applicationName, "0", location, ""+idApp, ""+retries,""+timeLapse, getInitDateForWebServices());
+		String idRobot = CreatorRobotWebService.getIdRobot(applicationName, "0", location, ""+idApp, ""+retries,""+timeLapse, getInitDateForWebServices(),"");
 		try{
 			realRobot=Long.parseLong(idRobot);
 			System.out.println(realRobot);

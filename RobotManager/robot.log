@@ -198,3 +198,47 @@ java.lang.NoClassDefFoundError: Could not initialize class com.jacob.activeX.Act
 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
 	at java.lang.Thread.run(Thread.java:745)
+2016-05-16 16:53:41 INFO  RobotManager:377 - Trying to start the robot.
+2016-05-16 16:53:41 INFO  RobotManager:124 - Reading robot properties.
+2016-05-16 16:53:41 INFO  RobotManager:106 - Reading robot configuration.
+2016-05-16 16:53:41 INFO  RobotManager:164 - Loading application.
+2016-05-16 16:53:41 INFO  RobotManager:198 - Load monitors of 32D.
+2016-05-16 16:53:41 INFO  RobotManager:205 - Monitor Found: 99.OpinionCumplimiento
+2016-05-16 16:53:41 INFO  RobotManager:263 - Creating the execution Thread Pool with 1 threads.
+2016-05-16 16:53:41 INFO  RobotManager:270 - Init insert pool.
+2016-05-16 16:53:44 INFO  RobotManager:301 - The flow will run at Mon May 16 16:55:00 CDT 2016 every 5 minute(s).
+2016-05-16 16:53:44 INFO  RobotManager:388 - Robot has been started.!
+2016-05-16 16:55:03 INFO  PollMonitorTask:133 - Starting polling of 'OpinionCumplimiento'
+2016-05-16 16:55:03 FATAL PollMonitorTask:402 - Unknown error: 
+java.lang.UnsatisfiedLinkError: no jacob-1.18-x64 in java.library.path
+	at java.lang.ClassLoader.loadLibrary(ClassLoader.java:1886)
+	at java.lang.Runtime.loadLibrary0(Runtime.java:849)
+	at java.lang.System.loadLibrary(System.java:1088)
+	at com.jacob.com.LibraryLoader.loadJacobLibrary(LibraryLoader.java:184)
+	at com.jacob.com.JacobObject.<clinit>(JacobObject.java:110)
+	at com.gdc.robot.task.PollMonitorTask.run(PollMonitorTask.java:139)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+2016-05-16 16:56:29 INFO  RobotManager:377 - Trying to start the robot.
+2016-05-16 16:56:29 INFO  RobotManager:124 - Reading robot properties.
+2016-05-16 16:56:29 INFO  RobotManager:106 - Reading robot configuration.
+2016-05-16 16:56:29 INFO  RobotManager:164 - Loading application.
+2016-05-16 16:56:29 INFO  RobotManager:198 - Load monitors of 32D.
+2016-05-16 16:56:29 INFO  RobotManager:205 - Monitor Found: 99.OpinionCumplimiento
+2016-05-16 16:56:29 INFO  RobotManager:263 - Creating the execution Thread Pool with 1 threads.
+2016-05-16 16:56:29 INFO  RobotManager:270 - Init insert pool.
+2016-05-16 16:56:31 INFO  RobotManager:301 - The flow will run at Mon May 16 17:00:00 CDT 2016 every 5 minute(s).
+2016-05-16 16:56:31 INFO  RobotManager:388 - Robot has been started.!
+2016-05-16 17:00:02 INFO  PollMonitorTask:133 - Starting polling of 'OpinionCumplimiento'
+2016-05-16 17:00:02 FATAL PollMonitorTask:402 - Unknown error: 
+java.lang.UnsatisfiedLinkError: no jacob-1.18-x64 in java.library.path
+	at java.lang.ClassLoader.loadLibrary(ClassLoader.java:1886)
+	at java.lang.Runtime.loadLibrary0(Runtime.java:849)
+	at java.lang.System.loadLibrary(System.java:1088)
+	at com.jacob.com.LibraryLoader.loadJacobLibrary(LibraryLoader.java:184)
+	at com.jacob.com.JacobObject.<clinit>(JacobObject.java:110)
+	at com.gdc.robot.task.PollMonitorTask.run(PollMonitorTask.java:139)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)

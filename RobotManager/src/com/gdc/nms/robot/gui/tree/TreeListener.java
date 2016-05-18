@@ -12,6 +12,11 @@ import com.gdc.nms.robot.gui.RobotManagerGui;
 import com.gdc.nms.robot.gui.RobotManagerGui.ButtonType;
 import com.gdc.nms.robot.util.indexer.AppInformation;
 import com.gdc.nms.robot.util.indexer.FlujoInformation;
+import com.gdc.nms.robot.util.jade.InitPlataform;
+import com.gdc.nms.robot.util.jade.SRMAgent;
+import com.gdc.nms.robot.util.jade.SRMAgentManager;
+
+import jade.core.AID;
 
 public class TreeListener implements TreeSelectionListener{
 	private RobotManagerGui gui;
@@ -26,7 +31,7 @@ public class TreeListener implements TreeSelectionListener{
 		AppInformation appinfo = app.getAppinfo();
 		if(appinfo!=null){
 			
-			gui.setInformation(proccesText(appinfo));
+			
 			
 			if(app.isStopAble()){
 				
@@ -40,7 +45,34 @@ public class TreeListener implements TreeSelectionListener{
 				gui.enableButton(ButtonType.START,true);
 
 			}
+			
+			HashMap<String, AID> mapToKill = InitPlataform.getMapToKill();
+			HashMap<String, AID> robotRegister = InitPlataform.getRobotRegister();
+			if(mapToKill.containsKey(appinfo.getAlias())){
+				gui.enableButton(ButtonType.STOP, false);
+				gui.enableButton(ButtonType.START, false);
+			}
+			String proccesText = proccesText(appinfo);
+			if(robotRegister.containsKey(appinfo.getAlias())){
+				gui.enableButton(ButtonType.STOP,true);
+				gui.enableButton(ButtonType.START,false);
+				proccesText+="\n"+getDataRobot(robotRegister.get(appinfo.getAlias()), "STA");
+
+			}
+			gui.setInformation(proccesText);
+			
 		}
+		
+	}
+	
+	
+	
+	private String getDataRobot(AID sender,String content){
+		SRMAgent agent = InitPlataform.getAgentManager().getAgent();
+		String senMessage = agent.senMessage(sender, content);
+		
+		return senMessage;
+		
 		
 	}
 	
@@ -79,7 +111,7 @@ public class TreeListener implements TreeSelectionListener{
 			builder.append("\n \t"+flujoInformation.getName()+" , Numero de Pasos : "+flujoInformation.getNumSteps());
 		}
 		System.out.println("terminando stringbuilder"+builder.toString());
-
+		
 		
 		return builder.toString();
 	}

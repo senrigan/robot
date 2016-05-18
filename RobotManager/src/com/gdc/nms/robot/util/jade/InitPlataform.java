@@ -2,7 +2,12 @@ package com.gdc.nms.robot.util.jade;
 
 import java.io.IOException;
 import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
 import java.net.ServerSocket;
+import java.net.SocketException;
+import java.net.UnknownHostException;
+import java.util.Enumeration;
 import java.util.HashMap;
 
 import jade.core.AID;
@@ -18,6 +23,7 @@ public class InitPlataform {
 	private static jade.wrapper.AgentContainer mainContainer;
 	private static InitPlataform instance=null;
 	private static HashMap<String,AID> robotRegister;
+	private static HashMap<String,AID> robotToKill;
 	private static SRMAgentManager srmAgentManager;
 	private InitPlataform(){
 
@@ -45,6 +51,21 @@ public class InitPlataform {
 	public static void deRegisterRobot(String robotName){
 		robotRegister.remove(robotName);
 	}
+	
+	
+	public static void registerToKill(String robotName,AID senderId){
+		robotToKill.put(robotName, senderId);
+	}
+	
+	
+	public static void removeToKill(String robotName){
+		robotToKill.remove(robotName);
+	}
+	
+	
+	public static HashMap<String, AID> getMapToKill(){
+		return robotToKill;
+	}
 	public static jade.wrapper.AgentContainer getContainer(){
 		return mainContainer;
 	}
@@ -61,21 +82,31 @@ public class InitPlataform {
 	
 	
 	private static Profile getProfile(){
+//		String ip;
+//		try {
+//		 ip=InetAddress.getLocalHost().getHostAddress();
+//		} catch (UnknownHostException e) {
+//			ip=InetAddress.getLoopbackAddress().getHostAddress();
+//		}
+		
+		String ip=InetAddress.getLoopbackAddress().getHostAddress();
 		Properties props = new Properties();
 		props.setProperty(ProfileImpl.MAIN, "true");
 		props.setProperty(ProfileImpl.PLATFORM_ID, "robot_platform");
 		props.setProperty(ProfileImpl.MAIN_PORT, "1192");
-		props.setProperty(ProfileImpl.GUI, "true");
-		props.setProperty(ProfileImpl.MAIN_HOST, "127.0.0.1");
-		props.setProperty(ProfileImpl.LOCAL_HOST, "127.0.0.1");
+//		props.setProperty(ProfileImpl.GUI, "true");
+		
+		props.setProperty(ProfileImpl.MAIN_HOST, ip);
+		props.setProperty(ProfileImpl.LOCAL_HOST, ip);
 //		props.setProperty(ProfileImpl.LOCALHOST_CONSTANT, "senrigan3");
 		
 //		props.setProperty(ProfileImpl.LOCAL_PORT, "1191");
 //		props.setProperty(ProfileImpl.EXPORT_PORT, "3580");
 //		props.setProperty(ProfileImpl.IMTP,"3850" );
-		props.setProperty("jade_mtp_http_port","7778");
+//		props.setProperty(ProfileImpl.MTPS, "jade.mtp.http.MessageTransportProtocol(http://"+ip+":7778/acc)");
+//		props.setProperty("jade_mtp_http_port","7778");
 //		props.setProperty("jade_mtp_http_proxyHost","10.42.0.92");
-
+		
 		
 //		props.setProperty("jade_mtp_http_proxyHost","http://senrigan:7778/acc");
 		Profile profile = new ProfileImpl(props);
@@ -145,7 +176,27 @@ public class InitPlataform {
 //			System.out.println("puerto libre port"+port +" "+InitPlataform.isAvailablePort(port));
 //		    port++;
 //		}
+//		try {
+//			System.out.println(InetAddress.getLoopbackAddress());
+//			System.out.println(""+InetAddress.getLocalHost().getHostAddress());
+//			Enumeration<NetworkInterface> networkInterfaces = NetworkInterface.getNetworkInterfaces();
+//			for (;networkInterfaces.hasMoreElements();) {
+//				NetworkInterface nextElement = networkInterfaces.nextElement();
+//				Enumeration<InetAddress> inetAddresses = nextElement.getInetAddresses();
+//				for(;inetAddresses.hasMoreElements();){
+//					InetAddress nextElement2 = inetAddresses.nextElement();
+//					System.out.println(nextElement2.getHostAddress());
+//				}
+//			}
+//		} catch (UnknownHostException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		InitPlataform.getInstance().runAgentContainer();
+// catch (SocketException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 	}
 	
 }

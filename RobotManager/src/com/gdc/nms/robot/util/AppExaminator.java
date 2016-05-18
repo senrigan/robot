@@ -122,6 +122,7 @@ public class AppExaminator {
 //		ArrayList<RobotInformation> runningRobot = VirtualMachineExaminator.getRunningRobot();
 //		System.out.println("running roboits"+runningRobot);
 		ArrayList<AppInformation> running=new ArrayList<AppInformation>();
+		
 //		for(RobotInformation robot:runningRobot){
 //			AppInformation applicationInfo = robot.getApplicationInfo();
 //			running.add(applicationInfo);

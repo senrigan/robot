@@ -6,7 +6,7 @@ import jade.wrapper.StaleProxyException;
 
 public class SRMAgentManager {
 	public  static  long WAITTIMEOUT=10000L;
-	public static long POOLING_INTERVAL=15000L;
+	public static long POOLING_INTERVAL=60000L;
 	public static final String AYA="AYA";
 	public static final String IAA="IAA";
 	public static final String STA="STA";
@@ -14,6 +14,7 @@ public class SRMAgentManager {
 	public static final String WAT="WAT";
 	public static final String OFF="OFF";
 	public static final String NXT="NXT";
+	public static final int KILLCODE=666;
 	private static   SRMAgent srmAgent;
 	
 	
@@ -34,12 +35,8 @@ public class SRMAgentManager {
 	}
 	
 	
-	public boolean  stopAgent(AID agent){
-		System.out.println("sending message to "+agent+"message "+OFF);
-		String senMessage = srmAgent.senMessage(agent, OFF);
-		if(senMessage!=null && senMessage.equals(OFF)){
-			return true;
-		}
-		return false;
+	public static  boolean  stopAgent(AID agent){
+		srmAgent.senMessageToKill(agent);
+		return true;
 	}
 }
