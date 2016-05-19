@@ -40,6 +40,7 @@ public class InstallerRobotPanel extends JFrame {
 	private JScrollPane scrollPane;
 	private JButton cancelButton;
 	private JButton continueButton;
+	private JTextArea textArea;
 //	private  ArrayList<FlujoInformation> validFlujos;
 //	private  AppJsonObject selectedItem;
 //	private Path data;
@@ -101,6 +102,9 @@ public class InstallerRobotPanel extends JFrame {
 		gbc_scrollPane.gridy = 3;
 		contentPane.add(scrollPane, gbc_scrollPane);
 		
+		textArea = new JTextArea();
+		scrollPane.setViewportView(textArea);
+		
 		cancelButton = new JButton("Cancelar");
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -125,11 +129,11 @@ public class InstallerRobotPanel extends JFrame {
 	}
 	
 	
-//	private void setText(String text){
-//		
-//		this.textArea.setText(text);
-//		System.out.println("texteando area");
-//	}
+	private void setText(String text){
+		
+		this.textArea.setText(text);
+		System.out.println("texteando area");
+	}
 	
 	
 
@@ -254,7 +258,7 @@ public class InstallerRobotPanel extends JFrame {
 			builder.append("\t"+data.getFileName());
 			System.out.println(data.getFileName());
 		}
-//		setText(builder.toString());
+		setText(builder.toString());
 		
 	}
 	private boolean checkIfExistApp(String appName,long idApp){

@@ -46,19 +46,19 @@ public class TreeListener implements TreeSelectionListener{
 
 			}
 			
-			HashMap<String, AID> mapToKill = InitPlataform.getMapToKill();
-			HashMap<String, AID> robotRegister = InitPlataform.getRobotRegister();
-			if(mapToKill.containsKey(appinfo.getAlias())){
-				gui.enableButton(ButtonType.STOP, false);
-				gui.enableButton(ButtonType.START, false);
-			}
+//			HashMap<String, AID> mapToKill = InitPlataform.getMapToKill();
+//			HashMap<String, AID> robotRegister = InitPlataform.getRobotRegister();
+//			if(mapToKill.containsKey(appinfo.getAlias())){
+//				gui.enableButton(ButtonType.STOP, false);
+//				gui.enableButton(ButtonType.START, false);
+//			}
 			String proccesText = proccesText(appinfo);
-			if(robotRegister.containsKey(appinfo.getAlias())){
-				gui.enableButton(ButtonType.STOP,true);
-				gui.enableButton(ButtonType.START,false);
-				proccesText+="\n"+getDataRobot(robotRegister.get(appinfo.getAlias()), "STA");
-
-			}
+//			if(robotRegister.containsKey(appinfo.getAlias())){
+//				gui.enableButton(ButtonType.STOP,true);
+//				gui.enableButton(ButtonType.START,false);
+//				proccesText+="\n"+getDataRobot(robotRegister.get(appinfo.getAlias()), "STA");
+//
+//			}
 			gui.setInformation(proccesText);
 			
 		}

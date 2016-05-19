@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <launch4jConfig>
   <dontWrapJar>false</dontWrapJar>
-  <headerType>console</headerType>
+  <headerType>GUI</headerType>
   <jar>../dist/executor.jar</jar>
   <outfile>../dist/SRM.exe</outfile>
   <errTitle></errTitle>

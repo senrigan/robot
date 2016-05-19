@@ -428,6 +428,9 @@ public class CreatorRobotManager {
 		           }
 		           file.close();
 		           System.out.println(entry.getName() + " added.");
+		        }catch(Exception ex){
+		        	System.out.println("error primer entry");
+		        	ex.printStackTrace();
 		        }
 		        finally {
 		           file.close();
@@ -438,23 +441,29 @@ public class CreatorRobotManager {
 
 		        for (Enumeration entries = jar.entries(); entries.hasMoreElements(); ) {
 		           // Get the next entry.
+		        	try{
+		        		  JarEntry entry = (JarEntry) entries.nextElement();
 
-		           JarEntry entry = (JarEntry) entries.nextElement();
+				           // If the entry has not been added already, add it.
+				           if (! entry.getName().equals(fileJarPath)) {
+				              // Get an input stream for the entry.
 
-		           // If the entry has not been added already, add it.
-		           if (! entry.getName().equals(fileJarPath)) {
-		              // Get an input stream for the entry.
+				              InputStream entryStream = jar.getInputStream(entry);
 
-		              InputStream entryStream = jar.getInputStream(entry);
+				              // Read the entry and write it to the temp jar.
 
-		              // Read the entry and write it to the temp jar.
+				              tempJar.putNextEntry(entry);
 
-		              tempJar.putNextEntry(entry);
+				              while ((bytesRead = entryStream.read(buffer)) != -1) {
+				                 tempJar.write(buffer, 0, bytesRead);
+				              }
+				           }
+		        	}catch(Exception ex){
+			        	System.out.println("error segundo entry");
 
-		              while ((bytesRead = entryStream.read(buffer)) != -1) {
-		                 tempJar.write(buffer, 0, bytesRead);
-		              }
-		           }
+		        		ex.printStackTrace();
+		        	}
+		         
 		        }
 		        tempJar.close();
 
@@ -474,6 +483,8 @@ public class CreatorRobotManager {
 		        tempJar.close();
 		        jar.close();
 		     }
+		  }catch(Exception ex ){
+			  ex.printStackTrace();
 		  }
 		  finally {
 		     jar.close();
