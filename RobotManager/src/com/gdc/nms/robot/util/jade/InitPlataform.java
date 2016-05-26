@@ -94,7 +94,7 @@ public class InitPlataform {
 		props.setProperty(ProfileImpl.MAIN, "true");
 		props.setProperty(ProfileImpl.PLATFORM_ID, "robot_platform");
 		props.setProperty(ProfileImpl.MAIN_PORT, "1192");
-//		props.setProperty(ProfileImpl.GUI, "true");
+		props.setProperty(ProfileImpl.GUI, "true");
 		
 		props.setProperty(ProfileImpl.MAIN_HOST, ip);
 		props.setProperty(ProfileImpl.LOCAL_HOST, ip);

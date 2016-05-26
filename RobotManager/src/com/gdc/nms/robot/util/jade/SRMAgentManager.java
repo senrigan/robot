@@ -5,7 +5,7 @@ import jade.wrapper.AgentController;
 import jade.wrapper.StaleProxyException;
 
 public class SRMAgentManager {
-	public  static  long WAITTIMEOUT=10000L;
+	public  static  long WAITTIMEOUT=20000L;
 	public static long POOLING_INTERVAL=60000L;
 	public static final String AYA="AYA";
 	public static final String IAA="IAA";
