@@ -41,7 +41,9 @@ public class Constants {
 	
 	public static final String LOCALREGISTRY="HKCU\\Software\\GDC\\Robot";
 	
-	public static final String JARNAME="bot-1.0.jar";
+	public static final String JARNAME_EX="bot-1.0.jar";
+	public static final String JARNAME="bot.jar";
+
 	
 	public static final String JARTEMPFOLDER="bot";
 	

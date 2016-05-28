@@ -12,9 +12,12 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.nio.file.FileSystem;
+import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -117,10 +120,12 @@ public class CreatorRobotManager {
 			realRobot=Long.parseLong(idRobot);
 			System.out.println(realRobot);
 			Path installationPath = RobotManager.getInstallationPath();
-			Path botJar = installationPath.resolve("inMonitor").resolve("bot-1.0.jar");
-			Path propertiesPath=installationPath.resolve("inMonitor").resolve("robot.properties");
-			modifyFileRobotId(realRobot, propertiesPath);
-			modifyJar(botJar, propertiesPath, Constants.PROPERTIESJARBOT);
+			Path botJar = installationPath.resolve("inMonitor").resolve(Constants.JARNAME_EX);
+//			Path propertiesPath=installationPath.resolve("inMonitor").resolve("robot.properties");
+//			modifyJar(botJar, propertiesPath, Constants.PROPERTIESJARBOT);
+//			modifyFileRobotId(realRobot, propertiesPath);
+			updateRobot(botJar, realRobot);
+			
 			if(getRobotID(botJar)==realRobot){
 				
 				if(createFolderApplication()){
@@ -378,6 +383,20 @@ public class CreatorRobotManager {
 		}
 	}
 	
+	
+	public static void updateRobot(Path robotPath , long robotId){
+		try {
+			FileSystem fileSystem = FileSystems.newFileSystem(robotPath, null);
+			Path path=fileSystem.getPath("/META-INF/robot.properties");
+			OutputStream outputStream = Files.newOutputStream(path, StandardOpenOption.WRITE);
+			String str="id="+robotId;
+			outputStream.write(str.getBytes());
+			outputStream.close();
+			fileSystem.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	 public void modifyJar(Path jarPath,Path FileToAdd,String fileJarPath ) throws IOException{
 		  String jarName = jarPath.toString();

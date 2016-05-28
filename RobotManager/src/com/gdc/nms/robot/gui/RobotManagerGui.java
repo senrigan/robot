@@ -135,11 +135,12 @@ public class RobotManagerGui extends JFrame {
 		setJMenuBar(menuBar);
 
 		JMenu mnAr = new JMenu("Archivo");
-		menuBar.add(mnAr);
 		setButtonsListeners();
 		JMenuItem addRobotMenu = new JMenuItem("Agregar Robot");
 		JMenuItem updateMenu = new JMenuItem("Actualizar Robots");
 		JMenuItem deleteMenu=new JMenuItem("Eliminar Robots");
+		JMenuItem configReg=new JMenuItem("Configurar Registros");
+		JMenu configMenu=new JMenu("Configuracion");
 		
 		addRobotMenu.addActionListener(new ActionListener() {
 			@Override
@@ -190,9 +191,26 @@ public class RobotManagerGui extends JFrame {
 			}
 		});
 		
+		configMenu.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				SwingUtilities.invokeLater(new Runnable() {
+					
+					@Override
+					public void run() {
+						
+					}
+				});
+			}
+		});
+		
+		configMenu.add(configReg);
 		mnAr.add(updateMenu);
 		mnAr.add(addRobotMenu);
 		mnAr.add(deleteMenu);
+		menuBar.add(configMenu);
+		menuBar.add(mnAr);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	public static void  showMessage(String message){
