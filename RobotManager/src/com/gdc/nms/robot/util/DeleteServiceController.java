@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import org.apache.commons.io.FileUtils;
@@ -61,8 +62,13 @@ public class DeleteServiceController {
 		String dateForFilesChanges = RobotManager.getDateForFilesChanges();
 		System.out.println(dateForFilesChanges);
 		Path resolve = serviceFolder.resolve("bot-1.0.jar");
-		Path move = Files.move(resolve, resolve.resolveSibling("_Dvot-1.0.jar"));
-		System.out.println("move"+move);
+		ArrayList<String> validBotFiles = AppExaminator.getValidBotFiles(serviceFolder);
+		for (String string : validBotFiles) {
+			File botFile=new File(string);
+			Files.move(botFile.toPath(),resolve.resolveSibling("_D"+botFile.getName()));
+		}
+//		Path move = Files.move(resolve, resolve.resolveSibling("_Dvot-1.0.jar"));
+//		System.out.println("move"+move);
 		Path destinationPath = trashFolder.resolve(name+"_"+dateForFilesChanges);
 		if(Files.exists(destinationPath)){
 			Files.delete(destinationPath);

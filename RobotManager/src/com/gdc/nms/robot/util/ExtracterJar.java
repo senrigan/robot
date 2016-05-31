@@ -211,7 +211,5 @@ public class ExtracterJar {
 	       ex.printStackTrace(); 
 	    }
 	   }    
-	public static void main(String[] args) throws IOException {
-		ExtracterJar.extractJar("C:\\Users\\senrigan\\AppData\\Local\\Temp\\gdcIntaller\\inMonitor\\bot-1.0.jar",new File("C:\\Users\\senrigan\\AppData\\Local\\Temp\\gdcIntaller\\inMonitor\\test"));
-	}
+
 }

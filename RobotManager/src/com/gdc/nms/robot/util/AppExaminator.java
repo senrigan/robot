@@ -1,7 +1,9 @@
 package com.gdc.nms.robot.util;
 
+import java.awt.FontFormatException;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -18,6 +20,7 @@ import java.util.Vector;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.apache.commons.io.filefilter.WildcardFileFilter;
 import org.w3c.dom.Document;
 
 import com.gdc.nms.robot.util.indexer.AppInformation;
@@ -25,13 +28,17 @@ import com.gdc.nms.robot.util.indexer.FlujoInformation;
 import com.gdc.nms.robot.util.indexer.StepInformation;
 import com.gdc.nms.robot.util.jade.DFConsult;
 import com.gdc.nms.robot.util.registry.CommandExecutor;
+import com.sun.corba.se.impl.orbutil.closure.Constant;
 
-import jade.core.AID;
 
 
 public class AppExaminator {
 	
-
+	public static void main(String[] args) {
+		
+		
+		System.out.println("ya acabo");
+	}
 	public static ArrayList<AppInformation> getInstalledApps(){
 		ArrayList<AppInformation> apps=new ArrayList<AppInformation>();
 		try {
@@ -43,10 +50,13 @@ public class AppExaminator {
 			Arrays.sort(listFiles);
 			for(File  file:listFiles){
 				if(file.isDirectory()){
-					Path resolve = file.toPath().resolve("bot-1.0.jar");
-					if(Files.exists(resolve)){
-						
-						apps.add(getAppData(file.toPath()));
+					FileFilter fileFilter=new WildcardFileFilter(Constants.REGEX_JARNAME+"*");
+					File [] dir = file.listFiles(fileFilter);
+					for (File fileApp : dir) {
+						String fileName=fileApp.getName();
+						if(fileName.endsWith("exe")||fileName.endsWith("jar")){
+							apps.add(getAppData(file.toPath()));
+						}
 					}
 				}
 			}
@@ -54,6 +64,26 @@ public class AppExaminator {
 			ex.printStackTrace();
 		}
 		return apps;
+	}
+	
+	public static File[] getBotFiles(Path folder){
+		FileFilter fileFilter=new WildcardFileFilter(Constants.REGEX_JARNAME+"*");
+		File [] dir = folder.toFile().listFiles(fileFilter);
+		return dir;
+	}
+	
+	public static ArrayList<String> getValidBotFiles(Path folder){
+		File[] botFiles = getBotFiles(folder);
+		ArrayList<String> validBotFiles=new ArrayList<String>();
+		for (File file : botFiles) {
+			String name = file.getName();
+			
+			if(name.endsWith("exe")||name.endsWith("EXE")|| 
+					name.endsWith("jar")|| name.endsWith("JAR")){
+				validBotFiles.add(file.toString());
+			}
+		}
+		return validBotFiles;
 	}
 	
 	
@@ -83,15 +113,14 @@ public class AppExaminator {
 	
 	public static boolean validAppFolde(Path pathFolder){
 		Path applicationFolder = pathFolder.resolve("application");
-//		System.out.println(""+Files.exists(pathFolder.resolve("bot-1.0.jar"))+" "+Files.exists(applicationFolder)+" "+Files.exists(applicationFolder.resolve("app-config.xml")));
-		if(Files.exists(pathFolder.resolve("bot-1.0.jar"))&&
+		
+		if(!getValidBotFiles(pathFolder).isEmpty()&&
 				Files.exists(applicationFolder)&& Files.exists(applicationFolder.resolve("app-config.xml"))){
 			File[] listFiles = applicationFolder.toFile().listFiles();
 			for (File file : listFiles) {
 				if(file.isDirectory()){
 					File[] listFiles2 = file.listFiles();
 					for (File file2 : listFiles2) {
-//						System.out.println(file2.getName());
 						if(file2.getName().endsWith(".iim")){
 							return true;
 						}
@@ -118,7 +147,7 @@ public class AppExaminator {
 	
 	
 	public static  ArrayList<AppInformation>  getRunningApps(){
-		Vector<AID> services = DFConsult.services;
+//		Vector<AID> services = DFConsult.services;
 //		ArrayList<RobotInformation> runningRobot = VirtualMachineExaminator.getRunningRobot();
 //		System.out.println("running roboits"+runningRobot);
 		ArrayList<AppInformation> running=new ArrayList<AppInformation>();
@@ -183,17 +212,31 @@ public class AppExaminator {
 	public static long getRobotID(Path appFolder){
 		Path jarPath=appFolder.resolve(Constants.JARNAME);
 		long robotId=0;
+		File file=appFolder.toFile();
 		try{
-			URL url=new URL("jar:file:"+jarPath.toString()+"!/META-INF/robot.properties");
-			InputStream is=url.openStream();
-			BufferedReader readeR=new BufferedReader(new InputStreamReader(is));
-			StringBuilder out=new StringBuilder();
-			String line;
-			while((line=readeR.readLine())!=null){
-				out.append(line);
+			FileFilter fileFilter=new WildcardFileFilter(Constants.REGEX_JARNAME+"*");
+			File [] dir = file.listFiles(fileFilter);
+			for (File file2 : dir) {
+				try{
+					if(file2.getName().endsWith("jar")||file2.getName().endsWith("exe")){
+						jarPath=file2.toPath();
+						URL url=new URL("jar:file:"+jarPath.toString()+"!/META-INF/robot.properties");
+						InputStream is=url.openStream();
+						BufferedReader readeR=new BufferedReader(new InputStreamReader(is));
+						StringBuilder out=new StringBuilder();
+						String line;
+						while((line=readeR.readLine())!=null){
+							out.append(line);
+						}
+						String [] split=out.toString().split("=");
+						robotId=Long.parseLong(split[1].trim());
+					}
+					return robotId;
+					
+				}catch(Exception ex){
+					ex.printStackTrace();
+				}
 			}
-			String [] split=out.toString().split("=");
-			robotId=Long.parseLong(split[1].trim());
 			
 		}catch(Exception ex){
 			

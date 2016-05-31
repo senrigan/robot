@@ -43,6 +43,8 @@ public class Constants {
 	
 	public static final String JARNAME_EX="bot-1.0.jar";
 	public static final String JARNAME="bot.jar";
+	public static final String REGEX_JARNAME="bot";
+	public static final String JARNAME_EXE="bot.exe";
 
 	
 	public static final String JARTEMPFOLDER="bot";
