@@ -13,6 +13,8 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 import javax.security.cert.X509Certificate;
+import javax.xml.namespace.QName;
+import javax.xml.ws.WebServiceException;
 
 import com.gdc.nms.robot.util.Constants;
 import com.gdc.nms.robot.util.registry.CommandExecutor;
@@ -89,22 +91,37 @@ public class ClientWebService {
 	}
 	
 	public static void main(String[] args) throws InterruptedException {
-		while(true){
-//		
-		String flujosByIdApp = getFlujosByIdApp(2);
-		System.out.println(flujosByIdApp);
-		System.out.println(ClientWebService.getAppName());
-		 Thread.sleep(60000);
-		}	
-//		URL url;
-//		try {
-//			url = new URL(SisproRobotManagerHelperService.getUrl().toString());
-//			System.out.println(url);
-//		} catch (MalformedURLException e) {
-//			e.printStackTrace();
-//		}
+		boolean existeConexion = ClientWebService.existeConexion("http://samyg2test.sispro.mx:8080/helper/SRMHelper?wsdl");
+		System.out.println(existeConexion);
 	}
-	
+	public static Object getWebService(String wsdlLocation) {
+	    try {
+	        QName qname = new QName("http://ec.gob.sri.ws.recepcion", "RecepcionComprobantesService");
+	        URL url = new URL(wsdlLocation);
+	        SisproRobotManagerHelperService service = new SisproRobotManagerHelperService(url, qname);
+	        return null;
+	    } catch (MalformedURLException ex) {
+	        return ex;
+	    } catch (WebServiceException ws) {
+	        return ws;
+	    }
+	}
+	 
+	public static boolean existeConexion(String url) {
+	    int i = 0;
+	    boolean respuesta = false;
+	    while (i < 3) {
+	        Object obj = getWebService(url);
+	        if (obj  == null) {
+	            return true;
+	        }
+	        if ((obj  instanceof WebServiceException)) {
+	            respuesta = false;
+	        }
+	        i++;
+	    }
+	    return respuesta;
+	}
 	
 	public static void fixUntrustCertificate() throws KeyManagementException, NoSuchAlgorithmException{
 
