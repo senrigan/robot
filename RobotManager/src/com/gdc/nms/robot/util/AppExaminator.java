@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Vector;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -26,19 +25,12 @@ import org.w3c.dom.Document;
 import com.gdc.nms.robot.util.indexer.AppInformation;
 import com.gdc.nms.robot.util.indexer.FlujoInformation;
 import com.gdc.nms.robot.util.indexer.StepInformation;
-import com.gdc.nms.robot.util.jade.DFConsult;
 import com.gdc.nms.robot.util.registry.CommandExecutor;
-import com.sun.corba.se.impl.orbutil.closure.Constant;
 
 
 
 public class AppExaminator {
 	
-	public static void main(String[] args) {
-		
-		
-		System.out.println("ya acabo");
-	}
 	public static ArrayList<AppInformation> getInstalledApps(){
 		ArrayList<AppInformation> apps=new ArrayList<AppInformation>();
 		try {

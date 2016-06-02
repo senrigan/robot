@@ -209,8 +209,8 @@ public class RobotManagerGui extends JFrame {
 		mnAr.add(updateMenu);
 		mnAr.add(addRobotMenu);
 		mnAr.add(deleteMenu);
-		menuBar.add(configMenu);
 		menuBar.add(mnAr);
+		menuBar.add(configMenu);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	public static void  showMessage(String message){
