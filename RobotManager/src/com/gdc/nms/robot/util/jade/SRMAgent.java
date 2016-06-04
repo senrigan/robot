@@ -40,7 +40,8 @@ public class SRMAgent extends Agent {
 	}
 
 	public void senMessageToKill(AID reciver) {
-		ACLMessage msg = new ACLMessage(SRMAgentManager.KILLCODE);
+//		ACLMessage msg = new ACLMessage(SRMAgentManager.KILLCODE);
+		ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
 		msg.addReceiver(reciver);
 		msg.setContent(SRMAgentManager.OFF);
 		msg.setConversationId("OFF-" + System.currentTimeMillis());
@@ -175,7 +176,9 @@ public class SRMAgent extends Agent {
 		@Override
 		public void action() {
 			try {
-				ACLMessage msg = blockingReceive(MessageTemplate.MatchPerformative(SRMAgentManager.KILLCODE), 1000);
+//				ACLMessage msg = blockingReceive(MessageTemplate.MatchPerformative(SRMAgentManager.KILLCODE), 1000);
+				ACLMessage msg = blockingReceive(MessageTemplate.MatchPerformative(ACLMessage.INFORM), 1000);
+
 
 				if (msg != null) {
 					String appName = msg.getSender().getName();

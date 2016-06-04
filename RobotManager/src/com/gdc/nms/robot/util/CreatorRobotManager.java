@@ -576,6 +576,5 @@ public class CreatorRobotManager {
 	 public static void main(String[] args) {
 //		 String idRobot = CreatorRobotWebService.getIdRobot("BANCOS AUTORIZADOS", "0", "GUADALAJARA", ""+86, "2","5", CreatorRobotManager.getcalculateDateServer());
 //		 System.out.println("robot id"+idRobot);
-		 System.out.println("robbot id"+robotID);
 	 }
 }
