@@ -13,9 +13,7 @@ import com.gdc.nms.robot.util.Language;
 public class Main {
 	 public static void main(String[] args) {
 		 Language.load();
-
 		 RobotManager robotManager= new RobotManager();
-//		 System.out.println(new Date(1463197560000L));
 	}
 }
 	 

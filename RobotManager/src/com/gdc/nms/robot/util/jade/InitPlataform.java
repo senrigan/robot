@@ -25,6 +25,7 @@ public class InitPlataform {
 	private static HashMap<String,AID> robotRegister;
 	private static HashMap<String,AID> robotToKill;
 	private static SRMAgentManager srmAgentManager;
+	private static AgentValidator agentValidator;
 	private InitPlataform(){
 
 	}
@@ -125,14 +126,20 @@ public class InitPlataform {
         robotRegister=new HashMap<String,AID>();
         try {
 			System.out.println("container name"+mainContainer.getContainerName()+"platform name"+mainContainer.getPlatformName()+"name"+mainContainer.getName());
-		} catch (ControllerException e) {
+			initAgents();
+        } catch (ControllerException e) {
 			e.printStackTrace();
 		}
-        if(srmAgentManager==null){
+        
+		
+	}
+	
+	
+	private static void initAgents(){
+		if(srmAgentManager==null){
         	srmAgentManager=new SRMAgentManager();
         	srmAgentManager.init();
         }
-		
 	}
 	
 	

@@ -2,6 +2,11 @@ package com.gdc.nms.robot.gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -61,6 +66,7 @@ public class RobotManagerGui extends JFrame {
 	private Element root;
 	private Element runningNode;
 	private Element notRunningNode;
+	private JButton logButton;
 
 	public RobotManagerGui() {
 		super("SisproRobotManager");
@@ -94,9 +100,9 @@ public class RobotManagerGui extends JFrame {
 		splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, true, scrollPane_1, panelInfo);
 		GridBagLayout gbl_panelInfo = new GridBagLayout();
 		gbl_panelInfo.columnWidths = new int[] { 0, 0, 0 };
-		gbl_panelInfo.rowHeights = new int[] { 0, 171, 0, 0 };
+		gbl_panelInfo.rowHeights = new int[] { 0, 171, 0, 0, 0 };
 		gbl_panelInfo.columnWeights = new double[] { 1.0, 1.0, Double.MIN_VALUE };
-		gbl_panelInfo.rowWeights = new double[] { 0.0, 1.0, 1.0, Double.MIN_VALUE };
+		gbl_panelInfo.rowWeights = new double[] { 0.0, 1.0, 0.0, 1.0, Double.MIN_VALUE };
 		panelInfo.setLayout(gbl_panelInfo);
 		textArea = new JTextArea();
 		textArea.setOpaque(false);
@@ -105,27 +111,34 @@ public class RobotManagerGui extends JFrame {
 		scrollPane.getViewport().setOpaque(false);
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
 		gbc_scrollPane.gridwidth = 2;
-		gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
+		gbc_scrollPane.insets = new Insets(0, 0, 5, 0);
 		gbc_scrollPane.fill = GridBagConstraints.BOTH;
 		gbc_scrollPane.gridx = 0;
 		gbc_scrollPane.gridy = 1;
 		panelInfo.add(scrollPane, gbc_scrollPane);
+		
+		logButton = new JButton("Logs");
+		GridBagConstraints gbc_logButton = new GridBagConstraints();
+		gbc_logButton.insets = new Insets(0, 0, 5, 0);
+		gbc_logButton.gridx = 1;
+		gbc_logButton.gridy = 2;
+		panelInfo.add(logButton, gbc_logButton);
 
 		// panel.add(textPane);
 
 		startButton = new JButton("Run Robot");
 		startButton.setEnabled(false);
-		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
-		gbc_btnNewButton.insets = new Insets(0, 0, 0, 5);
-		gbc_btnNewButton.gridx = 0;
-		gbc_btnNewButton.gridy = 2;
-		panelInfo.add(startButton, gbc_btnNewButton);
+		GridBagConstraints gbc_startButton = new GridBagConstraints();
+		gbc_startButton.insets = new Insets(0, 0, 0, 5);
+		gbc_startButton.gridx = 0;
+		gbc_startButton.gridy = 3;
+		panelInfo.add(startButton, gbc_startButton);
 
 		stopButton = new JButton("Stop Robot");
 		stopButton.setEnabled(false);
 		GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
 		gbc_btnNewButton_1.gridx = 1;
-		gbc_btnNewButton_1.gridy = 2;
+		gbc_btnNewButton_1.gridy = 3;
 		panelInfo.add(stopButton, gbc_btnNewButton_1);
 		getContentPane().add(splitPane);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -300,6 +313,38 @@ public class RobotManagerGui extends JFrame {
 				}
 			}
 		});
+		
+		logButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Element element = (Element) appTree.getLastSelectedPathComponent();
+				AppInformation appinfo = element.getAppinfo();
+				Path path = Paths.get(appinfo.getFolderPath());
+				path=path.resolve("robot.log");
+				String logApp = readLogFile(path);
+				InfoWindows infoWin=new InfoWindows("logs "+appinfo.getAlias(),logApp); 
+			}
+		});
+	}
+	
+	
+	private String readLogFile(Path logPath){
+		String text="";
+		try (BufferedReader br = new BufferedReader(new FileReader(logPath.toFile())))
+		{
+
+			String sCurrentLine;
+
+			while ((sCurrentLine = br.readLine()) != null) {
+				text+=sCurrentLine+"\n";
+				System.out.println(sCurrentLine);
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		} 
+		return text;
 	}
 
 	private void registryStopedRobot(long idRobot) {
