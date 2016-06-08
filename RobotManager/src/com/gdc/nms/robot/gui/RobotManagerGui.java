@@ -39,6 +39,7 @@ import com.gdc.nms.robot.util.indexer.AppInformation;
 import com.gdc.nms.robot.util.jade.InitPlataform;
 import com.gdc.nms.robot.util.jade.SRMAgentManager;
 import com.gdc.nms.robot.util.registry.CommandExecutor;
+import com.sun.jmx.mbeanserver.JmxMBeanServerBuilder;
 
 import jade.core.AID;
 
@@ -67,6 +68,14 @@ public class RobotManagerGui extends JFrame {
 	private Element runningNode;
 	private Element notRunningNode;
 	private JButton logButton;
+	private JButton getRobotDataButton;
+	private JMenuItem addRobotMenu;
+	private JMenuItem deleteMenu;
+	private JMenuItem updateMenu;
+	private JMenuItem configReg;
+	private JMenuItem addFlujoMenu;
+	private JMenu configMenu;
+	private JMenu mnAr;
 
 	public RobotManagerGui() {
 		super("SisproRobotManager");
@@ -117,12 +126,20 @@ public class RobotManagerGui extends JFrame {
 		gbc_scrollPane.gridy = 1;
 		panelInfo.add(scrollPane, gbc_scrollPane);
 		
+		getRobotDataButton = new JButton("Obtener Datos Robot");
+		GridBagConstraints gbc_getRobotDataButton = new GridBagConstraints();
+		gbc_getRobotDataButton.insets = new Insets(0, 0, 5, 5);
+		gbc_getRobotDataButton.gridx = 0;
+		gbc_getRobotDataButton.gridy = 2;
+		panelInfo.add(getRobotDataButton, gbc_getRobotDataButton);
+		
 		logButton = new JButton("Logs");
 		GridBagConstraints gbc_logButton = new GridBagConstraints();
 		gbc_logButton.insets = new Insets(0, 0, 5, 0);
 		gbc_logButton.gridx = 1;
 		gbc_logButton.gridy = 2;
 		panelInfo.add(logButton, gbc_logButton);
+		logButton.setVisible(false);
 
 		// panel.add(textPane);
 
@@ -147,14 +164,52 @@ public class RobotManagerGui extends JFrame {
 		menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 
-		JMenu mnAr = new JMenu("Archivo");
+		mnAr = new JMenu("Archivo");
 		setButtonsListeners();
-		JMenuItem addRobotMenu = new JMenuItem("Agregar Robot");
-		JMenuItem updateMenu = new JMenuItem("Actualizar Robots");
-		JMenuItem deleteMenu=new JMenuItem("Eliminar Robots");
-		JMenuItem configReg=new JMenuItem("Configurar Registros");
-		JMenu configMenu=new JMenu("Configuracion");
+		addRobotMenu = new JMenuItem("Agregar Robot");
+		addFlujoMenu =new JMenuItem("Agregar flujo");
+		updateMenu = new JMenuItem("Actualizar Robots");
+		deleteMenu=new JMenuItem("Eliminar Robots");
+		configReg=new JMenuItem("Configurar Registros");
+		configMenu=new JMenu("Configuracion");
 		
+	
+		configMenuBar();
+		configMenu.add(configReg);
+		mnAr.add(updateMenu);
+		mnAr.add(addRobotMenu);
+		mnAr.add(addFlujoMenu);
+		mnAr.add(deleteMenu);
+		menuBar.add(mnAr);
+		menuBar.add(configMenu);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+	
+	
+	private void configMenuBar(){
+
+		
+		
+		addRobotMenuAction();
+		updateMenuAction();
+		deleteMenuAction();
+		configMenuAction();
+	}
+	
+	private void addFlujoMenuAction(){
+		addFlujoMenu.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				SwingUtilities.invokeLater(new new Runnable() {
+					public void run() {
+						
+					}
+				});
+			}
+		});
+	}
+	private void addRobotMenuAction(){
 		addRobotMenu.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -171,6 +226,8 @@ public class RobotManagerGui extends JFrame {
 
 			}
 		});
+	}
+	private void updateMenuAction(){
 		updateMenu.addActionListener(new ActionListener() {
 			
 			@Override
@@ -189,7 +246,8 @@ public class RobotManagerGui extends JFrame {
 				}
 			}
 		});
-		
+	}
+	private void deleteMenuAction(){
 		deleteMenu.addActionListener(new ActionListener() {
 			
 			@Override
@@ -203,7 +261,8 @@ public class RobotManagerGui extends JFrame {
 				});
 			}
 		});
-		
+	}
+	private void configMenuAction(){
 		configMenu.addActionListener(new ActionListener() {
 			
 			@Override
@@ -217,14 +276,6 @@ public class RobotManagerGui extends JFrame {
 				});
 			}
 		});
-		
-		configMenu.add(configReg);
-		mnAr.add(updateMenu);
-		mnAr.add(addRobotMenu);
-		mnAr.add(deleteMenu);
-		menuBar.add(mnAr);
-		menuBar.add(configMenu);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	public static void  showMessage(String message){
 		JOptionPane.showMessageDialog(null, message, "Info",
@@ -326,6 +377,11 @@ public class RobotManagerGui extends JFrame {
 				InfoWindows infoWin=new InfoWindows("logs "+appinfo.getAlias(),logApp); 
 			}
 		});
+	}
+	
+	
+	public void setLogVisible(boolean visible){
+		logButton.setVisible(visible);
 	}
 	
 	

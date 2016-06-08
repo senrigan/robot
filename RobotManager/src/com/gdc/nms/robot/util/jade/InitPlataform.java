@@ -25,7 +25,6 @@ public class InitPlataform {
 	private static HashMap<String,AID> robotRegister;
 	private static HashMap<String,AID> robotToKill;
 	private static SRMAgentManager srmAgentManager;
-	private static AgentValidator agentValidator;
 	private InitPlataform(){
 
 	}

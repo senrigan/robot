@@ -17,17 +17,20 @@ public class SRMAgentManager {
 	public static final int KILLCODE=666;
 	private static   SRMAgent srmAgent;
 	private static AgentValidator agentValidator;
-	
+	private static StatusAgent staAgent;
 	
 	public void init(){
 		srmAgent=new SRMAgent();
 		agentValidator=new AgentValidator();
+		staAgent=new StatusAgent();
 		try {
 			//			AgentController agent = InitPlataform.getContainer().createNewAgent("srmagent","com.gdc.nms.robot.util.jade.SRMAgent",new Object[1]);
 			AgentController agent = InitPlataform.getContainer().acceptNewAgent("srmagent", srmAgent);
 			agent.start();
-			AgentController valid=InitPlataform.getContainer().acceptNewAgent("validagent", agentValidator);
-			valid.start();
+			agent=InitPlataform.getContainer().acceptNewAgent("validagent", agentValidator);
+			agent.start();
+			agent=InitPlataform.getContainer().acceptNewAgent("statusagent",staAgent);
+			agent.start();
 		} catch (StaleProxyException e) {
 			e.printStackTrace();
 		}
@@ -36,6 +39,11 @@ public class SRMAgentManager {
 	
 	public SRMAgent getAgent(){
 		return srmAgent;
+	}
+	
+	
+	public StatusAgent getStatusAgent(){
+		return staAgent;
 	}
 	
 	

@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.JTree;
+import javax.swing.SwingUtilities;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 
@@ -15,6 +18,9 @@ import com.gdc.nms.robot.util.indexer.FlujoInformation;
 import com.gdc.nms.robot.util.jade.InitPlataform;
 import com.gdc.nms.robot.util.jade.SRMAgent;
 import com.gdc.nms.robot.util.jade.SRMAgentManager;
+import com.gdc.nms.robot.util.jade.StatusAgent;
+import com.sun.org.apache.xerces.internal.util.Status;
+import com.sun.xml.internal.bind.v2.schemagen.xmlschema.Appinfo;
 
 import jade.core.AID;
 
@@ -28,8 +34,8 @@ public class TreeListener implements TreeSelectionListener{
 	@Override
 	public void valueChanged(TreeSelectionEvent e) {
 		Element app = (Element) tree.getLastSelectedPathComponent();
-		AppInformation appinfo = app.getAppinfo();
-		if(appinfo!=null){
+		AppInformation appInfo = app.getAppinfo();
+		if(appInfo!=null){
 			
 			
 			
@@ -45,28 +51,48 @@ public class TreeListener implements TreeSelectionListener{
 				gui.enableButton(ButtonType.START,true);
 
 			}
-			
+			gui.setLogVisible(true);
 //			HashMap<String, AID> mapToKill = InitPlataform.getMapToKill();
 //			HashMap<String, AID> robotRegister = InitPlataform.getRobotRegister();
 //			if(mapToKill.containsKey(appinfo.getAlias())){
 //				gui.enableButton(ButtonType.STOP, false);
 //				gui.enableButton(ButtonType.START, false);
 //			}
-			String proccesText = proccesText(appinfo);
+			String proccesText = proccesText(appInfo);
 //			if(robotRegister.containsKey(appinfo.getAlias())){
 //				gui.enableButton(ButtonType.STOP,true);
 //				gui.enableButton(ButtonType.START,false);
 //				proccesText+="\n"+getDataRobot(robotRegister.get(appinfo.getAlias()), "STA");
 //
 //			}
+			
 			gui.setInformation(proccesText);
+			getAgentInfo(appInfo);
 			
 		}
 		
 	}
 	
 	
-	
+	private void getAgentInfo(final AppInformation appInfo){
+		
+		SwingUtilities.invokeLater(new Runnable() {
+			
+			@Override
+			public void run() {
+				HashMap<String, AID> robotRegister = InitPlataform.getRobotRegister();
+				
+				if(robotRegister.containsKey(appInfo.getAlias())){
+					StatusAgent agent = InitPlataform.getAgentManager().getStatusAgent();
+					String status = agent.getStatus(robotRegister.get(appInfo.getAlias()));
+					gui.setInformation(status);
+				}else{
+					JOptionPane.showMessageDialog(null, "No es posible cumunicarse con el robot");
+				}
+				
+			}
+		});
+	}
 	private String getDataRobot(AID sender,String content){
 		SRMAgent agent = InitPlataform.getAgentManager().getAgent();
 		String senMessage = agent.senMessage(sender, content);
