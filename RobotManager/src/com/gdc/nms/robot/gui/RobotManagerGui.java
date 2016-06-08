@@ -3,6 +3,7 @@ package com.gdc.nms.robot.gui;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -17,6 +18,7 @@ import java.util.concurrent.CountDownLatch;
 
 import javax.lang.model.util.Elements;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
@@ -34,8 +36,10 @@ import com.gdc.nms.robot.gui.tree.TreeListener;
 import com.gdc.nms.robot.gui.tree.TreeModelElements;
 import com.gdc.nms.robot.util.AppExaminator;
 import com.gdc.nms.robot.util.Constants;
+import com.gdc.nms.robot.util.InfoRobotMaker;
 import com.gdc.nms.robot.util.ValidatorManagement;
 import com.gdc.nms.robot.util.indexer.AppInformation;
+import com.gdc.nms.robot.util.indexer.FlujoInformation;
 import com.gdc.nms.robot.util.jade.InitPlataform;
 import com.gdc.nms.robot.util.jade.SRMAgentManager;
 import com.gdc.nms.robot.util.registry.CommandExecutor;
@@ -198,17 +202,16 @@ public class RobotManagerGui extends JFrame {
 	
 	private void addFlujoMenuAction(){
 		addFlujoMenu.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				SwingUtilities.invokeLater(new new Runnable() {
-					public void run() {
-						
-					}
-				});
+				
 			}
+			
 		});
+			
 	}
+		
 	private void addRobotMenuAction(){
 		addRobotMenu.addActionListener(new ActionListener() {
 			@Override

@@ -30,7 +30,10 @@ import com.gdc.nms.robot.util.registry.CommandExecutor;
 
 
 public class AppExaminator {
-	
+	/**
+	 * 
+	 * @return a list of all elements with information of application installed in data folder
+	 */
 	public static ArrayList<AppInformation> getInstalledApps(){
 		ArrayList<AppInformation> apps=new ArrayList<AppInformation>();
 		try {

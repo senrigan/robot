@@ -154,6 +154,16 @@ public class InstallerRobotPanel extends JFrame {
 		
 	}
 	
+	public void addFlujosServices(final InfoRobotMaker infoRobotM){
+		Path data=infoRobotM.getDataFolder();
+		final ArrayList<FlujoInformation> validFlujos=infoRobotM.getFlujos();
+		final AppJsonObject selectedItem=infoRobotM.getAppSelected();
+		if(checkIfExistApp(selectedItem.getAlias(), selectedItem.getId())){
+			JOptionPane.showMessageDialog(null, "Se ha detectado Que la aplicacion Ya se Encuentra Instalada Solo se procedera a Agregar Nuevos Flujos", "Correcto", JOptionPane.INFORMATION_MESSAGE);
+			addFiles=true;
+		}
+	}
+	
 	public void createFlujosWithData(final InfoRobotMaker infoRobotM ){
 		Path data=infoRobotM.getDataFolder();
 		final ArrayList<FlujoInformation> validFlujos=infoRobotM.getFlujos();
