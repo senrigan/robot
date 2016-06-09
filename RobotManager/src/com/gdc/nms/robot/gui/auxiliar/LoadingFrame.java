@@ -1,4 +1,4 @@
-package com.gdc.nms.robot.gui;
+package com.gdc.nms.robot.gui.auxiliar;
 
 
 

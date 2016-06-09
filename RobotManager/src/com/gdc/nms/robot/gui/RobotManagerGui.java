@@ -17,6 +17,7 @@ import java.util.concurrent.CountDownLatch;
 
 import javax.lang.model.util.Elements;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
@@ -29,6 +30,9 @@ import javax.swing.SwingUtilities;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 
+import com.gdc.nms.robot.gui.auxiliar.CheckBoxList;
+import com.gdc.nms.robot.gui.auxiliar.LoadingFrame;
+import com.gdc.nms.robot.gui.auxiliar.SelectorWindows;
 import com.gdc.nms.robot.gui.tree.Element;
 import com.gdc.nms.robot.gui.tree.TreeListener;
 import com.gdc.nms.robot.gui.tree.TreeModelElements;
@@ -201,13 +205,49 @@ public class RobotManagerGui extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				SwingUtilities.invokeLater(new new Runnable() {
+				SwingUtilities.invokeLater( new Runnable() {
 					public void run() {
-						
+						initSelectorWindowsAddFlujos();
 					}
 				});
 			}
 		});
+	}
+	
+	
+	private void initSelectorWindowsAddFlujos(){
+		SelectorWindows frame = new SelectorWindows();
+		frame.setTitleWindows("gola");
+		frame.setInstructionLabel("seleccionea algo");
+//		JButton button=new JButton("hola");
+
+		final CheckBoxList cbList = new CheckBoxList();
+	    JCheckBox check1 = new JCheckBox("One");
+	    JCheckBox check2 = new JCheckBox("two");
+	    JCheckBox[] myList = { check1, check2};
+	    cbList.setListData(myList);
+		frame.setContent(cbList);
+		
+		ActionListener listener=new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ArrayList<JCheckBox> selectedCheckBox = cbList.getSelectedCheckBox();
+				System.out.println("selected items are "+selectedCheckBox);
+			}
+		};
+		listener=new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JButton source = (JButton)e.getSource();
+				System.out.println(source.getText());
+				JFrame root = (JFrame)SwingUtilities.getRoot(source);
+				root.dispose();
+			}
+		};
+		frame.setContinueAction(listener);
+		frame.setCancelAction(listener);
 	}
 	private void addRobotMenuAction(){
 		addRobotMenu.addActionListener(new ActionListener() {

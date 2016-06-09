@@ -9,16 +9,26 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import java.util.zip.ZipException;
 
 import org.apache.commons.io.FileUtils;
 
 import com.gdc.nms.robot.gui.ResultUpdate;
 import com.gdc.nms.robot.gui.RobotManager;
+import com.gdc.nms.robot.gui.auxiliar.UpdateTask;
 import com.gdc.nms.robot.util.indexer.AppInformation;
+import com.gdc.nms.robot.util.jade.InitPlataform;
+import com.gdc.nms.robot.util.jade.SRMAgentManager;
+
+import jade.core.AID;
 
 public class UpdaterRobot {
-		public  long getRobotID(Path jarPath){
+		public static  long getRobotID(Path jarPath){
 		    	long robotID=-1;
 		    	try {
 		        	URL url = new URL("jar:file:"+jarPath.toString()+"!/META-INF/robot.properties");
@@ -43,7 +53,12 @@ public class UpdaterRobot {
 	    
 	    	
 	    	
-	    	
+	   /**
+	    * check if the jar file contains robot.properties
+	    * @param jarPath
+	    * @return
+	    * @throws IOException
+	    */
 	   public  boolean isValidRobot(Path jarPath) throws IOException{
 		URL url = new URL("jar:file:"+jarPath.toString()+"!/META-INF/robot.properties");
        	System.out.println(url.toString());
@@ -57,8 +72,12 @@ public class UpdaterRobot {
        	return true;
 	   }
 	   
-	   
-	   public Path getRobotPath(File file){
+	   /**
+	    * return the fist .jar found .zip
+	    * @param file
+	    * @return
+	    */
+	   public Path getUpdateRoboFilestPath(File file){
 		   Path tempPath = Environment.getTempPath();
 		   Path updateFolder = tempPath.resolve(Constants.UPDATEROBOTEMP);
 		   try{
@@ -94,7 +113,7 @@ public class UpdaterRobot {
 	   
 	 public void copyJarInMonitor(Path path ) throws IOException{
 		 Path installationPath = RobotManager.getInstallationPath();
-		 Path botPath = installationPath.resolve("inMonitor").resolve("bot-1.0.jar");
+		 Path botPath = installationPath.resolve("inMonitor").resolve("bot.jar");
 		 if(Files.exists(botPath)){
 			 	System.out.println("borrando el bothPath");
 				FileUtils.forceDelete(botPath.toFile());
@@ -118,22 +137,26 @@ public class UpdaterRobot {
 		 Path robotPath = installationPath.resolve("inMonitor").resolve(Constants.JARNAME);
 		 ArrayList<AppInformation> installedApp = RobotManager.getInstalledApp();
 		 Path data = installationPath.resolve("data");
+		 ExecutorService ex=Executors.newFixedThreadPool(5);
+		 
 		 for (AppInformation appInformation : installedApp) {
 			Path appFolder = data.resolve(appInformation.getAppName());
-			if(Files.exists(appFolder)){
-				resultUpdate.appendText("\n Procesando Aplicacion "+appInformation.getAppName());
-				Path installedBot=appFolder.resolve(Constants.JARNAME);
-				long robotID = getRobotID(installationPath);
-				resultUpdate.appendText("\n Leyendo Datos del Robot "+robotID);
-				CreatorRobotManager creator=new CreatorRobotManager();
-				Path propertiesPath=installationPath.resolve("inMonitor").resolve("robot.properties");
-				resultUpdate.appendText(" \n \tModificando archivo de propiedades");
-				creator.modifyFileRobotId(robotID, robotPath);
-				
-				
-					resultUpdate.appendText(" \n \tAgregando Archivo de Propiedades");
-
-					creator.modifyJar(robotPath, propertiesPath, Constants.PROPERTIESJARBOT);
+			HashMap<String, AID> robotRegister = InitPlataform.getRobotRegister();
+			if(robotRegister.containsKey(appInformation.getAlias())){
+				ex.execute(new UpdateTask(robotRegister.get(appInformation.getAlias()), resultUpdate, appFolder, appInformation));
+			}else{
+				if(Files.exists(appFolder)){
+					resultUpdate.appendText("\n Procesando Aplicacion "+appInformation.getAppName());
+					Path installedBot=appFolder.resolve(Constants.JARNAME);
+					long robotID = getRobotID(installationPath);
+					resultUpdate.appendText("\n Leyendo Datos del Robot "+robotID);
+					CreatorRobotManager creator=new CreatorRobotManager();
+					Path propertiesPath=installationPath.resolve("inMonitor").resolve("robot.properties");
+					resultUpdate.appendText(" \n \tModificando archivo de propiedades");
+					CreatorRobotManager.updateRobot(robotPath, robotID);
+//					creator.modifyFileRobotId(robotID, robotPath);
+//					resultUpdate.appendText(" \n \tAgregando Archivo de Propiedades");
+//					creator.modifyJar(robotPath, propertiesPath, Constants.PROPERTIESJARBOT);
 					if(robotID==getRobotID(robotPath)){
 						resultUpdate.appendText("\n \t Borrando robot ");
 						FileUtils.forceDelete(installedBot.toFile());
@@ -143,10 +166,18 @@ public class UpdaterRobot {
 					}else{
 						
 					}
+						
 					
-				
-				
+					
+				}
+
 			}
+		}
+		 try {
+			ex.awaitTermination(Long.MAX_VALUE, TimeUnit.SECONDS);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		 
 		 

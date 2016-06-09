@@ -10,6 +10,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Set;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
@@ -19,7 +20,6 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.plaf.synth.SynthSeparatorUI;
 
 import com.gdc.nms.robot.Main;
 import com.gdc.nms.robot.util.AppExaminator;
@@ -29,11 +29,13 @@ import com.gdc.nms.robot.util.RobotInformation;
 import com.gdc.nms.robot.util.VirtualMachineExaminator;
 import com.gdc.nms.robot.util.indexer.AppInformation;
 import com.gdc.nms.robot.util.jade.InitPlataform;
+import com.gdc.nms.robot.util.jade.SRMAgentManager;
 import com.gdc.nms.robot.util.registry.CommandExecutor;
 import com.gdc.nms.robot.util.registry.CommandExecutor.REGISTRY_TYPE;
-import com.gdc.robothelper.webservice.SisproRobotManagerHelper;
 import com.gdc.robothelper.webservice.SisproRobotManagerHelperService;
 import com.gdc.robothelper.webservice.robot.Webservice;
+
+import jade.core.AID;
 
 public class RobotManager extends JFrame {
 	/**
@@ -443,12 +445,14 @@ public class RobotManager extends JFrame {
 		}
 	}
 	public static void stopAllRobots() throws Exception{
-		ArrayList<RobotInformation> runningRobot = VirtualMachineExaminator.getRunningRobot();
-		for (RobotInformation robotInformation : runningRobot) {
-			
-				stopRobot(robotInformation.getRobotId());
+		HashMap<String, AID> robotRegister = InitPlataform.getRobotRegister();
+		Set<String> keySet = robotRegister.keySet();
+		for (String string : keySet) {
+			AID aid = robotRegister.get(string);
+			SRMAgentManager.stopAgent(aid);
 			
 		}
+		
 	}
 	private static boolean stopJar(final long pid){
 		valueStop=false;

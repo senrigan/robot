@@ -166,7 +166,7 @@ public class UpadaterRobotPanel extends JFrame {
 					File selectedFile = chooser.getSelectedFile();
 					if(selectedFile.getName().endsWith(".zip")){
 						UpdaterRobot updater=new UpdaterRobot();
-						Path robotPath = updater.getRobotPath(selectedFile);
+						Path robotPath = updater.getUpdateRoboFilestPath(selectedFile);
 						try{
 							if(updater.isValidRobot(robotPath)){
 							

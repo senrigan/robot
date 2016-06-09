@@ -7,7 +7,10 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 
+import com.gdc.nms.robot.gui.auxiliar.LoadingFrame;
+import com.gdc.nms.robot.util.AppExaminator;
 import com.gdc.nms.robot.util.ValidatorManagement;
+import com.gdc.nms.robot.util.indexer.AppInformation;
 import com.gdc.nms.robot.util.indexer.AppJsonObject;
 
 import java.awt.GridBagLayout;
@@ -68,6 +71,17 @@ public class SelectorApp extends JFrame {
 		setApplicationNames();
 //		setTestApplicatioNames();
 		setButtonListener();
+	}
+	
+	
+	public SelectorApp(boolean addFlujos){
+		init();
+		if(addFlujos){
+			setInstalledApplicationNames();
+		}else{
+			new SelectorApp();
+		}
+		
 	}
 	
 	
@@ -139,6 +153,41 @@ public class SelectorApp extends JFrame {
 //			String alias = appJsonObject.getAlias();
 			comboBox.addItem(appJsonObject);
 		}
+	}
+	
+	
+	private void setInstalledApplicationNames(){
+		ArrayList<AppInformation> installedApps = AppExaminator.getInstalledApps();
+		AppJsonObject obj;
+		for (AppInformation appInformation : installedApps) {
+			obj=new AppJsonObject();
+			obj.setAlias(appInformation.getAlias());
+			obj.setId(appInformation.getIdRobot());
+			comboBox.addItem(obj);
+		}
+	}
+	
+	private void setButtonListerInstalledApplication(){
+	cancelButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				closeWindows();
+			}
+		});
+		
+		continueButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				AppJsonObject selectedItem = (AppJsonObject) comboBox.getSelectedItem();
+				LoadingFrame loading=new LoadingFrame();
+				System.out.println("se selecciono la app"+selectedItem.getAlias()+"id"+selectedItem.getId());
+				DateSelectorPanel dateSelector=new DateSelectorPanel(selectedItem);
+				loading.close();
+				closeWindows();
+			}
+		});
 	}
 	
 //	private void setTestApplicatioNames(){
