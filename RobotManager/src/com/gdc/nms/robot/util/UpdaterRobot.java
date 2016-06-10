@@ -176,7 +176,6 @@ public class UpdaterRobot {
 		 try {
 			ex.awaitTermination(Long.MAX_VALUE, TimeUnit.SECONDS);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		 

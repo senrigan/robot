@@ -191,7 +191,7 @@ public class DateSelectorPanel extends JFrame {
 							
 							@Override
 							public void run() {
-								installer.createFlujosWithData(infoRobotM);
+								installer.initSelectorWindowsAddFlujos(infoRobotM);;
 
 							}
 						});
@@ -213,7 +213,7 @@ public class DateSelectorPanel extends JFrame {
 							
 							@Override
 							public void run() {
-								installer.createFlujosWithoutData(infoRobotM);
+								installer.initSelectorWindowsAddFlujos(infoRobotM);
 								
 
 							}
@@ -232,6 +232,9 @@ public class DateSelectorPanel extends JFrame {
 			}
 		});
 	}
+	
+	
+	
 	
 	
 	private DateTimePicker getDatePickerElement(){

@@ -63,6 +63,14 @@ public class UpadaterRobotPanel extends JFrame {
 	public UpadaterRobotPanel() {
 		initComponents();
 		setListener();
+		if(!ResultUpdate.isActiveUpdate()){
+		}else{
+			searchButton.setEnabled(false);
+			continueButton.setEnabled(false);
+			JOptionPane.showMessageDialog(null, "Existe una actualizacion en curso","Error",JOptionPane.ERROR_MESSAGE);
+			this.dispose();
+		}
+			
 	}
 	
 	

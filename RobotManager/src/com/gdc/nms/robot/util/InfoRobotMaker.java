@@ -14,6 +14,10 @@ public class InfoRobotMaker {
 	private Date dateForRun;
 	private int timeLapse;
 	private int retries;
+	/**
+	 * 
+	 * @return a path of folder with contains a files for run flujos
+	 */
 	public Path getDataFolder() {
 		return dataFolder;
 	}

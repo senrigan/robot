@@ -7,11 +7,15 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import com.gdc.nms.robot.gui.auxiliar.CheckBoxList;
+import com.gdc.nms.robot.gui.auxiliar.SelectorWindows;
+import com.gdc.nms.robot.util.AppExaminator;
 import com.gdc.nms.robot.util.CreatorRobotManager;
 import com.gdc.nms.robot.util.InfoRobotMaker;
 import com.gdc.nms.robot.util.indexer.AppInformation;
 import com.gdc.nms.robot.util.indexer.AppJsonObject;
 import com.gdc.nms.robot.util.indexer.FlujoInformation;
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Collections;
 
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
@@ -21,11 +25,13 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.SwingUtilities;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Vector;
 import java.awt.event.ActionEvent;
 import javax.swing.JCheckBox;
 
@@ -194,6 +200,83 @@ public class InstallerRobotPanel extends JFrame {
 			closeWindows();
 		}
 	}
+	
+	
+	public void initSelectorWindowsAddFlujos(final InfoRobotMaker infoMaker){
+		SelectorWindows frame = new SelectorWindows();
+		frame.setTitleWindows("Instalador Robot");
+		frame.setInstructionLabel("seleccionea las carpetas a añadir ");
+//		JButton button=new JButton("hola");
+
+		final CheckBoxList cbList = new CheckBoxList();
+		JCheckBox[] jcheckList=(JCheckBox[]) getInstalledApplicationTocheckBox().toArray();
+	    cbList.setListData(jcheckList);
+		frame.setContent(cbList);
+		
+		ActionListener listener=new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ArrayList<JCheckBox> selectedCheckBox = cbList.getSelectedCheckBox();
+				ArrayList<FlujoInformation> flujos = infoMaker.getFlujos();
+				Path dataFolder = infoMaker.getDataFolder();
+				ArrayList<FlujoInformation> newFlujos=new ArrayList<FlujoInformation>();
+				String dataName="data";
+				InfoRobotMaker modifiedInfoRobotMaker=new InfoRobotMaker();
+				modifiedInfoRobotMaker.setAppSelected(infoMaker.getAppSelected());
+				modifiedInfoRobotMaker.setDateForRun(infoMaker.getDateForRun());
+				modifiedInfoRobotMaker.setRetries(infoMaker.getRetries());
+				modifiedInfoRobotMaker.setTimeLapse(infoMaker.getTimeLapse());
+				for (JCheckBox jCheckBox : selectedCheckBox) {
+					for (FlujoInformation flujo : flujos) {
+						String flujName=flujo.getName();
+						if(flujName.equalsIgnoreCase(jCheckBox.getText())){
+							newFlujos.add(flujo);
+						}
+						break;
+					}
+					if(jCheckBox.getText().equalsIgnoreCase(dataName)){
+						modifiedInfoRobotMaker.setDataFolder(infoMaker.getDataFolder());
+					}
+				}
+				modifiedInfoRobotMaker.setFlujos(newFlujos);
+				CreatorRobotManager creator=new CreatorRobotManager();
+				if(creator.createRobotWithPath(modifiedInfoRobotMaker ,false)){
+					JOptionPane.showMessageDialog(null,
+							"La carpeta fue insatalada correctamente.", "Correcto", JOptionPane.INFORMATION_MESSAGE);
+				}else{
+					JOptionPane.showMessageDialog(null,
+							 "No fue posible Instalar la aplicacion Correctamente","Error.", JOptionPane.ERROR_MESSAGE);
+
+				}
+			}
+		};
+		frame.setContinueAction(listener);
+		listener=new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JButton source = (JButton)e.getSource();
+				System.out.println(source.getText());
+				JFrame root = (JFrame)SwingUtilities.getRoot(source);
+				root.dispose();
+			}
+		};
+		frame.setCancelAction(listener);
+	}
+	
+	
+	private Vector<JCheckBox> getInstalledApplicationTocheckBox(){
+		ArrayList<AppInformation> installedApps = AppExaminator.getInstalledApps();
+		JCheckBox checkBox;
+		java.util.Collections.sort(installedApps);
+		Vector<JCheckBox> listJcheckbox=new Vector();
+		for (AppInformation appInformation : installedApps) {
+			checkBox=new JCheckBox(appInformation.getAlias());
+			listJcheckbox.add(checkBox);
+		}
+		return listJcheckbox;
+	}
 	public void createFlujosWithoutData(final InfoRobotMaker infoRobot){
 		final  ArrayList<FlujoInformation> validFlujos=infoRobot.getFlujos();
 		final AppJsonObject selectedItem=infoRobot.getAppSelected();
@@ -218,8 +301,6 @@ public class InstallerRobotPanel extends JFrame {
 					CreatorRobotManager creator=new CreatorRobotManager();
 
 					if(creator.createRobot(infoRobot,addFilesRobot)){
-						
-						
 						JOptionPane.showMessageDialog(null, "La carpeta fue insatalada correctamente.", "Correcto", JOptionPane.INFORMATION_MESSAGE);
 					}else{
 						JOptionPane.showMessageDialog(null,

@@ -13,6 +13,7 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
+import javax.xml.namespace.QName;
 import javax.xml.ws.WebServiceException;
 
 import com.gdc.nms.robot.gui.RobotManager;
@@ -206,7 +207,11 @@ public class CreatorRobotWebService {
 //		}
 		
 		
+	
 	}
+	
+	
+	
 	
 	
 	

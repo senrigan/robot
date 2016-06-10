@@ -19,6 +19,7 @@ import javax.xml.ws.WebServiceException;
 import com.gdc.nms.robot.util.Constants;
 import com.gdc.nms.robot.util.registry.CommandExecutor;
 
+
 public class ClientWebService {
 
 	
@@ -91,12 +92,12 @@ public class ClientWebService {
 	}
 	
 	public static void main(String[] args) throws InterruptedException {
-		boolean existeConexion = ClientWebService.existeConexion("http://samyg2test.sispro.mx:8080/helper/SRMHelper?wsdl");
+		boolean existeConexion = ClientWebService.existeConexion("http://samyg2pp.sispro.mx:8080/helper/SRMHelper?wsdl");
 		System.out.println(existeConexion);
 	}
 	public static Object getWebService(String wsdlLocation) {
 	    try {
-	        QName qname = new QName("http://ec.gob.sri.ws.recepcion", "RecepcionComprobantesService");
+	        QName qname = new QName("http://webservice.samyg.gdc.com/", "SisproRobotManagerHelperService");
 	        URL url = new URL(wsdlLocation);
 	        SisproRobotManagerHelperService service = new SisproRobotManagerHelperService(url, qname);
 	        return null;
@@ -170,5 +171,7 @@ public class ClientWebService {
         // set the  allTrusting verifier
         HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
 }
+	
+
 
 }

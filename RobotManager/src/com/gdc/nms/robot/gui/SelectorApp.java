@@ -74,15 +74,7 @@ public class SelectorApp extends JFrame {
 	}
 	
 	
-	public SelectorApp(boolean addFlujos){
-		init();
-		if(addFlujos){
-			setInstalledApplicationNames();
-		}else{
-			new SelectorApp();
-		}
-		
-	}
+
 	
 	
 	private  void init(){
@@ -156,39 +148,9 @@ public class SelectorApp extends JFrame {
 	}
 	
 	
-	private void setInstalledApplicationNames(){
-		ArrayList<AppInformation> installedApps = AppExaminator.getInstalledApps();
-		AppJsonObject obj;
-		for (AppInformation appInformation : installedApps) {
-			obj=new AppJsonObject();
-			obj.setAlias(appInformation.getAlias());
-			obj.setId(appInformation.getIdRobot());
-			comboBox.addItem(obj);
-		}
-	}
 	
-	private void setButtonListerInstalledApplication(){
-	cancelButton.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				closeWindows();
-			}
-		});
-		
-		continueButton.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				AppJsonObject selectedItem = (AppJsonObject) comboBox.getSelectedItem();
-				LoadingFrame loading=new LoadingFrame();
-				System.out.println("se selecciono la app"+selectedItem.getAlias()+"id"+selectedItem.getId());
-				DateSelectorPanel dateSelector=new DateSelectorPanel(selectedItem);
-				loading.close();
-				closeWindows();
-			}
-		});
-	}
+	
+
 	
 //	private void setTestApplicatioNames(){
 //		for (int i = 0; i < 10; i++) {

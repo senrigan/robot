@@ -42,8 +42,10 @@ import com.gdc.nms.robot.util.ValidatorManagement;
 import com.gdc.nms.robot.util.indexer.AppInformation;
 import com.gdc.nms.robot.util.jade.InitPlataform;
 import com.gdc.nms.robot.util.jade.SRMAgentManager;
+import com.gdc.nms.robot.util.jade.StatusAgent;
 import com.gdc.nms.robot.util.registry.CommandExecutor;
 import com.sun.jmx.mbeanserver.JmxMBeanServerBuilder;
+import com.sun.xml.internal.bind.v2.schemagen.xmlschema.Appinfo;
 
 import jade.core.AID;
 
@@ -182,7 +184,7 @@ public class RobotManagerGui extends JFrame {
 		configMenu.add(configReg);
 		mnAr.add(updateMenu);
 		mnAr.add(addRobotMenu);
-		mnAr.add(addFlujoMenu);
+//		mnAr.add(addFlujoMenu);
 		mnAr.add(deleteMenu);
 		menuBar.add(mnAr);
 		menuBar.add(configMenu);
@@ -207,7 +209,7 @@ public class RobotManagerGui extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				SwingUtilities.invokeLater( new Runnable() {
 					public void run() {
-						initSelectorWindowsAddFlujos();
+						//initSelectorWindowsddFlujos();
 					}
 				});
 			}
@@ -215,40 +217,7 @@ public class RobotManagerGui extends JFrame {
 	}
 	
 	
-	private void initSelectorWindowsAddFlujos(){
-		SelectorWindows frame = new SelectorWindows();
-		frame.setTitleWindows("gola");
-		frame.setInstructionLabel("seleccionea algo");
-//		JButton button=new JButton("hola");
-
-		final CheckBoxList cbList = new CheckBoxList();
-	    JCheckBox check1 = new JCheckBox("One");
-	    JCheckBox check2 = new JCheckBox("two");
-	    JCheckBox[] myList = { check1, check2};
-	    cbList.setListData(myList);
-		frame.setContent(cbList);
-		
-		ActionListener listener=new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				ArrayList<JCheckBox> selectedCheckBox = cbList.getSelectedCheckBox();
-				System.out.println("selected items are "+selectedCheckBox);
-			}
-		};
-		listener=new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				JButton source = (JButton)e.getSource();
-				System.out.println(source.getText());
-				JFrame root = (JFrame)SwingUtilities.getRoot(source);
-				root.dispose();
-			}
-		};
-		frame.setContinueAction(listener);
-		frame.setCancelAction(listener);
-	}
+	
 	private void addRobotMenuAction(){
 		addRobotMenu.addActionListener(new ActionListener() {
 			@Override
@@ -409,14 +378,44 @@ public class RobotManagerGui extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Element element = (Element) appTree.getLastSelectedPathComponent();
-				AppInformation appinfo = element.getAppinfo();
-				Path path = Paths.get(appinfo.getFolderPath());
-				path=path.resolve("robot.log");
-				String logApp = readLogFile(path);
-				InfoWindows infoWin=new InfoWindows("logs "+appinfo.getAlias(),logApp); 
+				SwingUtilities.invokeLater(new  Runnable() {
+					public void run() {
+						AppInformation appinfo = getSelectedAppInformation();
+						Path path = Paths.get(appinfo.getFolderPath());
+						path=path.resolve("robot.log");
+						String logApp = readLogFile(path);
+						InfoWindows infoWin=new InfoWindows("logs "+appinfo.getAlias(),logApp); 
+						
+					}
+				});
 			}
 		});
+		
+		
+		getRobotDataButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				SwingUtilities.invokeLater(new Runnable() {
+					
+					@Override
+					public void run() {
+						AppInformation selectedAppInformation = getSelectedAppInformation();
+						String agentInfo = SRMAgentManager.getAgentInfo(selectedAppInformation);
+						System.out.println("Agent info"+agentInfo);
+						setInformation(agentInfo);
+						
+					}
+				});
+			}
+		});
+	}
+	
+	
+	public AppInformation getSelectedAppInformation(){
+		Element element = (Element) appTree.getLastSelectedPathComponent();
+		AppInformation appinfo = element.getAppinfo();
+		return appinfo;
 	}
 	
 	
