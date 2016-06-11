@@ -1,5 +1,12 @@
 package com.gdc.nms.robot.util.jade;
 
+import java.util.HashMap;
+
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
+
+import com.gdc.nms.robot.util.indexer.AppInformation;
+
 import jade.core.AID;
 import jade.wrapper.AgentController;
 import jade.wrapper.StaleProxyException;
@@ -50,5 +57,27 @@ public class SRMAgentManager {
 	public static  boolean  stopAgent(AID agent){
 		srmAgent.senMessageToKill(agent);
 		return true;
+	}
+	
+	
+	public static String getAgentInfo(final AppInformation appInfo){
+		final StringBuilder infoAgent=new StringBuilder();
+		
+			
+			
+		HashMap<String, AID> robotRegister = InitPlataform.getRobotRegister();
+		
+		if(robotRegister.containsKey(appInfo.getAlias())){
+			StatusAgent agent = InitPlataform.getAgentManager().getStatusAgent();
+			String status = agent.getStatus(robotRegister.get(appInfo.getAlias()));
+			infoAgent.append(status);
+		}else{
+			JOptionPane.showMessageDialog(null, "No es posible cumunicarse con el robot");
+		}
+				
+			
+	
+		
+		return infoAgent.toString();
 	}
 }

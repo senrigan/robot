@@ -115,7 +115,8 @@ public class CreatorRobotManager {
 	private boolean createNewRobot(){
 		System.out.println("//// calculateInitDateWebServices"+ getInitDateForWebServices());
 		String location=RobotManager.getUbication();
-		String idRobot = CreatorRobotWebService.getIdRobot(applicationName, "0", location, ""+idApp, ""+retries,""+timeLapse, getInitDateForWebServices(),"");
+		String idFlujos=getIdFlujos();
+		String idRobot = CreatorRobotWebService.getIdRobot(applicationName, "0", location, ""+idApp, ""+retries,""+timeLapse, getInitDateForWebServices(),idFlujos);
 		try{
 			realRobot=Long.parseLong(idRobot);
 			System.out.println(realRobot);
@@ -148,6 +149,16 @@ public class CreatorRobotManager {
 		return false;
 	}
 	
+	private String getIdFlujos(){
+		String flujosId="";
+		for(FlujoInformation flujo:flujos){
+			flujosId+=""+flujo.getIdFlujo()+",";
+		}
+		if(flujosId.endsWith(",")){
+			flujosId=flujosId.substring(0, flujosId.length()-1);
+		}
+		return flujosId;
+	}
 	
 	private String getInitDateForWebServices(){
 		SimpleDateFormat formate=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

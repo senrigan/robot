@@ -6,6 +6,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ import java.util.concurrent.CountDownLatch;
 import javax.lang.model.util.Elements;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
@@ -31,19 +33,28 @@ import javax.swing.SwingUtilities;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 
+import com.gdc.nms.robot.gui.auxiliar.CheckBoxList;
+import com.gdc.nms.robot.gui.auxiliar.LoadingFrame;
+import com.gdc.nms.robot.gui.auxiliar.SelectorWindows;
 import com.gdc.nms.robot.gui.tree.Element;
 import com.gdc.nms.robot.gui.tree.TreeListener;
 import com.gdc.nms.robot.gui.tree.TreeModelElements;
 import com.gdc.nms.robot.util.AppExaminator;
 import com.gdc.nms.robot.util.Constants;
 import com.gdc.nms.robot.util.InfoRobotMaker;
+import com.gdc.nms.robot.util.CreatorRobotManager;
 import com.gdc.nms.robot.util.ValidatorManagement;
 import com.gdc.nms.robot.util.indexer.AppInformation;
 import com.gdc.nms.robot.util.indexer.FlujoInformation;
 import com.gdc.nms.robot.util.jade.InitPlataform;
 import com.gdc.nms.robot.util.jade.SRMAgentManager;
+import com.gdc.nms.robot.util.jade.StatusAgent;
 import com.gdc.nms.robot.util.registry.CommandExecutor;
+import com.gdc.robothelper.webservice.ClientWebService;
+import com.gdc.robothelper.webservice.robot.CreatorRobotWebService;
+import com.gdc.robothelper.webservice.robot.Webservice;
 import com.sun.jmx.mbeanserver.JmxMBeanServerBuilder;
+import com.sun.xml.internal.bind.v2.schemagen.xmlschema.Appinfo;
 
 import jade.core.AID;
 
@@ -182,7 +193,7 @@ public class RobotManagerGui extends JFrame {
 		configMenu.add(configReg);
 		mnAr.add(updateMenu);
 		mnAr.add(addRobotMenu);
-		mnAr.add(addFlujoMenu);
+//		mnAr.add(addFlujoMenu);
 		mnAr.add(deleteMenu);
 		menuBar.add(mnAr);
 		menuBar.add(configMenu);
@@ -206,12 +217,17 @@ public class RobotManagerGui extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
+				SwingUtilities.invokeLater( new Runnable() {
+					public void run() {
+						//initSelectorWindowsddFlujos();
+					}
+				});
 			}
 			
 		});
 			
 	}
-		
+
 	private void addRobotMenuAction(){
 		addRobotMenu.addActionListener(new ActionListener() {
 			@Override
@@ -220,15 +236,45 @@ public class RobotManagerGui extends JFrame {
 				SwingUtilities.invokeLater(new Runnable() {
 					@Override
 					public void run() {
+						System.out.println("servicio de consulta"+checkWebServicesConsult());
+						System.out.println("consultando servicio de creacion"+checkWebServicesCreator());
+							if(checkWebServicesConsult() && checkWebServicesCreator()){
+								SelectorApp selector = new SelectorApp();
+								selector.setVisible(true);
 
-							SelectorApp selector = new SelectorApp();
-							selector.setVisible(true);
-
+							}else{
+								JOptionPane.showMessageDialog(null, "No es posible conectar con el servidor","Error",JOptionPane.ERROR_MESSAGE);
+							}
+							
 					}
 				});
 
 			}
 		});
+	}
+	
+	
+	private boolean checkWebServicesCreator(){
+		URL webServicesCreator = CreatorRobotWebService.getWebServicesCreator();
+		if(webServicesCreator!=null){
+			System.out.println("consultando webservices"+webServicesCreator);
+			return CreatorRobotWebService.existeConexion(webServicesCreator.toString());
+		}else{
+			webServicesCreator=Webservice.getUrl();
+			System.out.println("consultando webservices"+webServicesCreator);
+			return CreatorRobotWebService.existeConexion(webServicesCreator.toString());
+		}
+	}
+	
+	private boolean checkWebServicesConsult(){
+		URL webServicesConsult = ClientWebService.getWebServicesConsult();
+		if(webServicesConsult!=null){
+			System.out.println("comprobando webservices"+webServicesConsult);
+			return ClientWebService.existeConexion(webServicesConsult.toString());
+		}else{
+			webServicesConsult=Webservice.getUrl();
+			return ClientWebService.existeConexion(webServicesConsult.toString());
+		}
 	}
 	private void updateMenuAction(){
 		updateMenu.addActionListener(new ActionListener() {
@@ -257,8 +303,13 @@ public class RobotManagerGui extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				SwingUtilities.invokeLater( new Runnable() {
 					public void run() {
-						DeleteRobotPanel deleterPanel=new DeleteRobotPanel();
-						deleterPanel.setVisible(true);
+						if(checkWebServicesCreator()){
+							DeleteRobotPanel deleterPanel=new DeleteRobotPanel();
+							deleterPanel.setVisible(true);							
+						}else{
+							JOptionPane.showMessageDialog(null, "No es posible conectar con el servidor","Error",JOptionPane.ERROR_MESSAGE);
+						}
+						
 						
 					}
 				});
@@ -372,14 +423,44 @@ public class RobotManagerGui extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Element element = (Element) appTree.getLastSelectedPathComponent();
-				AppInformation appinfo = element.getAppinfo();
-				Path path = Paths.get(appinfo.getFolderPath());
-				path=path.resolve("robot.log");
-				String logApp = readLogFile(path);
-				InfoWindows infoWin=new InfoWindows("logs "+appinfo.getAlias(),logApp); 
+				SwingUtilities.invokeLater(new  Runnable() {
+					public void run() {
+						AppInformation appinfo = getSelectedAppInformation();
+						Path path = Paths.get(appinfo.getFolderPath());
+						path=path.resolve("robot.log");
+						String logApp = readLogFile(path);
+						InfoWindows infoWin=new InfoWindows("logs "+appinfo.getAlias(),logApp); 
+						
+					}
+				});
 			}
 		});
+		
+		
+		getRobotDataButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				SwingUtilities.invokeLater(new Runnable() {
+					
+					@Override
+					public void run() {
+						AppInformation selectedAppInformation = getSelectedAppInformation();
+						String agentInfo = SRMAgentManager.getAgentInfo(selectedAppInformation);
+						System.out.println("Agent info"+agentInfo);
+						setInformation(agentInfo);
+						
+					}
+				});
+			}
+		});
+	}
+	
+	
+	public AppInformation getSelectedAppInformation(){
+		Element element = (Element) appTree.getLastSelectedPathComponent();
+		AppInformation appinfo = element.getAppinfo();
+		return appinfo;
 	}
 	
 	

@@ -63,6 +63,14 @@ public class UpadaterRobotPanel extends JFrame {
 	public UpadaterRobotPanel() {
 		initComponents();
 		setListener();
+		if(!ResultUpdate.isActiveUpdate()){
+		}else{
+			searchButton.setEnabled(false);
+			continueButton.setEnabled(false);
+			JOptionPane.showMessageDialog(null, "Existe una actualizacion en curso","Error",JOptionPane.ERROR_MESSAGE);
+			this.dispose();
+		}
+			
 	}
 	
 	
@@ -166,7 +174,7 @@ public class UpadaterRobotPanel extends JFrame {
 					File selectedFile = chooser.getSelectedFile();
 					if(selectedFile.getName().endsWith(".zip")){
 						UpdaterRobot updater=new UpdaterRobot();
-						Path robotPath = updater.getRobotPath(selectedFile);
+						Path robotPath = updater.getUpdateRoboFilestPath(selectedFile);
 						try{
 							if(updater.isValidRobot(robotPath)){
 							

@@ -31,6 +31,7 @@ public class ResultUpdate extends JFrame {
 	private JScrollPane scrollPane;
 	private JTextArea textInfo;
 	private JButton ContinueButton;
+	private static boolean isUpdateActive;
 
 
 
@@ -100,6 +101,7 @@ public class ResultUpdate extends JFrame {
 	public void initUpdate(Path folder){
 		UpdaterRobot updater=new UpdaterRobot();
 		try{
+			isUpdateActive=true;
 			appendText("Deteniendo Los Robots ...");
 			updater.stopAllRobots();
 			appendText("OK \n");
@@ -110,16 +112,25 @@ public class ResultUpdate extends JFrame {
 				appendText("Actualizando Robots ....");
 				updater.updateAllRobots(this);
 				appendText("actualizacion Completada");
+			
 			}catch (Exception e1) {
 				e1.printStackTrace();
 				JOptionPane.showMessageDialog(null,
 						"No es Posible Actualizar los archivos","Error.", JOptionPane.ERROR_MESSAGE);
 			}
 			
+			
 		}catch(Exception ex){
 			ex.printStackTrace();
 		}
+		isUpdateActive=false;
+
+			
 		
+	}
+		
+	public static boolean isActiveUpdate(){
+		return isUpdateActive;
 	}
 	
 	public void  setText(String text){

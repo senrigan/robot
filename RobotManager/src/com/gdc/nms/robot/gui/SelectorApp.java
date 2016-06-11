@@ -9,6 +9,8 @@ import javax.swing.border.EmptyBorder;
 
 import com.gdc.nms.robot.util.AppExaminator;
 import com.gdc.nms.robot.util.InfoRobotMaker;
+import com.gdc.nms.robot.gui.auxiliar.LoadingFrame;
+import com.gdc.nms.robot.util.AppExaminator;
 import com.gdc.nms.robot.util.ValidatorManagement;
 import com.gdc.nms.robot.util.indexer.AppInformation;
 import com.gdc.nms.robot.util.indexer.AppJsonObject;
@@ -83,6 +85,9 @@ public class SelectorApp extends JFrame {
 			new SelectorApp();
 		}
 	}
+	
+	
+
 	
 	
 	private  void init(){
@@ -164,6 +169,11 @@ public class SelectorApp extends JFrame {
 			comboBox.addItem(appJsonObject);
 		}
 	}
+	
+	
+	
+	
+
 	
 //	private void setTestApplicatioNames(){
 //		for (int i = 0; i < 10; i++) {

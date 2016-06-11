@@ -67,32 +67,13 @@ public class TreeListener implements TreeSelectionListener{
 //			}
 			
 			gui.setInformation(proccesText);
-			getAgentInfo(appInfo);
 			
 		}
 		
 	}
 	
 	
-	private void getAgentInfo(final AppInformation appInfo){
-		
-		SwingUtilities.invokeLater(new Runnable() {
-			
-			@Override
-			public void run() {
-				HashMap<String, AID> robotRegister = InitPlataform.getRobotRegister();
-				
-				if(robotRegister.containsKey(appInfo.getAlias())){
-					StatusAgent agent = InitPlataform.getAgentManager().getStatusAgent();
-					String status = agent.getStatus(robotRegister.get(appInfo.getAlias()));
-					gui.setInformation(status);
-				}else{
-					JOptionPane.showMessageDialog(null, "No es posible cumunicarse con el robot");
-				}
-				
-			}
-		});
-	}
+	
 	private String getDataRobot(AID sender,String content){
 		SRMAgent agent = InitPlataform.getAgentManager().getAgent();
 		String senMessage = agent.senMessage(sender, content);
