@@ -4,12 +4,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.Stack;
+import java.util.Vector;
 
+import javax.swing.tree.MutableTreeNode;
 import javax.swing.tree.TreeNode;
 
 import com.gdc.nms.robot.util.indexer.AppInformation;
 
-public  class Element implements TreeNode {
+public  class Element implements TreeNode{
 
         private List<Element> nodes;
         private Element parent;
@@ -43,6 +46,19 @@ public  class Element implements TreeNode {
         public void remove(Element node) {
             node.setParent(null);
             nodes.remove(node);
+        }
+        
+        
+        public void remove(int nodPosition[]){
+        	for (int i = 0; i < nodPosition.length; i++) {
+        		remove((Element)getChildAt(nodPosition[i]));
+			}
+        }
+        
+        public void remove(int nodPosition){
+        	
+        	remove((Element)getChildAt(nodPosition));
+			
         }
 
         @Override
@@ -95,7 +111,66 @@ public  class Element implements TreeNode {
 		public void setAppinfo(AppInformation appinfo) {
 			this.appinfo = appinfo;
 		}
-        
-        
+		public Enumeration preorderEnumeration()
+		  {
+		    return new PreorderEnumeration(this);
+		  }
+		  private final class PreorderEnumeration
+		    implements Enumeration<TreeNode>
+		  {
+		    private final Stack<Enumeration> stack = new Stack();
+		    
+		    public PreorderEnumeration(TreeNode paramTreeNode)
+		    {
+		      Vector localVector = new Vector(1);
+		      localVector.addElement(paramTreeNode);
+		      stack.push(localVector.elements());
+		    }
+		    
+		    public boolean hasMoreElements()
+		    {
+		      return (!stack.empty()) && (((Enumeration)stack.peek()).hasMoreElements());
+		    }
+		    
+		    public TreeNode nextElement()
+		    {
+		      Enumeration localEnumeration1 = (Enumeration)stack.peek();
+		      TreeNode localTreeNode = (TreeNode)localEnumeration1.nextElement();
+		      Enumeration localEnumeration2 = localTreeNode.children();
+		      if (!localEnumeration1.hasMoreElements()) {
+		        stack.pop();
+		      }
+		      if (localEnumeration2.hasMoreElements()) {
+		        stack.push(localEnumeration2);
+		      }
+		      return localTreeNode;
+		    }
+		  }
+		  
+		  public TreeNode[] getPath()
+		  {
+		    return getPathToRoot(this, 0);
+		  }
+		  
+		  protected TreeNode[] getPathToRoot(TreeNode paramTreeNode, int paramInt)
+		  {
+		    TreeNode[] arrayOfTreeNode;
+		    if (paramTreeNode == null)
+		    {
+		      if (paramInt == 0) {
+		        return null;
+		      }
+		      arrayOfTreeNode = new TreeNode[paramInt];
+		    }
+		    else
+		    {
+		      paramInt++;
+		      arrayOfTreeNode = getPathToRoot(paramTreeNode.getParent(), paramInt);
+		      arrayOfTreeNode[(arrayOfTreeNode.length - paramInt)] = paramTreeNode;
+		    }
+		    return arrayOfTreeNode;
+		  }
+
+	
         
     }

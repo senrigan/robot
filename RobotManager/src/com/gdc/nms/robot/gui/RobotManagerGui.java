@@ -880,11 +880,14 @@ public class RobotManagerGui extends JFrame {
 		case STOP:
 				stopButton.setEnabled(status);
 				break;
+		case LOG:
+				logButton.setEnabled(status);
+				break;
 		}
 	}
 	
 	public enum ButtonType{
-		START,STOP
+		START,STOP,LOG
 	}
 
 }

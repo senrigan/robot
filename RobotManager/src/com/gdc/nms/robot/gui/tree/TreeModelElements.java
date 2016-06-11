@@ -1,20 +1,27 @@
 package com.gdc.nms.robot.gui.tree;
 
 import javax.swing.event.TreeModelListener;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.MutableTreeNode;
 import javax.swing.tree.TreeModel;
+import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
-  public  class TreeModelElements implements TreeModel {
+
+import com.sun.tools.classfile.Annotation.element_value;
+  public  class TreeModelElements extends DefaultTreeModel {
 
         private Element data;
 
-        public TreeModelElements() {
-        	data = new Element("Aplication");
-        }
-        
+//        public TreeModelElements() {
+//        	data = new Element("Aplication");
+//        }
+//        
         public TreeModelElements(Element data) {
-
+        	super(data);
         	this.data=data;
         }
+        
+      
 
         @Override
         public Object getRoot() {
@@ -33,7 +40,21 @@ import javax.swing.tree.TreePath;
 
             return null;
         }
-
+        
+        public void removeNodeFromParent(Element paramMutableTreeNode)
+        {
+          Element localMutableTreeNode = (Element)paramMutableTreeNode.getParent();
+          if (localMutableTreeNode == null) {
+            throw new IllegalArgumentException("node does not have a parent.");
+          }
+          int[] arrayOfInt = new int[1];
+          Object[] arrayOfObject = new Object[1];
+          arrayOfInt[0] = localMutableTreeNode.getIndex(paramMutableTreeNode);
+          
+          localMutableTreeNode.remove(arrayOfInt[0]);
+          arrayOfObject[0] = paramMutableTreeNode;
+          nodesWereRemoved(localMutableTreeNode, arrayOfInt, arrayOfObject);
+        }
         @Override
         public int getChildCount(Object parent) {
 

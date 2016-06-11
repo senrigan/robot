@@ -1,1 +1,1 @@
-( ap-description  :name "robot_platform" :ap-services (set ( ap-service  :name fipa.mts.mtp.http.std :type fipa.mts.mtp.http.std :addresses (sequence http://senrigan-PC:7778/acc))))
+( ap-description  :name "robot_platform" :ap-services (set ( ap-service  :name fipa.mts.mtp.http.std :type fipa.mts.mtp.http.std :addresses (sequence http://DESKTOP-2BHIPFM:7778/acc))))
