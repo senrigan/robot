@@ -38,7 +38,7 @@ public class ClientWebService {
 	}
 	
 	
-	private static URL getWebServicesConsult(){
+	public static URL getWebServicesConsult(){
 		try {
 			String registry = CommandExecutor.readRegistrySpecificRegistry(Constants.LOCALREGISTRY, "webservicesConsult", 
 					CommandExecutor.REGISTRY_TYPE.REG_SZ.getName());

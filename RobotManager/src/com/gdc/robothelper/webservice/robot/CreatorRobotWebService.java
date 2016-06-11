@@ -19,6 +19,7 @@ import javax.xml.ws.WebServiceException;
 import com.gdc.nms.robot.gui.RobotManager;
 import com.gdc.nms.robot.util.Constants;
 import com.gdc.nms.robot.util.registry.CommandExecutor;
+import com.gdc.robothelper.webservice.SisproRobotManagerHelperService;
 
 import sun.util.logging.resources.logging_es;
 
@@ -44,7 +45,7 @@ public class CreatorRobotWebService {
 		return service.getWebservicePort();
 	}
 	
-	private static URL getWebServicesCreator(){
+	public static URL getWebServicesCreator(){
 		try {
 			String registry = CommandExecutor.readRegistrySpecificRegistry(Constants.LOCALREGISTRY, "webservicesCreator", 
 					CommandExecutor.REGISTRY_TYPE.REG_SZ.getName());
@@ -86,7 +87,7 @@ public class CreatorRobotWebService {
 				try{
 					if(flujos==null||flujos.equals("")){
 						System.out.println("creadno rbotsimple");
-						 robotID= port.createRobot(nameApp,location , idApp,status, period, retries,startTime);
+//						 robotID= port.createRobot(nameApp,location , idApp,status, period, retries,startTime);
 					}else{
 						 robotID= port.createRobot(nameApp,location , idApp,status, period, retries,startTime,flujos);
 
@@ -191,9 +192,9 @@ public class CreatorRobotWebService {
         HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
 }
 	public static void main(String[] args) {
-		CreatorRobotWebService.getElement();
-		String idRobot = CreatorRobotWebService.getIdRobot("32D", "1", "computadora de prueba", "20", "2", "10","2016-04-05 15:31:00",null);
-		System.out.println("numero de id"+idRobot);
+		URL webServicesCreator = CreatorRobotWebService.getWebServicesCreator();
+		boolean existeConexion = CreatorRobotWebService.existeConexion(webServicesCreator.toString());
+		System.out.println("numero de id"+existeConexion);
 //		String dateServer = CreatorRobotWebService.getDateServer();
 //		System.out.println(dateServer);
 //		SimpleDateFormat dateForm=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -208,6 +209,41 @@ public class CreatorRobotWebService {
 		
 		
 	
+	}
+	
+	
+	public static Object getWebService(String wsdlLocation) {
+	    try {
+	    	fixUntrustCertificate();
+	        QName qname = new QName("urn:webservice", "webservice");
+	        URL url = new URL(wsdlLocation);
+	        SisproRobotManagerHelperService service = new SisproRobotManagerHelperService(url, qname);
+	        return null;
+	    } catch (MalformedURLException ex) {
+	    	ex.printStackTrace();
+	        return ex;
+	    } catch (WebServiceException ws) {
+	        ws.printStackTrace();
+	    	return ws;
+	    }catch(Exception ex){
+	    	return new WebServiceException();
+	    }
+	}
+	 
+	public static boolean existeConexion(String url) {
+	    int i = 0;
+	    boolean respuesta = false;
+	    while (i < 3) {
+	        Object obj = getWebService(url);
+	        if (obj  == null) {
+	            return true;
+	        }
+	        if ((obj  instanceof WebServiceException)) {
+	            respuesta = false;
+	        }
+	        i++;
+	    }
+	    return respuesta;
 	}
 	
 	
