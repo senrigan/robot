@@ -197,7 +197,13 @@ public class AppExaminator {
 		AppInformation app=new AppInformation();
 		setMetaInfoApp(appFolder, app);
 		app.setAppName(file.getName());
-		ArrayList<FlujoInformation> flujosApp = getFlujosApp(appFolder.resolve("application"));
+		ArrayList<FlujoInformation> flujosApp;
+		if(Files.exists(appFolder.resolve("application"))){
+			
+			 flujosApp= getFlujosApp(appFolder.resolve("application"));
+		}else{
+			flujosApp = getFlujosApp(appFolder);
+		}
 		app.setFlujos(flujosApp);
 		app.setIdRobot(getRobotID(appFolder));
 		return app;
@@ -261,8 +267,10 @@ public class AppExaminator {
 	public static ArrayList<FlujoInformation> getFlujosApp(Path appPath){
 		ArrayList<FlujoInformation> flujos=new ArrayList<FlujoInformation>();
 		File applicationFolder = appPath.toFile();
+		System.out.println("consultando carpeta"+appPath.toString()+"aplicationfolder file"+applicationFolder);
 		File[] listFiles = applicationFolder.listFiles();
-		Arrays.sort(listFiles);
+		System.out.println("lista de archivos"+Arrays.toString(listFiles));
+//		Arrays.sort(listFiles);
 		for(File file: listFiles){
 			if(file.isDirectory()){
 				FlujoInformation flujo=new FlujoInformation();

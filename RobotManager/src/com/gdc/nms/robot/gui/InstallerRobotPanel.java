@@ -166,7 +166,7 @@ public class InstallerRobotPanel extends JFrame {
 		final AppJsonObject selectedItem=infoRobotM.getAppSelected();
 		if(checkIfExistApp(selectedItem.getAlias(), selectedItem.getId())){
 			JOptionPane.showMessageDialog(null, "Se ha detectado Que la aplicacion Ya se Encuentra Instalada Solo se procedera a Agregar Nuevos Flujos", "Correcto", JOptionPane.INFORMATION_MESSAGE);
-			addFiles=true;
+//			addFiles=true;
 		}
 	}
 	
@@ -219,6 +219,8 @@ public class InstallerRobotPanel extends JFrame {
 //		JButton button=new JButton("hola");
 
 		final CheckBoxList cbList = new CheckBoxList();
+		Vector<JCheckBox> installedApplicationTocheckBox = getInstalledApplicationTocheckBox();
+		System.out.println("///installed checkbox"+installedApplicationTocheckBox);
 		JCheckBox[] jcheckList=(JCheckBox[]) getInstalledApplicationTocheckBox().toArray();
 	    cbList.setListData(jcheckList);
 		frame.setContent(cbList);

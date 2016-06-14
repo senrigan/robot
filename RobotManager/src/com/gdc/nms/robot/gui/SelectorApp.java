@@ -76,15 +76,15 @@ public class SelectorApp extends JFrame {
 		setButtonListener();
 	}
 	
-	public SelectorApp(boolean addFlujos){
-		if(addFlujos){
-			init();
-			setInstalledApplicationNames();
-			setButtonListenerAddFlujos();
-		}else{
-			new SelectorApp();
-		}
-	}
+//	public SelectorApp(boolean addFlujos){
+//		if(addFlujos){
+//			init();
+//			setInstalledApplicationNames();
+//			setButtonListenerAddFlujos();
+//		}else{
+//			new SelectorApp();
+//		}
+//	}
 	
 	
 
@@ -207,100 +207,100 @@ public class SelectorApp extends JFrame {
 		});
 	}
 	
-	private void setButtonListenerAddFlujos(){
-	cancelButton.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				closeWindows();
-			}
-		});
-		
-		continueButton.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				AppJsonObject selectedItem = (AppJsonObject) comboBox.getSelectedItem();
-				LoadingFrame loading=new LoadingFrame();
-				System.out.println("se selecciono la app"+selectedItem.getAlias()+"id"+selectedItem.getId());
-				//DateSelectorPanel dateSelector=new DateSelectorPanel(selectedItem);
-				loading.close();
+//	private void setButtonListenerAddFlujos(){
+//	cancelButton.addActionListener(new ActionListener() {
+//			
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
 //				closeWindows();
-				JFileChooser chooser = new JFileChooser();
-				chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-				int showOpenDialog = chooser.showOpenDialog(mainFrame);
-				if(showOpenDialog==JFileChooser.APPROVE_OPTION){
-					File selectedFile = chooser.getSelectedFile();
-					Path path = selectedFile.toPath();
-				
-//					ArrayList<FlujoInformation> validFlujos = ValidatorManagement.
-//							getValidFlujos(path,selectedItem.getId());
-					ArrayList<FlujoInformation> validFlujos;
-					final InstallerRobotPanel installer=new InstallerRobotPanel();
-					Path data;
-					final InfoRobotMaker infoRobotM=new InfoRobotMaker();
-					infoRobotM.setTimeLapse((Integer)timeLapse.getSelectedItem());
-					infoRobotM.setRetries((Integer)retries.getValue());
-					infoRobotM.setDateForRun(dateTimePicker.getDate());
-					if(ValidatorManagement.isValidMainFolder(path)){
-						
-						validFlujos = ValidatorManagement.getValidFlujos(path.resolve("application"),selectedItem.getId());
-						if(!validFlujos.isEmpty()){
-							closeWindows();
-						}
-						data=path.resolve("data");
-//						final Path dataPath=data;
-//						final ArrayList<FlujoInformation> validFinalFlujos=validFlujos;
-//						final AppJsonObject finalJsonObject=selectedItem;
-						infoRobotM.setAppSelected(selectedItem);
-						infoRobotM.setDataFolder(data);
-						infoRobotM.setFlujos(validFlujos);
-					
-						
-						SwingUtilities.invokeLater(new Runnable() {
-							
-							@Override
-							public void run() {
-								installer.createFlujosWithData(infoRobotM);
-
-							}
-						});
-						
-					}else{
-						validFlujos= ValidatorManagement.
-								getValidFlujos(path,selectedItem.getId());
-						if(!validFlujos.isEmpty()){
-							closeWindows();
-						
-						}
-//						final ArrayList<FlujoInformation> validFinalFlujos=validFlujos;
-//						final AppJsonObject finalJsonObject=selectedItem;
-						infoRobotM.setAppSelected(selectedItem);
-						infoRobotM.setFlujos(validFlujos);
-						
-						
-						SwingUtilities.invokeLater(new Runnable() {
-							
-							@Override
-							public void run() {
-								installer.createFlujosWithoutData(infoRobotM);
-								
-
-							}
-						});
-						
-						
-						
-
-					}
-					
-										
-				}
-			}
-			}
-		});
-	}
-	
+//			}
+//		});
+//		
+//		continueButton.addActionListener(new ActionListener() {
+//			
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				AppJsonObject selectedItem = (AppJsonObject) comboBox.getSelectedItem();
+//				LoadingFrame loading=new LoadingFrame();
+//				System.out.println("se selecciono la app"+selectedItem.getAlias()+"id"+selectedItem.getId());
+//				//DateSelectorPanel dateSelector=new DateSelectorPanel(selectedItem);
+//				loading.close();
+////				closeWindows();
+//				JFileChooser chooser = new JFileChooser();
+//				chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+//				int showOpenDialog = chooser.showOpenDialog(mainFrame);
+//				if(showOpenDialog==JFileChooser.APPROVE_OPTION){
+//					File selectedFile = chooser.getSelectedFile();
+//					Path path = selectedFile.toPath();
+//				
+////					ArrayList<FlujoInformation> validFlujos = ValidatorManagement.
+////							getValidFlujos(path,selectedItem.getId());
+//					ArrayList<FlujoInformation> validFlujos;
+//					final InstallerRobotPanel installer=new InstallerRobotPanel();
+//					Path data;
+//					final InfoRobotMaker infoRobotM=new InfoRobotMaker();
+//					infoRobotM.setTimeLapse((Integer)timeLapse.getSelectedItem());
+//					infoRobotM.setRetries((Integer)retries.getValue());
+//					infoRobotM.setDateForRun(dateTimePicker.getDate());
+//					if(ValidatorManagement.isValidMainFolder(path)){
+//						
+//						validFlujos = ValidatorManagement.getValidFlujos(path.resolve("application"),selectedItem.getId());
+//						if(!validFlujos.isEmpty()){
+//							closeWindows();
+//						}
+//						data=path.resolve("data");
+////						final Path dataPath=data;
+////						final ArrayList<FlujoInformation> validFinalFlujos=validFlujos;
+////						final AppJsonObject finalJsonObject=selectedItem;
+//						infoRobotM.setAppSelected(selectedItem);
+//						infoRobotM.setDataFolder(data);
+//						infoRobotM.setFlujos(validFlujos);
+//					
+//						
+//						SwingUtilities.invokeLater(new Runnable() {
+//							
+//							@Override
+//							public void run() {
+//								installer.createFlujosWithData(infoRobotM);
+//
+//							}
+//						});
+//						
+//					}else{
+//						validFlujos= ValidatorManagement.
+//								getValidFlujos(path,selectedItem.getId());
+//						if(!validFlujos.isEmpty()){
+//							closeWindows();
+//						
+//						}
+////						final ArrayList<FlujoInformation> validFinalFlujos=validFlujos;
+////						final AppJsonObject finalJsonObject=selectedItem;
+//						infoRobotM.setAppSelected(selectedItem);
+//						infoRobotM.setFlujos(validFlujos);
+//						
+//						
+//						SwingUtilities.invokeLater(new Runnable() {
+//							
+//							@Override
+//							public void run() {
+//								installer.createFlujosWithoutData(infoRobotM);
+//								
+//
+//							}
+//						});
+//						
+//						
+//						
+//
+//					}
+//					
+//										
+//				}
+//			}
+//			}
+//		});
+//	}
+//	
 	
 	private void closeWindows(){
 		this.dispose();

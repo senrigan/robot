@@ -37,6 +37,8 @@ import com.gdc.nms.robot.gui.RobotManager;
 import com.gdc.nms.robot.util.indexer.FlujoInformation;
 import com.gdc.nms.robot.util.indexer.StepInformation;
 import com.gdc.robothelper.webservice.robot.CreatorRobotWebService;
+import com.gdc.robothelper.webservice.robot.news.CreatorNewRobotWebService;
+import com.gdc.robothelper.webservice.robot.olds.CreatorOldRobotWebService;
 
 
 public class CreatorRobotManager {
@@ -116,7 +118,13 @@ public class CreatorRobotManager {
 		System.out.println("//// calculateInitDateWebServices"+ getInitDateForWebServices());
 		String location=RobotManager.getUbication();
 		String idFlujos=getIdFlujos();
-		String idRobot = CreatorRobotWebService.getIdRobot(applicationName, "0", location, ""+idApp, ""+retries,""+timeLapse, getInitDateForWebServices(),idFlujos);
+		URL webServicesCreator = CreatorRobotWebService.getWebServicesCreator();
+		String idRobot="";
+		if(webServicesCreator.toString().contains("pp")){
+			idRobot=CreatorNewRobotWebService.getIdRobot(applicationName, "0", location, ""+idApp, ""+retries,""+timeLapse, getInitDateForWebServices(),idFlujos);
+		}else{
+			idRobot=CreatorOldRobotWebService.getIdRobot(applicationName, "0", location, ""+idApp, ""+retries,""+timeLapse, getInitDateForWebServices());
+		}
 		try{
 			realRobot=Long.parseLong(idRobot);
 			System.out.println(realRobot);

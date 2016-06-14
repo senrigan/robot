@@ -7,7 +7,6 @@ import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 
-import com.sun.tools.classfile.Annotation.element_value;
   public  class TreeModelElements extends DefaultTreeModel {
 
         private Element data;
