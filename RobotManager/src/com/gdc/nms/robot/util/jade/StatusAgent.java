@@ -20,7 +20,7 @@ public class StatusAgent extends Agent{
 		msg.setConversationId(content+""+System.currentTimeMillis());
 		send(msg);
 		System.out.println("//sending "+content+" to sender"+reciver);
-		jade.lang.acl.ACLMessage msgResponse = blockingReceive(MessageTemplate.MatchPerformative(ACLMessage.CONFIRM));
+		jade.lang.acl.ACLMessage msgResponse = blockingReceive(MessageTemplate.MatchPerformative(ACLMessage.CONFIRM),10000L);
 		if (msgResponse != null) {
 			return msgResponse.getContent();
 		}

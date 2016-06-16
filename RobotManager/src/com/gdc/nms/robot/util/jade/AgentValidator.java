@@ -12,6 +12,8 @@ import com.gdc.nms.robot.util.indexer.AppInformation;
 
 import jade.core.AID;
 import jade.core.Agent;
+import jade.core.behaviours.ParallelBehaviour;
+import jade.core.behaviours.SequentialBehaviour;
 import jade.core.behaviours.TickerBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
@@ -21,11 +23,56 @@ public class AgentValidator extends Agent{
 	@Override
 	protected void setup() {
 		super.setup();
-		addBehaviour(new Searched(this,SRMAgentManager.POOLING_INTERVAL ));
+		
+		ParallelBehaviour p = new ParallelBehaviour(this,ParallelBehaviour.WHEN_ALL);
+		SequentialBehaviour s1 = new SequentialBehaviour(this);
+		s1.addSubBehaviour(new Searched(this,SRMAgentManager.POOLING_INTERVAL ));
+		SequentialBehaviour s2 = new SequentialBehaviour(this);
+		s2.addSubBehaviour(new SearchedManually(this,SRMAgentManager.POOLING_INTERVAL ));
+
+		p.addSubBehaviour(s1);
+		p.addSubBehaviour(s2);
+		addBehaviour(p);
 	}
 	
 	
-	
+	private class SearchedManually extends TickerBehaviour{
+
+		 public SearchedManually(Agent a, long period) {
+			super(a, period);
+		}
+
+
+
+		@Override
+		protected void onTick() {
+			try {
+
+				ArrayList<AppInformation> installedApps = AppExaminator.getInstalledApps();
+				HashMap<String, AID> robotRegister2 = InitPlataform.getRobotRegister();
+				
+				for (AppInformation appInformation : installedApps) {
+					if(!robotRegister2.containsKey(appInformation.getAlias())){
+						if(AppExaminator.isRunningByLockFile(appInformation)){
+							InitPlataform.registerRobot(appInformation.getAlias(), null);
+						}else{
+							InitPlataform.deRegisterRobot(appInformation.getAlias());
+						}
+					}
+				}
+				
+				RobotManagerGui guiManager = RobotManager.getGuiManager();
+				if (guiManager != null) {
+
+					guiManager.UpdateTree(InitPlataform.getRobotRegister().keySet());
+				}
+				// block(SRMAgentManager.POOLING_INTERVAL);
+				System.out.println("termino la espera del poleo");
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		}
+	}
 	private class Searched extends TickerBehaviour {
 
 		public Searched(Agent a, long period) {

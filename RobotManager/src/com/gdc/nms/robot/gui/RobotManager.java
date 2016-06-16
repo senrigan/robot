@@ -1,6 +1,7 @@
 package com.gdc.nms.robot.gui;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URISyntaxException;
@@ -83,16 +84,16 @@ public class RobotManager extends JFrame {
 		} catch (UnsupportedLookAndFeelException e) {
 			e.printStackTrace();
 		}
-//		Thread hilo=new Thread(new Runnable() {
-//			
-//			@Override
-//			public void run() {
-//				initRobot();
-//				
-//			}
-//		});
+		Thread hilo=new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				initAllRobots();
+				
+			}
+		});
 		StartAgentPlatform();
-//		hilo.start();
+		hilo.start();
 		robotManagerGui=new RobotManagerGui();
 	}
 	
@@ -187,7 +188,15 @@ public class RobotManager extends JFrame {
 	}
 	
 	
-	
+	public static void createWebServicesCreatorRegistry(String wsUrl){
+		try {
+			CommandExecutor.addRegistryWindows(Constants.LOCALREGISTRY, "webservicesCreator", wsUrl);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
 	private void createWebServicesCreatorRegistry(){
 		try {
 			CommandExecutor.addRegistryWindows(Constants.LOCALREGISTRY, "webservicesCreator", Webservice.getUrl().toString());
@@ -198,6 +207,28 @@ public class RobotManager extends JFrame {
 		}
 	}
 	
+	
+	public static String getWebServicesCreatorRegistry(){
+		String urlRegistry=null;
+		try {
+			urlRegistry=CommandExecutor.readRegistrySpecificRegistry(Constants.LOCALREGISTRY, "webservicesCreator", "REG_SZ");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return urlRegistry;
+		
+	}
+	
+	
+	public static void createWebServicesConsultRegistry(String wsUrl){
+		try {
+			CommandExecutor.addRegistryWindows(Constants.LOCALREGISTRY, "webservicesConsult",wsUrl);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	private void createWebServicesConsultRegistry(){
 		try {
@@ -211,7 +242,32 @@ public class RobotManager extends JFrame {
 	}
 	
 	
+	public static String getWebServicesConsultRegistry(){
+		String wsUrl=null;
+		try {
+			wsUrl=CommandExecutor.readRegistrySpecificRegistry(Constants.LOCALREGISTRY, "webservicesConsult", "REG_SZ");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return wsUrl;
+		
+	}
 	
+	
+	public static void initAllRobots(){
+		try {
+			
+			final ArrayList<AppInformation> runningApps = AppExaminator.getInstalledApps();
+			LOGGER.info("startup all Robot ");
+			for (AppInformation appInformation : runningApps) {
+				LOGGER.info("starting robot:  "+appInformation.getAlias());
+				runJarRobot(appInformation.getAlias());
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	public static void initRobot(){
 		try {
 			String robotIds = CommandExecutor.readRegistrySpecificRegistry(Constants.LOCALREGISTRY,"robotmustRun","REG_SZ");
@@ -312,6 +368,21 @@ public class RobotManager extends JFrame {
 
 	}
 	
+	
+	public static void createUbicationRegistruCreation(String ubication){
+		try {
+			CommandExecutor.addRegistryWindows(Constants.LOCALREGISTRY, "ubicationRobot", ubication, REGISTRY_TYPE.REG_SZ);
+//			CommandExecutor.addRegistryWindows(Constants.LOCALREGISTRY, "installationPath", getCurrentPath().toString(), REGISTRY_TYPE.REG_SZ);
+			setUbication(ubication);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
 	private static void createUbicationPathRegistry(){
 		try {
 			CommandExecutor.addRegistryWindows(Constants.LOCALREGISTRY, "installationPath", "C:\\Users\\senrigan\\Documents\\pruebas\\GDC\\RobotScript", REGISTRY_TYPE.REG_SZ);
@@ -422,16 +493,19 @@ public class RobotManager extends JFrame {
 			public void run() {
 				boolean value=false;
 				String java ="\""+Environment.getJava()+"\"";
-				Path robotJar=Paths.get(installationPath.resolve("data").resolve(appName).resolve(Constants.JARNAME).toString());
-				Path appPath=robotJar.getParent();
-				String jar="\""+robotJar.toString()+"\"";
+				File[] botFiles = AppExaminator.getBotFiles(installationPath.resolve("data").resolve(appName));
+				if(botFiles.length>0){
+					
+					Path robotJar=botFiles[0].toPath();
+					Path appPath=robotJar.getParent();
+					String jar="\""+robotJar.toString()+"\"";
 //				String command="cd  \""+appPath+"\" && "+java +" -Dname=\"Robot_"+appName+"\" "+" -jar "+robotJar.getFileName();
-				String command=java +" -Dname=\"Robot_"+appName+"\" "+" -jar "+robotJar.getFileName();
-
-				try {
-					System.out.println("command"+command);
+					String command=java +" -Dname=\"Robot_"+appName+"\" "+" -jar "+robotJar.getFileName();
+					
+					try {
+						System.out.println("command"+command);
 //					Runtime.getRuntime().exec(command);
-					Runtime.getRuntime().exec(command,null,appPath.toFile());
+						Runtime.getRuntime().exec(command,null,appPath.toFile());
 //					Process exec = Runtime.getRuntime().exec(command);
 //					BufferedReader in=new BufferedReader(new InputStreamReader(exec.getInputStream()));
 //					String line;
@@ -442,13 +516,17 @@ public class RobotManager extends JFrame {
 //						}
 //						
 //					}
-					value=true;
-				} catch (IOException e) {
-					e.printStackTrace();
-					value=false;
+						value=true;
+					} catch (IOException e) {
+						e.printStackTrace();
+						value=false;
+					}
+					latch.countDown();
+					valueStart=value;
+				}else{
+					valueStart=false;
 				}
-				latch.countDown();
-				valueStart=value;
+				
 			}
 		});
 		hilo.start();

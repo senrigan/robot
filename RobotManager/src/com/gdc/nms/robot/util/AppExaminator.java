@@ -52,7 +52,11 @@ public class AppExaminator {
 					for (File fileApp : dir) {
 						String fileName=fileApp.getName();
 						if(fileName.endsWith("exe")||fileName.endsWith("jar")){
-							apps.add(getAppData(file.toPath()));
+							AppInformation appData = getAppData(file.toPath());
+							if(appData!=null){
+								apps.add(appData);
+								
+							}
 						}
 					}
 				}
@@ -193,7 +197,8 @@ public class AppExaminator {
 			br = new BufferedReader(new FileReader(file));
 
 			while ((sCurrentLine = br.readLine()) != null) {
-				System.out.println(sCurrentLine);
+				content=sCurrentLine;
+				System.out.println("pid del robot a detener"+sCurrentLine);
 			}
 		}catch(Exception ex){
 			ex.printStackTrace();
@@ -268,6 +273,9 @@ public class AppExaminator {
 			 flujosApp= getFlujosApp(appFolder.resolve("application"));
 		}else{
 			flujosApp = getFlujosApp(appFolder);
+		}
+		if(flujosApp==null || flujosApp.isEmpty()){
+			return null;
 		}
 		app.setFlujos(flujosApp);
 		app.setIdRobot(getRobotID(appFolder));

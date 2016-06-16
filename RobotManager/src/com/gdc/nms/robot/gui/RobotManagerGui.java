@@ -86,10 +86,12 @@ public class RobotManagerGui extends JFrame {
 	private JMenuItem addRobotMenu;
 	private JMenuItem deleteMenu;
 	private JMenuItem updateMenu;
-	private JMenuItem configReg;
+	private JMenuItem wsConsultMenu;
 	private JMenuItem addFlujoMenu;
 	private JMenu configMenu;
 	private JMenu mnAr;
+	private JMenuItem ubicationMenu;
+	private JMenuItem wsCreactionMenu;
 
 	public RobotManagerGui() {
 		super("SisproRobotManager");
@@ -184,25 +186,31 @@ public class RobotManagerGui extends JFrame {
 		addFlujoMenu =new JMenuItem("Agregar flujo");
 		updateMenu = new JMenuItem("Actualizar Robots");
 		deleteMenu=new JMenuItem("Eliminar Robots");
-		configReg=new JMenuItem("Configurar Registros");
+		wsConsultMenu=new JMenuItem("WS Consulta");
 		configMenu=new JMenu("Configuracion");
 		
 	
-		configMenuBar();
-		configMenu.add(configReg);
+		
+		ubicationMenu = new JMenuItem("Configurar Ubicacion");
+		configMenu.add(ubicationMenu);
+		configMenu.add(wsConsultMenu);
 		mnAr.add(updateMenu);
 		mnAr.add(addRobotMenu);
 //		mnAr.add(addFlujoMenu);
 		mnAr.add(deleteMenu);
 		menuBar.add(mnAr);
 		menuBar.add(configMenu);
+		
+		wsCreactionMenu = new JMenuItem("WS Creacion");
+		configMenu.add(wsCreactionMenu);
+		configMenuBar();
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
 	
-	private void configMenuBar(){
 
 		
+	private void configMenuBar(){
 		
 		addRobotMenuAction();
 		updateMenuAction();
@@ -316,7 +324,22 @@ public class RobotManagerGui extends JFrame {
 		});
 	}
 	private void configMenuAction(){
-		configMenu.addActionListener(new ActionListener() {
+		final RegisrtryEditorManager reg=new RegisrtryEditorManager();
+		
+		ubicationMenu.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				SwingUtilities.invokeLater(new  Runnable() {
+					public void run() {
+						reg.showUbicationRegistry();
+						
+					}
+				});
+			}
+		});
+		
+		wsConsultMenu.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -324,7 +347,19 @@ public class RobotManagerGui extends JFrame {
 					
 					@Override
 					public void run() {
-						
+						reg.showWebServiceConsult();
+					}
+				});
+			}
+		});
+		
+		wsCreactionMenu.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				SwingUtilities.invokeLater( new Runnable() {
+					public void run() {
+						reg.showWebServicesCreator();
 					}
 				});
 			}
@@ -394,7 +429,13 @@ public class RobotManagerGui extends JFrame {
 				LoadingFrame loading=new LoadingFrame();
 				try {
 					AID aid = InitPlataform.getRobotRegister().get(appinfo.getAlias());
-					boolean stopAgent = SRMAgentManager.stopAgent(aid);
+					boolean stopAgent;
+					if(aid!=null){
+						stopAgent = SRMAgentManager.stopAgent(aid);
+						
+					}else{
+						stopAgent=false;
+					}
 					if(stopAgent){
 	//					RobotManager.stopRobot(idRobot);
 							loading.close();
@@ -409,6 +450,7 @@ public class RobotManagerGui extends JFrame {
 	//					removeRegistryRunningRobot(idRobot);
 						
 					}else{
+						System.out.println("deteniendo robot de forma bruta");
 						boolean runningByLockFile = AppExaminator.isRunningByLockFile(appinfo);
 						if(runningByLockFile){
 							String appPid = AppExaminator.readPidFile(appinfo.getFolderPath());

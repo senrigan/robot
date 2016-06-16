@@ -66,8 +66,8 @@ public class SRMAgentManager {
 			
 			
 		HashMap<String, AID> robotRegister = InitPlataform.getRobotRegister();
-		
-		if(robotRegister.containsKey(appInfo.getAlias())){
+		AID aid = robotRegister.get(appInfo.getAlias());
+		if(aid!=null){
 			StatusAgent agent = InitPlataform.getAgentManager().getStatusAgent();
 			String status = agent.getStatus(robotRegister.get(appInfo.getAlias()));
 			infoAgent.append(status);
