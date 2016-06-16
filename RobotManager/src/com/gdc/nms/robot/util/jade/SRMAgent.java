@@ -63,7 +63,7 @@ public class SRMAgent extends Agent {
 
 	}
 
-	public String getAppName(String senderName) {
+	public static String getAppName(String senderName) {
 
 		String[] split = senderName.split("_");
 		if (split.length > 1) {
@@ -72,7 +72,7 @@ public class SRMAgent extends Agent {
 		return null;
 	}
 
-	public String parseAppName(String appName) {
+	public static String parseAppName(String appName) {
 		String parseName = appName;
 		if (parseName.contains("_")) {
 			parseName.replaceAll("_", " ");

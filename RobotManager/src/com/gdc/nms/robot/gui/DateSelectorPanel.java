@@ -174,7 +174,7 @@ public class DateSelectorPanel extends JFrame {
 					infoRobotM.setDateForRun(dateTimePicker.getDate());
 					if(ValidatorManagement.isValidMainFolder(path)){
 						
-						validFlujos = ValidatorManagement.getValidFlujos(path.resolve("application"),selectedItem.getId());
+						validFlujos = ValidatorManagement.getValidFlujosWithoutCheckInstalled(path.resolve("application"),selectedItem.getId());
 						if(!validFlujos.isEmpty()){
 							closeWindows();
 						}
@@ -198,7 +198,7 @@ public class DateSelectorPanel extends JFrame {
 						
 					}else{
 						validFlujos= ValidatorManagement.
-								getValidFlujos(path,selectedItem.getId());
+								getValidFlujosWithoutCheckInstalled(path,selectedItem.getId());
 						if(!validFlujos.isEmpty()){
 							closeWindows();
 						

@@ -112,6 +112,7 @@ public class RobotManager extends JFrame {
 		checkRegistryRobotNoRunning();
 		checkUbicationRegistry();
 		checkWebServicesRegistry();
+		checkUbicationCreationRegistry();
 		
 		
 	}
@@ -129,6 +130,9 @@ public class RobotManager extends JFrame {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	
 	
 	private void createRegistryRobotMustRun(){
 		ArrayList<AppInformation> installedApps = AppExaminator.getInstalledApps();
@@ -205,6 +209,9 @@ public class RobotManager extends JFrame {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	
 	public static void initRobot(){
 		try {
 			String robotIds = CommandExecutor.readRegistrySpecificRegistry(Constants.LOCALREGISTRY,"robotmustRun","REG_SZ");
@@ -271,13 +278,39 @@ public class RobotManager extends JFrame {
 	private static void checkUbicationRegistry(){
 		try {
 			String ubicationRegist = CommandExecutor.readRegistrySpecificRegistry(Constants.LOCALREGISTRY, "installationPath","REG_SZ");
-			setUbication(ubicationRegist);
 		} catch (Exception e) {
 			createUbicationPathRegistry();
 			e.printStackTrace();
 		}
 	}
 	
+	/**
+	 * this for ubucation is for robotCreation
+	 */
+	private static void checkUbicationCreationRegistry(){
+		try{
+			String ubicationRegist = CommandExecutor.readRegistrySpecificRegistry(Constants.LOCALREGISTRY, "ubicationRobot","REG_SZ");
+			setUbication(ubicationRegist);
+		}catch(Exception ex){
+			createUbicationRegistruCreation();
+		}
+	}
+	
+	private static void createUbicationRegistruCreation(){
+		try {
+			String ubication="generic";
+			CommandExecutor.addRegistryWindows(Constants.LOCALREGISTRY, "ubicationRobot", ubication, REGISTRY_TYPE.REG_SZ);
+//			CommandExecutor.addRegistryWindows(Constants.LOCALREGISTRY, "installationPath", getCurrentPath().toString(), REGISTRY_TYPE.REG_SZ);
+			setUbication(ubication);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
 	
 	private static void createUbicationPathRegistry(){
 		try {
@@ -454,7 +487,7 @@ public class RobotManager extends JFrame {
 		}
 		
 	}
-	private static boolean stopJar(final long pid){
+	public static boolean stopJar(final long pid){
 		valueStop=false;
 		final CountDownLatch latch=new CountDownLatch(1);
 		Thread hilo=new Thread(new Runnable() {
@@ -540,6 +573,16 @@ public class RobotManager extends JFrame {
 	}
 	
 	public static String getUbication(){
+		if(ubication==null){
+			try {
+				String ubicationRegist = CommandExecutor.readRegistrySpecificRegistry(Constants.LOCALREGISTRY, "ubicationRobot","REG_SZ");
+				setUbication(ubicationRegist);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		}
+		
 		return ubication;
 	}
 

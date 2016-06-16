@@ -54,7 +54,6 @@ import com.gdc.robothelper.webservice.ClientWebService;
 import com.gdc.robothelper.webservice.robot.CreatorRobotWebService;
 import com.gdc.robothelper.webservice.robot.Webservice;
 import com.sun.jmx.mbeanserver.JmxMBeanServerBuilder;
-import com.sun.xml.internal.bind.v2.schemagen.xmlschema.Appinfo;
 
 import jade.core.AID;
 
@@ -395,18 +394,30 @@ public class RobotManagerGui extends JFrame {
 				LoadingFrame loading=new LoadingFrame();
 				try {
 					AID aid = InitPlataform.getRobotRegister().get(appinfo.getAlias());
-					SRMAgentManager.stopAgent(aid);
-//					RobotManager.stopRobot(idRobot);
-					loading.close();
-					enableButton(ButtonType.STOP, false);
-					enableButton(ButtonType.START, false);
-
-
-					JOptionPane.showMessageDialog(null, "Espere unos minutos mientras el robot es detenido", "Error",
-							JOptionPane.INFORMATION_MESSAGE);
-
-//					setInformation(" ");
-//					removeRegistryRunningRobot(idRobot);
+					boolean stopAgent = SRMAgentManager.stopAgent(aid);
+					if(stopAgent){
+	//					RobotManager.stopRobot(idRobot);
+							loading.close();
+							enableButton(ButtonType.STOP, false);
+							enableButton(ButtonType.START, false);
+							
+							
+							JOptionPane.showMessageDialog(null, "Espere unos minutos mientras el robot es detenido", "Error",
+									JOptionPane.INFORMATION_MESSAGE);
+							
+	//					setInformation(" ");
+	//					removeRegistryRunningRobot(idRobot);
+						
+					}else{
+						boolean runningByLockFile = AppExaminator.isRunningByLockFile(appinfo);
+						if(runningByLockFile){
+							String appPid = AppExaminator.readPidFile(appinfo.getFolderPath());
+							RobotManager.stopJar(Long.parseLong(appPid));
+						}else{
+							JOptionPane.showMessageDialog(null, "El robot no esta en ejecucion", "Error",
+									JOptionPane.ERROR_MESSAGE);
+						}
+					}
 //					registryStopedRobot(idRobot);
 				} catch (Exception e1) {
 					loading.close();

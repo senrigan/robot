@@ -5,9 +5,11 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.nio.ByteBuffer;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -60,6 +62,9 @@ public class AppExaminator {
 		}
 		return apps;
 	}
+	
+	
+	
 	
 	public static File[] getBotFiles(Path folder){
 		FileFilter fileFilter=new WildcardFileFilter(Constants.REGEX_JARNAME+"*");
@@ -126,6 +131,24 @@ public class AppExaminator {
 		return false;
 	}
 	
+	public static boolean isRunningByLockFile(AppInformation app){
+		Path path = Paths.get( app.getFolderPath());
+		File file = path.resolve(".lock").toFile();
+		if(file.delete()){
+			return false;
+		}
+		return true;
+	}
+	
+	public static boolean isRunningByLockFile(String app){
+		Path path = Paths.get( app);
+		File file = path.resolve(".lock").toFile();
+		if(file.delete()){
+			return false;
+		}
+		return true;
+	}
+	
 	
 	public static Path getInstallationPath(){
 		String LOCALREGISTRY="HKCU\\Software\\GDC\\Robot";
@@ -140,6 +163,48 @@ public class AppExaminator {
 		return installationPath;
 	}
 	
+	public static String readLockFile(AppInformation app){
+		Path path = Paths.get( app.getFolderPath());
+		File file = path.resolve(".lock").toFile();
+		String sCurrentLine,content="";
+
+		try{
+			
+			BufferedReader fil = new BufferedReader(new FileReader(file));
+			
+			while ((sCurrentLine = fil.readLine()) != null) {
+				content+=sCurrentLine;
+			}
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}
+		return content;
+	}
+	
+	
+	public static String readPidFile(String app){
+		Path path = Paths.get( app);
+		File file = path.resolve("robot.pid").toFile();
+		String sCurrentLine,content="";
+    	FileInputStream fileInputStream=null;
+    	BufferedReader br=null;
+		try{
+
+			br = new BufferedReader(new FileReader(file));
+
+			while ((sCurrentLine = br.readLine()) != null) {
+				System.out.println(sCurrentLine);
+			}
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}
+		return content;
+	}
+	
+	public static void main(String[] args) {
+		String runningByLockFile = AppExaminator.readPidFile("C:\\Program Files\\GDC\\RobotScript\\data\\testapp");
+		System.out.println(runningByLockFile);
+	}
 	
 	public static  ArrayList<AppInformation>  getRunningApps(){
 //		Vector<AID> services = DFConsult.services;
@@ -323,8 +388,6 @@ public class AppExaminator {
 		return stepsFiles;
 	}
 
-	
-	
 	
 	
 

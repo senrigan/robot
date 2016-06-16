@@ -1,11 +1,14 @@
 package com.gdc.nms.robot.util.jade;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
 import com.gdc.nms.robot.gui.RobotManager;
 import com.gdc.nms.robot.gui.RobotManagerGui;
+import com.gdc.nms.robot.util.AppExaminator;
+import com.gdc.nms.robot.util.indexer.AppInformation;
 
 import jade.core.AID;
 import jade.core.Agent;
@@ -60,13 +63,23 @@ public class AgentValidator extends Agent{
 				System.out.println("poleando elementos agentValidator");
 				HashMap<String, AID> robotRegister = InitPlataform.getRobotRegister();
 				Set<String> keySet = robotRegister.keySet();
+				HashMap<String, AppInformation> installedAppsMap = AppExaminator.getInstalledAppsMap();
 				for (String string : keySet) {
 					AID aid = robotRegister.get(string);
 					if (!sendMessage(aid, SRMAgentManager.AYA, SRMAgentManager.IAA)) {
 						System.out.println("no respondio el agente" + aid);
-						InitPlataform.deRegisterRobot(string);
+						String parseAppName = SRMAgent.parseAppName(string);
+						if(installedAppsMap.containsKey(parseAppName)){
+							if(AppExaminator.isRunningByLockFile(installedAppsMap.get(parseAppName))){
+								continue;
+							}
+							
+						}else{
+							InitPlataform.deRegisterRobot(string);
+							
+						}
 					}
-
+					
 				}
 				RobotManagerGui guiManager = RobotManager.getGuiManager();
 				if (guiManager != null) {

@@ -15,7 +15,6 @@ import com.gdc.nms.robot.util.InfoRobotMaker;
 import com.gdc.nms.robot.util.indexer.AppInformation;
 import com.gdc.nms.robot.util.indexer.AppJsonObject;
 import com.gdc.nms.robot.util.indexer.FlujoInformation;
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Collections;
 
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
@@ -44,10 +43,10 @@ public class InstallerRobotPanel extends JFrame {
 	private JPanel contentPane;
 	private JLabel lblNewLabel;
 	private JScrollPane scrollPane;
-	private JButton cancelButton;
 	private JButton continueButton;
 	private JTextArea textArea;
 //	private  ArrayList<FlujoInformation> validFlujos;
+	private JButton cancelButton;
 //	private  AppJsonObject selectedItem;
 //	private Path data;
 
@@ -59,7 +58,9 @@ public class InstallerRobotPanel extends JFrame {
 			public void run() {
 				try {
 					InstallerRobotPanel frame = new InstallerRobotPanel();
+					
 					frame.setVisible(true);
+					Vector<JCheckBox> installedApplicationTocheckBox = frame.getInstalledApplicationTocheckBox();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -215,13 +216,13 @@ public class InstallerRobotPanel extends JFrame {
 	public void initSelectorWindowsAddFlujos(final InfoRobotMaker infoMaker){
 		SelectorWindows frame = new SelectorWindows();
 		frame.setTitleWindows("Instalador Robot");
-		frame.setInstructionLabel("seleccionea las carpetas a añadir ");
+		frame.setInstructionLabel("seleccionea las carpetas a agregar");
 //		JButton button=new JButton("hola");
-
+		System.out.println("carpetas a agregar "+infoMaker.getFlujos());
 		final CheckBoxList cbList = new CheckBoxList();
 		Vector<JCheckBox> installedApplicationTocheckBox = getInstalledApplicationTocheckBox();
 		System.out.println("///installed checkbox"+installedApplicationTocheckBox);
-		JCheckBox[] jcheckList=(JCheckBox[]) getInstalledApplicationTocheckBox().toArray();
+		JCheckBox[] jcheckList=getValidFlujosToCheckBoxArray(infoMaker.getFlujos());
 	    cbList.setListData(jcheckList);
 		frame.setContent(cbList);
 		
@@ -242,16 +243,21 @@ public class InstallerRobotPanel extends JFrame {
 				for (JCheckBox jCheckBox : selectedCheckBox) {
 					for (FlujoInformation flujo : flujos) {
 						String flujName=flujo.getName();
+						System.out.println("flujoName"+flujName+"selectedName"+jCheckBox.getText());
+						System.out.println("equals"+flujName.equalsIgnoreCase(jCheckBox.getText()));
 						if(flujName.equalsIgnoreCase(jCheckBox.getText())){
 							newFlujos.add(flujo);
+							break;
 						}
-						break;
 					}
 					if(jCheckBox.getText().equalsIgnoreCase(dataName)){
 						modifiedInfoRobotMaker.setDataFolder(infoMaker.getDataFolder());
 					}
 				}
+				System.out.println("se han  modificado los flujos");
+				System.out.println("flkujos modificados o seleccionados"+newFlujos);
 				modifiedInfoRobotMaker.setFlujos(newFlujos);
+				
 				CreatorRobotManager creator=new CreatorRobotManager();
 				if(creator.createRobotWithPath(modifiedInfoRobotMaker ,false)){
 					JOptionPane.showMessageDialog(null,
@@ -261,6 +267,7 @@ public class InstallerRobotPanel extends JFrame {
 							 "No fue posible Instalar la aplicacion Correctamente","Error.", JOptionPane.ERROR_MESSAGE);
 
 				}
+				cancelButton.doClick();
 			}
 		};
 		frame.setContinueAction(listener);
@@ -288,6 +295,28 @@ public class InstallerRobotPanel extends JFrame {
 			listJcheckbox.add(checkBox);
 		}
 		return listJcheckbox;
+	}
+	
+	
+	private Vector<JCheckBox> getValidFlujosToCheckBox(ArrayList<FlujoInformation> newFlujos){
+		Vector<JCheckBox> listJcheckbox=new Vector();
+		JCheckBox checkBox;
+		for(FlujoInformation flujo:newFlujos){
+			checkBox=new JCheckBox(flujo.getName());
+			listJcheckbox.add(checkBox);
+		}
+		return listJcheckbox;
+		
+	}
+	
+	private JCheckBox[] getValidFlujosToCheckBoxArray(ArrayList<FlujoInformation> newFlujos){
+		Vector<JCheckBox> validFlujosToCheckBox = getValidFlujosToCheckBox(newFlujos);
+		JCheckBox[] checkArray=new JCheckBox[validFlujosToCheckBox.size()];
+		int size=validFlujosToCheckBox.size();
+		for(int i=0;i<size;i++){
+			checkArray[i]=validFlujosToCheckBox.elementAt(i);
+		}
+		return checkArray;
 	}
 	public void createFlujosWithoutData(final InfoRobotMaker infoRobot){
 		final  ArrayList<FlujoInformation> validFlujos=infoRobot.getFlujos();

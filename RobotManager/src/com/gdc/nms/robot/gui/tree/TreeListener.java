@@ -20,7 +20,6 @@ import com.gdc.nms.robot.util.jade.SRMAgent;
 import com.gdc.nms.robot.util.jade.SRMAgentManager;
 import com.gdc.nms.robot.util.jade.StatusAgent;
 import com.sun.org.apache.xerces.internal.util.Status;
-import com.sun.xml.internal.bind.v2.schemagen.xmlschema.Appinfo;
 
 import jade.core.AID;
 
