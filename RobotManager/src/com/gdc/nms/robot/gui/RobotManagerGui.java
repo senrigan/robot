@@ -428,7 +428,7 @@ public class RobotManagerGui extends JFrame {
 //				long idRobot = appinfo.getIdRobot();
 				LoadingFrame loading=new LoadingFrame();
 				try {
-					AID aid = InitPlataform.getRobotRegister().get(appinfo.getAlias());
+					AID aid = InitPlataform.getRobotRegister().get(appinfo.getAppName());
 					boolean stopAgent;
 					if(aid!=null){
 						stopAgent = SRMAgentManager.stopAgent(aid);
@@ -780,15 +780,14 @@ public class RobotManagerGui extends JFrame {
 	private  void updateTree(Element dataElement) {
 		try {
 			
-			if(RobotManager.isRunningScan()){
+//			if(RobotManager.isRunningScan()){
 				appTree.removeTreeSelectionListener(listenerTree);
 				appTree.setModel(new TreeModelElements(dataElement));
 				appTree.addTreeSelectionListener(listenerTree);
 				expandAll();
 				enableButton(ButtonType.START, false);
 				enableButton(ButtonType.STOP, false);
-			}
-			Thread.sleep(10000);
+//			}
 
 		} catch (Exception e) {
 			e.printStackTrace();

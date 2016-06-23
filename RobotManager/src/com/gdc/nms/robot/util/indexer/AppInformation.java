@@ -54,7 +54,7 @@ public class AppInformation  implements Comparable<AppInformation>{
 	
 	@Override
 	public String toString() {
-		return alias;
+		return appName;
 	}
 	@Override
 	public int compareTo(AppInformation o) {

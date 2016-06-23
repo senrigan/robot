@@ -13,6 +13,7 @@ import org.apache.commons.io.FileUtils;
 import com.gdc.nms.robot.gui.DeleteDirectory;
 import com.gdc.nms.robot.gui.RobotManager;
 import com.gdc.nms.robot.util.indexer.AppInformation;
+import com.gdc.nms.robot.util.jade.InitPlataform;
 import com.gdc.robothelper.webservice.robot.CreatorRobotWebService;
 
 
@@ -28,7 +29,8 @@ public class DeleteServiceController {
 	}
 	
 	public boolean deleteService(){
-			RobotManager.StopScanServices();
+//			RobotManager.StopScanServices();
+		
 			long idRobot = app.getIdRobot();
 			LOGGER.info("Starting to Delete Robot id :"+idRobot);
 			boolean continueProcess=false;
@@ -38,10 +40,15 @@ public class DeleteServiceController {
 				continueProcess=deleteServices(app.getFolderPath());
 				LOGGER.info("moving folder to trash "+continueProcess);
 			}
-			RobotManager.StartScanServices();
+//			RobotManager.StartScanServices();
 			return continueProcess;
 	}
 	
+	
+	private boolean stopServiceAgent(){
+		InitPlataform.getRobotRegister().get(app.getAppName());
+		app.getAppName();
+	}
 	
 	private boolean deleteServices(String serviceFolderPath){
 		Path serviceFolder = Paths.get(serviceFolderPath);

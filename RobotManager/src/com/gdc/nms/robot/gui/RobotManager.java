@@ -676,22 +676,22 @@ public class RobotManager extends JFrame {
 	
 	
 	
-	public static void StopScanServices(){
-		LOGGER.info("changing the status of scanning stoping services");
-		RobotManager.executeScan=false;
-	}
-	
-	public static void StartScanServices(){
-		LOGGER.info("changing the status of scanning starting services");
-
-		RobotManager.executeScan=true;
-	}
-	
-	
-	
-	public static boolean isRunningScan(){
-		return executeScan;
-	}
+//	public static void StopScanServices(){
+//		LOGGER.info("changing the status of scanning stoping services");
+//		RobotManager.executeScan=false;
+//	}
+//	
+//	public static void StartScanServices(){
+//		LOGGER.info("changing the status of scanning starting services");
+//
+//		RobotManager.executeScan=true;
+//	}
+//	
+//	
+//	
+//	public static boolean isRunningScan(){
+//		return executeScan;
+//	}
 	
 	
 	
