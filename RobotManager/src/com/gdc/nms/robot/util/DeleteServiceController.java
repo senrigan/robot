@@ -16,6 +16,8 @@ import com.gdc.nms.robot.util.indexer.AppInformation;
 import com.gdc.nms.robot.util.jade.InitPlataform;
 import com.gdc.robothelper.webservice.robot.CreatorRobotWebService;
 
+import jade.core.AID;
+
 
 
 
@@ -46,8 +48,9 @@ public class DeleteServiceController {
 	
 	
 	private boolean stopServiceAgent(){
-		InitPlataform.getRobotRegister().get(app.getAppName());
+		AID aid = InitPlataform.getRobotRegister().get(app.getAppName());
 		app.getAppName();
+		return false;
 	}
 	
 	private boolean deleteServices(String serviceFolderPath){

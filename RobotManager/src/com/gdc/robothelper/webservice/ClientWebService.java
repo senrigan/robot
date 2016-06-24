@@ -92,7 +92,9 @@ public class ClientWebService {
 	}
 	
 	public static void main(String[] args) throws InterruptedException {
-		boolean existeConexion = ClientWebService.existeConexion("http://samyg2pp.sispro.mx:8080/helper/SRMHelper?wsdl");
+//		boolean existeConexion = ClientWebService.existeConexion("http://samyg2.sispro.mx:8080/helper/SRMHelper?wsdl");
+		boolean existeConexion = ClientWebService.existeConexion(ClientWebService.getWebServicesConsult().toString());
+
 		System.out.println(existeConexion);
 	}
 	public static Object getWebService(String wsdlLocation) {

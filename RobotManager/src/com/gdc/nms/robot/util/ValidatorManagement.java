@@ -86,13 +86,8 @@ public class ValidatorManagement {
 	
 	
 	public static void main(String[] args) {
-		 ArrayList<FlujoJsonObject> flujosName = getFlujosName(42);
-		 for (FlujoJsonObject flujoJsonObject : flujosName) {
-				System.out.println(flujoJsonObject.getAlias());
-				
-				System.out.println(flujoJsonObject.getId());
-		}
-		 
+		ArrayList<FlujoInformation> validFlujos = ValidatorManagement.getValidFlujos(Paths.get("C:\\Users\\senrigan\\Documents\\iMacros\\Macros\\32D\\application"), 27);
+		 System.out.println(validFlujos);
 		
 		 
 	}
@@ -133,7 +128,6 @@ public class ValidatorManagement {
 		ArrayList<FlujoJsonObject> flujosName = getFlujosName(appId);
 		if(!folder.getFileName().toString().equals("application"))
 			folder=folder.resolve("application");
-
 		ArrayList<FlujoInformation> flujosApp = AppExaminator.getFlujosApp(folder);
 		ArrayList<FlujoInformation> validFluj=new ArrayList<FlujoInformation>();
 //		ArrayList<FlujoInformation> validFlujo=new ArrayList<FlujoInformation>();
@@ -145,7 +139,7 @@ public class ValidatorManagement {
 		}
 		for (FlujoInformation flujoInformation : flujosApp) {
 			String flujoName = flujoInformation.getName();
-			System.out.println(flujoName);
+			System.out.println("flujo informatpn"+flujoName);
 			for (FlujoJsonObject object : flujosName) {
 				String alias = object.getAlias();
 				System.out.println("alias"+alias);

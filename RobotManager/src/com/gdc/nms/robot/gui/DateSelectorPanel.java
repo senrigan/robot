@@ -305,14 +305,7 @@ public class DateSelectorPanel extends JFrame {
 	
 	public static void main(String[] args) {
 		
-			int total_time=1440;
-			List<Integer> validTime=new ArrayList<Integer>();
-			for(int i=1;i<61;i++){
-				if(total_time%i==0){
-					validTime.add(i);
-				}
-			}
-			System.out.println(validTime);
+		 ValidatorManagement.getValidFlujosWithoutCheckInstalled(path.resolve("application"),selectedItem.getId());
 		
 	}
 }
