@@ -11,7 +11,9 @@ import com.gdc.robothelper.webservice.ClientWebService;
 import com.gdc.robothelper.webservice.SisproRobotManagerHelper;
 import com.gdc.robothelper.webservice.SisproRobotManagerHelperService;
 import com.gdc.robothelper.webservice.robot.CreatorRobotWebService;
+import com.gdc.robothelper.webservice.robot.news.CreatorNewRobotWebService;
 import com.gdc.robothelper.webservice.robot.news.Webservice;
+import com.gdc.robothelper.webservice.robot.olds.CreatorOldRobotWebService;
 
 public class RegisrtryEditorManager {
 	public RegisrtryEditorManager(){
@@ -113,14 +115,21 @@ public class RegisrtryEditorManager {
 			
 			reg.setTexBox(com.gdc.robothelper.webservice.robot.Webservice.getUrl().toString());
 		}
+		final String webserviceUrl = webServicesCreator.toString();
 		reg.setRegistryLabel("WebServices de Creacion");
 		reg.setContinueAction(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String texBox = reg.getTexBox();
+				boolean validConnection=false;
+				if(webserviceUrl.contains("pp")){
+					validConnection=CreatorNewRobotWebService.existeConexion(texBox);
+				}else{
+					validConnection=CreatorOldRobotWebService.existeConexion(texBox);
+				}
 				
-				if(CreatorRobotWebService.existeConexion(texBox)){
+				if(validConnection){
 					RobotManager.createWebServicesConsultRegistry(texBox);
 					URL wsUrl = CreatorRobotWebService.getWebServicesCreator();
 					
