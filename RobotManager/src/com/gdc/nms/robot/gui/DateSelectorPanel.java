@@ -303,9 +303,5 @@ public class DateSelectorPanel extends JFrame {
 	}
 	
 	
-	public static void main(String[] args) {
-		
-		 ValidatorManagement.getValidFlujosWithoutCheckInstalled(path.resolve("application"),selectedItem.getId());
-		
-	}
+	
 }

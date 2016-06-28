@@ -267,7 +267,7 @@ public class InstallerRobotPanel extends JFrame {
 							 "No fue posible Instalar la aplicacion Correctamente","Error.", JOptionPane.ERROR_MESSAGE);
 
 				}
-				cancelButton.doClick();
+				closeWindows();
 			}
 		};
 		frame.setContinueAction(listener);

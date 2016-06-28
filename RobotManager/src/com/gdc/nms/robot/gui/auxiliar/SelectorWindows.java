@@ -33,6 +33,7 @@ public class SelectorWindows extends JFrame {
 	private JButton CancelButton;
 	private JButton ContinueButton;
 	private JPanel ContentPanel;
+	private JLabel instructionLabel;
 
 	/**
 	 * Launch the application.
@@ -126,6 +127,14 @@ public class SelectorWindows extends JFrame {
 		gbl_principalPanel.columnWeights = new double[]{1.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
 		gbl_principalPanel.rowWeights = new double[]{1.0, 0.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
 		principalPanel.setLayout(gbl_principalPanel);
+		
+		instructionLabel = new JLabel("New label");
+		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
+		gbc_lblNewLabel.gridwidth = 2;
+		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel.gridx = 1;
+		gbc_lblNewLabel.gridy = 0;
+		principalPanel.add(instructionLabel, gbc_lblNewLabel);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
