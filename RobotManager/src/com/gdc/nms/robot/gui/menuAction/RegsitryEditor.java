@@ -182,7 +182,7 @@ public class RegsitryEditor extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				controller.fieldValidation(wsCreationText.getText(),wsConsultText.getText(),ubicationText.getText());
 			}
 		});
 	}

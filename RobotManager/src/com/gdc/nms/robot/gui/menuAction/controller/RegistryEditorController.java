@@ -18,7 +18,13 @@ public class RegistryEditorController {
 	}
 
 	public void fieldValidation(String wsCreaction,String wsConsult,String ubication) {
-		if(!isEmpatyString(ubication) && !isEmpatyString(wsCreaction) 
+		validEmpatyFields(wsCreaction, wsConsult, ubication);
+	}
+	
+	
+	
+	public void validEmpatyFields(String wsCreation,String wsConsult,String ubication){
+		if(!isEmpatyString(ubication) && !isEmpatyString(wsCreation) 
 				&& !isEmpatyString(wsConsult)){
 			
 		}else{
@@ -46,9 +52,18 @@ public class RegistryEditorController {
 		}
 	}
 	
+	public boolean validWSConsult(String url){
+		
+		return ClientWebService.existeConexion(url);
+	}
 	
 	public void modifyWSConsult(String url){
-		
+		if(validWSConsult(url)){
+			URL webServicesConsult = ClientWebService.getWebServicesConsult();
+			
+		}else{
+			
+		}
 	}
 	
 	
@@ -69,10 +84,6 @@ public class RegistryEditorController {
 	}
 	
 	
-	public boolean validWSConsult(String url){
-		
-		return ClientWebService.existeConexion(url);
-	}
 	
 	
 	

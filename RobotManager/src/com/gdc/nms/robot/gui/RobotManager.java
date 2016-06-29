@@ -385,8 +385,8 @@ public class RobotManager extends JFrame {
 	}
 	private static void createUbicationPathRegistry(){
 		try {
-			CommandExecutor.addRegistryWindows(Constants.LOCALREGISTRY, "installationPath", "C:\\Users\\senrigan\\Documents\\pruebas\\GDC\\RobotScript", REGISTRY_TYPE.REG_SZ);
-//			CommandExecutor.addRegistryWindows(Constants.LOCALREGISTRY, "installationPath", getCurrentPath().toString(), REGISTRY_TYPE.REG_SZ);
+//			CommandExecutor.addRegistryWindows(Constants.LOCALREGISTRY, "installationPath", "C:\\Users\\senrigan\\Documents\\pruebas\\GDC\\RobotScript", REGISTRY_TYPE.REG_SZ);
+			CommandExecutor.addRegistryWindows(Constants.LOCALREGISTRY, "installationPath", getCurrentPath().toString(), REGISTRY_TYPE.REG_SZ);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -395,6 +395,16 @@ public class RobotManager extends JFrame {
 			e.printStackTrace();
 		}
 
+	}
+	
+	public static String getInstallationPathRegistry(){
+		String ubicationRegist=null;
+		try {
+			ubicationRegist = CommandExecutor.readRegistrySpecificRegistry(Constants.LOCALREGISTRY, "installationPath","REG_SZ");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ubicationRegist;
 	}
 	
 	
