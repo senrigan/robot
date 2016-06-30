@@ -1,10 +1,12 @@
 package com.gdc.nms.robot.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JRootPane;
 import javax.swing.border.EmptyBorder;
 
 import com.gdc.nms.robot.gui.auxiliar.CheckBoxList;
@@ -189,8 +191,9 @@ public class InstallerRobotPanel extends JFrame {
 
 			continueButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					System.out.println("se activo el lister");
 					CreatorRobotManager creator=new CreatorRobotManager();
-
+					
 					if(creator.createRobotWithPath(infoRobotM ,addFilesRobot)){
 						JOptionPane.showMessageDialog(null, "La carpeta fue insatalada correctamente.", "Correcto", JOptionPane.INFORMATION_MESSAGE);
 					}else{
@@ -198,7 +201,14 @@ public class InstallerRobotPanel extends JFrame {
 								 "No fue posible Instalar la aplicacion Correctamente","Error.", JOptionPane.ERROR_MESSAGE);
 
 					}
+					System.out.println("empezando sgeundo rpoceso");
 					closeWindows();
+					Component rootPane2 = SwingUtilities.getRoot(continueButton);
+					System.out.println("rootpane"+rootPane2);
+					System.out.println(rootPane2.getName());
+					JFrame fr= (JFrame) rootPane2;
+					System.out.println("serrranco ventana ");
+					fr.dispose();
 				}
 			});
 			
@@ -339,8 +349,9 @@ public class InstallerRobotPanel extends JFrame {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
+					System.out.println("se activo el listener");
 					CreatorRobotManager creator=new CreatorRobotManager();
-
+					
 					if(creator.createRobot(infoRobot,addFilesRobot)){
 						JOptionPane.showMessageDialog(null, "La carpeta fue insatalada correctamente.", "Correcto", JOptionPane.INFORMATION_MESSAGE);
 					}else{
@@ -348,7 +359,14 @@ public class InstallerRobotPanel extends JFrame {
 								 "No fue posible Instalar la aplicacion Correctamente","Error.", JOptionPane.ERROR_MESSAGE);
 
 					}
+					System.out.println("empezando sgeundo rpoceso");
 					closeWindows();
+					Component rootPane2 = SwingUtilities.getRoot(continueButton);
+					System.out.println("rootpane"+rootPane2);
+					System.out.println(rootPane2.getName());
+					JFrame fr= (JFrame) rootPane2;
+					System.out.println("serrranco ventana ");
+					fr.dispose();
 				}
 			});
 			
