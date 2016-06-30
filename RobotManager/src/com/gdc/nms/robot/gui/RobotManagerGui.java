@@ -273,7 +273,7 @@ public class RobotManagerGui extends JFrame {
 		}
 	}
 	
-	private boolean checkWebServicesConsult(){
+	private static boolean checkWebServicesConsult(){
 		URL webServicesConsult = ClientWebService.getWebServicesConsult();
 		if(webServicesConsult!=null){
 			System.out.println("comprobando webservices"+webServicesConsult);
@@ -282,6 +282,12 @@ public class RobotManagerGui extends JFrame {
 			webServicesConsult=Webservice.getUrl();
 			return ClientWebService.existeConexion(webServicesConsult.toString());
 		}
+	}
+	
+	
+	public static void main(String[] args) {
+		boolean checkWebServicesConsult = RobotManagerGui.checkWebServicesConsult();
+		System.out.println(checkWebServicesConsult);
 	}
 	private void updateMenuAction(){
 		updateMenu.addActionListener(new ActionListener() {

@@ -363,7 +363,7 @@ public class InstallerRobotPanel extends JFrame {
 	}
 	
 	private void closeWindows(){
-		this.dispose();
+		dispose();
 	}
 	
 	
