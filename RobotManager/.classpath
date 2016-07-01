@@ -13,5 +13,6 @@
 	<classpathentry kind="lib" path="C:/Users/senrigan/Documents/desarrollo/robot/RobotManager/lib/tools_32.jar"/>
 	<classpathentry kind="lib" path="C:/Users/senrigan/Documents/desarrollo/robot/RobotManager/lib/tools_64.jar"/>
 	<classpathentry kind="lib" path="C:/Users/senrigan/Documents/desarrollo/robot/RobotManager/lib/xstream-1.4.8.jar"/>
+	<classpathentry kind="lib" path="C:/Users/senrigan/Documents/desarrollo/robot/RobotManager/lib/log4j-1.2.17.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

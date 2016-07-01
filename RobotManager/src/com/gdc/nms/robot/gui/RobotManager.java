@@ -15,17 +15,22 @@ import java.util.Set;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import org.apache.log4j.Appender;
+import org.apache.log4j.FileAppender;
+import org.apache.log4j.Logger;
+import org.apache.log4j.SimpleLayout;
+
 import com.gdc.nms.robot.Main;
 import com.gdc.nms.robot.util.AppExaminator;
 import com.gdc.nms.robot.util.Constants;
 import com.gdc.nms.robot.util.Environment;
+import com.gdc.nms.robot.util.LogLayout;
 import com.gdc.nms.robot.util.RobotInformation;
 import com.gdc.nms.robot.util.VirtualMachineExaminator;
 import com.gdc.nms.robot.util.indexer.AppInformation;
@@ -52,7 +57,9 @@ public class RobotManager extends JFrame {
 	private static boolean valueStop=false;
 	private static boolean executeScan=true;
 	private static RobotManagerGui robotManagerGui;
+	public static Appender logAppender;
 	public RobotManager() {
+		CreateLogFile();
 		Path regInstallationPath = AppExaminator.getInstallationPath();
 		setInstallationPath(regInstallationPath);
 		checkWindowsRegistry();
@@ -98,6 +105,22 @@ public class RobotManager extends JFrame {
 	}
 	
 	
+	private void CreateLogFile(){
+		Path currentPath = getCurrentPath();
+		currentPath = currentPath.resolve("inMonitor").resolve("srm.log");
+		System.out.println("**** cuenrrrent path for srmlog"+currentPath.toString());
+		try {
+			logAppender=new FileAppender(new LogLayout(),currentPath.toString());
+			LOGGER.addAppender(logAppender);
+			logAppender.setLayout(new LogLayout());
+			
+			LOGGER.info("The RobotManager Instance is Created");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
 	
 	public static RobotManagerGui getGuiManager(){
 		return robotManagerGui;
@@ -108,7 +131,7 @@ public class RobotManager extends JFrame {
 		}
 	}
 	private void checkWindowsRegistry(){
-		LOGGER.log(Level.INFO, "reading and creating windows registry necessary for sysprorobotmanager");
+		LOGGER.info( "reading and creating windows registry necessary for sysprorobotmanager");
 		checkRegistryRobotMustRun();
 		checkRegistryRobotNoRunning();
 		checkUbicationRegistry();
@@ -306,7 +329,7 @@ public class RobotManager extends JFrame {
 							}
 							
 						}catch(NumberFormatException nex){
-							LOGGER.log(Level.SEVERE,"cannot parse the id for run");
+							LOGGER.info("cannot parse the id for run");
 						}						
 					}
 				});
@@ -557,9 +580,10 @@ public class RobotManager extends JFrame {
 		ArrayList<RobotInformation> runningRobot = VirtualMachineExaminator.getRunningRobot();
 		for (RobotInformation robotInformation : runningRobot) {
 			if(robotInformation.getRobotId()==idRobot){
-				LOGGER.log(Level.INFO, "stopping robotid "+idRobot);
+				LOGGER.info( "stopping robotid "+idRobot);
 				if(!stopJar(robotInformation.getIdProcess())){
-					LOGGER.log(Level.WARNING,"the robotid "+idRobot +"cannot stoped");
+					
+					LOGGER.info("the robotid "+idRobot +"cannot stoped");
 					throw new Exception("cannot stop jar of appName"+robotInformation.getAppName());
 				}
 			}

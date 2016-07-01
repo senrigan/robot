@@ -373,6 +373,15 @@ public class AppExaminator {
 	}
 	
 	
+	public static boolean flujoConstainsStepValid(FlujoInformation flujo){
+		ArrayList<StepInformation> steps = flujo.getSteps();
+		if(!steps.isEmpty()){
+			return true;
+		}
+		return false;
+	}
+	
+	
 	private static ArrayList<StepInformation> indexSteps(File[] steps){
 		Arrays.sort(steps);
 		ArrayList<StepInformation> stepsFiles=new ArrayList<StepInformation>();

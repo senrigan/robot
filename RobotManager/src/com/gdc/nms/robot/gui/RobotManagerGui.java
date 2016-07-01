@@ -30,6 +30,9 @@ import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
 import javax.swing.JTree;
 import javax.swing.SwingUtilities;
+
+import org.apache.log4j.Logger;
+
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 
@@ -92,9 +95,13 @@ public class RobotManagerGui extends JFrame {
 	private JMenu mnAr;
 	private JMenuItem ubicationMenu;
 	private JMenuItem wsCreactionMenu;
+	private static final Logger LOGGER=Logger.getLogger(RobotManagerGui.class.toString());
+
+	
 
 	public RobotManagerGui() {
 		super("SisproRobotManager");
+		LOGGER.addAppender(RobotManager.logAppender);
 		
 		initComponents();
 		

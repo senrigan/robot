@@ -14,6 +14,8 @@ import com.gdc.nms.robot.util.indexer.FlujoInformation;
 
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
@@ -176,25 +178,28 @@ public class DateSelectorPanel extends JFrame {
 						
 						validFlujos = ValidatorManagement.getValidFlujosWithoutCheckInstalled(path.resolve("application"),selectedItem.getId());
 						if(!validFlujos.isEmpty()){
+							JOptionPane.showMessageDialog(null, "No existen flujos validos", "Error",JOptionPane.ERROR_MESSAGE);
 							closeWindows();
-						}
-						data=path.resolve("data");
+						}else{
+							
+							data=path.resolve("data");
 //						final Path dataPath=data;
 //						final ArrayList<FlujoInformation> validFinalFlujos=validFlujos;
 //						final AppJsonObject finalJsonObject=selectedItem;
-						infoRobotM.setAppSelected(selectedItem);
-						infoRobotM.setDataFolder(data);
-						infoRobotM.setFlujos(validFlujos);
-					
-						
-						SwingUtilities.invokeLater(new Runnable() {
+							infoRobotM.setAppSelected(selectedItem);
+							infoRobotM.setDataFolder(data);
+							infoRobotM.setFlujos(validFlujos);
 							
-							@Override
-							public void run() {
-								installer.initSelectorWindowsAddFlujos(infoRobotM);;
-
-							}
-						});
+							
+							SwingUtilities.invokeLater(new Runnable() {
+								
+								@Override
+								public void run() {
+									installer.initSelectorWindowsAddFlujos(infoRobotM);;
+									
+								}
+							});
+						}
 						
 					}else{
 						validFlujos= ValidatorManagement.
@@ -202,22 +207,24 @@ public class DateSelectorPanel extends JFrame {
 						if(!validFlujos.isEmpty()){
 							closeWindows();
 						
-						}
+						}else{
+							
 //						final ArrayList<FlujoInformation> validFinalFlujos=validFlujos;
 //						final AppJsonObject finalJsonObject=selectedItem;
-						infoRobotM.setAppSelected(selectedItem);
-						infoRobotM.setFlujos(validFlujos);
-						
-						
-						SwingUtilities.invokeLater(new Runnable() {
+							infoRobotM.setAppSelected(selectedItem);
+							infoRobotM.setFlujos(validFlujos);
 							
-							@Override
-							public void run() {
-								installer.initSelectorWindowsAddFlujos(infoRobotM);
+							
+							SwingUtilities.invokeLater(new Runnable() {
 								
-
-							}
-						});
+								@Override
+								public void run() {
+									installer.initSelectorWindowsAddFlujos(infoRobotM);
+									
+									
+								}
+							});
+						}
 						
 						
 						
