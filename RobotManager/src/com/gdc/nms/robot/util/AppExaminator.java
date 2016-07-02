@@ -382,6 +382,17 @@ public class AppExaminator {
 	}
 	
 	
+	public static boolean flujosConstanisStepsValid(ArrayList<FlujoInformation> flujos){
+		for (FlujoInformation flujoInformation : flujos) {
+			boolean fl = flujoConstainsStepValid(flujoInformation);
+			if(!fl){
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	
 	private static ArrayList<StepInformation> indexSteps(File[] steps){
 		Arrays.sort(steps);
 		ArrayList<StepInformation> stepsFiles=new ArrayList<StepInformation>();

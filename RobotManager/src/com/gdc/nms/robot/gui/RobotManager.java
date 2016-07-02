@@ -4,8 +4,12 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.RandomAccessFile;
 import java.net.URISyntaxException;
+import java.nio.channels.FileChannel;
+import java.nio.channels.FileLock;
 import java.nio.file.Files;
+import java.nio.file.LinkOption;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -60,9 +64,10 @@ public class RobotManager extends JFrame {
 	public static Appender logAppender;
 	public RobotManager() {
 		CreateLogFile();
-		Path regInstallationPath = AppExaminator.getInstallationPath();
-		setInstallationPath(regInstallationPath);
-		checkWindowsRegistry();
+		if(srmAlreadyRunning()){
+			Path regInstallationPath = AppExaminator.getInstallationPath();
+			setInstallationPath(regInstallationPath);
+			checkWindowsRegistry();
 //		  DefaultMutableTreeNode root = new DefaultMutableTreeNode("Root");
 //	        //create the child nodes
 //	        DefaultMutableTreeNode vegetableNode = new DefaultMutableTreeNode("Vegetables");
@@ -80,28 +85,32 @@ public class RobotManager extends JFrame {
 //	        this.setTitle("JTree Example");       
 //	        this.pack();
 //	        this.setVisible(true);
-		try {
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		} catch (UnsupportedLookAndFeelException e) {
-			e.printStackTrace();
-		}
-		Thread hilo=new Thread(new Runnable() {
-			
-			@Override
-			public void run() {
-				initAllRobots();
-				
+			try {
+				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} catch (InstantiationException e) {
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				e.printStackTrace();
+			} catch (UnsupportedLookAndFeelException e) {
+				e.printStackTrace();
 			}
-		});
-		StartAgentPlatform();
-		hilo.start();
-		robotManagerGui=new RobotManagerGui();
+			Thread hilo=new Thread(new Runnable() {
+				
+				@Override
+				public void run() {
+					initAllRobots();
+					
+				}
+			});
+			StartAgentPlatform();
+			hilo.start();
+			robotManagerGui=new RobotManagerGui();
+			
+		}else{
+			JOptionPane.showMessageDialog(null, "El Programa ya esta en ejecucion", "Error", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 	
 	
@@ -118,6 +127,62 @@ public class RobotManager extends JFrame {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	private boolean srmAlreadyRunning(){
+		return checkAndCreatedLockFile();
+	}
+	
+	private boolean checkAndCreatedLockFile(){
+		Path currentPath = getCurrentPath();
+		File lockFile = new File(currentPath.resolve("SRM.LOCK").toString());
+		boolean created=false;
+		if(lockFile.exists()){
+			if(lockFile.delete()){
+				created=createLockFile(lockFile);
+			}
+		}else{
+			created= createLockFile(lockFile);
+		}
+		
+		return created;
+	}
+	
+	private boolean createLockFile(File lockFile){
+		try {
+			if(lockFile.createNewFile()){
+				hiddeFile(lockFile.toPath());
+				FileChannel channel =  new RandomAccessFile(lockFile, "rw").getChannel();
+				FileLock lock = channel.lock();
+				channel.tryLock();
+				return true;
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+			
+		}
+		return false;
+	}
+	
+	
+	public static void hiddeFile(Path fileToHide){
+		try {
+			Boolean attribute = (Boolean)Files.getAttribute(fileToHide, "dos:hidden", LinkOption.NOFOLLOW_LINKS);
+			if(attribute !=null && !attribute){
+				System.out.println("ocultando archivo");
+				Files.setAttribute(fileToHide, "dos:hidden", Boolean.TRUE, LinkOption.NOFOLLOW_LINKS);
+			}else{
+				System.out.println("el archivo ya esta oculta");
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
+	public static void main(String[] args) {
+		RobotManager.hiddeFile(Paths.get("C:\\Program Files\\GDC\\RobotScript\\hola.txt"));
 	}
 	
 	
@@ -341,18 +406,7 @@ public class RobotManager extends JFrame {
 	}
 	
 	
-	public static void main(String[] args) {
-		String robotIds;
-		try {
-			Path regInstallationPath = AppExaminator.getInstallationPath();
-			setInstallationPath(regInstallationPath);
-			boolean runJarRobot = RobotManager.runJarRobot("32D");
-			System.out.println("run jar"+runJarRobot);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+
 	
 	private static void checkUbicationRegistry(){
 		try {

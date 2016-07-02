@@ -6,6 +6,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 
+import com.gdc.nms.robot.util.AppExaminator;
 import com.gdc.nms.robot.util.CreatorRobotManager;
 import com.gdc.nms.robot.util.InfoRobotMaker;
 import com.gdc.nms.robot.util.ValidatorManagement;
@@ -177,53 +178,67 @@ public class DateSelectorPanel extends JFrame {
 					if(ValidatorManagement.isValidMainFolder(path)){
 						
 						validFlujos = ValidatorManagement.getValidFlujosWithoutCheckInstalled(path.resolve("application"),selectedItem.getId());
-						if(!validFlujos.isEmpty()){
+						System.out.println("valid flujos main"+validFlujos.size());
+						if(validFlujos.isEmpty()){
 							JOptionPane.showMessageDialog(null, "No existen flujos validos", "Error",JOptionPane.ERROR_MESSAGE);
 							closeWindows();
 						}else{
-							
-							data=path.resolve("data");
-//						final Path dataPath=data;
-//						final ArrayList<FlujoInformation> validFinalFlujos=validFlujos;
-//						final AppJsonObject finalJsonObject=selectedItem;
-							infoRobotM.setAppSelected(selectedItem);
-							infoRobotM.setDataFolder(data);
-							infoRobotM.setFlujos(validFlujos);
-							
-							
-							SwingUtilities.invokeLater(new Runnable() {
+							if(AppExaminator.flujosConstanisStepsValid(validFlujos)){
+								data=path.resolve("data");
+		//						final Path dataPath=data;
+		//						final ArrayList<FlujoInformation> validFinalFlujos=validFlujos;
+		//						final AppJsonObject finalJsonObject=selectedItem;
+								infoRobotM.setAppSelected(selectedItem);
+								infoRobotM.setDataFolder(data);
+								infoRobotM.setFlujos(validFlujos);
 								
-								@Override
-								public void run() {
-									installer.initSelectorWindowsAddFlujos(infoRobotM);;
+								
+								SwingUtilities.invokeLater(new Runnable() {
 									
-								}
-							});
+									@Override
+									public void run() {
+										installer.initSelectorWindowsAddFlujos(infoRobotM);;
+										
+									}
+								});
+								
+							}else{
+								JOptionPane.showMessageDialog(null, "No existen Pasos validos", "Error",JOptionPane.ERROR_MESSAGE);
+
+							}
 						}
 						
 					}else{
 						validFlujos= ValidatorManagement.
 								getValidFlujosWithoutCheckInstalled(path,selectedItem.getId());
-						if(!validFlujos.isEmpty()){
+						System.out.println("valid flujos without main"+validFlujos.size());
+
+						if(validFlujos.isEmpty()){
+							JOptionPane.showMessageDialog(null, "No existen flujos validos", "Error",JOptionPane.ERROR_MESSAGE);
 							closeWindows();
 						
 						}else{
-							
+							if(AppExaminator.flujosConstanisStepsValid(validFlujos)){
+								
 //						final ArrayList<FlujoInformation> validFinalFlujos=validFlujos;
 //						final AppJsonObject finalJsonObject=selectedItem;
-							infoRobotM.setAppSelected(selectedItem);
-							infoRobotM.setFlujos(validFlujos);
-							
-							
-							SwingUtilities.invokeLater(new Runnable() {
+								infoRobotM.setAppSelected(selectedItem);
+								infoRobotM.setFlujos(validFlujos);
 								
-								@Override
-								public void run() {
-									installer.initSelectorWindowsAddFlujos(infoRobotM);
+								
+								SwingUtilities.invokeLater(new Runnable() {
 									
-									
-								}
-							});
+									@Override
+									public void run() {
+										installer.initSelectorWindowsAddFlujos(infoRobotM);
+										
+										
+									}
+								});
+								
+							}else{
+								JOptionPane.showMessageDialog(null, "No existen Pasos validos", "Error",JOptionPane.ERROR_MESSAGE);
+							}
 						}
 						
 						

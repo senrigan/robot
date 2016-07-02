@@ -14,10 +14,10 @@
   <restartOnCrash>false</restartOnCrash>
   <manifest>administrator.manifest</manifest>
   <icon>gdc.ico</icon>
-  <singleInstance>
-    <mutexName>SRM</mutexName>
-    <windowTitle></windowTitle>
-  </singleInstance>
+<!--   <singleInstance> -->
+<!--     <mutexName>SRM</mutexName> -->
+<!--     <windowTitle>SRM</windowTitle> -->
+<!--   </singleInstance> -->
   <jre>
     <path></path>
     <bundledJre64Bit>false</bundledJre64Bit>
@@ -27,4 +27,10 @@
     <jdkPreference>preferJre</jdkPreference>
     <runtimeBits>64/32</runtimeBits>
   </jre>
+  <messages>
+  	<startupErr>error al inciar</startupErr>
+  	<bundledJreErr>error bundle jree</bundledJreErr>
+  	<launcherErr>lunches error</launcherErr>
+  	<instanceAlreadyExistsMsg>El SRM ya esta Abierto</instanceAlreadyExistsMsg>
+  </messages>
 </launch4jConfig>

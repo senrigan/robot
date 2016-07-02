@@ -235,7 +235,17 @@ public class InstallerRobotPanel extends JFrame {
 		JCheckBox[] jcheckList=getValidFlujosToCheckBoxArray(infoMaker.getFlujos());
 	    cbList.setListData(jcheckList);
 		frame.setContent(cbList);
-		
+		ActionListener cancelListener=new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JButton source = (JButton)e.getSource();
+				System.out.println(source.getText());
+				JFrame root = (JFrame)SwingUtilities.getRoot(source);
+				root.dispose();
+			}
+		};
+		frame.setCancelAction(cancelListener);
 		ActionListener listener=new ActionListener() {
 			
 			@Override
@@ -278,20 +288,12 @@ public class InstallerRobotPanel extends JFrame {
 
 				}
 				closeWindows();
+				
+//				cancelButton.doClick();
 			}
 		};
 		frame.setContinueAction(listener);
-		listener=new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				JButton source = (JButton)e.getSource();
-				System.out.println(source.getText());
-				JFrame root = (JFrame)SwingUtilities.getRoot(source);
-				root.dispose();
-			}
-		};
-		frame.setCancelAction(listener);
+
 	}
 	
 	
