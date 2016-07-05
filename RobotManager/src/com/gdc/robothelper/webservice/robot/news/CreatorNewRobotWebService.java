@@ -19,9 +19,8 @@ import javax.xml.ws.WebServiceException;
 import com.gdc.nms.robot.gui.RobotManager;
 import com.gdc.nms.robot.util.Constants;
 import com.gdc.nms.robot.util.registry.CommandExecutor;
-import com.gdc.robothelper.webservice.SisproRobotManagerHelperService;
 
-import sun.util.logging.resources.logging_es;
+
 
 public class CreatorNewRobotWebService {
 	private static final Logger LOGGER=Logger.getLogger(RobotManager.class.toString());

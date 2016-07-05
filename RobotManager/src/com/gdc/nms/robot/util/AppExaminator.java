@@ -30,7 +30,7 @@ import com.gdc.nms.robot.util.indexer.AppInformation;
 import com.gdc.nms.robot.util.indexer.FlujoInformation;
 import com.gdc.nms.robot.util.indexer.StepInformation;
 import com.gdc.nms.robot.util.registry.CommandExecutor;
-import com.sun.xml.internal.bind.v2.schemagen.xmlschema.Appinfo;
+
 
 
 
