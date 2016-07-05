@@ -3,6 +3,10 @@ package com.gdc.nms.robot.util.jade;
 import java.util.Arrays;
 import java.util.HashMap;
 
+import org.apache.log4j.Logger;
+
+import com.gdc.nms.robot.gui.RobotManager;
+
 import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
@@ -12,7 +16,10 @@ import jade.wrapper.AgentController;
 import jade.wrapper.StaleProxyException;
 
 public class MailBoxRobot extends Agent{
-	
+	private static final Logger LOGGER=Logger.getLogger(MailBoxRobot.class.toString());
+	static {
+		LOGGER.addAppender(RobotManager.logAppender);
+	}
 	public static void initReciver(){
 		Object []obj= new Object[1];
 		AgentContainer container = InitPlataform.getContainer();
@@ -21,6 +28,7 @@ public class MailBoxRobot extends Agent{
 			createNewAgent.start();
 		} catch (StaleProxyException e) {
 			e.printStackTrace();
+			LOGGER.error("Excepcion ", e);
 		}
 	}
 

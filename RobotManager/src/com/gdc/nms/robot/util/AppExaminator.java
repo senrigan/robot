@@ -22,12 +22,15 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.apache.commons.io.filefilter.WildcardFileFilter;
+import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 
+import com.gdc.nms.robot.gui.RobotManager;
 import com.gdc.nms.robot.util.indexer.AppInformation;
 import com.gdc.nms.robot.util.indexer.FlujoInformation;
 import com.gdc.nms.robot.util.indexer.StepInformation;
 import com.gdc.nms.robot.util.registry.CommandExecutor;
+import com.sun.xml.internal.bind.v2.schemagen.xmlschema.Appinfo;
 
 
 
@@ -36,6 +39,10 @@ public class AppExaminator {
 	 * 
 	 * @return a list of all elements with information of application installed in data folder
 	 */
+	private static final Logger LOGGER=Logger.getLogger(AppExaminator.class.toString());
+	static{
+		LOGGER.addAppender(RobotManager.logAppender);
+	}
 	public static ArrayList<AppInformation> getInstalledApps(){
 		ArrayList<AppInformation> apps=new ArrayList<AppInformation>();
 		try {
@@ -63,6 +70,8 @@ public class AppExaminator {
 			}
 		}catch(Exception ex){
 			ex.printStackTrace();
+			LOGGER.error("excepcion ", ex);
+
 		}
 		return apps;
 	}
@@ -110,9 +119,61 @@ public class AppExaminator {
 			}
 		}catch(Exception ex){
 			ex.printStackTrace();
+			LOGGER.error("excepcion ", ex);
+
 		}
 		return apps;
 	}
+	
+	/**
+	 * 
+	 * @param appName
+	 * @return true if the appname exist in data folder other wise return false
+	 */
+	public static boolean appNameAlreadyExist(String appName){
+		AppInformation appInformation = getInstalledAppsMap().get(appName);
+		if(appInformation!=null){
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * 
+	 * @param app
+	 * @return null if the app no exist
+	 */
+	
+	public static String getNewNameForAppIfExist(String app){
+		FileFilter fileFilter=new WildcardFileFilter(app+"*");
+		Path folderData = Paths.get(RobotManager.getInstallationPathRegistry()).resolve("data");
+		File [] files = folderData.toFile().listFiles(fileFilter);
+		if(files.length>0){
+			String graterName="";
+			System.out.println("folderDAra"+folderData);
+			System.out.println(Arrays.toString(files));
+			graterName=files[0].getName();
+			for(int i=0;i<files.length;i++){
+				if(graterName.compareTo(files[i].getName())<0){
+					graterName=files[i].getName();
+				}
+			}
+			System.out.println("graterName"+graterName);
+			if(graterName.contains(Constants.APPSEPARATORROBOT)){
+				int indexLastCaracter=graterName.lastIndexOf(Constants.APPSEPARATORROBOT);
+				String lastName = graterName.substring(indexLastCaracter+1, graterName.length());
+				int parseInt = Integer.parseInt(lastName);
+				System.out.println("num parser "+parseInt);
+				return app+" "+Constants.APPSEPARATORROBOT+(parseInt+1);
+				
+			}else{
+				return graterName+" "+Constants.APPSEPARATORROBOT+2;
+			}
+			
+		}
+		return null;
+	}
+	
 	
 	
 	public static boolean validAppFolde(Path pathFolder){
@@ -162,6 +223,8 @@ public class AppExaminator {
 			redRegistryWindows=CommandExecutor.readRegistrySpecificRegistry(LOCALREGISTRY, "installationPath", "REG_SZ");
 		} catch (Exception e) {
 			e.printStackTrace();
+			LOGGER.error("excepcion ", e);
+
 		}
 		Path installationPath = Paths.get(redRegistryWindows);
 		return installationPath;
@@ -181,6 +244,8 @@ public class AppExaminator {
 			}
 		}catch(Exception ex){
 			ex.printStackTrace();
+			LOGGER.error("excepcion ", ex);
+
 		}
 		return content;
 	}
@@ -202,15 +267,13 @@ public class AppExaminator {
 			}
 		}catch(Exception ex){
 			ex.printStackTrace();
+			LOGGER.error("excepcion ", ex);
+
 		}
 		return content;
 	}
 	
-	public static void main(String[] args) {
-		String runningByLockFile = AppExaminator.readPidFile("C:\\Program Files\\GDC\\RobotScript\\data\\testapp");
-		System.out.println(runningByLockFile);
-	}
-	
+
 	public static  ArrayList<AppInformation>  getRunningApps(){
 //		Vector<AID> services = DFConsult.services;
 //		ArrayList<RobotInformation> runningRobot = VirtualMachineExaminator.getRunningRobot();
@@ -313,7 +376,8 @@ public class AppExaminator {
 			}
 			
 		}catch(Exception ex){
-			
+			LOGGER.error("excepcion ", ex);
+
 		}
 		return robotId;
 		
@@ -332,6 +396,8 @@ public class AppExaminator {
 			app.setIdApp(Long.parseLong(doc.getDocumentElement().getAttribute("id")));
 		}catch(Exception ex){
 			ex.printStackTrace();
+			LOGGER.error("excepcion ", ex);
+
 		}
 		
 

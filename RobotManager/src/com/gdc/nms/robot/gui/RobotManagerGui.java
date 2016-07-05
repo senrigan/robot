@@ -3,7 +3,6 @@ package com.gdc.nms.robot.gui;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
@@ -14,13 +13,9 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.Vector;
 import java.util.concurrent.CountDownLatch;
 
-import javax.lang.model.util.Elements;
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
-import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
@@ -36,27 +31,19 @@ import org.apache.log4j.Logger;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 
-import com.gdc.nms.robot.gui.auxiliar.CheckBoxList;
 import com.gdc.nms.robot.gui.auxiliar.LoadingFrame;
-import com.gdc.nms.robot.gui.auxiliar.SelectorWindows;
 import com.gdc.nms.robot.gui.tree.Element;
 import com.gdc.nms.robot.gui.tree.TreeListener;
 import com.gdc.nms.robot.gui.tree.TreeModelElements;
 import com.gdc.nms.robot.util.AppExaminator;
 import com.gdc.nms.robot.util.Constants;
-import com.gdc.nms.robot.util.InfoRobotMaker;
-import com.gdc.nms.robot.util.CreatorRobotManager;
-import com.gdc.nms.robot.util.ValidatorManagement;
 import com.gdc.nms.robot.util.indexer.AppInformation;
-import com.gdc.nms.robot.util.indexer.FlujoInformation;
 import com.gdc.nms.robot.util.jade.InitPlataform;
 import com.gdc.nms.robot.util.jade.SRMAgentManager;
-import com.gdc.nms.robot.util.jade.StatusAgent;
 import com.gdc.nms.robot.util.registry.CommandExecutor;
 import com.gdc.robothelper.webservice.ClientWebService;
 import com.gdc.robothelper.webservice.robot.CreatorRobotWebService;
 import com.gdc.robothelper.webservice.robot.Webservice;
-import com.sun.jmx.mbeanserver.JmxMBeanServerBuilder;
 
 import jade.core.AID;
 
@@ -95,7 +82,7 @@ public class RobotManagerGui extends JFrame {
 	private JMenu mnAr;
 	private JMenuItem ubicationMenu;
 	private JMenuItem wsCreactionMenu;
-	private static final Logger LOGGER=Logger.getLogger(RobotManagerGui.class.toString());
+	private static final Logger LOGGER=Logger.getLogger(RobotManagerGui.class);
 
 	
 
@@ -481,6 +468,8 @@ public class RobotManagerGui extends JFrame {
 					enableButton(ButtonType.STOP, true);
 
 					e1.printStackTrace();
+					LOGGER.error("excepcion ", e1);
+
 				}
 			}
 		});
@@ -549,6 +538,7 @@ public class RobotManagerGui extends JFrame {
 
 		} catch (IOException e) {
 			e.printStackTrace();
+			LOGGER.error("excepcion ", e);
 		} 
 		return text;
 	}
@@ -577,6 +567,8 @@ public class RobotManagerGui extends JFrame {
 			CommandExecutor.addRegistryWindows(Constants.LOCALREGISTRY, "robotnotRun", registry);
 		} catch (Exception e) {
 			e.printStackTrace();
+			LOGGER.error("excepcion ", e);
+
 		}
 	}
 
@@ -604,6 +596,8 @@ public class RobotManagerGui extends JFrame {
 			CommandExecutor.addRegistryWindows(Constants.LOCALREGISTRY, "robotmustRun", registry);
 		} catch (Exception e) {
 			e.printStackTrace();
+			LOGGER.error("excepcion ", e);
+
 		}
 	}
 
@@ -633,6 +627,8 @@ public class RobotManagerGui extends JFrame {
 			CommandExecutor.addRegistryWindows(Constants.LOCALREGISTRY, "robotmustRun", newRegistry);
 		} catch (Exception e) {
 			e.printStackTrace();
+			LOGGER.error("excepcion ", e);
+
 		}
 	}
 
@@ -662,6 +658,8 @@ public class RobotManagerGui extends JFrame {
 			CommandExecutor.addRegistryWindows(Constants.LOCALREGISTRY, "robotnotRun", newRegistry);
 		} catch (Exception e) {
 			e.printStackTrace();
+			LOGGER.error("excepcion ", e);
+
 		}
 	}
 
@@ -804,6 +802,8 @@ public class RobotManagerGui extends JFrame {
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			LOGGER.error("excepcion ", e);
+
 		}
 	}
 
@@ -892,8 +892,9 @@ public class RobotManagerGui extends JFrame {
 		try {
 			latch.await();
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			LOGGER.error("excepcion ", e);
+
 		}
 //		for (Thread thread : hilos) {
 //			try {

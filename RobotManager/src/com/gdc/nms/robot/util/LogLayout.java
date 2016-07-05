@@ -27,7 +27,7 @@ public class LogLayout extends Layout{
 		sbuf.append(sim.format(instance.getTime()));
 		sbuf.append(" ");
 	    sbuf.append(event.getLevel().toString());
-	    sbuf.append(" "+event.getLocationInformation().fullInfo+" ");
+	    sbuf.append(" "+event.getLocationInformation().getClassName()+" "+event.getLocationInformation().getMethodName()+event.getLocationInformation().getLineNumber()+" ");
 	    sbuf.append(" - ");
 	    sbuf.append(event.getRenderedMessage());
 	    sbuf.append(LINE_SEP);

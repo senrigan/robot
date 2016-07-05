@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
+
 import com.gdc.nms.robot.gui.RobotManager;
 import com.gdc.nms.robot.gui.RobotManagerGui;
 
@@ -18,6 +20,10 @@ import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 
 public class SRMAgent extends Agent {
+	private static final Logger LOGGER=Logger.getLogger(SRMAgent.class.toString());
+	static {
+		LOGGER.addAppender(RobotManager.logAppender);
+	}
 
 	@Override
 	protected void setup() {
@@ -132,6 +138,7 @@ public class SRMAgent extends Agent {
 				System.out.println("termino la espera del poleo");
 			} catch (Exception ex) {
 				ex.printStackTrace();
+				LOGGER.error("Excepcion", ex);
 			}
 		}
 
@@ -183,6 +190,8 @@ public class SRMAgent extends Agent {
 				block(5000L);
 			} catch (Exception ex) {
 				ex.printStackTrace();
+				LOGGER.error("Excepcion", ex);
+
 			}
 
 		}
@@ -208,6 +217,8 @@ public class SRMAgent extends Agent {
 				}
 			} catch (Exception ex) {
 				ex.printStackTrace();
+				LOGGER.error("Excepcion", ex);
+
 			}
 
 		}
@@ -235,6 +246,8 @@ public class SRMAgent extends Agent {
 				block(5000L);
 			} catch (Exception ex) {
 				ex.printStackTrace();
+				LOGGER.error("Excepcion", ex);
+
 			}
 
 		}

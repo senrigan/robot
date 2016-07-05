@@ -3,6 +3,10 @@ package com.gdc.nms.robot.util.jade;
 import java.util.Iterator;
 import java.util.Vector;
 
+import org.apache.log4j.Logger;
+
+import com.gdc.nms.robot.gui.RobotManager;
+
 import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.Behaviour;
@@ -14,6 +18,10 @@ import jade.domain.FIPAAgentManagement.ServiceDescription;
 
 public class DFConsult  extends Agent  {
 	public static Vector<AID> services;
+	private static final Logger LOGGER=Logger.getLogger(DFConsult.class.toString());
+	static{
+		LOGGER.addAppender(RobotManager.logAppender);
+	}
 	protected void setup() {
 	  	// Search for services of type "weather-forecast"
 	
@@ -35,6 +43,7 @@ public class DFConsult  extends Agent  {
 						Thread.sleep(DFManager.TIMERESCAN);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
+						LOGGER.error("Excepcion ", e);
 					}
 				}
 			}
@@ -84,6 +93,8 @@ public class DFConsult  extends Agent  {
 	  	}
 	  	catch (FIPAException fe) {
 	  		fe.printStackTrace();
+			LOGGER.error("Excepcion ", fe);
+
 	  	}
 	}
 }

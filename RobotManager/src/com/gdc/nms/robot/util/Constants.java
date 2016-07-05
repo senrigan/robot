@@ -52,6 +52,8 @@ public class Constants {
 	public static final String PROPERTIESJARBOT="META-INF/robot.properties";
 	
 	public static final String UPDATEROBOTEMP="updateRobot";
+	
+	public static final String APPSEPARATORROBOT="-";
 
 	private Constants() {
 	}

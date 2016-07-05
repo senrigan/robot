@@ -10,6 +10,10 @@ import java.net.UnknownHostException;
 import java.util.Enumeration;
 import java.util.HashMap;
 
+import org.apache.log4j.Logger;
+
+import com.gdc.nms.robot.gui.RobotManager;
+
 import jade.core.AID;
 //import jade.core.AgentContainer;
 import jade.core.Profile;
@@ -25,8 +29,9 @@ public class InitPlataform {
 	private static HashMap<String,AID> robotRegister;
 	private static HashMap<String,AID> robotToKill;
 	private static SRMAgentManager srmAgentManager;
+	private static final Logger LOGGER=Logger.getLogger(InitPlataform.class.toString());
 	private InitPlataform(){
-
+		LOGGER.addAppender(RobotManager.logAppender);
 	}
 	
 
@@ -128,6 +133,7 @@ public class InitPlataform {
 			initAgents();
         } catch (ControllerException e) {
 			e.printStackTrace();
+			LOGGER.error("Excepcion ",e);
 		}
         
 		
@@ -169,6 +175,7 @@ public class InitPlataform {
 	            try {
 	                ss.close();
 	            } catch (IOException e) {
+	            	LOGGER.error("Excepcion ",e);
 	            }
 	        }
 	    }

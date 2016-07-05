@@ -5,6 +5,9 @@ import java.util.HashMap;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
+import org.apache.log4j.Logger;
+
+import com.gdc.nms.robot.gui.RobotManager;
 import com.gdc.nms.robot.util.indexer.AppInformation;
 
 import jade.core.AID;
@@ -25,8 +28,10 @@ public class SRMAgentManager {
 	private static   SRMAgent srmAgent;
 	private static AgentValidator agentValidator;
 	private static StatusAgent staAgent;
+	private static final Logger LOGGER = Logger.getLogger(SRMAgent.class.toString());
 	
 	public void init(){
+		LOGGER.addAppender(RobotManager.logAppender);
 		srmAgent=new SRMAgent();
 		agentValidator=new AgentValidator();
 		staAgent=new StatusAgent();
@@ -40,6 +45,7 @@ public class SRMAgentManager {
 			agent.start();
 		} catch (StaleProxyException e) {
 			e.printStackTrace();
+			LOGGER.error("Excepcion", e);
 		}
 	}
 	

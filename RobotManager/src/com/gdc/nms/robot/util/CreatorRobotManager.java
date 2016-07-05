@@ -91,7 +91,11 @@ public class CreatorRobotManager {
 				
 			}else{
 				Path installationPath = RobotManager.getInstallationPath();
-				appPath = installationPath.resolve("data").resolve(applicationName);
+				String validName=applicationName;
+				if(AppExaminator.appNameAlreadyExist(validName)){
+					validName=AppExaminator.getNewNameForAppIfExist(validName);
+				}
+				appPath = installationPath.resolve("data").resolve(validName);
 				if(Files.exists(appPath)){
 					DeleteDirectory.delete(appPath.toString());
 				}
@@ -243,7 +247,11 @@ public class CreatorRobotManager {
 	
 	private boolean createFolderApplication(){
 		Path installationPath = RobotManager.getInstallationPath();
-		appPath = installationPath.resolve("data").resolve(applicationName);
+		String validName=applicationName;
+		if(AppExaminator.appNameAlreadyExist(validName)){
+			validName = AppExaminator.getNewNameForAppIfExist(validName);
+		}
+		appPath = installationPath.resolve("data").resolve(validName);
 		System.out.println("creando folder aplicaction");
 		if(Files.exists(appPath)){
 			if(copyRobotConfig())
