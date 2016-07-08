@@ -39,6 +39,7 @@ import com.gdc.nms.robot.util.indexer.StepInformation;
 import com.gdc.robothelper.webservice.robot.CreatorRobotWebService;
 import com.gdc.robothelper.webservice.robot.news.CreatorNewRobotWebService;
 import com.gdc.robothelper.webservice.robot.olds.CreatorOldRobotWebService;
+import com.sun.org.apache.xerces.internal.impl.validation.ValidationManager;
 
 
 public class CreatorRobotManager {
@@ -251,6 +252,9 @@ public class CreatorRobotManager {
 		if(AppExaminator.appNameAlreadyExist(validName)){
 			validName = AppExaminator.getNewNameForAppIfExist(validName);
 		}
+		
+		validName=validName.replaceAll("\\s+$", "");
+		System.out.println("validName *****"+validName);
 		appPath = installationPath.resolve("data").resolve(validName);
 		System.out.println("creando folder aplicaction");
 		if(Files.exists(appPath)){
@@ -601,7 +605,6 @@ public class CreatorRobotManager {
 		 return false;
 	 }
 	 public static void main(String[] args) {
-//		 String idRobot = CreatorRobotWebService.getIdRobot("BANCOS AUTORIZADOS", "0", "GUADALAJARA", ""+86, "2","5", CreatorRobotManager.getcalculateDateServer());
-//		 System.out.println("robot id"+idRobot);
+	
 	 }
 }
