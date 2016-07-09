@@ -660,14 +660,15 @@ public class RobotManager extends JFrame {
 			public void run() {
 				boolean value=false;
 				String java ="\""+Environment.getJava()+"\"";
-				File[] botFiles = AppExaminator.getBotFiles(installationPath.resolve("data").resolve(appName));
+				String nuewName=appName.replaceAll("\\s+$", "");
+				File[] botFiles = AppExaminator.getBotFiles(installationPath.resolve("data").resolve(nuewName));
 				if(botFiles.length>0){
 					
 					Path robotJar=botFiles[0].toPath();
 					Path appPath=robotJar.getParent();
 					String jar="\""+robotJar.toString()+"\"";
 //				String command="cd  \""+appPath+"\" && "+java +" -Dname=\"Robot_"+appName+"\" "+" -jar "+robotJar.getFileName();
-					String command=java +" -Dname=\"Robot_"+appName+"\" "+" -jar "+robotJar.getFileName();
+					String command=java +" -Dname=\"Robot_"+nuewName+"\" "+" -jar "+robotJar.getFileName();
 					
 					try {
 						System.out.println("command"+command);

@@ -82,6 +82,7 @@ public class RobotManagerGui extends JFrame {
 	private JMenuItem ubicationMenu;
 	private JMenuItem wsCreactionMenu;
 	private static final Logger LOGGER=Logger.getLogger(RobotManagerGui.class);
+	private static int parche=0;
 
 	
 
@@ -732,25 +733,62 @@ public class RobotManagerGui extends JFrame {
 		System.out.println("keyset"+keySet);
 		for (String string : keySet) {
 			AppInformation appInformation2 = installedAppsMap.get(string);
-			if(newRunning.contains(string)){
-				System.out.println("si se encontro el elemento");
-				Element elementNode=new Element(appInformation2.getAppName());
-				elementNode.setAppinfo(appInformation2);
-				elementNode.setStopAble(true);
-				elementRun.add(elementNode);
-				System.out.println("removiendo de corriendo");
-				newRunning.remove(string);
-				if(checkListToKill(appInformation2.getAlias())){
-					elementNode.setStopAble(false);
+			for (String string2 : newRunning) {
+				if(parche>=1){
+					System.out.println("si se encontro el elemento");
+					Element elementNode=new Element(appInformation2.getAppName());
+					elementNode.setAppinfo(appInformation2);
+					elementNode.setStopAble(true);
+					elementRun.add(elementNode);
+					System.out.println("removiendo de corriendo");
+					newRunning.remove(string);
+					if(checkListToKill(appInformation2.getAlias())){
+						elementNode.setStopAble(false);
+						
+					}
+				}else{
 					
+					if(string2.equalsIgnoreCase(string)){
+						System.out.println("si se encontro el elemento");
+						Element elementNode=new Element(appInformation2.getAppName());
+						elementNode.setAppinfo(appInformation2);
+						elementNode.setStopAble(true);
+						elementRun.add(elementNode);
+						System.out.println("removiendo de corriendo");
+						newRunning.remove(string);
+						if(checkListToKill(appInformation2.getAlias())){
+							elementNode.setStopAble(false);
+							
+						}
+					}else{
+						System.out.println("descnonosco el elemento");
+						Element elementN=new Element(appInformation2.getAppName());
+						elementN.setAppinfo(appInformation2);
+						elementN.setStopAble(false);
+						elementStop.add(elementN);
+					}
 				}
-			}else{
-				System.out.println("descnonosco el elemento");
-				Element elementN=new Element(appInformation2.getAppName());
-				elementN.setAppinfo(appInformation2);
-				elementN.setStopAble(false);
-				elementStop.add(elementN);
+				parche++;
 			}
+//			if(newRunning.contains(string)){
+//				System.out.println("si se encontro el elemento");
+//				Element elementNode=new Element(appInformation2.getAppName());
+//				elementNode.setAppinfo(appInformation2);
+//				elementNode.setStopAble(true);
+//				elementRun.add(elementNode);
+//				System.out.println("removiendo de corriendo");
+//				newRunning.remove(string);
+//				if(checkListToKill(appInformation2.getAlias())){
+//					elementNode.setStopAble(false);
+//					
+//				}
+//			}else{
+//				System.out.println("descnonosco el elemento");
+//				Element elementN=new Element(appInformation2.getAppName());
+//				elementN.setAppinfo(appInformation2);
+//				elementN.setStopAble(false);
+//				elementStop.add(elementN);
+//			}
 //			for (String key:runningApp) {
 //				AppInformation appInformation = installedAppsMap.get(key);
 //				if(appInformation!=null){
@@ -763,11 +801,16 @@ public class RobotManagerGui extends JFrame {
 		if(!newRunning.isEmpty()){
 			Element unknowElement=new Element("Desconocidos");
 			for (String string : newRunning) {
-				Element elementUnknow=new Element(string);
-				elementUnknow.setAppinfo(new AppInformation());
-				elementUnknow.setStopAble(true);
-				unknowElement.add(elementUnknow);
-				elementTree.add(unknowElement);
+				AppInformation appInformation2 = installedAppsMap.get(string);
+				Element elementNode=new Element(appInformation2.getAppName());
+				elementNode.setAppinfo(appInformation2);
+				elementNode.setStopAble(true);
+				elementRun.add(elementNode);
+//				Element elementUnknow=new Element(string);
+//				elementUnknow.setAppinfo(new AppInformation());
+//				elementUnknow.setStopAble(true);
+//				unknowElement.add(elementUnknow);
+//				elementTree.add(unknowElement);
 			}
 			
 		}

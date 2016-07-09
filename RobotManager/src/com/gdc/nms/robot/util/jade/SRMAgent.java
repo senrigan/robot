@@ -79,6 +79,7 @@ public class SRMAgent extends Agent {
 	}
 
 	public static String parseAppName(String appName) {
+		appName=appName.replaceAll("\\s+$", "");
 		String parseName = appName;
 		if (parseName.contains("_")) {
 			parseName.replaceAll("_", " ");
