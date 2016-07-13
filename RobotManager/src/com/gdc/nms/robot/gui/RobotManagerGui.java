@@ -34,6 +34,8 @@ import com.gdc.nms.robot.gui.auxiliar.LoadingFrame;
 import com.gdc.nms.robot.gui.tree.Element;
 import com.gdc.nms.robot.gui.tree.TreeListener;
 import com.gdc.nms.robot.gui.tree.TreeModelElements;
+import com.gdc.nms.robot.gui.tree.test.RobotJTree;
+import com.gdc.nms.robot.gui.tree.test.TreeDynamic;
 import com.gdc.nms.robot.util.AppExaminator;
 import com.gdc.nms.robot.util.Constants;
 import com.gdc.nms.robot.util.indexer.AppInformation;
@@ -56,6 +58,7 @@ public class RobotManagerGui extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private RobotJTree dinamicTree;
 	private JTree appTree;
 	private JPanel panelInfo;
 	private JTextArea textArea;
@@ -68,8 +71,6 @@ public class RobotManagerGui extends JFrame {
 	private TreeListener listenerTree;
 	private TreeModelElements model;
 	private Element root;
-	private Element runningNode;
-	private Element notRunningNode;
 	private JButton logButton;
 	private JButton getRobotDataButton;
 	private JMenuItem addRobotMenu;
@@ -98,7 +99,7 @@ public class RobotManagerGui extends JFrame {
 		setVisible(true);
 		
 		
-		setNodesParent();
+//		setNodesParent();
 //		runTask();
 		expandAll();
 		
@@ -106,11 +107,25 @@ public class RobotManagerGui extends JFrame {
 	
 	private void initComponents(){
 		model = new TreeModelElements(getDataForTree());
-		appTree = new JTree(model);
-		appTree.setEditable(false);
-		listenerTree = new TreeListener(RobotManagerGui.this, appTree);
-		appTree.addTreeSelectionListener(listenerTree);
-		scrollPane_1 = new JScrollPane(appTree);
+		dinamicTree=new RobotJTree();
+		Element elementRunning = getElementRunning();
+		Enumeration<?> children = elementRunning.children();
+		while (children.hasMoreElements()) {
+			Object object = (Object) children.nextElement();
+			dinamicTree.addToRun(object);
+		}
+//		dinamicTree.addToRun(getElementRunning());
+		Element elementNotRunning = getElementNotRunning();
+		while (children.hasMoreElements()) {
+			Object object = (Object) children.nextElement();
+			dinamicTree.addToStop(object);
+		}
+//		dinamicTree.addToStop(getElementNotRunning());
+//		appTree = new JTree(model);
+//		appTree.setEditable(false);
+//		listenerTree = new TreeListener(RobotManagerGui.this, appTree);
+//		appTree.addTreeSelectionListener(listenerTree);
+		scrollPane_1 = new JScrollPane(dinamicTree.getTree().getTree());
 		root = (Element) model.getRoot();
 		
 
@@ -254,6 +269,9 @@ public class RobotManagerGui extends JFrame {
 		});
 	}
 	
+	public RobotJTree getJtreManager(){
+		return dinamicTree;
+	}
 	
 	private boolean checkWebServicesCreator(){
 		URL webServicesCreator = CreatorRobotWebService.getWebServicesCreator();
@@ -374,7 +392,8 @@ public class RobotManagerGui extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Element element = (Element) appTree.getLastSelectedPathComponent();
+				
+				Element element = (Element) dinamicTree.getSelectdNode();
 				
 				
 				AppInformation appinfo = element.getAppinfo();
@@ -423,7 +442,7 @@ public class RobotManagerGui extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Element element = (Element) appTree.getLastSelectedPathComponent();
+				Element element = (Element) dinamicTree.getSelectdNode();
 				AppInformation appinfo = element.getAppinfo();
 //				long idRobot = appinfo.getIdRobot();
 				LoadingFrame loading=new LoadingFrame();
@@ -513,7 +532,7 @@ public class RobotManagerGui extends JFrame {
 	
 	
 	public AppInformation getSelectedAppInformation(){
-		Element element = (Element) appTree.getLastSelectedPathComponent();
+		Element element = (Element) dinamicTree.getSelectdNode();
 		AppInformation appinfo = element.getAppinfo();
 		return appinfo;
 	}
@@ -818,7 +837,7 @@ public class RobotManagerGui extends JFrame {
 		
 		elementTree.add(elementRun);
 		elementTree.add(elementStop);
-		updateTree(elementTree);
+//		updateTree(elementTree);
 	
 	}
 	
@@ -830,29 +849,30 @@ public class RobotManagerGui extends JFrame {
 	}
 	
 	
-	private  void updateTree(Element dataElement) {
-		try {
-			
-//			if(RobotManager.isRunningScan()){
-				appTree.removeTreeSelectionListener(listenerTree);
-				appTree.setModel(new TreeModelElements(dataElement));
-				appTree.addTreeSelectionListener(listenerTree);
-				expandAll();
-				enableButton(ButtonType.START, false);
-				enableButton(ButtonType.STOP, false);
-//			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			LOGGER.error("excepcion ", e);
-
-		}
-	}
+//	private  void updateTree(Element dataElement) {
+//		try {
+//			
+////			if(RobotManager.isRunningScan()){
+//				appTree.removeTreeSelectionListener(listenerTree);
+//				appTree.setModel(new TreeModelElements(dataElement));
+//				appTree.addTreeSelectionListener(listenerTree);
+//				expandAll();
+//				enableButton(ButtonType.START, false);
+//				enableButton(ButtonType.STOP, false);
+////			}
+//
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			LOGGER.error("excepcion ", e);
+//
+//		}
+//	}
 
 	private void expandAll() {
 		int row = 0;
-		while (row < appTree.getRowCount()) {
-			appTree.expandRow(row);
+		
+		while (row < dinamicTree.getTree().getTree().getRowCount()) {
+			dinamicTree.getTree().getTree().expandRow(row);
 			row++;
 		}
 	}
@@ -889,18 +909,18 @@ public class RobotManagerGui extends JFrame {
 		}
 	}
 
-	private void setNodesParent() {
-		@SuppressWarnings("unchecked")
-		Enumeration<Element> children = root.children();
-		while (children.hasMoreElements()) {
-			Element object = children.nextElement();
-			if (object.toString().equals("Running")) {
-				runningNode = object;
-			} else if (object.toString().equals("Not Running")) {
-				notRunningNode = object;
-			}
-		}
-	}
+//	private void setNodesParent() {
+//		@SuppressWarnings("unchecked")
+//		Enumeration<Element> children = root.children();
+//		while (children.hasMoreElements()) {
+//			Element object = children.nextElement();
+//			if (object.toString().equals("Running")) {
+//				runningNode = object;
+//			} else if (object.toString().equals("Not Running")) {
+//				notRunningNode = object;
+//			}
+//		}
+//	}
 
 	public  Element getDataForTree() {
 //		Vector<Thread> hilos=new Vector<>();
@@ -952,26 +972,29 @@ public class RobotManagerGui extends JFrame {
 	}
 
 	private  Element getElementRunning() {
-		Element element = new Element("En ejecucion");
+		Element element = new Element("");
 		ArrayList<AppInformation> runningApps = AppExaminator.getRunningApps();
 		for (AppInformation appInformation : runningApps) {
 			Element elementNode = new Element(appInformation.getAppName());
 			elementNode.setAppinfo(appInformation);
 			elementNode.setStopAble(true);
 			element.add(elementNode);
+			System.out.println("Running elementNode"+elementNode.toString());
 
 		}
 		return element;
 	}
 
 	private  Element getElementNotRunning() {
-		Element element = new Element("Detenidos");
+		Element element = new Element("");
 		ArrayList<AppInformation> notRunningApps = AppExaminator.getNotRunnigApps();
 		for (AppInformation appInformation : notRunningApps) {
 			Element elementNode = new Element(appInformation.getAppName());
 			elementNode.setAppinfo(appInformation);
 			elementNode.setStopAble(false);
 			element.add(elementNode);
+			System.out.println("Running elementNode"+elementNode.toString());
+
 		}
 		return element;
 	}

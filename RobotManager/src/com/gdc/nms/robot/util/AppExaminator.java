@@ -201,6 +201,21 @@ public class AppExaminator {
 		File file = path.resolve(".lock").toFile();
 		if(file.delete()){
 			return false;
+			
+			
+		}else{
+			try{
+				LOGGER.info("retry again tho delete lock file for robot: "+app.getAppName());
+				Thread.sleep(20000L);
+				if(file.delete()){
+					LOGGER.info("the lock file can deleted for robot :"+app.getAppName());
+					return false;
+				}
+				LOGGER.info("the lock file can not deleted for robot :"+app.getAppName());
+			}catch(InterruptedException ex){
+				ex.printStackTrace();
+				LOGGER.error("Error: ", ex);
+			}
 		}
 		return true;
 	}
@@ -330,6 +345,7 @@ public class AppExaminator {
 		AppInformation app=new AppInformation();
 		setMetaInfoApp(appFolder, app);
 		app.setAppName(file.getName());
+		System.out.println("++++ file name "+file.getName());
 		ArrayList<FlujoInformation> flujosApp;
 		if(Files.exists(appFolder.resolve("application"))){
 			

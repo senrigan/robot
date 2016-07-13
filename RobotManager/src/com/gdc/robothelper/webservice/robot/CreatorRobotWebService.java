@@ -20,6 +20,7 @@ import com.gdc.nms.robot.gui.RobotManager;
 import com.gdc.nms.robot.util.Constants;
 import com.gdc.nms.robot.util.registry.CommandExecutor;
 import com.gdc.robothelper.webservice.SisproRobotManagerHelperService;
+import com.gdc.robothelper.webservice.robot.news.CreatorNewRobotWebService;
 
 
 
@@ -191,11 +192,18 @@ public class CreatorRobotWebService {
         // set the  allTrusting verifier
         HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
 }
+	
+	
+	public static String getData(long id){
+		com.gdc.robothelper.webservice.robot.news.WebservicePortType port = CreatorNewRobotWebService.getPort();
+		return port.getDataRobot(""+id);
+	}
 	public static void main(String[] args) {
-		URL webServicesCreator = CreatorRobotWebService.getWebServicesCreator();
-		boolean existeConexion = CreatorRobotWebService.existeConexion(webServicesCreator.toString());
-		System.out.println("numero de id"+existeConexion);
-//		String dateServer = CreatorRobotWebService.getDateServer();
+//		URL webServicesCreator = CreatorRobotWebService.getWebServicesCreator();
+//		boolean existeConexion = CreatorRobotWebService.existeConexion(webServicesCreator.toString());
+//		System.out.println("numero de id"+existeConexion);
+		System.out.println(CreatorRobotWebService.getData(3));;
+		//		String dateServer = CreatorRobotWebService.getDateServer();
 //		System.out.println(dateServer);
 //		SimpleDateFormat dateForm=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 //		Date date;

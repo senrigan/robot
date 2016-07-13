@@ -50,11 +50,14 @@ public class InitPlataform {
 	
 	public static void registerRobot(String robotName,AID senderId){
 		robotRegister.put(robotName, senderId);
+		RobotManager.getGuiManager().getJtreManager().addToRun(robotName);
 	}
 	
 	
 	public static void deRegisterRobot(String robotName){
 		robotRegister.remove(robotName);
+		RobotManager.getGuiManager().getJtreManager().changeRobotRunToStop(robotName);
+
 	}
 	
 	

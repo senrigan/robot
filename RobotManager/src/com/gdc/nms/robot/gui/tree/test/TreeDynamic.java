@@ -5,7 +5,7 @@ import java.util.Enumeration;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreeNode;
+import javax.swing.tree.MutableTreeNode;
 import javax.swing.tree.TreePath;
 
 public class TreeDynamic {
@@ -18,7 +18,7 @@ public class TreeDynamic {
 		    treeModel = new DefaultTreeModel(rootNode);
 
 		    tree = new JTree(treeModel);
-		    tree.setEditable(true);
+		    tree.setEditable(false);
 //		    tree.getSelectionModel().setSelectionMode(
 //		        TreeSelectionModel.SINGLE_TREE_SELECTION);
 		    tree.setShowsRootHandles(true);
@@ -35,17 +35,33 @@ public class TreeDynamic {
 	    treeModel.reload();
 	}
 	
-	public void pirntChildren(){
-		Enumeration children = rootNode.children();
-		printEnum(children);
+	/**
+	 *
+	 * @param node
+	 * @return if the node is a leaf in the jtree
+	 */
+	public boolean isLeaf(DefaultMutableTreeNode node){
+		return tree.getModel().isLeaf(node);
 	}
 	
-	public void printC(){
-		
+	public void changeRootNode(DefaultMutableTreeNode node){
+		treeModel.setRoot(node);
 	}
+	
+	/**
+	 * 
+	 * @return the rootNode of the jtree
+	 */
 	public DefaultMutableTreeNode getRoot(){
 		return (DefaultMutableTreeNode) tree.getModel().getRoot();
 	}
+	
+	/**
+	 * add element to parentnode if this is null the element add to rootnode of tree
+	 * @param parentNode
+	 * @param element
+	 * @return
+	 */
 	public DefaultMutableTreeNode addElement(Object parentNode,Object element){
 		DefaultMutableTreeNode parentTreeNode = (DefaultMutableTreeNode)parentNode;
 
@@ -55,96 +71,107 @@ public class TreeDynamic {
 	    
 	    return addObject(parentTreeNode, element, true);
 	}
-	
+	/**
+	 * add a child  to parent node if this are no define the default is rootnode of jtree
+	 * 
+	 * @param parent
+	 * @param child
+	 * @return
+	 */
 	 public DefaultMutableTreeNode addObject(DefaultMutableTreeNode parent,
 		      Object child) {
 		    return addObject(parent, child, true);
 	 }
-	 
+		/**
+		 * add a child  to parent node if this are no define the default is rootnode of jtree
+		 * shuldbeVisible this show is the child show or not collapsable view
+		 * @param parent
+		 * @param child
+		 * @return
+		 */
 	 public DefaultMutableTreeNode addObject(DefaultMutableTreeNode parent,
 		      Object child, boolean shouldBeVisible) {
 		 	DefaultMutableTreeNode childNode;
 		 	if(child instanceof DefaultMutableTreeNode){
 		 		childNode=(DefaultMutableTreeNode)child;
 		 	}else{
-		 		
 		 		childNode = new DefaultMutableTreeNode(child);
 		 	}
-
 		    if (parent == null) {
 		      parent = rootNode;
 		    }
-		    // It is key to invoke this on the TreeModel, and NOT DefaultMutableTreeNode
 		    treeModel.insertNodeInto(childNode, parent, parent.getChildCount());
-
-		    // Make sure the user can see the lovely new node.
 		    if (shouldBeVisible) {
 		      tree.scrollPathToVisible(new TreePath(childNode.getPath()));
 		    }
 		    DefaultTreeModel model =(DefaultTreeModel) tree.getModel();
 		    model.reload(parent);
 		    return childNode;
-
+	 }
+	 
+	 /**
+	  * remove node of the jtree if this is no succefull retur null in other case return the node where are removed 
+	  * @param node
+	  * @return
+	  */
+	 public DefaultMutableTreeNode removeNode(DefaultMutableTreeNode node){
+	      MutableTreeNode parent = (MutableTreeNode) (node.getParent());
+	      if (parent != null) {
+	        treeModel.removeNodeFromParent(node);
+	        return node;
+	      }
+	      return null;
 	 }
 	 
 	 
 	 
-	 
+	 /**
+	  * return the first node with contain the text especific in the rootNode of jtree
+	  * @param text
+	  * @return
+	  */
 	 public DefaultMutableTreeNode search(String text){
 		 DefaultMutableTreeNode root = (DefaultMutableTreeNode)tree.getModel().getRoot();
 		 return findNode(root, text);
 	 }
 
-	 
+	 /**
+	  * search the text to seacrh in the root node and children of this
+	  * @param root
+	  * @param search
+	  * @return
+	  */
 	 public DefaultMutableTreeNode findNode( DefaultMutableTreeNode root, String search ) {
-		    Enumeration nodeEnumeration = root.breadthFirstEnumeration();
+		    Enumeration<?> nodeEnumeration = root.breadthFirstEnumeration();
 		    while( nodeEnumeration.hasMoreElements() ) {
 		      DefaultMutableTreeNode node =
 		        (DefaultMutableTreeNode)nodeEnumeration.nextElement();
-		     
 		    	  String found = node.getUserObject().toString();
 		    	  if( search.equals( found ) ) {
 		    		  return node;
 		    	  }
-		    	  
-		      
-	    	  
-		      
 		    }
 		    return null;
 	 }
 	 
-	 
-	 private void printEnum(Enumeration enumer){
+	 /**
+	  * print the enumeration returningg of breadthFirstEnumeration()
+	  * @param enumer
+	  */
+	 private void printEnum(Enumeration<?> enumer){
 		 while(enumer.hasMoreElements()){
 			 DefaultMutableTreeNode node = (DefaultMutableTreeNode)enumer.nextElement();
 			 System.out.println("*"+node.getUserObject().toString());
 		 }
 		 
 	 }
-	 private TreeNode searchTree( TreePath path, String q) 
-	 {
-	      TreeNode node = (TreeNode)path.getLastPathComponent();
-		  if(node==null) return null;
-		  if(node.toString().equals(q))
-		  {
-		    tree.setScrollsOnExpand(true);
-		    tree.setSelectionPath(path);
-		    System.out.println("node is found"+node+" "+node.toString());
-		    
-		    return node;
-		  }
-		  System.out.println("buscando en hoja");
-		  if(!node.isLeaf() && node.getChildCount()>=0)
-		  {
-		    Enumeration e = node.children();
-		    while(e.hasMoreElements()){
-		    	return searchTree(path.pathByAddingChild(e.nextElement()), q);
-		    	
-		    }
-		  }
-		  return node;
-		  
-	 }
+	 /**
+	  * print the childen of specific node
+	  * @param node
+	  */
+	 public void pirntChildren(DefaultMutableTreeNode node){
+			Enumeration<?> children = node.children();
+			printEnum(children);
+		}
 
 }

@@ -18,7 +18,6 @@ import java.util.HashMap;
 import java.util.Set;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -28,7 +27,6 @@ import javax.swing.UnsupportedLookAndFeelException;
 import org.apache.log4j.Appender;
 import org.apache.log4j.FileAppender;
 import org.apache.log4j.Logger;
-import org.apache.log4j.SimpleLayout;
 
 import com.gdc.nms.robot.Main;
 import com.gdc.nms.robot.util.AppExaminator;
@@ -407,7 +405,7 @@ public class RobotManager extends JFrame {
 			LOGGER.info("startup all Robot ");
 			for (AppInformation appInformation : runningApps) {
 				LOGGER.info("starting robot:  "+appInformation.getAlias());
-				runJarRobot(appInformation.getAlias());
+				runJarRobot(appInformation.getAppName());
 			}
 
 		} catch (Exception e) {
@@ -652,7 +650,7 @@ public class RobotManager extends JFrame {
 	
 	
 	private static boolean runJarRobot(final String appName){
-		
+		System.out.println("+++++ App Nanme : "+appName);
 		final CountDownLatch latch=new CountDownLatch(1);
 //		final boolean valueTem=false;
 		valueStart=false;

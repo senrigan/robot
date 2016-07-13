@@ -54,9 +54,9 @@ public class AgentValidator extends Agent{
 				for (AppInformation appInformation : installedApps) {
 					if(!robotRegister2.containsKey(appInformation.getAlias())){
 						if(AppExaminator.isRunningByLockFile(appInformation)){
-							InitPlataform.registerRobot(appInformation.getAlias(), null);
+							InitPlataform.registerRobot(appInformation.getAppName(), null);
 						}else{
-							InitPlataform.deRegisterRobot(appInformation.getAlias());
+							InitPlataform.deRegisterRobot(appInformation.getAppName());
 						}
 					}
 				}

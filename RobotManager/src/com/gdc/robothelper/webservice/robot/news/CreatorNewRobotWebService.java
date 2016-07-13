@@ -32,7 +32,7 @@ public class CreatorNewRobotWebService {
     }
 	
 	
-	private  static WebservicePortType getPort(){
+	public static WebservicePortType getPort(){
 		URL webServicesCreator = getWebServicesCreator();
 		Webservice service;
 		System.out.println("+++Consultando Webservices URL"+webServicesCreator);

@@ -1,5 +1,9 @@
 package com.gdc.nms.robot.util.indexer;
 
+import java.io.InterruptedIOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -65,6 +69,24 @@ public class AppInformation  implements Comparable<AppInformation>{
 	}
 	public void setPropierties(HashMap<String, String> propierties) {
 		this.propierties = propierties;
+	}
+	
+	public boolean isServicesRunning(){
+		Path path = Paths.get(getFolderPath()).resolve(".lock");
+		try{
+			if(Files.exists(path)){
+				if(Files.deleteIfExists(path)){
+					return true;
+				}else{
+					Thread.sleep(20000L);
+				}
+			}
+			return false;
+			
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}
+		return false;
 	}
 	
 	

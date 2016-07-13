@@ -7,12 +7,13 @@ import java.util.List;
 import java.util.Stack;
 import java.util.Vector;
 
+import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.MutableTreeNode;
 import javax.swing.tree.TreeNode;
 
 import com.gdc.nms.robot.util.indexer.AppInformation;
 
-public  class Element implements TreeNode{
+public  class Element extends DefaultMutableTreeNode{
 
         private List<Element> nodes;
         private Element parent;
@@ -23,14 +24,15 @@ public  class Element implements TreeNode{
         private String name;
 
         public Element(String n) {
-
+        	super(n);
             nodes = new ArrayList<Element>();
             name = n;
+            
         }
 
         @Override
         public String toString() {
-
+        	
             return name;
         }
 
