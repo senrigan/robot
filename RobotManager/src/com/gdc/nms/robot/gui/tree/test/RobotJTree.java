@@ -31,9 +31,16 @@ public class RobotJTree {
 	}
 	
 	public void addToRun(Object robotNode){
-		System.out.println("adding nuew node Running "+robotNode.toString());
-		DefaultMutableTreeNode node=(DefaultMutableTreeNode)robotNode;
-		String nodeStringContent = node.getUserObject().toString();
+		String nodeStringContent=null;
+		if(robotNode instanceof DefaultMutableTreeNode){
+			System.out.println("adding nuew node Running "+((DefaultMutableTreeNode)robotNode).getUserObject().toString());
+			DefaultMutableTreeNode node=(DefaultMutableTreeNode)robotNode;
+			nodeStringContent = node.getUserObject().toString();
+			
+		}else if(robotNode instanceof String){
+			System.out.println("adding nuew node Running "+(String)robotNode);
+			nodeStringContent=(String)robotNode;
+		}
 		DefaultMutableTreeNode search = tree.search(nodeStringContent);
 		if(search==null){
 			tree.addElement(runNode,robotNode );
@@ -80,6 +87,19 @@ public class RobotJTree {
 		if(removeNode!=null){
 			addToRun(removeNode);
 		}
+	}
+	
+	public boolean robotExitinTree(String simpleRobotName){
+		DefaultMutableTreeNode search = tree.search(simpleRobotName);
+		if(search!=null){
+			return true;
+		}
+		return true;
+	}
+	
+	
+	public DefaultMutableTreeNode getRobotNode(String simpleRobotName){
+		return tree.search(simpleRobotName);
 	}
 	
 }

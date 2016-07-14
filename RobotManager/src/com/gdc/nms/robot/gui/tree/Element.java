@@ -173,6 +173,11 @@ public  class Element extends DefaultMutableTreeNode{
 		    return arrayOfTreeNode;
 		  }
 
+		@Override
+		public Object clone() {
+			return super.clone();
+		}
+
 	
         
     }

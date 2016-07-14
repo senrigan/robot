@@ -220,6 +220,17 @@ public class AppExaminator {
 		return true;
 	}
 	
+	public static boolean isRunningByLockFileAgent(AppInformation app){
+		Path path = Paths.get( app.getFolderPath());
+		File file = path.resolve(".lock").toFile();
+		if(file.delete()){
+			return false;
+			
+			
+		}
+		return true;
+	}
+	
 	public static boolean isRunningByLockFile(String app){
 		Path path = Paths.get( app);
 		File file = path.resolve(".lock").toFile();

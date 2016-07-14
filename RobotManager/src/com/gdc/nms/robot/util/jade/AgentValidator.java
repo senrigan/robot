@@ -53,7 +53,7 @@ public class AgentValidator extends Agent{
 				
 				for (AppInformation appInformation : installedApps) {
 					if(!robotRegister2.containsKey(appInformation.getAlias())){
-						if(AppExaminator.isRunningByLockFile(appInformation)){
+						if(AppExaminator.isRunningByLockFileAgent(appInformation)){
 							InitPlataform.registerRobot(appInformation.getAppName(), null);
 						}else{
 							InitPlataform.deRegisterRobot(appInformation.getAppName());
@@ -61,11 +61,11 @@ public class AgentValidator extends Agent{
 					}
 				}
 				
-				RobotManagerGui guiManager = RobotManager.getGuiManager();
-				if (guiManager != null) {
-
-					guiManager.UpdateTree(InitPlataform.getRobotRegister().keySet());
-				}
+//				RobotManagerGui guiManager = RobotManager.getGuiManager();
+//				if (guiManager != null) {
+//
+//					guiManager.UpdateTree(InitPlataform.getRobotRegister().keySet());
+//				}
 				// block(SRMAgentManager.POOLING_INTERVAL);
 				System.out.println("termino la espera del poleo");
 			} catch (Exception ex) {
@@ -111,13 +111,17 @@ public class AgentValidator extends Agent{
 				HashMap<String, AID> robotRegister = InitPlataform.getRobotRegister();
 				Set<String> keySet = robotRegister.keySet();
 				HashMap<String, AppInformation> installedAppsMap = AppExaminator.getInstalledAppsMap();
+				System.out.println("ontick"+keySet);
 				for (String string : keySet) {
+					System.out.println("RobotRegister String"+string);
 					AID aid = robotRegister.get(string);
 					if (!sendMessage(aid, SRMAgentManager.AYA, SRMAgentManager.IAA)) {
 						System.out.println("no respondio el agente" + aid);
 						String parseAppName = SRMAgent.parseAppName(string);
 						if(installedAppsMap.containsKey(parseAppName)){
-							if(AppExaminator.isRunningByLockFile(installedAppsMap.get(parseAppName))){
+							if(AppExaminator.isRunningByLockFileAgent(installedAppsMap.get(parseAppName))){
+								RobotManagerGui guiManager = RobotManager.getGuiManager();
+								guiManager.changeRobotToRun(parseAppName);
 								continue;
 							}
 							
@@ -128,11 +132,11 @@ public class AgentValidator extends Agent{
 					}
 					
 				}
-				RobotManagerGui guiManager = RobotManager.getGuiManager();
-				if (guiManager != null) {
-
-					guiManager.UpdateTree(InitPlataform.getRobotRegister().keySet());
-				}
+//				RobotManagerGui guiManager = RobotManager.getGuiManager();
+//				if (guiManager != null) {
+//
+//					guiManager.UpdateTree(InitPlataform.getRobotRegister().keySet());
+//				}
 				// block(SRMAgentManager.POOLING_INTERVAL);
 				System.out.println("termino la espera del poleo");
 			} catch (Exception ex) {

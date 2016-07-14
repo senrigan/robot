@@ -25,6 +25,7 @@ import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
 import javax.swing.JTree;
 import javax.swing.SwingUtilities;
+import javax.swing.tree.DefaultMutableTreeNode;
 
 import org.apache.log4j.Logger;
 import javax.swing.JMenuBar;
@@ -106,19 +107,41 @@ public class RobotManagerGui extends JFrame {
 	}
 	
 	private void initComponents(){
-		model = new TreeModelElements(getDataForTree());
+//		model = new TreeModelElements(getDataForTree());
 		dinamicTree=new RobotJTree();
+		listenerTree = new TreeListener(RobotManagerGui.this, dinamicTree.getTree().getTree());
+		dinamicTree.getTree().getTree().addTreeSelectionListener(listenerTree);
 		Element elementRunning = getElementRunning();
 		Enumeration<?> children = elementRunning.children();
+		System.out.println("childen elementRunning"+children);
 		while (children.hasMoreElements()) {
-			Object object = (Object) children.nextElement();
-			dinamicTree.addToRun(object);
+			Element object = (Element) children.nextElement();
+			Element elem=new Element(object.toString());
+			elem.setAppinfo(object.getAppinfo());
+			elem.setStopAble(object.isStopAble());
+			elem.setUserObject(object.getUserObject());
+			elem.setAllowsChildren(object.getAllowsChildren());
+			
+			System.out.println("childrne Notrunning "+elem.getUserObject().toString());
+
+			dinamicTree.addToRun(elem);
 		}
 //		dinamicTree.addToRun(getElementRunning());
 		Element elementNotRunning = getElementNotRunning();
+		System.out.println("childen elementNotRunning"+children);
+		children=elementNotRunning.children();
+		System.out.println();
 		while (children.hasMoreElements()) {
-			Object object = (Object) children.nextElement();
-			dinamicTree.addToStop(object);
+			Element object = (Element) children.nextElement();
+			Element elem=new Element(object.toString());
+			elem.setAppinfo(object.getAppinfo());
+			elem.setStopAble(object.isStopAble());
+			elem.setUserObject(object.getUserObject());
+			elem.setAllowsChildren(object.getAllowsChildren());
+			
+			System.out.println("childrne Notrunning "+elem.getUserObject().toString());
+
+			dinamicTree.addToStop(elem);
 		}
 //		dinamicTree.addToStop(getElementNotRunning());
 //		appTree = new JTree(model);
@@ -126,7 +149,7 @@ public class RobotManagerGui extends JFrame {
 //		listenerTree = new TreeListener(RobotManagerGui.this, appTree);
 //		appTree.addTreeSelectionListener(listenerTree);
 		scrollPane_1 = new JScrollPane(dinamicTree.getTree().getTree());
-		root = (Element) model.getRoot();
+//		root = (Element) model.getRoot();
 		
 
 		
@@ -738,7 +761,12 @@ public class RobotManagerGui extends JFrame {
 //		}
 //	}
 	
-	
+	public void changeRobotToRun(String simpleRobotName){
+		DefaultMutableTreeNode robotNode = dinamicTree.getRobotNode(simpleRobotName);
+		if(robotNode!=null){
+			dinamicTree.changeRobotStopToRun(robotNode);
+		}
+	}
 	
 	public  void UpdateTree(Set<String> runningApp){
 		Set<String > newRunning=new HashSet<String>();

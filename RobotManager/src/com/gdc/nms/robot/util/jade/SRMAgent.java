@@ -82,9 +82,11 @@ public class SRMAgent extends Agent {
 		appName=appName.replaceAll("\\s+$", "");
 		String parseName = appName;
 		if (parseName.contains("_")) {
-			parseName.replaceAll("_", " ");
+			parseName=parseName.replaceAll("_", " ");
 		}
-		parseName = parseName.substring(0, parseName.indexOf("@"));
+		if(parseName.contains("@")){
+			parseName = parseName.substring(0, parseName.indexOf("@"));			
+		}
 		return parseName;
 	}
 
@@ -130,11 +132,11 @@ public class SRMAgent extends Agent {
 					}
 
 				}
-				RobotManagerGui guiManager = RobotManager.getGuiManager();
-				if (guiManager != null) {
-
-					guiManager.UpdateTree(InitPlataform.getRobotRegister().keySet());
-				}
+//				RobotManagerGui guiManager = RobotManager.getGuiManager();
+//				if (guiManager != null) {
+//
+//					guiManager.UpdateTree(InitPlataform.getRobotRegister().keySet());
+//				}
 				// block(SRMAgentManager.POOLING_INTERVAL);
 				System.out.println("termino la espera del poleo");
 			} catch (Exception ex) {
@@ -177,7 +179,6 @@ public class SRMAgent extends Agent {
 		public void action() {
 			try {
 				ParallelBehaviour paralle=new ParallelBehaviour();
-				System.out.println("esperando subscribe");
 			
 				ACLMessage msg=myAgent.receive(MessageTemplate.MatchPerformative(ACLMessage.SUBSCRIBE));
 //				jade.lang.acl.ACLMessage msg = myAgent
@@ -213,8 +214,8 @@ public class SRMAgent extends Agent {
 					replyMessage.setConversationId("" + ALIVE_RESPONSE + System.currentTimeMillis());
 					send(replyMessage);
 					RobotManagerGui guiManager = RobotManager.getGuiManager();
-					if (!InitPlataform.getRobotRegister().keySet().isEmpty())
-						guiManager.UpdateTree(InitPlataform.getRobotRegister().keySet());
+//					if (!InitPlataform.getRobotRegister().keySet().isEmpty())
+//						guiManager.UpdateTree(InitPlataform.getRobotRegister().keySet());
 				}
 			} catch (Exception ex) {
 				ex.printStackTrace();
@@ -231,7 +232,6 @@ public class SRMAgent extends Agent {
 		@Override
 		public void action() {
 			try {
-				System.out.println("esperando suicide message");
 //				ACLMessage msg = blockingReceive(MessageTemplate.MatchPerformative(SRMAgentManager.KILLCODE), 1000);
 				ACLMessage msg=receive(MessageTemplate.MatchPerformative(ACLMessage.INFORM));
 //				ACLMessage msg = blockingReceive(MessageTemplate.MatchPerformative(ACLMessage.INFORM));
