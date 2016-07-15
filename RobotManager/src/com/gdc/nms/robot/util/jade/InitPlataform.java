@@ -84,6 +84,7 @@ public class InitPlataform {
 			return true;
 		}catch(Exception ex){
 			ex.printStackTrace();
+			LOGGER.error("Error :", ex);
 			return false;
 		}
 	}

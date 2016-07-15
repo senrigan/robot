@@ -7,6 +7,12 @@ import jade.lang.acl.MessageTemplate;
 
 public class StatusAgent extends Agent{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+
 	@Override
 	protected void setup() {
 		super.setup();

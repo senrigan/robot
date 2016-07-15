@@ -51,18 +51,21 @@ public class AppExaminator {
 			Path dataInstallation = installationPath.resolve("data");
 			File dataFolder = dataInstallation.toFile();
 			File[] listFiles = dataFolder.listFiles();
-			Arrays.sort(listFiles);
-			for(File  file:listFiles){
-				if(file.isDirectory()){
-					FileFilter fileFilter=new WildcardFileFilter(Constants.REGEX_JARNAME+"*");
-					File [] dir = file.listFiles(fileFilter);
-					for (File fileApp : dir) {
-						String fileName=fileApp.getName();
-						if(fileName.endsWith("exe")||fileName.endsWith("jar")){
-							AppInformation appData = getAppData(file.toPath());
-							if(appData!=null){
-								apps.add(appData);
-								
+			if(listFiles!=null){
+				
+				Arrays.sort(listFiles);
+				for(File  file:listFiles){
+					if(file.isDirectory()){
+						FileFilter fileFilter=new WildcardFileFilter(Constants.REGEX_JARNAME+"*");
+						File [] dir = file.listFiles(fileFilter);
+						for (File fileApp : dir) {
+							String fileName=fileApp.getName();
+							if(fileName.endsWith("exe")||fileName.endsWith("jar")){
+								AppInformation appData = getAppData(file.toPath());
+								if(appData!=null){
+									apps.add(appData);
+									
+								}
 							}
 						}
 					}

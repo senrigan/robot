@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
+
 import com.gdc.nms.robot.gui.RobotManager;
 import com.gdc.nms.robot.gui.RobotManagerGui;
 import com.gdc.nms.robot.util.AppExaminator;
@@ -19,6 +21,7 @@ import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 
 public class AgentValidator extends Agent{
+	private static final Logger LOGGER=Logger.getLogger(AgentValidator.class.toString());
 
 	@Override
 	protected void setup() {
@@ -70,6 +73,7 @@ public class AgentValidator extends Agent{
 				System.out.println("termino la espera del poleo");
 			} catch (Exception ex) {
 				ex.printStackTrace();
+				LOGGER.error("Error :", ex);
 			}
 		}
 	}
@@ -141,6 +145,7 @@ public class AgentValidator extends Agent{
 				System.out.println("termino la espera del poleo");
 			} catch (Exception ex) {
 				ex.printStackTrace();
+				LOGGER.error("Error :", ex);
 			}
 		}
 
