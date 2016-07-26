@@ -270,12 +270,26 @@ public class tet extends JFrame {
 		gbl_panel_2.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_2.setLayout(gbl_panel_2);
 		
+		JButton btnNewButton_6 = new JButton("New button");
+		GridBagConstraints gbc_btnNewButton_6 = new GridBagConstraints();
+		gbc_btnNewButton_6.insets = new Insets(0, 0, 0, 5);
+		gbc_btnNewButton_6.gridx = 0;
+		gbc_btnNewButton_6.gridy = 0;
+		panel_2.add(btnNewButton_6, gbc_btnNewButton_6);
+		
 		JLabel lblNewLabel_4 = new JLabel("New label");
 		GridBagConstraints gbc_lblNewLabel_4 = new GridBagConstraints();
 		gbc_lblNewLabel_4.insets = new Insets(0, 0, 0, 5);
 		gbc_lblNewLabel_4.gridx = 1;
 		gbc_lblNewLabel_4.gridy = 0;
 		panel_2.add(lblNewLabel_4, gbc_lblNewLabel_4);
+		
+		RoundButton btnNewButton_7 = new RoundButton("New button");
+		GridBagConstraints gbc_btnNewButton_7 = new GridBagConstraints();
+		gbc_btnNewButton_7.insets = new Insets(0, 0, 0, 5);
+		gbc_btnNewButton_7.gridx = 2;
+		gbc_btnNewButton_7.gridy = 0;
+		panel_2.add(btnNewButton_7, gbc_btnNewButton_7);
 		
 		JLabel lblNewLabel_5 = new JLabel("New label");
 		GridBagConstraints gbc_lblNewLabel_5 = new GridBagConstraints();
