@@ -1,7 +1,8 @@
-package com.gdc.nms.robot.gui.tree.test;
+package com.gdc.nms.robot.gui.util;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -11,10 +12,12 @@ import java.awt.GridLayout;
 import java.awt.Image;
 
 import javax.swing.BorderFactory;
+import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JViewport;
+import javax.swing.SwingConstants;
 
 import net.miginfocom.swing.MigLayout;
 import sun.font.LayoutPathImpl.EmptyPath;
@@ -42,6 +45,7 @@ public class tet extends JFrame {
 	private ImageIcon configIcon = new ImageIcon(
 			"C:\\Users\\senrigan\\Documents\\desarrollo\\PachitaWindows\\icon\\icn-config-03.png");
 	private JPanel contentPane;
+	private Box verticalBox;
 
 	/**
 	 * Launch the application.
@@ -52,6 +56,7 @@ public class tet extends JFrame {
 				try {
 					tet frame = new tet();
 					frame.setVisible(true);
+					frame.addNewRobotUI("mudo");
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -95,11 +100,7 @@ public class tet extends JFrame {
 		Image newimg = img.getScaledInstance(width, height, java.awt.Image.SCALE_SMOOTH);
 		return new ImageIcon(newimg);
 	}
-
-	/**
-	 * Create the frame.
-	 */
-	public tet() {
+	private void initComponents(){
 		setTitle("Sispro Robot Manager");
 		changeIcons();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -224,7 +225,9 @@ public class tet extends JFrame {
 		gbc_lblNewLabel_3.gridy = 0;
 		panel_1.add(lblNewLabel_3, gbc_lblNewLabel_3);
 
-		JScrollPane scrollPane_1 = new JScrollPane();
+		verticalBox=Box.createVerticalBox();
+//		verticalBox.add(new JButton("hola"));
+		JScrollPane scrollPane_1 = new JScrollPane(verticalBox);
 		scrollPane_1.getViewport().setBackground(new Color(234, 244, 254));
 		scrollPane_1.getViewport().setOpaque(true);
 		scrollPane_1.setBorder(null);
@@ -264,36 +267,53 @@ public class tet extends JFrame {
 		gbc_panel_2.gridy = 13;
 		panel.add(panel_2, gbc_panel_2);
 		GridBagLayout gbl_panel_2 = new GridBagLayout();
-		gbl_panel_2.columnWidths = new int[]{0, 0, 0, 0, 0};
-		gbl_panel_2.rowHeights = new int[]{0, 0};
-		gbl_panel_2.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_panel_2.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+		gbl_panel_2.columnWidths = new int[]{0, 0, 0, 42, 0, 0};
+		gbl_panel_2.rowHeights = new int[]{0, 0, 0};
+		gbl_panel_2.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel_2.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
 		panel_2.setLayout(gbl_panel_2);
 		
-		JButton btnNewButton_6 = new JButton("New button");
+		RoundButton btnNewButton_6 = new RoundButton("10");
+//		btnNewButton_6.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+		btnNewButton_6.setMargin(new Insets(1, 1, 1, 1));
+		btnNewButton_6.setForeground(Color.BLUE);
+		btnNewButton_6.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		btnNewButton_6.setHorizontalAlignment(SwingConstants.CENTER);
 		GridBagConstraints gbc_btnNewButton_6 = new GridBagConstraints();
-		gbc_btnNewButton_6.insets = new Insets(0, 0, 0, 5);
+		gbc_btnNewButton_6.gridheight = 2;
+		gbc_btnNewButton_6.insets = new Insets(17, 20, 0,10 );
 		gbc_btnNewButton_6.gridx = 0;
 		gbc_btnNewButton_6.gridy = 0;
 		panel_2.add(btnNewButton_6, gbc_btnNewButton_6);
 		
-		JLabel lblNewLabel_4 = new JLabel("New label");
+		JLabel lblNewLabel_4 = new JLabel("En ejecucion");
+		lblNewLabel_4.setForeground(Color.WHITE);
 		GridBagConstraints gbc_lblNewLabel_4 = new GridBagConstraints();
-		gbc_lblNewLabel_4.insets = new Insets(0, 0, 0, 5);
+		gbc_lblNewLabel_4.gridheight = 2;
+		gbc_lblNewLabel_4.insets = new Insets(17, 0, 0, 0);
 		gbc_lblNewLabel_4.gridx = 1;
 		gbc_lblNewLabel_4.gridy = 0;
 		panel_2.add(lblNewLabel_4, gbc_lblNewLabel_4);
 		
-		RoundButton btnNewButton_7 = new RoundButton("New button");
+		RoundButton btnNewButton_7 = new RoundButton("30");
+		btnNewButton_7.setForeground(Color.RED);
+		btnNewButton_7.setFont(new Font("Tahoma", Font.PLAIN, 10));
+//		btnNewButton_7.setText("1");
+		btnNewButton_7.setMargin(new Insets(1, 1, 1, 1));
+		btnNewButton_7.setHorizontalAlignment(SwingConstants.CENTER);
 		GridBagConstraints gbc_btnNewButton_7 = new GridBagConstraints();
-		gbc_btnNewButton_7.insets = new Insets(0, 0, 0, 5);
-		gbc_btnNewButton_7.gridx = 2;
+		gbc_btnNewButton_7.gridheight = 2;
+		gbc_btnNewButton_7.insets = new Insets(17, 0, 0, 0);
+		gbc_btnNewButton_7.gridx = 3;
 		gbc_btnNewButton_7.gridy = 0;
 		panel_2.add(btnNewButton_7, gbc_btnNewButton_7);
 		
-		JLabel lblNewLabel_5 = new JLabel("New label");
+		JLabel lblNewLabel_5 = new JLabel("Detenidos");
+		lblNewLabel_5.setForeground(Color.WHITE);
 		GridBagConstraints gbc_lblNewLabel_5 = new GridBagConstraints();
-		gbc_lblNewLabel_5.gridx = 3;
+		gbc_lblNewLabel_5.gridheight = 2;
+		gbc_lblNewLabel_5.insets = new Insets(17, 0, 0, 0);
+		gbc_lblNewLabel_5.gridx = 4;
 		gbc_lblNewLabel_5.gridy = 0;
 		panel_2.add(lblNewLabel_5, gbc_lblNewLabel_5);
 
@@ -394,5 +414,23 @@ public class tet extends JFrame {
 		// textArea.setEnabled(true);
 		scrollPane.setViewportView(textArea);
 		panel_3.add(scrollPane, gbc_scrollPane);
+	}
+	
+	public void  addNewRobotUI(String robotName){
+		JButton button=new JButton(robotName);
+		button.setContentAreaFilled(true);
+		button.setPreferredSize(new Dimension(verticalBox.getWidth(), 100));
+		button.setOpaque(false);
+		button.setMargin(new Insets(50, 0, 50, 0));
+		button.setBorder(BorderFactory.createEmptyBorder());
+		button.setBackground(new Color(0, 0, 0,0));
+		button.setFont(new Font("Tahoma",Font.PLAIN, 15));
+		verticalBox.add(button);
+	}
+	/**
+	 * Create the frame.
+	 */
+	public tet() {
+		initComponents();
 	}
 }

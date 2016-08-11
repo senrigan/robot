@@ -288,9 +288,9 @@ public class SRMGui extends JFrame {
 		
 		JButton btnNewButton = new JButton("Ejecutar robot");
 		btnNewButton.setForeground(SystemColor.text);
-		ImageIcon icon=new ImageIcon("C:\\Users\\senrigan\\Documents\\desarrollo\\PachitaWindows\\icon\\icn-ejecutar-06.png");
-		Image img = icon.getImage() ;  
-		Image newimg = img.getScaledInstance( 20,20,  java.awt.Image.SCALE_SMOOTH ) ; 
+		icon=new ImageIcon("C:\\Users\\senrigan\\Documents\\desarrollo\\PachitaWindows\\icon\\icn-ejecutar-06.png");
+		img = icon.getImage() ;  
+		newimg = img.getScaledInstance( 20,20,  java.awt.Image.SCALE_SMOOTH ) ; 
 		icon = new ImageIcon( newimg );
 		btnNewButton.setIcon(icon);
 		btnNewButton.setBackground(new Color(65, 95, 124));

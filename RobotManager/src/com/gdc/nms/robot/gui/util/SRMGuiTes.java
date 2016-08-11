@@ -1,4 +1,4 @@
-package com.gdc.nms.robot.gui.tree.test;
+package com.gdc.nms.robot.gui.util;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -10,10 +10,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
-
-import com.gdc.nms.robot.gui.util.RoundButton;
-import com.gdc.nms.robot.gui.util.RoundJTextArea;
-
 import java.awt.GridBagLayout;
 import java.awt.Image;
 
@@ -59,17 +55,17 @@ public class SRMGuiTes extends JFrame {
 	public SRMGuiTes() {
 		setTitle("Sispro Robot Manager");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(0, 0, 640, 450);
+		setBounds(0, 0, 800, 600);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(58, 135, 249));
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
 		setContentPane(contentPane);
 		
 		ImageIcon icon=new ImageIcon("C:\\Users\\senrigan\\Desktop\\sispro robot manager.png");
 		Image img = icon.getImage() ;  
 		Image newimg = img.getScaledInstance( 700,70,  java.awt.Image.SCALE_SMOOTH ) ; 
 		icon = new ImageIcon( newimg );
-		contentPane.setLayout(new MigLayout("", "[20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][]", "[20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px]"));
+		contentPane.setLayout(new MigLayout("", "[20px:20px:20px][20px:20px:20px,left][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][]", "[20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px]"));
 		icon=new ImageIcon("C:\\Users\\senrigan\\Documents\\desarrollo\\PachitaWindows\\icon\\icn-agregar-05.png");
 		img = icon.getImage() ;  
 		newimg = img.getScaledInstance( 15,15,  java.awt.Image.SCALE_SMOOTH ) ; 
@@ -99,15 +95,15 @@ public class SRMGuiTes extends JFrame {
 		
 
 		lblNewLabel_2.setFont(new Font("Tahoma", lblNewLabel_2.getFont().getStyle(), 20));
-		contentPane.add(lblNewLabel_2, "cell 1 1 10 1,growx,aligny top");
+		contentPane.add(lblNewLabel_2, "cell 1 1 10 1,alignx left");
 		
 		JPanel panel_5 = new JPanel();
 		panel_5.setBackground(new Color(58, 135, 249));
 		contentPane.add(panel_5, "cell 14 1,grow");
 		GridBagLayout gbl_panel_5 = new GridBagLayout();
-		gbl_panel_5.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_panel_5.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0};
 		gbl_panel_5.rowHeights = new int[]{0, 0};
-		gbl_panel_5.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel_5.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gbl_panel_5.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_5.setLayout(gbl_panel_5);
 		
@@ -119,29 +115,29 @@ public class SRMGuiTes extends JFrame {
 		btnNewButton_3.setOpaque(true);
 		GridBagConstraints gbc_btnNewButton_3 = new GridBagConstraints();
 		gbc_btnNewButton_3.insets = new Insets(0, 0, 0, 5);
-		gbc_btnNewButton_3.gridx = 3;
+		gbc_btnNewButton_3.gridx = 1;
 		gbc_btnNewButton_3.gridy = 0;
 		panel_5.add(btnNewButton_3, gbc_btnNewButton_3);
-		
-		JButton btnNewButton_4 = new JButton("Eliminar robot");
-		btnNewButton_4.setForeground(SystemColor.inactiveCaptionBorder);
-		btnNewButton_4.setIcon(icon);
 		
 		JLabel label = new JLabel("|");
 		label.setForeground(SystemColor.inactiveCaptionBorder);
 		label.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		GridBagConstraints gbc_label = new GridBagConstraints();
 		gbc_label.insets = new Insets(0, 0, 0, 5);
-		gbc_label.gridx = 4;
+		gbc_label.gridx = 2;
 		gbc_label.gridy = 0;
 		panel_5.add(label, gbc_label);
+		
+		JButton btnNewButton_4 = new JButton("Eliminar robot");
+		btnNewButton_4.setForeground(SystemColor.inactiveCaptionBorder);
+		btnNewButton_4.setIcon(icon);
 		btnNewButton_4.setIcon(icon);
 		btnNewButton_4.setBackground(new Color(58, 135, 249));
 		btnNewButton_4.setContentAreaFilled(false);
 		btnNewButton_4.setOpaque(true);
 		GridBagConstraints gbc_btnNewButton_4 = new GridBagConstraints();
 		gbc_btnNewButton_4.insets = new Insets(0, 0, 0, 5);
-		gbc_btnNewButton_4.gridx = 5;
+		gbc_btnNewButton_4.gridx = 3;
 		gbc_btnNewButton_4.gridy = 0;
 		panel_5.add(btnNewButton_4, gbc_btnNewButton_4);
 		
@@ -150,7 +146,7 @@ public class SRMGuiTes extends JFrame {
 		label_1.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		GridBagConstraints gbc_label_1 = new GridBagConstraints();
 		gbc_label_1.insets = new Insets(0, 0, 0, 5);
-		gbc_label_1.gridx = 6;
+		gbc_label_1.gridx = 4;
 		gbc_label_1.gridy = 0;
 		panel_5.add(label_1, gbc_label_1);
 		
@@ -161,18 +157,17 @@ public class SRMGuiTes extends JFrame {
 		btnNewButton_5.setContentAreaFilled(false);
 		btnNewButton_5.setOpaque(true);
 		GridBagConstraints gbc_btnNewButton_5 = new GridBagConstraints();
-		gbc_btnNewButton_5.insets = new Insets(0, 0, 0, 5);
-		gbc_btnNewButton_5.gridx = 7;
+		gbc_btnNewButton_5.gridx = 5;
 		gbc_btnNewButton_5.gridy = 0;
 		panel_5.add(btnNewButton_5, gbc_btnNewButton_5);
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(200, 244, 254));
-		contentPane.add(panel, "cell 1 3 11 18,grow");
+		contentPane.add(panel, "cell 1 3 11 19,grow");
 		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[]{0, 0, 0, 0, 58, 0};
+		gbl_panel.columnWidths = new int[]{0, 200, 0};
 		gbl_panel.rowHeights = new int[]{0, 10, 0, 0, 0, 0, 217, 29, 0};
-		gbl_panel.columnWeights = new double[]{0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
 		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
 		
@@ -182,7 +177,7 @@ public class SRMGuiTes extends JFrame {
 		gbc_panel_3.anchor = GridBagConstraints.NORTH;
 		gbc_panel_3.gridheight = 2;
 		gbc_panel_3.insets = new Insets(0, 0, 5, 0);
-		gbc_panel_3.gridwidth = 5;
+		gbc_panel_3.gridwidth = 2;
 		gbc_panel_3.fill = GridBagConstraints.HORIZONTAL;
 		gbc_panel_3.gridx = 0;
 		gbc_panel_3.gridy = 0;
@@ -213,7 +208,7 @@ public class SRMGuiTes extends JFrame {
 		GridBagConstraints gbc_panel_4 = new GridBagConstraints();
 		gbc_panel_4.anchor = GridBagConstraints.WEST;
 		gbc_panel_4.insets = new Insets(0, 0, 5, 0);
-		gbc_panel_4.gridwidth = 5;
+		gbc_panel_4.gridwidth = 2;
 		gbc_panel_4.gridheight = 5;
 		gbc_panel_4.fill = GridBagConstraints.VERTICAL;
 		gbc_panel_4.gridx = 0;
@@ -230,7 +225,7 @@ public class SRMGuiTes extends JFrame {
 		panel_6.setBackground(new Color(65, 95, 124));
 		GridBagConstraints gbc_panel_6 = new GridBagConstraints();
 		gbc_panel_6.anchor = GridBagConstraints.SOUTH;
-		gbc_panel_6.gridwidth = 5;
+		gbc_panel_6.gridwidth = 2;
 		gbc_panel_6.fill = GridBagConstraints.HORIZONTAL;
 		gbc_panel_6.gridx = 0;
 		gbc_panel_6.gridy = 7;
