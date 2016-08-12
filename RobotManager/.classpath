@@ -15,5 +15,7 @@
 	<classpathentry kind="lib" path="C:/Users/senrigan/Documents/desarrollo/robot/RobotManager/lib/xstream-1.4.8.jar"/>
 	<classpathentry kind="lib" path="C:/Users/senrigan/Documents/desarrollo/robot/RobotManager/lib/log4j-1.2.17.jar"/>
 	<classpathentry kind="lib" path="C:/Users/senrigan/Documents/desarrollo/robot/RobotManager/lib/miglayout-4.0-swing.jar"/>
+	<classpathentry kind="lib" path="C:/Users/senrigan/Documents/desarrollo/robot/RobotManager/lib/jna-4.2.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/senrigan/Documents/desarrollo/robot/RobotManager/lib/jna-platform-4.2.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
