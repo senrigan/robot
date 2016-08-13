@@ -61,6 +61,10 @@ public class RobotManager extends JFrame {
 	private static RobotManagerGui robotManagerGui;
 	public static Appender logAppender;
 	public RobotManager() {
+		
+	}
+	
+	public void start(){
 		CreateLogFile();
 		if(srmAlreadyRunning()){
 			Path regInstallationPath = AppExaminator.getInstallationPath();
@@ -712,20 +716,20 @@ public class RobotManager extends JFrame {
 	public static void runRobot(String applicationName){
 		
 	}
-	
-	public static void stopRobot(long idRobot) throws Exception{
-		ArrayList<RobotInformation> runningRobot = VirtualMachineExaminator.getRunningRobot();
-		for (RobotInformation robotInformation : runningRobot) {
-			if(robotInformation.getRobotId()==idRobot){
-				LOGGER.info( "stopping robotid "+idRobot);
-				if(!stopJar(robotInformation.getIdProcess())){
-					
-					LOGGER.info("the robotid "+idRobot +"cannot stoped");
-					throw new Exception("cannot stop jar of appName"+robotInformation.getAppName());
-				}
-			}
-		}
-	}
+//ya no funciona es necesario realizar otro metodo	
+//	public static void stopRobot(long idRobot) throws Exception{
+//		ArrayList<RobotInformation> runningRobot = VirtualMachineExaminator.getRunningRobot();
+//		for (RobotInformation robotInformation : runningRobot) {
+//			if(robotInformation.getRobotId()==idRobot){
+//				LOGGER.info( "stopping robotid "+idRobot);
+//				if(!stopJar(robotInformation.getIdProcess())){
+//					
+//					LOGGER.info("the robotid "+idRobot +"cannot stoped");
+//					throw new Exception("cannot stop jar of appName"+robotInformation.getAppName());
+//				}
+//			}
+//		}
+//	}
 	public static void stopAllRobots() throws Exception{
 		HashMap<String, AID> robotRegister = InitPlataform.getRobotRegister();
 		Set<String> keySet = robotRegister.keySet();

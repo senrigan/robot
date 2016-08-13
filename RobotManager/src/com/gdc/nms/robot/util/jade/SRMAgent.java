@@ -30,15 +30,11 @@ public class SRMAgent extends Agent {
 		Searched search=new Searched(this, SRMAgentManager.POOLING_INTERVAL);
 		MailBox mail=new MailBox();
 		SuicideBox suic=new SuicideBox();
-//		addBehaviour(new Searched(this, SRMAgentManager.POOLING_INTERVAL));
-//		addBehaviour(new MailBox());
-//		addBehaviour(new SuicideBox());
 		ParallelBehaviour p = new ParallelBehaviour(this,ParallelBehaviour.WHEN_ALL);
 		SequentialBehaviour s1 = new SequentialBehaviour(this);
 		SequentialBehaviour s2 = new SequentialBehaviour(this);
 		s1.addSubBehaviour(suic);
 		s2.addSubBehaviour(mail);
-//		s1.addSubBehaviour(search);
 		p.addSubBehaviour(s1);
 		p.addSubBehaviour(s2);
 		addBehaviour(p);
@@ -178,7 +174,6 @@ public class SRMAgent extends Agent {
 		@Override
 		public void action() {
 			try {
-				ParallelBehaviour paralle=new ParallelBehaviour();
 			
 				ACLMessage msg=myAgent.receive(MessageTemplate.MatchPerformative(ACLMessage.SUBSCRIBE));
 //				jade.lang.acl.ACLMessage msg = myAgent

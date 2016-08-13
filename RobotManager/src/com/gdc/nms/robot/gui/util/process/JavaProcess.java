@@ -1,13 +1,17 @@
 package com.gdc.nms.robot.gui.util.process;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class JavaProcess {
 	public static ArrayList<JavaProcessInfo> getAllJavaProcess(){
 		ArrayList<JavaProcessInfo> process=new ArrayList<JavaProcessInfo>();
 		String wmiValue;
 		try {
-			wmiValue = jWMI.getWMIValue("Select * from Win32_Process where name like '%java%' ","name,processid,commandline");
+			wmiValue = jWMI.getWMIValue("Select * from Win32_Process where name like '%java%' ","name,processid,commandline,CreationDate");
 			String[] split = wmiValue.split("\n");
 			for(int i=0;i<split.length;i++){
 				JavaProcessInfo javaP=new JavaProcessInfo();
@@ -15,7 +19,10 @@ public class JavaProcess {
 			
 				javaP.setProcessid(Long.parseLong(split[i+1].trim()));
 				javaP.setCommandLine(split[i+2]);
-				i=i+2;
+				DateFormat dt=new SimpleDateFormat("yyyymmddHHMMSS");
+				Date date = dt.parse(split[i+3]);
+				javaP.setCreationDate(date);
+				i=i+3;
 				process.add(javaP);
 			}
 		} catch (Exception e) {
@@ -38,16 +45,22 @@ public class JavaProcess {
 		
 		try {
 			String wmiValue;
-			wmiValue = jWMI.getWMIValue("Select * from Win32_Process where name like '%java%' and processid="+pid+" ","name,processid,commandline");
-			String[] split = wmiValue.split("\n");
-			for(int i=0;i<split.length;i++){
-				JavaProcessInfo javaP=new JavaProcessInfo();
-				javaP.setName(split[i]);
-				
-				javaP.setProcessid(Long.parseLong(split[i+1].trim()));
-				javaP.setCommandLine(split[i+2]);
-				i=i+2;
-				return javaP;
+			wmiValue = jWMI.getWMIValue("Select * from Win32_Process where name like '%java%' and processid="+pid+" ","name,processid,commandline,CreationDate");
+			if(wmiValue!=""){				
+				System.out.println("*"+wmiValue);
+				String[] split = wmiValue.split("\n");
+				System.out.println(split.length);
+				for(int i=0;i<split.length;i++){
+					JavaProcessInfo javaP=new JavaProcessInfo();
+					javaP.setName(split[i]);
+					javaP.setProcessid(Long.parseLong(split[i+1].trim()));
+					javaP.setCommandLine(split[i+2]);
+					DateFormat dt=new SimpleDateFormat("yyyymmddHHMMSS");
+					Date date = dt.parse(split[i+3]);
+					javaP.setCreationDate(date);
+					i=i+3;
+					return javaP;
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -63,12 +76,9 @@ public class JavaProcess {
 		ArrayList<JavaProcessInfo> botProcess=new ArrayList<JavaProcessInfo>();
 		for (JavaProcessInfo javaProcessInfo : allJavaProcess) {
 			int indexOf = javaProcessInfo.getCommandLine().lastIndexOf("bot");
-//			System.out.println(javaProcessInfo.getCommandLine());
-//			System.out.println(javaProcessInfo.getCommandLine().matches(".*bot(.)*[.]+(jar|exe)"));
 			String commandLine = javaProcessInfo.getCommandLine();
 			commandLine=commandLine.trim();
 			commandLine=commandLine.replaceAll("\"","");
-//			System.out.println("commandline"+commandLine+"isvalid"+isValidBotString(commandLine));
 			if(isValidBotString(commandLine)){
 				botProcess.add(javaProcessInfo);
 			}
@@ -89,9 +99,17 @@ public class JavaProcess {
 		boolean validJavaProceesId = JavaProcess.isValidJavaProceesId(4924L);
 		System.out.println(validJavaProceesId);
 //		System.out.println(JavaProcess.isValidBotString("C:\\Program Files\\Java\\jre1.8.0_101\\bin\\javaw.exe -jar C:\\Program Files\\GDC\\RobotScript\\data\\SubastaSAT\\bot-1.0.jar "));
+//		=2016-08-12-130356.561349-300
+		Date da=new Date(130356561349L-300); 
 		
 		
-		
+		DateFormat dt=new SimpleDateFormat("yyyymmddHHMMSS");
+		try {
+			Date date = dt.parse("20160812173128.877456-300");
+			System.out.println(date);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 		
 		
 	}

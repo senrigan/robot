@@ -1,11 +1,15 @@
 package com.gdc.nms.robot.util.indexer;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.InterruptedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import com.gdc.nms.robot.util.AppExaminator;
 
 public class AppInformation  implements Comparable<AppInformation>{
 	private String alias;
@@ -15,7 +19,10 @@ public class AppInformation  implements Comparable<AppInformation>{
 	private long idRobot;
 	private HashMap<String,String> propierties;
 	private String folderPath;
-	
+	/**
+	 * 
+	 * @return the real folder name
+	 */
 	public String getAppName() {
 		return appName;
 	}
@@ -75,21 +82,46 @@ public class AppInformation  implements Comparable<AppInformation>{
 		Path path = Paths.get(getFolderPath()).resolve(".lock");
 		try{
 			if(Files.exists(path)){
-				if(Files.deleteIfExists(path)){
-					return true;
+				File file = path.toFile();
+				if(file.delete()){
+					return false;
 				}else{
-					Thread.sleep(20000L);
+					Thread.sleep(5000L);
+					if(file.delete()){
+						return false;
+					}
 				}
+				return true;
 			}
-			return false;
-			
 		}catch(Exception ex){
 			ex.printStackTrace();
 		}
+		path=null;
 		return false;
 	}
 	
 	
+	/**
+	 * get the num of process identify in the SO 
+	 * @return
+	 */
+	public long getPID(){
+		return Long.parseLong(AppExaminator.readPidFile(folderPath));
+	}
+	
+	public static void main(String[] args) {
+		String st=new String("C:\\Program Files\\GDC\\RobotScript\\data\\SubastaSAT\\.lock");
+		Path path = Paths.get(st);
+		System.out.println(Files.exists(path));
+		try {
+			System.out.println(""+Files.deleteIfExists(path));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println(	path.toFile().delete());
+//			Files.delete(path);
+	}
 	
 	
 }

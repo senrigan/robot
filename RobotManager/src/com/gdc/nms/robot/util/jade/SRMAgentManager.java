@@ -1,11 +1,16 @@
 package com.gdc.nms.robot.util.jade;
 
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Set;
 
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 import org.apache.log4j.Logger;
+import org.codehaus.jettison.json.JSONArray;
+import org.codehaus.jettison.json.JSONException;
+import org.codehaus.jettison.json.JSONObject;
 
 import com.gdc.nms.robot.gui.RobotManager;
 import com.gdc.nms.robot.util.indexer.AppInformation;
@@ -76,7 +81,17 @@ public class SRMAgentManager {
 		if(aid!=null){
 			StatusAgent agent = InitPlataform.getAgentManager().getStatusAgent();
 			String status = agent.getStatus(robotRegister.get(appInfo.getAlias()));
-			infoAgent.append(status);
+			try {
+				HashMap<String, String> jsonToMap = jsonToMap(status);
+				Set<String> keySet = jsonToMap.keySet();
+				for (String key : keySet) {
+					String value = jsonToMap.get(key);
+					infoAgent.append(key+" : "+value+"\n");
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
+				infoAgent.append(status);
+			}
 		}else{
 			JOptionPane.showMessageDialog(null, "No es posible cumunicarse con el robot");
 		}
@@ -86,4 +101,34 @@ public class SRMAgentManager {
 		
 		return infoAgent.toString();
 	}
+	
+	
+	 public static HashMap<String,String> jsonToMap(String t) throws JSONException {
+
+	        HashMap<String, String> map = new HashMap<String, String>();
+	        JSONObject jObject = new JSONObject(t);
+	        Iterator<?> keys = jObject.keys();
+	        while( keys.hasNext() ){
+	            String key = (String)keys.next();
+	            System.out.println(key);
+	            if(key.equals("map")){
+		            String value = jObject.getString(key); 
+		            if(value.startsWith("[")&& value.endsWith("]")){
+		            	value=value.substring(1, value.length()-1);
+		            	JSONObject aux=new JSONObject(value);
+		            	Iterator innerKeys = aux.keys();
+		            	while(innerKeys.hasNext()){
+		            		String keyin =(String) innerKeys.next();
+		            		JSONArray jsonObject = aux.getJSONArray(keyin);
+		            		for (int i = 0; i < jsonObject.length(); i++) {
+								JSONObject jsonObject2 = jsonObject.getJSONObject(i);
+								JSONArray jsonArray = jsonObject2.getJSONArray("string");
+								map.put((String)jsonArray.get(0), (String)jsonArray.get(1));
+							}
+		            	}
+		            }
+	            }
+	        }
+	        return map;
+	    }
 }

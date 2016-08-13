@@ -1,9 +1,12 @@
 package com.gdc.nms.robot.gui.util.process;
 
+import java.util.Date;
+
 public class JavaProcessInfo {
 	private String name;
 	private long processid;
 	private String commandLine;
+	private Date date;
 	public String getName() {
 		return name;
 	}
@@ -21,6 +24,15 @@ public class JavaProcessInfo {
 	}
 	public void setCommandLine(String commandLine) {
 		this.commandLine = commandLine;
+	}
+	
+	public void setCreationDate(Date date){
+		this.date=date;
+	}
+	
+	
+	public Date getCreationDate(){
+		return date;
 	}
 	@Override
 	public String toString() {

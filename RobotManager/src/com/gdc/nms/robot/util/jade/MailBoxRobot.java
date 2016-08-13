@@ -1,7 +1,5 @@
 package com.gdc.nms.robot.util.jade;
 
-import java.util.Arrays;
-import java.util.HashMap;
 
 import org.apache.log4j.Logger;
 
@@ -16,6 +14,10 @@ import jade.wrapper.AgentController;
 import jade.wrapper.StaleProxyException;
 
 public class MailBoxRobot extends Agent{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private static final Logger LOGGER=Logger.getLogger(MailBoxRobot.class.toString());
 	static {
 		LOGGER.addAppender(RobotManager.logAppender);
@@ -46,6 +48,10 @@ public class MailBoxRobot extends Agent{
 	
 	
 	private class MailReader extends CyclicBehaviour{
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
 		private static final String ALIVE_RESPONSE="OK";
 		@Override
 		public void action() {
