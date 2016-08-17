@@ -13,6 +13,7 @@ import java.awt.Image;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
@@ -45,7 +46,11 @@ public class tet extends JFrame {
 	private ImageIcon configIcon = new ImageIcon(
 			"C:\\Users\\senrigan\\Documents\\desarrollo\\PachitaWindows\\icon\\icn-config-03.png");
 	private JPanel contentPane;
-	private Box verticalBox;
+	private JPanel verticalBox;
+	private JScrollPane buttonScrollPanel;
+	private JPanel panel_2;
+	private JPanel panel_3;
+	private JPanel panel_5;
 
 	/**
 	 * Launch the application.
@@ -55,8 +60,25 @@ public class tet extends JFrame {
 			public void run() {
 				try {
 					tet frame = new tet();
-					frame.setVisible(true);
 					frame.addNewRobotUI("mudo");
+					frame.addNewRobotUI("kk");
+					frame.addNewRobotUI("ss");
+					frame.addNewRobotUI("test");
+					frame.addNewRobotUI("mudo");
+					frame.addNewRobotUI("kk");
+					frame.addNewRobotUI("ss");
+					frame.addNewRobotUI("test");
+					frame.addNewRobotUI("mudo");
+					frame.addNewRobotUI("kk");
+					frame.addNewRobotUI("ss");
+					frame.addNewRobotUI("test");
+					frame.addNewRobotUI("mudo");
+					frame.addNewRobotUI("kk");
+					frame.addNewRobotUI("ss");
+					frame.addNewRobotUI("test");
+					frame.addNewRobotUI("kk");
+					frame.addNewRobotUI("ss");
+					frame.addNewRobotUI("test");
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -118,7 +140,7 @@ public class tet extends JFrame {
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		contentPane.add(lblNewLabel, "cell 1 1 9 1");
 
-		JPanel panel_5 = new JPanel();
+		panel_5 = new JPanel();
 		panel_5.setOpaque(false);
 		contentPane.add(panel_5, "cell 15 1 14 1,grow");
 		GridBagLayout gbl_panel_5 = new GridBagLayout();
@@ -225,12 +247,18 @@ public class tet extends JFrame {
 		gbc_lblNewLabel_3.gridy = 0;
 		panel_1.add(lblNewLabel_3, gbc_lblNewLabel_3);
 
-		verticalBox=Box.createVerticalBox();
+		verticalBox=new JPanel();
+		verticalBox.setLayout(new BoxLayout(verticalBox, BoxLayout.Y_AXIS));
 //		verticalBox.add(new JButton("hola"));
-		JScrollPane scrollPane_1 = new JScrollPane(verticalBox);
-		scrollPane_1.getViewport().setBackground(new Color(234, 244, 254));
-		scrollPane_1.getViewport().setOpaque(true);
-		scrollPane_1.setBorder(null);
+		verticalBox.setPreferredSize(new Dimension(200, 300));
+		
+		JPanel mainPanel = new JPanel(new BorderLayout());
+	    JPanel center=new JPanel(new GridLayout(2,1));
+		buttonScrollPanel = new JScrollPane(verticalBox);
+		buttonScrollPanel.getViewport().setBackground(new Color(234, 244, 254));
+		buttonScrollPanel.getViewport().setOpaque(true);
+		buttonScrollPanel.setBorder(null);
+		center.add(buttonScrollPanel);
 		// JViewport viewport = new JViewport();
 		//
 		//
@@ -251,15 +279,17 @@ public class tet extends JFrame {
 		// scrollPane_1.setBackground(new Color(200, 244, 254));
 		// scrollPane_1.getViewport().setOpaque(false);
 		// scrollPane_1.getViewport().setBackground(new Color(200, 244, 254));
-		GridBagConstraints gbc_scrollPane_1 = new GridBagConstraints();
-		gbc_scrollPane_1.gridheight = 12;
-		gbc_scrollPane_1.insets = new Insets(0, 0, 0, 0);
-		gbc_scrollPane_1.fill = GridBagConstraints.BOTH;
-		gbc_scrollPane_1.gridx = 0;
-		gbc_scrollPane_1.gridy = 1;
-		panel.add(scrollPane_1, gbc_scrollPane_1);
+		GridBagConstraints gbc_buttonScrollPanel = new GridBagConstraints();
+		gbc_buttonScrollPanel.gridheight = 12;
+		gbc_buttonScrollPanel.insets = new Insets(0, 0, 0, 0);
+		gbc_buttonScrollPanel.fill = GridBagConstraints.BOTH;
+		gbc_buttonScrollPanel.gridx = 0;
+		gbc_buttonScrollPanel.gridy = 1;
+//		panel.add(buttonScrollPanel, gbc_buttonScrollPanel);
+		panel.add(center, gbc_buttonScrollPanel);
 
-		JPanel panel_2 = new JPanel();
+
+		panel_2 = new JPanel();
 		panel_2.setBackground(new Color(65, 95, 124));
 		GridBagConstraints gbc_panel_2 = new GridBagConstraints();
 		gbc_panel_2.fill = GridBagConstraints.BOTH;
@@ -317,7 +347,7 @@ public class tet extends JFrame {
 		gbc_lblNewLabel_5.gridy = 0;
 		panel_2.add(lblNewLabel_5, gbc_lblNewLabel_5);
 
-		JPanel panel_3 = new JPanel();
+		panel_3 = new JPanel();
 		panel_3.setBorder(BorderFactory.createEmptyBorder(-1, 0, 1,0));
 		panel_3.setBackground(new Color(234, 244, 254));
 
@@ -396,7 +426,7 @@ public class tet extends JFrame {
 		gbc_btnNewButton_2.gridx = 2;
 		gbc_btnNewButton_2.gridy = 0;
 		panel_4.add(btnNewButton_2, gbc_btnNewButton_2);
-
+//		center.add(arg0)
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.getViewport().setBackground(new Color(234, 244, 254));
 		scrollPane.getViewport().setOpaque(true);
@@ -414,18 +444,23 @@ public class tet extends JFrame {
 		// textArea.setEnabled(true);
 		scrollPane.setViewportView(textArea);
 		panel_3.add(scrollPane, gbc_scrollPane);
+		this.setVisible(true);
 	}
 	
 	public void  addNewRobotUI(String robotName){
 		JButton button=new JButton(robotName);
-		button.setContentAreaFilled(true);
-		button.setPreferredSize(new Dimension(verticalBox.getWidth(), 100));
+//		button.setContentAreaFilled(true);
+//		button.setMargin(new Insets(50,100, 50, 120));
+//		button.setPreferredSize(new Dimension(236, 0));
 		button.setOpaque(false);
-		button.setMargin(new Insets(50, 0, 50, 0));
-		button.setBorder(BorderFactory.createEmptyBorder());
+		button.setHorizontalAlignment(SwingConstants.CENTER);
+
+//		button.setMargin(new Insets(50, 0, 50, 0));
+//		button.setBorder(BorderFactory.createEmptyBorder());
 		button.setBackground(new Color(0, 0, 0,0));
 		button.setFont(new Font("Tahoma",Font.PLAIN, 15));
 		verticalBox.add(button);
+		System.out.println("width"+verticalBox.getWidth()+"height"+verticalBox.getHeight());
 	}
 	/**
 	 * Create the frame.

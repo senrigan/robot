@@ -53,18 +53,18 @@ public class SelectorApp extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					SelectorApp frame = new SelectorApp();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					SelectorApp frame = new SelectorApp();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 
 	/**
 	 * Create the frame.
@@ -307,11 +307,6 @@ public class SelectorApp extends JFrame {
 	}
 	
 	
-	
-	public static void main(String[] args) {
-		ArrayList<AppJsonObject> appsName = ValidatorManagement.getAppsName();
-		System.out.println(appsName);
-	}
 	
 	
 	private class Alias implements Comparator<AppJsonObject>{

@@ -57,7 +57,8 @@ public class LoadingFrame extends JFrame {
 //            setUndecorated(true);
             setBackground(new Color(0,0,0,0));
         } catch (Exception exception) {
-            exception.printStackTrace();
+        	System.out.println("Error al cargar la imagen de precarga");
+//            exception.printStackTrace();
         }
     }
 

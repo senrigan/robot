@@ -12,7 +12,6 @@ import com.gdc.nms.robot.gui.RobotManagerGui;
 import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
-import jade.core.behaviours.OneShotBehaviour;
 import jade.core.behaviours.ParallelBehaviour;
 import jade.core.behaviours.SequentialBehaviour;
 import jade.core.behaviours.TickerBehaviour;
@@ -27,7 +26,7 @@ public class SRMAgent extends Agent {
 
 	@Override
 	protected void setup() {
-		Searched search=new Searched(this, SRMAgentManager.POOLING_INTERVAL);
+//		Searched search=new Searched(this, SRMAgentManager.POOLING_INTERVAL);
 		MailBox mail=new MailBox();
 		SuicideBox suic=new SuicideBox();
 		ParallelBehaviour p = new ParallelBehaviour(this,ParallelBehaviour.WHEN_ALL);
@@ -128,12 +127,6 @@ public class SRMAgent extends Agent {
 					}
 
 				}
-//				RobotManagerGui guiManager = RobotManager.getGuiManager();
-//				if (guiManager != null) {
-//
-//					guiManager.UpdateTree(InitPlataform.getRobotRegister().keySet());
-//				}
-				// block(SRMAgentManager.POOLING_INTERVAL);
 				System.out.println("termino la espera del poleo");
 			} catch (Exception ex) {
 				ex.printStackTrace();
@@ -238,6 +231,7 @@ public class SRMAgent extends Agent {
 					appName = parseAppName(appName);
 					InitPlataform.removeToKill(appName);
 					RobotManagerGui.showMessage("el robot " + appName + "se ha detenido correctamente");
+					RobotManager.getGuiManager().getJtreManager().addToStop(appName);
 				}
 				block(5000L);
 			} catch (Exception ex) {

@@ -16,6 +16,10 @@ public class FlujoJsonObject {
 	public void setId(long id) {
 		this.id = id;
 	}
+	@Override
+	public String toString() {
+		return "FlujoJsonObject [alias=" + alias + ", id=" + id + "]";
+	}
 	
 	
 	

@@ -37,6 +37,8 @@ import com.gdc.nms.robot.gui.tree.TreeListener;
 import com.gdc.nms.robot.gui.tree.TreeModelElements;
 import com.gdc.nms.robot.gui.tree.test.RobotJTree;
 import com.gdc.nms.robot.gui.tree.test.TreeDynamic;
+import com.gdc.nms.robot.gui.util.process.JavaProcess;
+import com.gdc.nms.robot.gui.util.process.JavaProcessInfo;
 import com.gdc.nms.robot.util.AppExaminator;
 import com.gdc.nms.robot.util.Constants;
 import com.gdc.nms.robot.util.indexer.AppInformation;
@@ -44,10 +46,12 @@ import com.gdc.nms.robot.util.jade.InitPlataform;
 import com.gdc.nms.robot.util.jade.SRMAgentManager;
 import com.gdc.nms.robot.util.registry.CommandExecutor;
 import com.gdc.robothelper.webservice.ClientWebService;
+import com.gdc.robothelper.webservice.SisproRobotManagerHelperService;
 import com.gdc.robothelper.webservice.robot.CreatorRobotWebService;
 import com.gdc.robothelper.webservice.robot.Webservice;
 
 import jade.core.AID;
+import sun.tools.tree.SynchronizedStatement;
 
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -296,7 +300,7 @@ public class RobotManagerGui extends JFrame {
 		return dinamicTree;
 	}
 	
-	private boolean checkWebServicesCreator(){
+	private static boolean checkWebServicesCreator(){
 		URL webServicesCreator = CreatorRobotWebService.getWebServicesCreator();
 		if(webServicesCreator!=null){
 			System.out.println("consultando webservices"+webServicesCreator);
@@ -314,7 +318,9 @@ public class RobotManagerGui extends JFrame {
 			System.out.println("comprobando webservices"+webServicesConsult);
 			return ClientWebService.existeConexion(webServicesConsult.toString());
 		}else{
-			webServicesConsult=Webservice.getUrl();
+			webServicesConsult=SisproRobotManagerHelperService.getUrl();
+			System.out.println("comprobando webservices"+webServicesConsult);
+
 			return ClientWebService.existeConexion(webServicesConsult.toString());
 		}
 	}
@@ -323,6 +329,9 @@ public class RobotManagerGui extends JFrame {
 	public static void main(String[] args) {
 		boolean checkWebServicesConsult = RobotManagerGui.checkWebServicesConsult();
 		System.out.println(checkWebServicesConsult);
+		boolean checkWebServicesCreator = RobotManagerGui.checkWebServicesCreator();
+		System.out.println(checkWebServicesCreator);
+		
 	}
 	private void updateMenuAction(){
 		updateMenu.addActionListener(new ActionListener() {
@@ -465,21 +474,24 @@ public class RobotManagerGui extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				System.out.println("se activo stop button");
 				Element element = (Element) dinamicTree.getSelectdNode();
 				AppInformation appinfo = element.getAppinfo();
 //				long idRobot = appinfo.getIdRobot();
 				LoadingFrame loading=new LoadingFrame();
 				try {
-					AID aid = InitPlataform.getRobotRegister().get(appinfo.getAppName());
+//					AID aid = InitPlataform.getRobotRegister().get(appinfo.getAppName());
 					boolean stopAgent;
-					if(aid!=null){
-						stopAgent = SRMAgentManager.stopAgent(aid);
-						
-					}else{
-						stopAgent=false;
-					}
+//					if(aid!=null){
+//						stopAgent = SRMAgentManager.stopAgent(aid);
+//						
+//					}else{
+//						stopAgent=false;
+//					}
+					stopAgent=false;//parchie para que mate el processo
 					if(stopAgent){
 	//					RobotManager.stopRobot(idRobot);
+						System.out.println("intentando cumunciarse con el agente para detenerlos");
 							loading.close();
 							enableButton(ButtonType.STOP, false);
 							enableButton(ButtonType.START, false);
@@ -493,21 +505,67 @@ public class RobotManagerGui extends JFrame {
 						
 					}else{
 						System.out.println("deteniendo robot de forma bruta");
-						boolean runningByLockFile = AppExaminator.isRunningByLockFile(appinfo);
-						if(runningByLockFile){
+//						boolean runningByLockFile = AppExaminator.isRunningByLockFile(appinfo);
+//						System.out.println("is runningbyLockFule"+runningByLockFile);
+						Object selectdNode = dinamicTree.getSelectdNode();
+
+						if(appinfo.isServicesRunning()){
+							
 							String appPid = AppExaminator.readPidFile(appinfo.getFolderPath());
-							RobotManager.stopJar(Long.parseLong(appPid));
+							long pid=Long.parseLong(appPid);
+							if(JavaProcess.isValidJavaProceesId(pid)){
+								System.out.println("pid is valid java process"+pid);
+								if(RobotManager.stopJar(pid)){
+									JOptionPane.showMessageDialog(null, "El robot fue detenido exitosamente", "Error",
+											JOptionPane.INFORMATION_MESSAGE);
+									System.out.println("dinamicteee getseletednode"+dinamicTree.getSelectdNode());
+//									dinamicTree.getTree().clearSelection();
+									dinamicTree.addToStop(selectdNode);
+									System.out.println("robot detenido exitosamente");
+
+								}else{
+									System.out.println("no fue posible detener el robot");
+
+									JOptionPane.showMessageDialog(null, "No es Posible Detener al Robot en este momento", "Error",
+											JOptionPane.ERROR_MESSAGE);
+								}
+							}else{
+								System.out.println("searchinng services in java oprocess");
+								ArrayList<JavaProcessInfo> allJavaRobotProces = JavaProcess.getALLJavaRobotProces();
+								for (JavaProcessInfo javaProcessInfo : allJavaRobotProces) {
+									String commandLine = javaProcessInfo.getCommandLine();
+									System.out.println("commandlinde"+commandLine);
+									if(commandLine.contains(appinfo.getAppName()) ){
+										long processid = javaProcessInfo.getProcessid();
+										if(RobotManager.stopJar(processid)){
+											System.out.println("robot detenido exitosamente");
+//											dinamicTree.getTree().clearSelection();
+											dinamicTree.addToStop(selectdNode);
+											JOptionPane.showMessageDialog(null, "El robot fue detenido exitosamente", "Error",
+													JOptionPane.INFORMATION_MESSAGE);
+										}else{
+											System.out.println("no fue posible dteenr el robot");
+											JOptionPane.showMessageDialog(null, "No es Posible Detener al Robot en este momento", "Error",
+													JOptionPane.ERROR_MESSAGE);
+										}
+									}
+								}
+							}
 						}else{
-							JOptionPane.showMessageDialog(null, "El robot no esta en ejecucion", "Error",
-									JOptionPane.ERROR_MESSAGE);
+							System.out.println("el servicio no esta corriendo");
 						}
+							
+//						else{
+//							JOptionPane.showMessageDialog(null, "El robot no esta en ejecucion", "Error",
+//									JOptionPane.ERROR_MESSAGE);
+//						}
 					}
 //					registryStopedRobot(idRobot);
 				} catch (Exception e1) {
 					loading.close();
-					JOptionPane.showMessageDialog(null, "No es Posible Detener al Robot en este momento", "Error",
-							JOptionPane.ERROR_MESSAGE);
-					enableButton(ButtonType.STOP, true);
+//					JOptionPane.showMessageDialog(null, "No es Posible Detener al Robot en este momento", "Error",
+//							JOptionPane.ERROR_MESSAGE);
+//					enableButton(ButtonType.STOP, true);
 
 					e1.printStackTrace();
 					LOGGER.error("excepcion ", e1);
@@ -1042,11 +1100,14 @@ public class RobotManagerGui extends JFrame {
 		case LOG:
 				logButton.setEnabled(status);
 				break;
+		case DATA:
+				getRobotDataButton.setEnabled(status);
+		
 		}
 	}
 	
 	public enum ButtonType{
-		START,STOP,LOG
+		START,STOP,LOG,DATA
 	}
 
 }

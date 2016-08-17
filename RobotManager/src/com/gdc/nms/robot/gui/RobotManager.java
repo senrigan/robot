@@ -13,6 +13,7 @@ import java.nio.file.LinkOption;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Set;
@@ -106,6 +107,7 @@ public class RobotManager extends JFrame {
 				LOGGER.error("excepcion ", e);
 
 			}
+			robotManagerGui=new RobotManagerGui();
 			Thread hilo=new Thread(new Runnable() {
 				
 				@Override
@@ -116,7 +118,6 @@ public class RobotManager extends JFrame {
 			});
 			StartAgentPlatform();
 			hilo.start();
-			robotManagerGui=new RobotManagerGui();
 			
 		}else{
 			JOptionPane.showMessageDialog(null, "El Programa ya esta en ejecucion", "Error", JOptionPane.ERROR_MESSAGE);
@@ -205,10 +206,6 @@ public class RobotManager extends JFrame {
 	}
 	
 	
-	public static void main(String[] args) {
-		RobotManager.hiddeFile(Paths.get("C:\\Program Files\\GDC\\RobotScript\\hola.txt"));
-	}
-	
 	
 	
 	public static RobotManagerGui getGuiManager(){
@@ -226,8 +223,6 @@ public class RobotManager extends JFrame {
 		checkUbicationRegistry();
 		checkWebServicesRegistry();
 		checkUbicationCreationRegistry();
-		
-		
 	}
 	
 	private void checkRegistryRobotMustRun(){
@@ -407,9 +402,24 @@ public class RobotManager extends JFrame {
 			
 			final ArrayList<AppInformation> runningApps = AppExaminator.getInstalledApps();
 			LOGGER.info("startup all Robot ");
+			System.out.println("running apps"+runningApps);
 			for (AppInformation appInformation : runningApps) {
 				LOGGER.info("starting robot:  "+appInformation.getAlias());
-				runJarRobot(appInformation.getAppName());
+				System.out.println("robot to run"+appInformation.getFolderPath());
+				final AppInformation apF=appInformation;
+				if(appInformation.isServicesRunning()){
+					System.out.println("changing services to already running"+appInformation.getAppName());
+					RobotManager.getGuiManager().getJtreManager().addToRun(appInformation.getAppName()); 
+				}else{
+					Thread th=new Thread( new Runnable() {
+						public void run() {
+							runJarRobot(apF.getBotFile());
+							
+						}
+					});
+					th.start();
+					
+				}
 			}
 
 		} catch (Exception e) {
@@ -618,7 +628,7 @@ public class RobotManager extends JFrame {
 			String appName = appInformation.getAppName();
 			System.out.println(appInformation.getIdApp() +" idrobot"+idApp);
 			if(appInformation.getIdApp()==idApp){
-				runJarRobot(appInformation.getAppName());
+				runJarRobot(appInformation.getBotFile());
 				return true;
 			}
 		}
@@ -632,7 +642,7 @@ public class RobotManager extends JFrame {
 			System.out.println(appInformation.getIdApp() +" idrobot"+idRobot);
 			if(appInformation.getIdRobot()==idRobot){
 				LOGGER.info("starup the robot id :"+idRobot);
-				return runJarRobot(appInformation.getAppName());
+				return runJarRobot(appInformation.getBotFile());
 			}
 		}
 		return false;
@@ -646,13 +656,60 @@ public class RobotManager extends JFrame {
 			System.out.println(appInformation.getIdApp() +" idrobot"+idRobot);
 			if(appInformation.getIdRobot()==idRobot && appInformation.getIdApp()==idApp){
 				LOGGER.info("starup the robot id :"+idRobot);
-				return runJarRobot(appInformation.getAppName());
+				return runJarRobot(appInformation.getBotFile());
 			}
 		}
 		return false;
 	}
 	
-	
+	private static boolean runJarRobot(final File botFile){
+		final CountDownLatch latch=new CountDownLatch(1);
+//		final boolean valueTem=false;
+		valueStart=false;
+		System.out.println("bot file oto run "+botFile);
+		Thread hilo=new Thread( new Runnable() {
+			public void run() {
+				boolean value=false;
+				String java ="\""+Environment.getJava()+"\"";
+				String nuewName=botFile.getParentFile().getName().replaceAll("\\s+$", "");
+				System.out.println("before run the robos wildacars"+installationPath.resolve("data").resolve(nuewName));
+//				File[] botFiles = AppExaminator.getBotFiles(installationPath.resolve("data").resolve(nuewName));
+				System.out.println("bot files"+botFile.getName());
+				LOGGER.info("botfiles detected "+botFile.getName());
+//				if(botFiles.length>0){
+//					Path ROBOTJAR=botFiles[0].toPath();
+					File parentFile=botFile.getParentFile();
+//					String jar="\""+robotJar.toString()+"\"";
+					String command=java +" -Dname=\"Robot_"+nuewName+"\" "+" -jar "+botFile.getName();
+					try {
+						System.out.println("command"+command);
+						Runtime.getRuntime().exec(command,null,parentFile);
+						value=true;
+					} catch (IOException e) {
+						e.printStackTrace();
+						value=false;
+						LOGGER.error("excepcion ", e);
+
+					}
+					latch.countDown();
+					valueStart=value;
+//				}else{
+//					valueStart=false;
+//				}
+				
+			}
+		});
+		hilo.start();
+		try {
+			latch.await(60,TimeUnit.SECONDS);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+			LOGGER.error("excepcion ", e);
+
+		}
+		return valueStart;
+		
+	}
 	private static boolean runJarRobot(final String appName){
 		System.out.println("+++++ App Nanme : "+appName);
 		final CountDownLatch latch=new CountDownLatch(1);
@@ -663,14 +720,17 @@ public class RobotManager extends JFrame {
 				boolean value=false;
 				String java ="\""+Environment.getJava()+"\"";
 				String nuewName=appName.replaceAll("\\s+$", "");
+				System.out.println("before run the robos wildacars"+installationPath.resolve("data").resolve(nuewName));
 				File[] botFiles = AppExaminator.getBotFiles(installationPath.resolve("data").resolve(nuewName));
+				System.out.println("bot files"+Arrays.toString(botFiles));
+				LOGGER.info("botfiles detected "+Arrays.toString(botFiles));
 				if(botFiles.length>0){
 					
 					Path robotJar=botFiles[0].toPath();
 					Path appPath=robotJar.getParent();
 					String jar="\""+robotJar.toString()+"\"";
 //				String command="cd  \""+appPath+"\" && "+java +" -Dname=\"Robot_"+appName+"\" "+" -jar "+robotJar.getFileName();
-					String command=java +" -Dname=\"Robot_"+nuewName+"\" "+" -jar "+robotJar.getFileName();
+					String command=java +" -Dname=\"Robot_"+nuewName+"\" "+" -jar "+robotJar;
 					
 					try {
 						System.out.println("command"+command);
@@ -754,7 +814,7 @@ public class RobotManager extends JFrame {
 					String line;
 					while((line=in.readLine())!=null){
 						System.out.println("stopjar lines"+line);
-						if(line.contains("SUCCESS")){
+						if(line.contains("SUCCESS")|| line.contains("Correcto")){
 							valueStop= true;
 						}
 						
@@ -777,6 +837,7 @@ public class RobotManager extends JFrame {
 		}
 		return valueStop;
 	}
+	
 	
 	public static void stopRobot(String applicationName){
 		
@@ -851,25 +912,6 @@ public class RobotManager extends JFrame {
 	public static ArrayList<AppInformation> getInstalledApp(){
 		return AppExaminator.getInstalledApps();
 	}
-	
-	
-	
-//	public static void StopScanServices(){
-//		LOGGER.info("changing the status of scanning stoping services");
-//		RobotManager.executeScan=false;
-//	}
-//	
-//	public static void StartScanServices(){
-//		LOGGER.info("changing the status of scanning starting services");
-//
-//		RobotManager.executeScan=true;
-//	}
-//	
-//	
-//	
-//	public static boolean isRunningScan(){
-//		return executeScan;
-//	}
 	
 	
 	

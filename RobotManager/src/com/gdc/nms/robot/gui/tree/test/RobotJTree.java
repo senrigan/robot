@@ -1,7 +1,10 @@
 package com.gdc.nms.robot.gui.tree.test;
 
+import java.util.Enumeration;
+
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeNode;
 
 import sun.tools.tree.SynchronizedStatement;
 
@@ -32,42 +35,90 @@ public class RobotJTree {
 	
 	public void addToRun(Object robotNode){
 		String nodeStringContent=null;
+		DefaultMutableTreeNode node=null;
 		if(robotNode instanceof DefaultMutableTreeNode){
 			System.out.println("adding nuew node Running "+((DefaultMutableTreeNode)robotNode).getUserObject().toString());
-			DefaultMutableTreeNode node=(DefaultMutableTreeNode)robotNode;
+			node=(DefaultMutableTreeNode)robotNode;
 			nodeStringContent = node.getUserObject().toString();
 			
 		}else if(robotNode instanceof String){
 			System.out.println("adding nuew node Running "+(String)robotNode);
 			nodeStringContent=(String)robotNode;
+			node=new DefaultMutableTreeNode(robotNode);
 		}
 		DefaultMutableTreeNode search = tree.search(nodeStringContent);
+		
 		if(search==null){
-			tree.addElement(runNode,robotNode );
+			tree.addElement(runNode,node );
 			
 		}else{
-			System.out.println("this node is in Jtree");
+			DefaultMutableTreeNode searchInStop =removeifExistInStop(search);
+			System.out.println("parente"+searchInStop);
+			removeStop(searchInStop);
+				tree.addElement(runNode, searchInStop);
+			tree.treeModel.reload();
+
 		}
+	}
+	
+	
+	public DefaultMutableTreeNode removeifExistInStop(DefaultMutableTreeNode node){
+		int numChilder = stopNode.getChildCount();
+		for (int i = 0; i < numChilder; i++) {
+			TreeNode chhildNode = stopNode.getChildAt(i);
+			if(chhildNode.toString().equals(node.getUserObject())){
+				System.out.println("same word");
+				stopNode.remove(i);
+				return (DefaultMutableTreeNode) chhildNode;
+			}
+		}
+		return null;
+	}
+	
+	public DefaultMutableTreeNode removeifExistInRun(DefaultMutableTreeNode node){
+		int numChilder = runNode.getChildCount();
+		for (int i = 0; i < numChilder; i++) {
+			TreeNode chhildNode =runNode.getChildAt(i);
+			if(chhildNode.toString().equals(node.getUserObject())){
+				System.out.println("same word");
+				runNode.remove(i);
+				return (DefaultMutableTreeNode) chhildNode;
+			}
+		}
+		return null;
 	}
 	public void removeRun(Object robotNode){
 		tree.removeNode((DefaultMutableTreeNode) robotNode);
 	}
 	public void addToStop(Object robotNode){
-		System.out.println("adding nuew node Stop "+robotNode.toString());
-
-		DefaultMutableTreeNode node=(DefaultMutableTreeNode)robotNode;
-		String nodeStringContent = node.getUserObject().toString();
+		DefaultMutableTreeNode node=null;
+		String nodeStringContent=null;
+		if(robotNode instanceof DefaultMutableTreeNode){
+			System.out.println("adding nuew node stop "+((DefaultMutableTreeNode)robotNode).getUserObject().toString());
+			node=(DefaultMutableTreeNode)robotNode;
+			nodeStringContent = node.getUserObject().toString();
+		}else if(robotNode instanceof String){
+			nodeStringContent=(String) robotNode;
+		}
+//		System.out.println("adding nuew node Stop "+robotNode.toString());
+//
+//		DefaultMutableTreeNode node=(DefaultMutableTreeNode)robotNode;
+//		String nodeStringContent = node.getUserObject().toString();
 		DefaultMutableTreeNode search = tree.search(nodeStringContent);
 		if(search==null){
-			tree.addElement(stopNode, robotNode);
+			tree.addElement(stopNode, node);
 			
 		}else{
-			System.out.println("this node is in Jtree");
+			DefaultMutableTreeNode searchInRun =removeifExistInRun(search);
+			System.out.println("parente"+searchInRun);
+			removeStop(searchInRun);
+			tree.addElement(stopNode, searchInRun);
+			tree.treeModel.reload();
 		}
 	}
 	
 	public void removeStop(Object robotNode){
-		tree.removeNode((DefaultMutableTreeNode)robotNode);
+		System.out.println("removing node"+tree.removeNode((DefaultMutableTreeNode)robotNode));;
 	}
 	
 	public Object getSelectdNode(){
@@ -78,6 +129,8 @@ public class RobotJTree {
 		DefaultMutableTreeNode removeNode = tree.removeNode((DefaultMutableTreeNode)robotNode);
 		if(removeNode!=null){
 			addToStop(removeNode);
+		}else{
+			System.out.println("is null for remove to start");
 		}
 	}
 	
@@ -86,6 +139,8 @@ public class RobotJTree {
 		DefaultMutableTreeNode removeNode = tree.removeNode((DefaultMutableTreeNode)robotNode);
 		if(removeNode!=null){
 			addToRun(removeNode);
+		}else{
+			System.out.println("is null for remove to stop");
 		}
 	}
 	

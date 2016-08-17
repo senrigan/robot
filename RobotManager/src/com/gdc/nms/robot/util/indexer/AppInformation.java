@@ -9,6 +9,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.gdc.nms.robot.gui.util.process.JavaProcess;
 import com.gdc.nms.robot.util.AppExaminator;
 
 public class AppInformation  implements Comparable<AppInformation>{
@@ -19,6 +20,7 @@ public class AppInformation  implements Comparable<AppInformation>{
 	private long idRobot;
 	private HashMap<String,String> propierties;
 	private String folderPath;
+	private File botFile;
 	/**
 	 * 
 	 * @return the real folder name
@@ -79,25 +81,30 @@ public class AppInformation  implements Comparable<AppInformation>{
 	}
 	
 	public boolean isServicesRunning(){
-		Path path = Paths.get(getFolderPath()).resolve(".lock");
-		try{
-			if(Files.exists(path)){
-				File file = path.toFile();
-				if(file.delete()){
-					return false;
-				}else{
-					Thread.sleep(5000L);
+		if(!JavaProcess.isServicesAlreadyRunningForMoreFiveMinutes(appName)){
+			Path path = Paths.get(getFolderPath()).resolve(".lock");
+			try{
+				if(Files.exists(path)){
+					File file = path.toFile();
 					if(file.delete()){
 						return false;
+					}else{
+						Thread.sleep(5000L);
+						if(file.delete()){
+							return false;
+						}
 					}
+					return true;
 				}
-				return true;
+			}catch(Exception ex){
+				ex.printStackTrace();
 			}
-		}catch(Exception ex){
-			ex.printStackTrace();
+			path=null;
+			return false;
+			
+		}else{
+			return true;
 		}
-		path=null;
-		return false;
 	}
 	
 	
@@ -122,6 +129,14 @@ public class AppInformation  implements Comparable<AppInformation>{
 		System.out.println(	path.toFile().delete());
 //			Files.delete(path);
 	}
+	public File getBotFile() {
+		return botFile;
+	}
+	public void setBotFile(File botFile) {
+		this.botFile = botFile;
+	}
+	
+	
 	
 	
 }

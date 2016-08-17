@@ -58,12 +58,15 @@ public class AppExaminator {
 						File [] dir = file.listFiles(fileFilter);
 						for (File fileApp : dir) {
 							String fileName=fileApp.getName();
-							if(fileName.endsWith("exe")||fileName.endsWith("jar")){
-								AppInformation appData = getAppData(file.toPath());
-								if(appData!=null){
-									apps.add(appData);
-									
+							if(fileName.startsWith(Constants.REGEX_JARNAME)){
+								if(fileName.endsWith("exe")||fileName.endsWith("jar")){
+									AppInformation appData = getAppData(file.toPath(),fileApp);
+									if(appData!=null && appData.getIdRobot()!=0){
+										apps.add(appData);
+										
+									}
 								}
+								
 							}
 						}
 					}
@@ -76,7 +79,6 @@ public class AppExaminator {
 		}
 		return apps;
 	}
-	
 	
 	
 	
@@ -114,7 +116,21 @@ public class AppExaminator {
 				if(file.isDirectory()){
 					
 					if(validAppFolde(file.toPath())){
-						apps.put(file.getName(), getAppData(file.toPath()));
+						FileFilter fileFilter=new WildcardFileFilter(Constants.REGEX_JARNAME+"*");
+						File [] dir = file.listFiles(fileFilter);
+						for (File fileApp : dir) {
+							String fileName=fileApp.getName();
+							if(fileName.startsWith(Constants.REGEX_JARNAME)){
+								if(fileName.endsWith("exe")||fileName.endsWith("jar")){
+									AppInformation appData = getAppData(file.toPath(),fileApp);
+									if(appData!=null && appData.getIdRobot()!=0){
+										apps.put(file.getName(), getAppData(file.toPath()));
+										
+									}
+								}
+								
+							}
+						}
 					}
 				}
 			}
@@ -199,6 +215,7 @@ public class AppExaminator {
 	
 	public static boolean isRunningByLockFile(AppInformation app){
 		Path path = Paths.get( app.getFolderPath());
+
 		File file = path.resolve(".lock").toFile();
 		if(file.delete()){
 			return false;
@@ -281,23 +298,28 @@ public class AppExaminator {
 	public static String readPidFile(String app){
 		Path path = Paths.get( app);
 		File file = path.resolve("robot.pid").toFile();
-		String sCurrentLine,content="";
-    	FileInputStream fileInputStream=null;
-    	BufferedReader br=null;
-		try{
-
-			br = new BufferedReader(new FileReader(file));
-
-			while ((sCurrentLine = br.readLine()) != null) {
-				content=sCurrentLine;
-				System.out.println("pid del robot a detener"+sCurrentLine);
+		if(file.exists()){
+			String sCurrentLine,content="";
+			FileInputStream fileInputStream=null;
+			BufferedReader br=null;
+			try{
+				
+				br = new BufferedReader(new FileReader(file));
+				
+				while ((sCurrentLine = br.readLine()) != null) {
+					content=sCurrentLine;
+					System.out.println("pid del robot a detener"+sCurrentLine);
+				}
+			}catch(Exception ex){
+				ex.printStackTrace();
+				LOGGER.error("excepcion ", ex);
+				
 			}
-		}catch(Exception ex){
-			ex.printStackTrace();
-			LOGGER.error("excepcion ", ex);
-
+			return content;
+			
+		}else{
+			return null;
 		}
-		return content;
 	}
 	
 
@@ -370,6 +392,37 @@ public class AppExaminator {
 		}
 		app.setFlujos(flujosApp);
 		app.setIdRobot(getRobotID(appFolder));
+		System.out.println("id robot"+app.getIdRobot()+" "+app.getAppName());
+		if(app.getIdRobot()==0){
+			return null;
+		}
+		return app;
+	}
+	
+	public static AppInformation getAppData(Path appFolder,File botFile){
+		File file=appFolder.toFile();
+		AppInformation app=new AppInformation();
+		setMetaInfoApp(appFolder, app);
+		app.setAppName(file.getName());
+		System.out.println("++++ file name "+file.getName());
+		ArrayList<FlujoInformation> flujosApp;
+		if(Files.exists(appFolder.resolve("application"))){
+			
+			 flujosApp= getFlujosApp(appFolder.resolve("application"));
+		}else{
+			flujosApp = getFlujosApp(appFolder);
+		}
+		if(flujosApp==null || flujosApp.isEmpty()){
+			return null;
+		}
+		app.setFlujos(flujosApp);
+		app.setIdRobot(getRobotID(botFile));
+		System.out.println("id robot"+app.getIdRobot()+" "+app.getAppName());
+		if(app.getIdRobot()==0){
+			return null;
+		}else{
+			app.setBotFile(botFile);			
+		}
 		return app;
 	}
 	
@@ -402,6 +455,40 @@ public class AppExaminator {
 					ex.printStackTrace();
 				}
 			}
+			
+		}catch(Exception ex){
+			LOGGER.error("excepcion ", ex);
+
+		}
+		return robotId;
+		
+	}
+	
+	
+	public static long getRobotID(File botFile){
+		Path jarPath=botFile.toPath();
+		long robotId=0;
+		try{
+				try{
+					if(botFile.getName().endsWith("jar")||botFile.getName().endsWith("exe")){
+						jarPath=botFile.toPath();
+						URL url=new URL("jar:file:"+jarPath.toString()+"!/META-INF/robot.properties");
+						InputStream is=url.openStream();
+						BufferedReader readeR=new BufferedReader(new InputStreamReader(is));
+						StringBuilder out=new StringBuilder();
+						String line;
+						while((line=readeR.readLine())!=null){
+							out.append(line);
+						}
+						String [] split=out.toString().split("=");
+						robotId=Long.parseLong(split[1].trim());
+					}
+					return robotId;
+					
+				}catch(Exception ex){
+					ex.printStackTrace();
+					LOGGER.error("Exepcion",ex);
+				}
 			
 		}catch(Exception ex){
 			LOGGER.error("excepcion ", ex);
@@ -464,6 +551,12 @@ public class AppExaminator {
 			}
 		}
 		return flujos;
+	}
+	
+	
+	public static void main(String[] args) {
+		ArrayList<FlujoInformation> flujosApp = AppExaminator.getFlujosApp(Paths.get("C:\\Users\\senrigan\\Desktop"));
+		System.out.println(flujosApp);
 	}
 	
 	

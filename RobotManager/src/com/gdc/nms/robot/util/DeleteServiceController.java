@@ -33,7 +33,10 @@ public class DeleteServiceController {
 	public DeleteServiceController(AppInformation app){
 		this.app=app;
 	}
-	
+	/**
+	 * if the services si started try to stoped the process services
+	 * @return
+	 */
 	public boolean deleteService(){
 //			RobotManager.StopScanServices();
 			LOGGER.info("try to stop robot for services "+app.getAppName());
@@ -41,12 +44,14 @@ public class DeleteServiceController {
 				long idRobot = app.getIdRobot();
 				LOGGER.info("Starting to Delete Robot id :"+idRobot);
 				boolean continueProcess=false;
-				continueProcess=CreatorRobotWebService.deleteRobot(idRobot);
+//				continueProcess=CreatorRobotWebService.deleteRobot(idRobot);
 				LOGGER.info("robot webservices is deleted :"+continueProcess);
-				if(continueProcess){
+//				if(continueProcess){
+				System.out.println("appfolerd "+app.getFolderPath());
 					continueProcess=deleteServices(app.getFolderPath());
 					LOGGER.info("moving folder to trash "+continueProcess);
-				}
+//				}
+				startDeleteFolderTask(new File(app.getFolderPath()));
 //			RobotManager.StartScanServices();
 				return continueProcess;
 				
@@ -56,18 +61,37 @@ public class DeleteServiceController {
 			}
 	}
 	
-	
-	private boolean stopServiceAgent(){
-		AID aid = InitPlataform.getRobotRegister().get(app.getAppName());
-		app.getAppName();
-		return false;
+	private void startDeleteFolderTask(final File folderPath){
+		Thread thread=new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				while(folderPath.exists()){
+					try {
+						deleteServices(folderPath.toString());
+						Thread.sleep(5000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		});
+		thread.start();
 	}
+	
+	
+//	private boolean stopServiceAgent(){
+//		AID aid = InitPlataform.getRobotRegister().get(app.getAppName());
+//		app.getAppName();
+//		return false;
+//	}
 	
 	
 	private boolean  stopRobot(){
 		if(app.isServicesRunning()){
 			System.out.println("services is running"+app.getAppName());
 			long pid = app.getPID();
+			System.out.println("PID services"+app.getPID()+"app name"+app.getAppName());
 			if(JavaProcess.isValidJavaProceesId(pid)){
 				if(RobotManager.stopJar(pid)){
 					return true;
@@ -126,30 +150,23 @@ public class DeleteServiceController {
 		return true;
 	}
 	
-	/**
-	 * create the trash folder only if exist
-	 * @param folder
-	 * @throws IOException
-	 */
-	private void createTrashFolder(Path folder) throws IOException{
-		Path trashFolder = folder.resolve("TRASH");
-		if(!Files.exists(trashFolder)){
-			Files.createDirectory(trashFolder);
-		}
-	}
+//	/**
+//	 * create the trash folder only if exist
+//	 * @param folder
+//	 * @throws IOException
+//	 */
+//	private void createTrashFolder(Path folder) throws IOException{
+//		Path trashFolder = folder.resolve("TRASH");
+//		if(!Files.exists(trashFolder)){
+//			Files.createDirectory(trashFolder);
+//		}
+//	}
 	
 	
 	
 	
 	public static void main(String[] args) {
-		DeleteServiceController te=new DeleteServiceController(null);
-		Path path = Paths.get("C:\\Users\\senrigan\\Documents\\pruebas\\GDC\\RobotScript\\data\\DYP");
-		boolean moveServicesToDelete;
-		try {
-			moveServicesToDelete = te.deleteServicesFolder(path);
-			System.out.println(moveServicesToDelete);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		DeleteServiceController dl=new DeleteServiceController(null);
+		dl.deleteServices(new String("C:\\Program Files\\GDC\\RobotScript\\data\\hola"));
 	}
 }

@@ -8,6 +8,7 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.MutableTreeNode;
 import javax.swing.tree.TreePath;
 
+
 public class TreeDynamic {
 	private JTree tree;
 	private DefaultMutableTreeNode rootNode;
@@ -48,6 +49,11 @@ public class TreeDynamic {
 		treeModel.setRoot(node);
 	}
 	
+	
+	public void clearSelection(){
+		tree.clearSelection();
+	}
+	
 	/**
 	 * 
 	 * @return the rootNode of the jtree
@@ -63,12 +69,12 @@ public class TreeDynamic {
 	 * @return
 	 */
 	public DefaultMutableTreeNode addElement(Object parentNode,Object element){
-		DefaultMutableTreeNode parentTreeNode = (DefaultMutableTreeNode)parentNode;
-
+		DefaultMutableTreeNode parentTreeNode = (DefaultMutableTreeNode)parentNode;			
+		
 	    if (parentNode == null) {
 	      parentTreeNode = rootNode;
 	    } 
-	    
+	    System.out.println("parente node is null"+parentNode);
 	    return addObject(parentTreeNode, element, true);
 	}
 	/**
@@ -100,6 +106,7 @@ public class TreeDynamic {
 		    if (parent == null) {
 		      parent = rootNode;
 		    }
+
 		    treeModel.insertNodeInto(childNode, parent, parent.getChildCount());
 		    if (shouldBeVisible) {
 		      tree.scrollPathToVisible(new TreePath(childNode.getPath()));
@@ -147,6 +154,7 @@ public class TreeDynamic {
 		      DefaultMutableTreeNode node =
 		        (DefaultMutableTreeNode)nodeEnumeration.nextElement();
 		    	  String found = node.getUserObject().toString();
+		    	  System.out.println("checking node "+node+"parente"+node.getParent());
 		    	  if( search.equals( found ) ) {
 		    		  return node;
 		    	  }

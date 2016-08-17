@@ -167,12 +167,13 @@ public class ValidatorManagement {
 	public static ArrayList<FlujoInformation> getValidFlujosWithoutCheckInstalled(Path folder,long appId){
 		System.out.println("folder"+folder+" appid"+appId);
 		ArrayList<FlujoJsonObject> flujosName = getFlujosName(appId);
-		if(!folder.getFileName().toString().equals("application"))
-			folder=folder.resolve("application");
+		System.out.println("flujos Nakme"+flujosName);
+//		if(!folder.getFileName().toString().equals("application"))
+//			folder=folder.resolve("application");
 
 		ArrayList<FlujoInformation> flujosApp = AppExaminator.getFlujosApp(folder);
 		ArrayList<FlujoInformation> validFluj=new ArrayList<FlujoInformation>();
-	
+		System.out.println("flujos apps vlaidFlijosWithoutcheckInstalled"+flujosApp);
 		for (FlujoInformation flujoInformation : flujosApp) {
 			String flujoName = flujoInformation.getName();
 			System.out.println(flujoName);

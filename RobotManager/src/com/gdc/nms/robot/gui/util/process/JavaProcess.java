@@ -5,8 +5,15 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
+
+import org.apache.log4j.Logger;
+
+import com.gdc.nms.robot.util.DeleteServiceController;
 
 public class JavaProcess {
+	private static final Logger LOGGER=Logger.getLogger(JavaProcess.class);
+
 	public static ArrayList<JavaProcessInfo> getAllJavaProcess(){
 		ArrayList<JavaProcessInfo> process=new ArrayList<JavaProcessInfo>();
 		String wmiValue;
@@ -91,26 +98,58 @@ public class JavaProcess {
 		return string.matches(".*bot(.)*[.]+(jar|exe)");
 	}
 	
+	
+	public static boolean isServicesAlreadyRunningForMoreFiveMinutes(String serviceName){
+		LOGGER.info("checking if already running the java process for serviceName "+serviceName);
+		JavaProcessInfo javaProcesServices = getJavaProcesServices(serviceName);
+		if(javaProcesServices!=null){
+			Date creationDate = javaProcesServices.getCreationDate();
+			Date actualDate=new Date();
+			Long diferenceTime=creationDate.getTime()-actualDate.getTime();
+			Long millis = TimeUnit.MINUTES.toMillis(5);
+			LOGGER.info("the services "+serviceName+" already running for "+diferenceTime);
+			if(diferenceTime.compareTo(millis)>0){
+				return true;
+			}
+			
+		}
+		return false;
+	}
+	
+	
+	public static JavaProcessInfo getJavaProcesServices(String serviceFolderName){
+		ArrayList<JavaProcessInfo> allJavaRobotProces = getALLJavaRobotProces();
+		for (JavaProcessInfo javaProcessInfo : allJavaRobotProces) {
+			if(javaProcessInfo.getCommandLine().contains(serviceFolderName))
+				return javaProcessInfo;
+		}
+		return null;
+	}
+	
 	public static void main(String[] args) {
 //		ArrayList<JavaProcessInfo> allJavaProcess2 = JavaProcess.getAllJavaProcess();
 //		System.out.println(allJavaProcess2);
 //		ArrayList<JavaProcessInfo> allJavaProcess = JavaProcess.getALLJavaRobotProces();
 //		System.out.println("exact"+allJavaProcess);
-		boolean validJavaProceesId = JavaProcess.isValidJavaProceesId(4924L);
-		System.out.println(validJavaProceesId);
+//		boolean validJavaProceesId = JavaProcess.isValidJavaProceesId(4924L);
+//		System.out.println(validJavaProceesId);
 //		System.out.println(JavaProcess.isValidBotString("C:\\Program Files\\Java\\jre1.8.0_101\\bin\\javaw.exe -jar C:\\Program Files\\GDC\\RobotScript\\data\\SubastaSAT\\bot-1.0.jar "));
 //		=2016-08-12-130356.561349-300
-		Date da=new Date(130356561349L-300); 
-		
-		
-		DateFormat dt=new SimpleDateFormat("yyyymmddHHMMSS");
-		try {
-			Date date = dt.parse("20160812173128.877456-300");
-			System.out.println(date);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		
+//		Date da=new Date(130356561349L-300); 
+//		
+//		
+//		DateFormat dt=new SimpleDateFormat("yyyymmddHHMMSS");
+//		try {
+//			Date date = dt.parse("20160812173128.877456-300");
+//			System.out.println(date);
+//		} catch (ParseException e) {
+//			e.printStackTrace();
+//		}
+		String st=new String("CommandLine=\"C:\\Program Files\\Java\\jdk1.8.0_71\\jre\\bin\\java.exe\" -Dname=\"Robot_hola\" -jar bot.jar");
+		if(st.contains("hola"))
+			System.out.println("hola");
+		System.out.println();
+				
 		
 	}
 }

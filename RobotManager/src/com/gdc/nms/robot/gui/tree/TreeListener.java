@@ -1,5 +1,6 @@
 package com.gdc.nms.robot.gui.tree;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
@@ -10,6 +11,7 @@ import javax.swing.JTree;
 import javax.swing.SwingUtilities;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
+import javax.swing.tree.TreePath;
 
 import com.gdc.nms.robot.gui.RobotManagerGui;
 import com.gdc.nms.robot.gui.RobotManagerGui.ButtonType;
@@ -32,41 +34,71 @@ public class TreeListener implements TreeSelectionListener{
 	}
 	@Override
 	public void valueChanged(TreeSelectionEvent e) {
-		Element app = (Element) tree.getLastSelectedPathComponent();
-		AppInformation appInfo = app.getAppinfo();
-		if(appInfo!=null){
-			
-			
-			
-			if(app.isStopAble()){
-				
-				gui.enableButton(ButtonType.STOP,true);
-				gui.enableButton(ButtonType.START,false);
-
-				
-			}else{
-				gui.enableButton(ButtonType.STOP,false);
-
-				gui.enableButton(ButtonType.START,true);
-
+		Object selectedComponent = tree.getLastSelectedPathComponent();
+		Object[] path = tree.getSelectionPath().getPath();
+		String jTreeVarSelectdPath=""; 
+		
+		boolean isRunning=false;
+		for (int i=0; i<path.length; i++) {
+			System.out.println("equals in ejecucion "+path[i].equals("En ejecucion"));
+			if(path[i].toString().contains("ejecucion")){
+				isRunning=true;
 			}
-			gui.setLogVisible(true);
+		        jTreeVarSelectdPath += path[i];
+		        System.out.println(jTreeVarSelectdPath);
+		        if (i+1 <path.length ) {
+		            jTreeVarSelectdPath += File.separator;
+		        }
+		    }
+//		System.out.println(leadSelectionPath+" -"+leadSelectionPath.getParentPath());
+		System.out.println("is running selected"+isRunning);
+		if(!(selectedComponent.toString().equals("Detenidos") || selectedComponent.toString().equals("En ejecucion") || selectedComponent.toString().equals("Aplicacion"))){
+			System.out.println("selected componetent "+selectedComponent);
+			Element app = (Element) tree.getLastSelectedPathComponent();
+			System.out.println("parent"+	app.getParent());
+			AppInformation appInfo = app.getAppinfo();
+			if(appInfo!=null){
+				
+				
+				
+				if(app.isStopAble()|| isRunning){
+					
+					gui.enableButton(ButtonType.STOP,true);
+					gui.enableButton(ButtonType.START,false);
+					
+					
+				}else{
+					gui.enableButton(ButtonType.STOP,false);
+					
+					gui.enableButton(ButtonType.START,true);
+					
+				}
+				gui.setLogVisible(true);
+				gui.enableButton(ButtonType.DATA, true);
+
 //			HashMap<String, AID> mapToKill = InitPlataform.getMapToKill();
 //			HashMap<String, AID> robotRegister = InitPlataform.getRobotRegister();
 //			if(mapToKill.containsKey(appinfo.getAlias())){
 //				gui.enableButton(ButtonType.STOP, false);
 //				gui.enableButton(ButtonType.START, false);
 //			}
-			String proccesText = proccesText(appInfo);
+				String proccesText = proccesText(appInfo);
 //			if(robotRegister.containsKey(appinfo.getAlias())){
 //				gui.enableButton(ButtonType.STOP,true);
 //				gui.enableButton(ButtonType.START,false);
 //				proccesText+="\n"+getDataRobot(robotRegister.get(appinfo.getAlias()), "STA");
 //
 //			}
+				
+				gui.setInformation(proccesText);
+		}
 			
-			gui.setInformation(proccesText);
-			
+		}else{
+			gui.enableButton(ButtonType.STOP, false);
+			gui.enableButton(ButtonType.START, false);
+			gui.enableButton(ButtonType.DATA, false);
+			gui.setLogVisible(false);
+			gui.setInformation("");
 		}
 		
 	}
