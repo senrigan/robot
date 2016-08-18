@@ -7,7 +7,13 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
+
+import com.gdc.nms.robot.gui.newInterface.ButtonListener;
+
 import java.awt.GridLayout;
 import java.awt.Image;
 
@@ -31,6 +37,8 @@ import java.awt.Insets;
 import java.awt.SystemColor;
 import java.awt.FlowLayout;
 import javax.swing.JTextField;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class tet extends JFrame {
 	private ImageIcon executeIcon = new ImageIcon(
@@ -51,6 +59,7 @@ public class tet extends JFrame {
 	private JPanel panel_2;
 	private JPanel panel_3;
 	private JPanel panel_5;
+	private JLabel lblNewLabel;
 
 	/**
 	 * Launch the application.
@@ -135,7 +144,7 @@ public class tet extends JFrame {
 				"[10px:10px:10px][20px:20px:20px,grow,left][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px,grow][20px:20px:20px][20px:20px:20px][20px:20px:20px][][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][]",
 				"[20px:20px:20px][20px:20px:20px,grow][20px:20px:20px][20px:20px:20px,grow][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][20px:20px:20px][10px:10px:10px]"));
 
-		JLabel lblNewLabel = new JLabel("<html> <b> Sispro </b> Robot Manager</html>");
+		lblNewLabel = new JLabel("<html> <b> Sispro </b> Robot Manager</html>");
 		lblNewLabel.setForeground(Color.WHITE);
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		contentPane.add(lblNewLabel, "cell 1 1 9 1");
@@ -150,18 +159,18 @@ public class tet extends JFrame {
 		gbl_panel_5.rowWeights = new double[] { Double.MIN_VALUE };
 		panel_5.setLayout(gbl_panel_5);
 
-		JButton btnNewButton_3 = new JButton("Agregar robot");
-		btnNewButton_3.setBorder(BorderFactory.createEmptyBorder());
-		btnNewButton_3.setForeground(SystemColor.inactiveCaptionBorder);
-		btnNewButton_3.setIcon(addRobotIcon);
-		btnNewButton_3.setBackground(new Color(58, 135, 249));
-		btnNewButton_3.setContentAreaFilled(false);
-		btnNewButton_3.setOpaque(true);
-		GridBagConstraints gbc_btnNewButton_3 = new GridBagConstraints();
-		gbc_btnNewButton_3.insets = new Insets(0, 0, 0, 5);
-		gbc_btnNewButton_3.gridx = 0;
-		gbc_btnNewButton_3.gridy = 0;
-		panel_5.add(btnNewButton_3, gbc_btnNewButton_3);
+		JButton addRobotMenu = new JButton("Agregar robot");
+		addRobotMenu.setBorder(BorderFactory.createEmptyBorder());
+		addRobotMenu.setForeground(SystemColor.inactiveCaptionBorder);
+		addRobotMenu.setIcon(addRobotIcon);
+		addRobotMenu.setBackground(new Color(58, 135, 249));
+		addRobotMenu.setContentAreaFilled(false);
+		addRobotMenu.setOpaque(true);
+		GridBagConstraints gbc_addRobotMenu = new GridBagConstraints();
+		gbc_addRobotMenu.insets = new Insets(0, 0, 0, 5);
+		gbc_addRobotMenu.gridx = 0;
+		gbc_addRobotMenu.gridy = 0;
+		panel_5.add(addRobotMenu, gbc_addRobotMenu);
 
 		JLabel lblNewLabel_1 = new JLabel("|");
 		lblNewLabel_1.setForeground(Color.WHITE);
@@ -172,19 +181,19 @@ public class tet extends JFrame {
 		gbc_lblNewLabel_1.gridy = 0;
 		panel_5.add(lblNewLabel_1, gbc_lblNewLabel_1);
 
-		JButton btnNewButton_4 = new JButton("Eliminar robot");
-		btnNewButton_4.setBorder(BorderFactory.createEmptyBorder());
-		btnNewButton_4.setForeground(SystemColor.inactiveCaptionBorder);
+		JButton deleteRobotMenu = new JButton("Eliminar robot");
+		deleteRobotMenu.setBorder(BorderFactory.createEmptyBorder());
+		deleteRobotMenu.setForeground(SystemColor.inactiveCaptionBorder);
 
-		btnNewButton_4.setIcon(deleteRobotIcon);
-		btnNewButton_4.setBackground(new Color(58, 135, 249));
-		btnNewButton_4.setContentAreaFilled(false);
-		btnNewButton_4.setOpaque(true);
-		GridBagConstraints gbc_btnNewButton_4 = new GridBagConstraints();
-		gbc_btnNewButton_4.insets = new Insets(0, 0, 0, 5);
-		gbc_btnNewButton_4.gridx = 2;
-		gbc_btnNewButton_4.gridy = 0;
-		panel_5.add(btnNewButton_4, gbc_btnNewButton_4);
+		deleteRobotMenu.setIcon(deleteRobotIcon);
+		deleteRobotMenu.setBackground(new Color(58, 135, 249));
+		deleteRobotMenu.setContentAreaFilled(false);
+		deleteRobotMenu.setOpaque(true);
+		GridBagConstraints gbc_deleteRobotMenu = new GridBagConstraints();
+		gbc_deleteRobotMenu.insets = new Insets(0, 0, 0, 5);
+		gbc_deleteRobotMenu.gridx = 2;
+		gbc_deleteRobotMenu.gridy = 0;
+		panel_5.add(deleteRobotMenu, gbc_deleteRobotMenu);
 
 		JLabel lblNewLabel_2 = new JLabel("|");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -195,18 +204,18 @@ public class tet extends JFrame {
 		gbc_lblNewLabel_2.gridy = 0;
 		panel_5.add(lblNewLabel_2, gbc_lblNewLabel_2);
 
-		JButton btnNewButton_5 = new JButton("Configuracion");
-		btnNewButton_5.setBorder(BorderFactory.createEmptyBorder());
-		btnNewButton_5.setForeground(SystemColor.inactiveCaptionBorder);
+		JButton ConfigurationMenu = new JButton("Configuracion");
+		ConfigurationMenu.setBorder(BorderFactory.createEmptyBorder());
+		ConfigurationMenu.setForeground(SystemColor.inactiveCaptionBorder);
 
-		btnNewButton_5.setIcon(configIcon);
-		btnNewButton_5.setBackground(new Color(58, 135, 249));
-		btnNewButton_5.setContentAreaFilled(false);
-		btnNewButton_5.setOpaque(true);
-		GridBagConstraints gbc_btnNewButton_5 = new GridBagConstraints();
-		gbc_btnNewButton_5.gridx = 4;
-		gbc_btnNewButton_5.gridy = 0;
-		panel_5.add(btnNewButton_5, gbc_btnNewButton_5);
+		ConfigurationMenu.setIcon(configIcon);
+		ConfigurationMenu.setBackground(new Color(58, 135, 249));
+		ConfigurationMenu.setContentAreaFilled(false);
+		ConfigurationMenu.setOpaque(true);
+		GridBagConstraints gbc_ConfigurationMenu = new GridBagConstraints();
+		gbc_ConfigurationMenu.gridx = 4;
+		gbc_ConfigurationMenu.gridy = 0;
+		panel_5.add(ConfigurationMenu, gbc_ConfigurationMenu);
 
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(234, 244, 254));
@@ -249,11 +258,13 @@ public class tet extends JFrame {
 
 		verticalBox=new JPanel();
 		verticalBox.setLayout(new BoxLayout(verticalBox, BoxLayout.Y_AXIS));
+		verticalBox.setBackground(new Color(234, 244, 254));
 //		verticalBox.add(new JButton("hola"));
-		verticalBox.setPreferredSize(new Dimension(200, 300));
+//		verticalBox.setPreferredSize(new Dimension(200, 300));
 		
 		JPanel mainPanel = new JPanel(new BorderLayout());
-	    JPanel center=new JPanel(new GridLayout(2,1));
+	    JPanel center=new JPanel(new GridLayout(1,0));
+	    center.setBackground(new Color(234	, 244, 254));
 		buttonScrollPanel = new JScrollPane(verticalBox);
 		buttonScrollPanel.getViewport().setBackground(new Color(234, 244, 254));
 		buttonScrollPanel.getViewport().setOpaque(true);
@@ -303,18 +314,19 @@ public class tet extends JFrame {
 		gbl_panel_2.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
 		panel_2.setLayout(gbl_panel_2);
 		
-		RoundButton btnNewButton_6 = new RoundButton("10");
+		RoundButton executionCountButton = new RoundButton("10");
+		executionCountButton.setBackground(new Color(35, 181, 116));
 //		btnNewButton_6.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-		btnNewButton_6.setMargin(new Insets(1, 1, 1, 1));
-		btnNewButton_6.setForeground(Color.BLUE);
-		btnNewButton_6.setFont(new Font("Tahoma", Font.PLAIN, 10));
-		btnNewButton_6.setHorizontalAlignment(SwingConstants.CENTER);
-		GridBagConstraints gbc_btnNewButton_6 = new GridBagConstraints();
-		gbc_btnNewButton_6.gridheight = 2;
-		gbc_btnNewButton_6.insets = new Insets(17, 20, 0,10 );
-		gbc_btnNewButton_6.gridx = 0;
-		gbc_btnNewButton_6.gridy = 0;
-		panel_2.add(btnNewButton_6, gbc_btnNewButton_6);
+		executionCountButton.setMargin(new Insets(1, 1, 1, 1));
+		executionCountButton.setForeground(new Color(254, 255, 255));
+		executionCountButton.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		executionCountButton.setHorizontalAlignment(SwingConstants.CENTER);
+		GridBagConstraints gbc_executionCountButton = new GridBagConstraints();
+		gbc_executionCountButton.gridheight = 2;
+		gbc_executionCountButton.insets = new Insets(17, 20, 0,10 );
+		gbc_executionCountButton.gridx = 0;
+		gbc_executionCountButton.gridy = 0;
+		panel_2.add(executionCountButton, gbc_executionCountButton);
 		
 		JLabel lblNewLabel_4 = new JLabel("En ejecucion");
 		lblNewLabel_4.setForeground(Color.WHITE);
@@ -325,18 +337,19 @@ public class tet extends JFrame {
 		gbc_lblNewLabel_4.gridy = 0;
 		panel_2.add(lblNewLabel_4, gbc_lblNewLabel_4);
 		
-		RoundButton btnNewButton_7 = new RoundButton("30");
-		btnNewButton_7.setForeground(Color.RED);
-		btnNewButton_7.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		RoundButton stoppedRobotCount = new RoundButton("30");
+		stoppedRobotCount.setBackground(new Color(227, 69, 69));
+		stoppedRobotCount.setForeground(new Color(254, 255, 255));
+		stoppedRobotCount.setFont(new Font("Tahoma", Font.PLAIN, 10));
 //		btnNewButton_7.setText("1");
-		btnNewButton_7.setMargin(new Insets(1, 1, 1, 1));
-		btnNewButton_7.setHorizontalAlignment(SwingConstants.CENTER);
-		GridBagConstraints gbc_btnNewButton_7 = new GridBagConstraints();
-		gbc_btnNewButton_7.gridheight = 2;
-		gbc_btnNewButton_7.insets = new Insets(17, 0, 0, 0);
-		gbc_btnNewButton_7.gridx = 3;
-		gbc_btnNewButton_7.gridy = 0;
-		panel_2.add(btnNewButton_7, gbc_btnNewButton_7);
+		stoppedRobotCount.setMargin(new Insets(1, 1, 1, 1));
+		stoppedRobotCount.setHorizontalAlignment(SwingConstants.CENTER);
+		GridBagConstraints gbc_stoppedRobotCount = new GridBagConstraints();
+		gbc_stoppedRobotCount.gridheight = 2;
+		gbc_stoppedRobotCount.insets = new Insets(17, 0, 0, 0);
+		gbc_stoppedRobotCount.gridx = 3;
+		gbc_stoppedRobotCount.gridy = 0;
+		panel_2.add(stoppedRobotCount, gbc_stoppedRobotCount);
 		
 		JLabel lblNewLabel_5 = new JLabel("Detenidos");
 		lblNewLabel_5.setForeground(Color.WHITE);
@@ -378,54 +391,54 @@ public class tet extends JFrame {
 		gbc_panel_4.gridx = 0;
 		gbc_panel_4.gridy = 0;
 		panel_3.add(panel_4, gbc_panel_4);
-		JButton btnNewButton = new JButton("Ejecutar robot");
-		btnNewButton.setBorderPainted(false);
+		JButton ActionStatusRobot = new JButton("Ejecutar robot");
+		ActionStatusRobot.setBorderPainted(false);
 		// btnNewButton.setBorder(BorderFactory.createEmptyBorder());
-		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnNewButton.setForeground(SystemColor.text);
-		btnNewButton.setIcon(executeIcon);
-		btnNewButton.setBackground(new Color(0, 0, 0, 0));
-		btnNewButton.setContentAreaFilled(false);
+		ActionStatusRobot.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		ActionStatusRobot.setForeground(SystemColor.text);
+		ActionStatusRobot.setIcon(executeIcon);
+		ActionStatusRobot.setBackground(new Color(0, 0, 0, 0));
+		ActionStatusRobot.setContentAreaFilled(false);
 		// btnNewButton.setOpaque(true);
-		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
-		gbc_btnNewButton.gridheight = 2;
-		gbc_btnNewButton.insets = new Insets(0, 0, 0, 0);
-		gbc_btnNewButton.gridx = 0;
-		gbc_btnNewButton.gridy = 0;
-		panel_4.add(btnNewButton, gbc_btnNewButton);
+		GridBagConstraints gbc_ActionStatusRobot = new GridBagConstraints();
+		gbc_ActionStatusRobot.gridheight = 2;
+		gbc_ActionStatusRobot.insets = new Insets(0, 0, 0, 0);
+		gbc_ActionStatusRobot.gridx = 0;
+		gbc_ActionStatusRobot.gridy = 0;
+		panel_4.add(ActionStatusRobot, gbc_ActionStatusRobot);
 
-		JButton btnNewButton_1 = new JButton("Obtener Informacion");
-		btnNewButton_1.setBorderPainted(false);
+		JButton getInfoRobot = new JButton("Obtener Informacion");
+		getInfoRobot.setBorderPainted(false);
 		// btnNewButton_1.setBorder(BorderFactory.createEmptyBorder());
-		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnNewButton_1.setForeground(SystemColor.inactiveCaptionBorder);
-		btnNewButton_1.setIcon(infoIcon);
-		GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
-		gbc_btnNewButton_1.gridheight = 2;
-		btnNewButton_1.setBackground(new Color(65, 95, 124));
-		btnNewButton_1.setContentAreaFilled(false);
-		btnNewButton_1.setOpaque(true);
-		gbc_btnNewButton_1.insets = new Insets(0, 0, 0, 0);
-		gbc_btnNewButton_1.gridx = 1;
-		gbc_btnNewButton_1.gridy = 0;
-		panel_4.add(btnNewButton_1, gbc_btnNewButton_1);
+		getInfoRobot.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		getInfoRobot.setForeground(SystemColor.inactiveCaptionBorder);
+		getInfoRobot.setIcon(infoIcon);
+		GridBagConstraints gbc_getInfoRobot = new GridBagConstraints();
+		gbc_getInfoRobot.gridheight = 2;
+		getInfoRobot.setBackground(new Color(65, 95, 124));
+		getInfoRobot.setContentAreaFilled(false);
+		getInfoRobot.setOpaque(true);
+		gbc_getInfoRobot.insets = new Insets(0, 0, 0, 0);
+		gbc_getInfoRobot.gridx = 1;
+		gbc_getInfoRobot.gridy = 0;
+		panel_4.add(getInfoRobot, gbc_getInfoRobot);
 
-		JButton btnNewButton_2 = new JButton("Ver Logs");
-		btnNewButton_2.setBorderPainted(false);
-		btnNewButton_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnNewButton_2.setForeground(SystemColor.inactiveCaptionBorder);
-		btnNewButton_2.setIcon(logIcon);
-		GridBagConstraints gbc_btnNewButton_2 = new GridBagConstraints();
-		gbc_btnNewButton_2.gridwidth = 0;
-		gbc_btnNewButton_2.gridheight = 0;
-		gbc_btnNewButton_2.anchor = GridBagConstraints.WEST;
-		btnNewButton_2.setBackground(new Color(65, 95, 124));
-		btnNewButton_2.setContentAreaFilled(false);
-		btnNewButton_2.setOpaque(true);
-		gbc_btnNewButton_2.insets = new Insets(0, 0, 0, 0);
-		gbc_btnNewButton_2.gridx = 2;
-		gbc_btnNewButton_2.gridy = 0;
-		panel_4.add(btnNewButton_2, gbc_btnNewButton_2);
+		JButton showLogs = new JButton("Ver Logs");
+		showLogs.setBorderPainted(false);
+		showLogs.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		showLogs.setForeground(SystemColor.inactiveCaptionBorder);
+		showLogs.setIcon(logIcon);
+		GridBagConstraints gbc_showLogs = new GridBagConstraints();
+		gbc_showLogs.gridwidth = 0;
+		gbc_showLogs.gridheight = 0;
+		gbc_showLogs.anchor = GridBagConstraints.WEST;
+		showLogs.setBackground(new Color(65, 95, 124));
+		showLogs.setContentAreaFilled(false);
+		showLogs.setOpaque(true);
+		gbc_showLogs.insets = new Insets(0, 0, 0, 0);
+		gbc_showLogs.gridx = 2;
+		gbc_showLogs.gridy = 0;
+		panel_4.add(showLogs, gbc_showLogs);
 //		center.add(arg0)
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.getViewport().setBackground(new Color(234, 244, 254));
@@ -449,9 +462,18 @@ public class tet extends JFrame {
 	
 	public void  addNewRobotUI(String robotName){
 		JButton button=new JButton(robotName);
+		button.addActionListener(new ButtonListener());
 //		button.setContentAreaFilled(true);
-//		button.setMargin(new Insets(50,100, 50, 120));
-//		button.setPreferredSize(new Dimension(236, 0));
+		Border line = BorderFactory.createLineBorder(new Color(172, 189, 207));
+		Border empty = new EmptyBorder(15, 0, 15, 0);
+		CompoundBorder border = new CompoundBorder(line, empty);
+//		button.setBorder(new LineBorder(new Color(172, 189, 207)));
+//		button.setMargin(new Insets(15,0, 15,0));
+		button.setBorder(border);
+		button.setForeground(new Color(67,91,125));
+		button.setMinimumSize(new Dimension(verticalBox.getWidth(), 50));
+		button.setMaximumSize(new Dimension(verticalBox.getWidth(), 50));
+//		button.setPreferredSize(new Dimension(500, 0));
 		button.setOpaque(false);
 		button.setHorizontalAlignment(SwingConstants.CENTER);
 
@@ -460,7 +482,7 @@ public class tet extends JFrame {
 		button.setBackground(new Color(0, 0, 0,0));
 		button.setFont(new Font("Tahoma",Font.PLAIN, 15));
 		verticalBox.add(button);
-		System.out.println("width"+verticalBox.getWidth()+"height"+verticalBox.getHeight());
+//		System.out.println("width"+verticalBox.getWidth()+"height"+verticalBox.getHeight());
 	}
 	/**
 	 * Create the frame.
