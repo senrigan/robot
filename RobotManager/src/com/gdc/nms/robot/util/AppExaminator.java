@@ -533,8 +533,13 @@ public class AppExaminator {
 				long idFlujo;
 				String nameFlujo;
 				if(directorySplit.length>1){
-					idFlujo=Long.parseLong(directorySplit[0]);
-					nameFlujo=directorySplit[1];
+					if(directorySplit[0].contains(".")){
+						idFlujo=Long.parseLong(directorySplit[0]);
+						nameFlujo=directorySplit[1];						
+					}else{
+						idFlujo=-1;
+						nameFlujo=directoryName;
+					}
 				}else{
 					idFlujo=-1;
 					nameFlujo=directoryName;

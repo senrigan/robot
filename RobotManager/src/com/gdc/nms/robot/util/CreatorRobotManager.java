@@ -135,6 +135,9 @@ public class CreatorRobotManager {
 			System.out.println(realRobot);
 			Path installationPath = RobotManager.getInstallationPath();
 			Path botJar = installationPath.resolve("inMonitor").resolve(Constants.JARNAME_EX);
+			if(!Files.exists(botJar)){
+				botJar=installationPath.resolve("inMonitor").resolve(Constants.JARNAME);
+			}
 //			Path propertiesPath=installationPath.resolve("inMonitor").resolve("robot.properties");
 //			modifyJar(botJar, propertiesPath, Constants.PROPERTIESJARBOT);
 //			modifyFileRobotId(realRobot, propertiesPath);

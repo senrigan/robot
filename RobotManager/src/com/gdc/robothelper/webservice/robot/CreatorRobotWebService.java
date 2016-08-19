@@ -51,7 +51,7 @@ public class CreatorRobotWebService {
 			String registry = CommandExecutor.readRegistrySpecificRegistry(Constants.LOCALREGISTRY, "webservicesCreator", 
 					CommandExecutor.REGISTRY_TYPE.REG_SZ.getName());
 			if(registry.equals("-1")){
-				return null;
+				registry=com.gdc.robothelper.webservice.robot.Webservice.getUrl().toString();
 			}
 			URL url=new URL(registry);
 			return url;

@@ -21,6 +21,8 @@ import jade.core.ProfileImpl;
 import jade.util.leap.Properties;
 //import jade.wrapper.AgentController;
 import jade.wrapper.ControllerException;
+import jade.wrapper.PlatformController;
+import jade.wrapper.PlatformEvent;
 
 public class InitPlataform {
 //	private static AgentController controller;
@@ -129,8 +131,54 @@ public class InitPlataform {
 	private static void createContainer() throws IllegalStateException{
 		jade.core.Runtime rt=jade.core.Runtime.instance();
 		Profile profile =getProfile();	
-		
+	
         mainContainer =rt.createMainContainer(profile);
+        try {
+			mainContainer.addPlatformListener(new PlatformController.Listener(){
+
+				@Override
+				public void bornAgent(PlatformEvent anEvent) {
+					
+					System.out.println("the robot  "+anEvent.getAgentGUID()+"is born");
+					
+				}
+
+				@Override
+				public void deadAgent(PlatformEvent anEvent) {
+					System.out.println("the robot  "+anEvent.getAgentGUID()+"is dead");
+
+					
+				}
+
+				@Override
+				public void startedPlatform(PlatformEvent anEvent) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void suspendedPlatform(PlatformEvent anEvent) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void resumedPlatform(PlatformEvent anEvent) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void killedPlatform(PlatformEvent anEvent) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+			});
+		} catch (ControllerException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
         robotRegister=new HashMap<String,AID>();
         try {
 			System.out.println("container name"+mainContainer.getContainerName()+"platform name"+mainContainer.getPlatformName()+"name"+mainContainer.getName());

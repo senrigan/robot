@@ -160,11 +160,11 @@ public class RegisrtryEditorManager {
 			public void actionPerformed(ActionEvent e) {
 				String texBox = reg.getTexBox();
 				
-				if(ClientWebService.existeConexion(texBox)){
+				if(CreatorNewRobotWebService.existeConexion(texBox)){
 					JOptionPane.showMessageDialog(null, "El webservices el valido","Correcto",JOptionPane.INFORMATION_MESSAGE);
 
 				}else{
-					JOptionPane.showInternalMessageDialog(null, "No es posible conectar con el webservices", "Error WebServices", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "No es posible conectar con el webservices", "Error WebServices", JOptionPane.ERROR_MESSAGE);
 
 				}
 			}
