@@ -66,4 +66,13 @@ public class InterfaceManager {
 	public void setIdRobot(String idRobot){
 		gui.setIdRobot(idRobot);
 	}
+	
+	public void changeActionButton(boolean isRunning){
+		gui.changeStatusExecuteButton(isRunning);
+	}
+	
+	
+	public void disableActionButton(boolean disable){
+		gui.isEnableActionButton(!disable);
+	}
 }

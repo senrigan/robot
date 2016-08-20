@@ -11,6 +11,9 @@ import java.util.HashMap;
 
 import com.gdc.nms.robot.gui.util.process.JavaProcess;
 import com.gdc.nms.robot.util.AppExaminator;
+import com.gdc.nms.robot.util.jade.InitPlataform;
+
+import jade.core.AID;
 
 public class AppInformation  implements Comparable<AppInformation>{
 	private String alias;
@@ -134,6 +137,15 @@ public class AppInformation  implements Comparable<AppInformation>{
 	}
 	public void setBotFile(File botFile) {
 		this.botFile = botFile;
+	}
+	
+	
+	public boolean isRunningByAgent(){
+		HashMap<String, AID> robotRegister = InitPlataform.getRobotRegister();
+		if(robotRegister.containsKey(appName)){
+			return true;
+		}
+		return false;
 	}
 	
 	

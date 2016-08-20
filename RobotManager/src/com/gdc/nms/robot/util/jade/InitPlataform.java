@@ -48,13 +48,13 @@ public class InitPlataform {
 	
 	public static void registerRobot(String robotName,AID senderId){
 		robotRegister.put(robotName, senderId);
-		RobotManager.getGuiManager().getJtreManager().addToRun(robotName);
+//		RobotManager.getGuiManager().getJtreManager().addToRun(robotName);
 	}
 	
 	
 	public static void deRegisterRobot(String robotName){
 		robotRegister.remove(robotName);
-		RobotManager.getGuiManager().getJtreManager().changeRobotRunToStop(robotName);
+//		RobotManager.getGuiManager().getJtreManager().changeRobotRunToStop(robotName);
 
 	}
 	
@@ -134,14 +134,26 @@ public class InitPlataform {
 
 				@Override
 				public void bornAgent(PlatformEvent anEvent) {
-					
-					System.out.println("the robot  "+anEvent.getAgentGUID()+"is born");
+					String agentGUID = anEvent.getAgentGUID();
+					System.out.println("the robot  "+agentGUID+"is born");
+					String appName = SRMAgent.getAppName(agentGUID);
+					String parseAppName = SRMAgent.parseAppName(appName);
+					System.out.println("born agent appnamne "+parseAppName);
+					AID aid=new AID(agentGUID,true);
+					registerRobot(parseAppName, aid);
 					
 				}
 
 				@Override
 				public void deadAgent(PlatformEvent anEvent) {
-					System.out.println("the robot  "+anEvent.getAgentGUID()+"is dead");
+					String agentGUID = anEvent.getAgentGUID();
+					System.out.println("the robot  "+agentGUID+"is dead");
+					String appName = SRMAgent.getAppName(agentGUID);
+					String parseAppName = SRMAgent.parseAppName(appName);
+					System.out.println("born agent appnamne "+parseAppName);
+					AID aid=new AID(agentGUID,true);
+					deRegisterRobot(parseAppName);
+
 
 					
 				}

@@ -46,19 +46,28 @@ import javax.swing.JTextPane;
 
 public class tet extends JFrame {
 	private ImageIcon executeIcon = new ImageIcon(
-			"C:\\Users\\senrigan\\Documents\\desarrollo\\PachitaWindows\\icon\\icn-ejecutar-06.png");
+//			"C:\\Users\\senrigan\\Documents\\desarrollo\\PachitaWindows\\icon\\icn-ejecutar-06.png");
+			"E:\\Projectos\\desarrollo\\robot\\RobotManager\\resources\\com\\gdc\\robotmanager\\icn-ejecutar-06.png");
+	private ImageIcon stopIcon=new ImageIcon("E:\\Projectos\\desarrollo\\robot\\RobotManager\\resources\\com\\gdc\\robotmanager\\icn-stop-05.png");
 	private ImageIcon infoIcon = new ImageIcon(
-			"C:\\Users\\senrigan\\Documents\\desarrollo\\PachitaWindows\\icon\\icn-info-rbt-07.png");
+//			"C:\\Users\\senrigan\\Documents\\desarrollo\\PachitaWindows\\icon\\icn-info-rbt-07.png");
+			"E:\\Projectos\\desarrollo\\robot\\RobotManager\\resources\\com\\gdc\\robotmanager\\icn-info-rbt-07.png");
 	private ImageIcon logIcon = new ImageIcon(
-			"C:\\Users\\senrigan\\Documents\\desarrollo\\PachitaWindows\\icon\\icn-logs-08.png");
+//			"C:\\Users\\senrigan\\Documents\\desarrollo\\PachitaWindows\\icon\\icn-logs-08.png");
+			"E:\\Projectos\\desarrollo\\robot\\RobotManager\\resources\\com\\gdc\\robotmanager\\icn-logs-08.png");
 	private ImageIcon addRobotIcon = new ImageIcon(
-			"C:\\Users\\senrigan\\Documents\\desarrollo\\PachitaWindows\\icon\\icn-agregar-05.png");
+//			"C:\\Users\\senrigan\\Documents\\desarrollo\\PachitaWindows\\icon\\icn-agregar-05.png");
+			"E:\\Projectos\\desarrollo\\robot\\RobotManager\\resources\\com\\gdc\\robotmanager\\icn-agregar-05.png");
 	private ImageIcon deleteRobotIcon = new ImageIcon(
-			"C:\\Users\\senrigan\\Documents\\desarrollo\\PachitaWindows\\icon\\icn-eliminar-04.png");
+//			"C:\\Users\\senrigan\\Documents\\desarrollo\\PachitaWindows\\icon\\icn-eliminar-04.png");
+			"E:\\Projectos\\desarrollo\\robot\\RobotManager\\resources\\com\\gdc\\robotmanager\\icn-eliminar-04.png");
 	private ImageIcon configIcon = new ImageIcon(
-			"C:\\Users\\senrigan\\Documents\\desarrollo\\PachitaWindows\\icon\\icn-config-03.png");
-	private ImageIcon redStatusIcon=new ImageIcon("C:\\Users\\senrigan\\Documents\\desarrollo\\PachitaWindows\\icon\\icn-rojo-10.png");
-	private ImageIcon greenStatusIcon=new ImageIcon("C:\\Users\\senrigan\\Documents\\desarrollo\\PachitaWindows\\icon\\icn-verde-10.png");
+//			"C:\\Users\\senrigan\\Documents\\desarrollo\\PachitaWindows\\icon\\icn-config-03.png");
+			"E:\\Projectos\\desarrollo\\robot\\RobotManager\\resources\\com\\gdc\\robotmanager\\icn-config-03.png");
+	private ImageIcon redStatusIcon=new ImageIcon(
+//			"C:\\Users\\senrigan\\Documents\\desarrollo\\PachitaWindows\\icon\\icn-rojo-10.png");
+			"E:\\Projectos\\desarrollo\\robot\\RobotManager\\resources\\com\\gdc\\robotmanager\\icn-rojo-10.png");
+			private ImageIcon greenStatusIcon=new ImageIcon("C:\\Users\\senrigan\\Documents\\desarrollo\\PachitaWindows\\icon\\icn-verde-10.png");
 
 	private JPanel contentPane;
 	private JPanel verticalBox;
@@ -127,6 +136,7 @@ public class tet extends JFrame {
 		// java.awt.Image.SCALE_SMOOTH ) ;
 		// executeIcon=new ImageIcon(newimg);
 		executeIcon = changeIconSize(13, 19, executeIcon);
+		stopIcon=changeIconSize(13,19,stopIcon);
 		// img=infoIcon.getImage();
 		// newimg = img.getScaledInstance( 32,37, java.awt.Image.SCALE_SMOOTH )
 		// ;
@@ -665,6 +675,27 @@ public class tet extends JFrame {
 	public void setTextInfo(String info){
 		infoArea.setText(info);
 	}
+	
+	public void changeStatusExecuteButton(boolean isRunning){
+		if(isRunning){
+			changeActionButtonToStart();
+		}else{
+			changeActionButtonToStop();
+		}
+	}
+	
+	private  void changeActionButtonToStop(){
+		ActionStatusRobot.setIcon(stopIcon);
+	}
+	
+	private void changeActionButtonToStart(){
+		ActionStatusRobot.setIcon(executeIcon);
+	}
+	
+	public void isEnableActionButton(boolean enable){
+		ActionStatusRobot.setEnabled(enable);
+	}
+
 	/**
 	 * Create the frame.
 	 */

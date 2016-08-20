@@ -167,6 +167,7 @@ public class SelectorApp extends JFrame {
 		for (AppJsonObject appJsonObject : appsName) {
 //			String alias = appJsonObject.getAlias();
 			comboBox.addItem(appJsonObject);
+			System.out.println("alias appname"+appJsonObject.getAlias()+" id"+appJsonObject.getId());
 		}
 	}
 	

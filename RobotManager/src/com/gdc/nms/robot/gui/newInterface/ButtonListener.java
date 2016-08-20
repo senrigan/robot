@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
+import javax.swing.SwingUtilities;
 
 import com.gdc.nms.robot.gui.RobotManager;
 import com.gdc.nms.robot.gui.tree.test.InterfaceManager;
@@ -16,6 +17,7 @@ import com.gdc.nms.robot.util.indexer.FlujoInformation;
 public class ButtonListener implements ActionListener{
 	private static JButton lastButtonPressed;
 	private static Color oldColor;
+	private InterfaceManager srmGuiManager = RobotManager.getSRMGuiManager();
 	@Override
 	public void actionPerformed(ActionEvent paramActionEvent) {
 		JButton buttonPress=(JButton) paramActionEvent.getSource();
@@ -47,12 +49,14 @@ public class ButtonListener implements ActionListener{
 		String appName = lastButtonPressed.getText();
 		AppInformation appData = AppExaminator.getAppData(appName);
 		if(appData!=null){
-			InterfaceManager srmGuiManager = RobotManager.getSRMGuiManager();
+//			InterfaceManager srmGuiManager = RobotManager.getSRMGuiManager();
 			srmGuiManager.setAplicationName(appData.getAppName());
 			srmGuiManager.setAliasName(appData.getAlias());
 			srmGuiManager.setIdRobot(""+appData.getIdRobot());
 			srmGuiManager.setInfoText(parseInfo(appData));
 		}
+		changeMainButtonStatus(appData);
+
 	}
 	
 	private String parseInfo(AppInformation appInfo){
@@ -66,6 +70,25 @@ public class ButtonListener implements ActionListener{
 		}
 		return builder.toString();
 		
+	}
+	
+	
+	private void changeMainButtonStatus(final AppInformation appInfo){
+		if(appInfo.isRunningByAgent()){
+			srmGuiManager.changeActionButton(true);
+		}else {
+			srmGuiManager.disableActionButton(true);
+			SwingUtilities.invokeLater(new Runnable() {
+				public void run() {
+					if(appInfo.isServicesRunning()){
+						srmGuiManager.changeActionButton(true);
+					}else{
+						srmGuiManager.changeActionButton(false);
+					}
+					srmGuiManager.disableActionButton(false);
+				}
+			});
+		}
 	}
 	
 	
