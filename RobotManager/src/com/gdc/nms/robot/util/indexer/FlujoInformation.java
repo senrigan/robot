@@ -2,6 +2,7 @@ package com.gdc.nms.robot.util.indexer;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class FlujoInformation {
 	private String name;
@@ -28,6 +29,15 @@ public class FlujoInformation {
 		this.steps = steps;
 	}
 	public String getName() {
+		return name;
+	}
+	
+	public String getSimpleName(){
+		if(name.contains(".")){
+			String[] split = name.split("\\.");
+			System.out.println("split[]"+split.length+" s"+Arrays.toString(split));
+			return split[1];
+		}
 		return name;
 	}
 	public void setName(String name) {

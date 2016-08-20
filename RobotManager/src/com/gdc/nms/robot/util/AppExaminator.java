@@ -399,6 +399,37 @@ public class AppExaminator {
 		return app;
 	}
 	
+	public static AppInformation getAppData(String appName){
+		Path appFolder = RobotManager.getInstallationPath().resolve("data").resolve(appName);
+		if(Files.exists(appFolder)){
+			File file=appFolder.toFile();
+			AppInformation app=new AppInformation();
+			setMetaInfoApp(appFolder, app);
+			app.setAppName(file.getName());
+			System.out.println("++++ file name "+file.getName());
+			ArrayList<FlujoInformation> flujosApp;
+			if(Files.exists(appFolder.resolve("application"))){
+				
+				flujosApp= getFlujosApp(appFolder.resolve("application"));
+			}else{
+				flujosApp = getFlujosApp(appFolder);
+			}
+			if(flujosApp==null || flujosApp.isEmpty()){
+				return null;
+			}
+			app.setFlujos(flujosApp);
+			app.setIdRobot(getRobotID(appFolder));
+			System.out.println("id robot"+app.getIdRobot()+" "+app.getAppName());
+			if(app.getIdRobot()==0){
+				return null;
+			}
+			return app;
+			
+		}
+		return null;
+	}
+	
+	
 	public static AppInformation getAppData(Path appFolder,File botFile){
 		File file=appFolder.toFile();
 		AppInformation app=new AppInformation();

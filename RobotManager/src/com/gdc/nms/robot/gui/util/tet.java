@@ -39,8 +39,10 @@ import java.awt.SystemColor;
 import java.awt.FlowLayout;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.awt.event.ActionEvent;
+import javax.swing.JTextPane;
 
 public class tet extends JFrame {
 	private ImageIcon executeIcon = new ImageIcon(
@@ -66,6 +68,24 @@ public class tet extends JFrame {
 	private JPanel menuPanel;
 	private JLabel titleAbove;
 	private HashMap<String,JButton> mapRobots;
+	private RoundJTextArea infoArea;
+	private JScrollPane scrollPane;
+	private JButton showLogs;
+	private JButton getInfoRobot;
+	private JButton ActionStatusRobot;
+	private JPanel panel;
+	private RoundButton stoppedRobotCount;
+	private RoundButton executionCountButton;
+	private JButton ConfigurationMenu;
+	private JButton deleteRobotMenu;
+	private JButton addRobotMenu;
+	private JLabel lblNewLabel;
+	private JLabel lblNewLabel_6;
+	private JLabel aplicationNameLabel;
+	private JLabel lblNewLabel_7;
+	private JLabel aliasNameLabel;
+	private JLabel lblNewLabel_8;
+	private JLabel robotIdLabel;
 
 	/**
 	 * Launch the application.
@@ -244,7 +264,7 @@ public class tet extends JFrame {
 		gbl_contentCountPaneL.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
 		contentCountPaneL.setLayout(gbl_contentCountPaneL);
 		
-		RoundButton executionCountButton = new RoundButton("10");
+		executionCountButton = new RoundButton("10");
 		executionCountButton.setBackground(new Color(35, 181, 116));
 //		btnNewButton_6.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		executionCountButton.setMargin(new Insets(1, 1, 1, 1));
@@ -267,7 +287,7 @@ public class tet extends JFrame {
 		gbc_lblNewLabel_4.gridy = 0;
 		contentCountPaneL.add(lblNewLabel_4, gbc_lblNewLabel_4);
 		
-		RoundButton stoppedRobotCount = new RoundButton("30");
+		stoppedRobotCount = new RoundButton("30");
 		stoppedRobotCount.setBackground(new Color(227, 69, 69));
 		stoppedRobotCount.setForeground(new Color(254, 255, 255));
 		stoppedRobotCount.setFont(new Font("Tahoma", Font.PLAIN, 10));
@@ -300,30 +320,30 @@ public class tet extends JFrame {
 		// panel_3.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, -10));
 		GridBagLayout gbl_panel_3 = new GridBagLayout();
 		gbl_panel_3.columnWidths = new int[] { 43, 0, 0, 114, 0, 0, 0 };
-		gbl_panel_3.rowHeights = new int[] { 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-		gbl_panel_3.columnWeights = new double[] { 0.0, 1.0, 1.0, 1.0, 1.0, 20.0, Double.MIN_VALUE };
-		gbl_panel_3.rowWeights = new double[] { 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0,
+		gbl_panel_3.rowHeights = new int[] { 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+		gbl_panel_3.columnWeights = new double[] { 1.0, 1.0, 1.0, 1.0, 1.0, 20.0, Double.MIN_VALUE };
+		gbl_panel_3.rowWeights = new double[] { 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0,
 				Double.MIN_VALUE };
 		panel_3.setLayout(gbl_panel_3);
 
-		JPanel panel_4 = new JPanel();
-		panel_4.setBackground(new Color(65, 95, 124));
+		panel = new JPanel();
+		panel.setBackground(new Color(65, 95, 124));
 
-		GridBagLayout gbl_panel_4 = new GridBagLayout();
-		gbl_panel_4.columnWidths = new int[] { 158, 0, 84, 40 };
-		gbl_panel_4.rowHeights = new int[] { 40, 0 };
-		gbl_panel_4.columnWeights = new double[] { 1.0, 1.0, 1.0, 0.0 };
-		gbl_panel_4.rowWeights = new double[] { 0.0, Double.MIN_VALUE };
-		panel_4.setLayout(gbl_panel_4);
+		GridBagLayout gbl_panel = new GridBagLayout();
+		gbl_panel.columnWidths = new int[] { 158, 0, 84, 40 };
+		gbl_panel.rowHeights = new int[] { 40, 0 };
+		gbl_panel.columnWeights = new double[] { 1.0, 1.0, 1.0, 0.0 };
+		gbl_panel.rowWeights = new double[] { 0.0, Double.MIN_VALUE };
+		panel.setLayout(gbl_panel);
 
-		GridBagConstraints gbc_panel_4 = new GridBagConstraints();
-		gbc_panel_4.gridwidth = 6;
-		gbc_panel_4.insets = new Insets(0, 0, 0, 0);
-		gbc_panel_4.fill = GridBagConstraints.BOTH;
-		gbc_panel_4.gridx = 0;
-		gbc_panel_4.gridy = 0;
-		panel_3.add(panel_4, gbc_panel_4);
-		JButton ActionStatusRobot = new JButton("Ejecutar robot");
+		GridBagConstraints gbc_panel = new GridBagConstraints();
+		gbc_panel.gridwidth = 6;
+		gbc_panel.insets = new Insets(0, 0, 5, 0);
+		gbc_panel.fill = GridBagConstraints.BOTH;
+		gbc_panel.gridx = 0;
+		gbc_panel.gridy = 0;
+		panel_3.add(panel, gbc_panel);
+		ActionStatusRobot = new JButton("Ejecutar robot");
 		ActionStatusRobot.setBorderPainted(false);
 		// btnNewButton.setBorder(BorderFactory.createEmptyBorder());
 		ActionStatusRobot.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -337,9 +357,9 @@ public class tet extends JFrame {
 		gbc_ActionStatusRobot.insets = new Insets(0, 0, 0, 0);
 		gbc_ActionStatusRobot.gridx = 0;
 		gbc_ActionStatusRobot.gridy = 0;
-		panel_4.add(ActionStatusRobot, gbc_ActionStatusRobot);
+		panel.add(ActionStatusRobot, gbc_ActionStatusRobot);
 
-		JButton getInfoRobot = new JButton("Obtener Informacion");
+		getInfoRobot = new JButton("Obtener Informacion");
 		getInfoRobot.setBorderPainted(false);
 		// btnNewButton_1.setBorder(BorderFactory.createEmptyBorder());
 		getInfoRobot.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -353,9 +373,9 @@ public class tet extends JFrame {
 		gbc_getInfoRobot.insets = new Insets(0, 0, 0, 0);
 		gbc_getInfoRobot.gridx = 1;
 		gbc_getInfoRobot.gridy = 0;
-		panel_4.add(getInfoRobot, gbc_getInfoRobot);
+		panel.add(getInfoRobot, gbc_getInfoRobot);
 
-		JButton showLogs = new JButton("Ver Logs");
+		showLogs = new JButton("Ver Logs");
 		showLogs.setBorderPainted(false);
 		showLogs.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		showLogs.setForeground(SystemColor.inactiveCaptionBorder);
@@ -370,28 +390,92 @@ public class tet extends JFrame {
 		gbc_showLogs.insets = new Insets(0, 0, 0, 0);
 		gbc_showLogs.gridx = 2;
 		gbc_showLogs.gridy = 0;
-		panel_4.add(showLogs, gbc_showLogs);
+		panel.add(showLogs, gbc_showLogs);
 //		center.add(arg0)
-		JScrollPane scrollPane = new JScrollPane();
+		scrollPane = new JScrollPane();
 		scrollPane.getViewport().setBackground(new Color(234, 244, 254));
 		scrollPane.getViewport().setOpaque(true);
+		
+		createInfoImportant();
+		
+	
 		scrollPane.setBorder(null);
 
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
 		gbc_scrollPane.gridwidth = 6;
-		gbc_scrollPane.gridheight = 7;
+		gbc_scrollPane.gridheight = 6;
 		gbc_scrollPane.insets = new Insets(100,20, 50, 20);
 		gbc_scrollPane.fill = GridBagConstraints.BOTH;
 		gbc_scrollPane.gridx = 0;
 		gbc_scrollPane.gridy = 7;
-		RoundJTextArea textArea = new RoundJTextArea();
+		infoArea = new RoundJTextArea();
 		// textArea.setEditable(true);
 		// textArea.setEnabled(true);
-		scrollPane.setViewportView(textArea);
+		scrollPane.setViewportView(infoArea);
 		panel_3.add(scrollPane, gbc_scrollPane);
 	}
 	
-	
+	private void createInfoImportant(){
+		lblNewLabel = new JLabel("Generales");
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
+		gbc_lblNewLabel.gridwidth = 2;
+		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel.gridx = 0;
+		gbc_lblNewLabel.gridy = 1;
+		panel_3.add(lblNewLabel, gbc_lblNewLabel);
+		
+		lblNewLabel_6 = new JLabel("Nombre de Aplicacion :");
+		lblNewLabel_6.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		GridBagConstraints gbc_lblNewLabel_6 = new GridBagConstraints();
+		gbc_lblNewLabel_6.gridwidth = 2;
+		gbc_lblNewLabel_6.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel_6.gridx = 0;
+		gbc_lblNewLabel_6.gridy = 2;
+		panel_3.add(lblNewLabel_6, gbc_lblNewLabel_6);
+		
+		aplicationNameLabel = new JLabel("AplicationName");
+		aplicationNameLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		GridBagConstraints gbc_aplicationNameLabel = new GridBagConstraints();
+		gbc_aplicationNameLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_aplicationNameLabel.gridx = 2;
+		gbc_aplicationNameLabel.gridy = 2;
+		panel_3.add(aplicationNameLabel, gbc_aplicationNameLabel);
+		
+		lblNewLabel_7 = new JLabel("Alias:");
+		lblNewLabel_7.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		GridBagConstraints gbc_lblNewLabel_7 = new GridBagConstraints();
+		gbc_lblNewLabel_7.gridwidth = 2;
+		gbc_lblNewLabel_7.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel_7.gridx = 0;
+		gbc_lblNewLabel_7.gridy = 3;
+		panel_3.add(lblNewLabel_7, gbc_lblNewLabel_7);
+		
+		aliasNameLabel = new JLabel("AliasName");
+		aliasNameLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		GridBagConstraints gbc_aliasNameLabel = new GridBagConstraints();
+		gbc_aliasNameLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_aliasNameLabel.gridx = 2;
+		gbc_aliasNameLabel.gridy = 3;
+		panel_3.add(aliasNameLabel, gbc_aliasNameLabel);
+		
+		lblNewLabel_8 = new JLabel("Id Robot:");
+		lblNewLabel_8.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		GridBagConstraints gbc_lblNewLabel_8 = new GridBagConstraints();
+		gbc_lblNewLabel_8.gridwidth = 2;
+		gbc_lblNewLabel_8.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel_8.gridx = 0;
+		gbc_lblNewLabel_8.gridy = 4;
+		panel_3.add(lblNewLabel_8, gbc_lblNewLabel_8);
+		
+		robotIdLabel = new JLabel("robotId");
+		robotIdLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		GridBagConstraints gbc_robotIdLabel = new GridBagConstraints();
+		gbc_robotIdLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_robotIdLabel.gridx = 2;
+		gbc_robotIdLabel.gridy = 4;
+		panel_3.add(robotIdLabel, gbc_robotIdLabel);
+	}
 	private void createMenuPanel(){
 		menuPanel = new JPanel();
 		menuPanel.setOpaque(false);
@@ -403,7 +487,7 @@ public class tet extends JFrame {
 		gbl_menuPanel.rowWeights = new double[] { Double.MIN_VALUE };
 		menuPanel.setLayout(gbl_menuPanel);
 
-		JButton addRobotMenu = new JButton("Agregar robot");
+		addRobotMenu = new JButton("Agregar robot");
 		addRobotMenu.setBorder(BorderFactory.createEmptyBorder());
 		addRobotMenu.setForeground(SystemColor.inactiveCaptionBorder);
 		addRobotMenu.setIcon(addRobotIcon);
@@ -425,7 +509,7 @@ public class tet extends JFrame {
 		gbc_lblNewLabel_1.gridy = 0;
 		menuPanel.add(lblNewLabel_1, gbc_lblNewLabel_1);
 
-		JButton deleteRobotMenu = new JButton("Eliminar robot");
+		deleteRobotMenu = new JButton("Eliminar robot");
 		deleteRobotMenu.setBorder(BorderFactory.createEmptyBorder());
 		deleteRobotMenu.setForeground(SystemColor.inactiveCaptionBorder);
 
@@ -448,7 +532,7 @@ public class tet extends JFrame {
 		gbc_lblNewLabel_2.gridy = 0;
 		menuPanel.add(lblNewLabel_2, gbc_lblNewLabel_2);
 
-		JButton ConfigurationMenu = new JButton("Configuracion");
+		ConfigurationMenu = new JButton("Configuracion");
 		ConfigurationMenu.setBorder(BorderFactory.createEmptyBorder());
 		ConfigurationMenu.setForeground(SystemColor.inactiveCaptionBorder);
 
@@ -492,33 +576,46 @@ public class tet extends JFrame {
 	}
 	
 	public void  addNewRobotUI(final String robotName){
-		java.awt.EventQueue.invokeLater(new Runnable() {
-			
-			@Override
-			public void run() {
-				System.out.println("addd **"+robotName);
-				JButton button=new JButton(robotName);
-				button.addActionListener(new ButtonListener());
-				Border line = BorderFactory.createLineBorder(new Color(172, 189, 207));
-				Border empty = new EmptyBorder(15, 10, 15, 0);
-				CompoundBorder border = new CompoundBorder(line, empty);
-				button.setBorder(border);
-				button.setForeground(new Color(67,91,125));
-				button.setMinimumSize(new Dimension(verticalBox.getWidth(), 50));
-				button.setMaximumSize(new Dimension(verticalBox.getWidth(), 50));
-				button.setOpaque(false);
-				button.setHorizontalAlignment(SwingConstants.LEFT);
+		if(EventQueue.isDispatchThread()){
+			System.out.println("is in edt");
+		}else{
+			System.out.println("no esta en edt");
+		}
+		try {
+			java.awt.EventQueue.invokeAndWait(new Runnable() {
 				
-				button.setBackground(new Color(0, 0, 0,0));
-				button.setFont(new Font("Tahoma",Font.PLAIN, 15));
-				verticalBox.add(button);
-				mapRobots.put(robotName, button);
-				button.setIcon(greenStatusIcon);
-				button.setIconTextGap(20);
-				button.setPressedIcon(greenStatusIcon);
-				
-			}
-		});
+				@Override
+				public void run() {
+					System.out.println("addd **"+robotName);
+					JButton button=new JButton(robotName);
+					button.addActionListener(new ButtonListener());
+					Border line = BorderFactory.createLineBorder(new Color(172, 189, 207));
+					Border empty = new EmptyBorder(15, 10, 15, 0);
+					CompoundBorder border = new CompoundBorder(line, empty);
+					button.setBorder(border);
+					button.setForeground(new Color(67,91,125));
+					button.setMinimumSize(new Dimension(verticalBox.getWidth(), 50));
+					button.setMaximumSize(new Dimension(verticalBox.getWidth(), 50));
+					button.setOpaque(false);
+					button.setHorizontalAlignment(SwingConstants.LEFT);
+					
+					button.setBackground(new Color(0, 0, 0,0));
+					button.setFont(new Font("Tahoma",Font.PLAIN, 15));
+					verticalBox.add(button);
+					mapRobots.put(robotName, button);
+					button.setIcon(greenStatusIcon);
+					button.setIconTextGap(20);
+					button.setPressedIcon(greenStatusIcon);
+					
+				}
+			});
+		} catch (InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	
@@ -531,9 +628,42 @@ public class tet extends JFrame {
 		}
 		
 	}
+	public void changeStatus(JButton button){
+		System.out.println("change ststaus"+button.getIcon());
+		if(button.getIcon().equals(redStatusIcon)){
+			System.out.println("is equal red");
+			button.setIcon(greenStatusIcon);
+		}else if(button.getIcon().equals(greenStatusIcon)){
+			System.out.println("is green equal");
+			button.setIcon(redStatusIcon);
+		}
+	}
 	
+	public void changeStatusToActive(JButton button){
+		button.setIcon(greenStatusIcon);
+	}
+	
+	public void changeStatusToFalse(JButton button){
+		button.setIcon(redStatusIcon);
+	}
+	
+	public void setAplicationName(String applicactionName){
+		aplicationNameLabel.setText(applicactionName);
+	}
+	
+	public void setAliasName(String aliasName){
+		aliasNameLabel.setText(aliasName);
+	}
+	
+	public void setIdRobot(String idRobot){
+		robotIdLabel.setText(idRobot);
+	}
 	public HashMap<String, JButton> getMapRobots(){
 		return mapRobots;
+	}
+	
+	public void setTextInfo(String info){
+		infoArea.setText(info);
 	}
 	/**
 	 * Create the frame.

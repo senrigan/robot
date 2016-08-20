@@ -3,11 +3,7 @@ package com.gdc.nms.robot.util.jade;
 import java.io.IOException;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.net.NetworkInterface;
 import java.net.ServerSocket;
-import java.net.SocketException;
-import java.net.UnknownHostException;
-import java.util.Enumeration;
 import java.util.HashMap;
 
 import org.apache.log4j.Logger;

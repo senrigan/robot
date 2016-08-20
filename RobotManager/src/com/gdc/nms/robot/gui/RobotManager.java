@@ -30,6 +30,8 @@ import org.apache.log4j.FileAppender;
 import org.apache.log4j.Logger;
 
 import com.gdc.nms.robot.Main;
+import com.gdc.nms.robot.gui.tree.test.InterfaceManager;
+import com.gdc.nms.robot.gui.util.tet;
 import com.gdc.nms.robot.util.AppExaminator;
 import com.gdc.nms.robot.util.Constants;
 import com.gdc.nms.robot.util.Environment;
@@ -60,6 +62,8 @@ public class RobotManager extends JFrame {
 	private static boolean valueStop=false;
 	private static boolean executeScan=true;
 	private static RobotManagerGui robotManagerGui;
+	private static InterfaceManager srmGuiManager;
+	private static tet srmGui;
 	public static Appender logAppender;
 	public RobotManager() {
 		
@@ -116,6 +120,9 @@ public class RobotManager extends JFrame {
 					
 				}
 			});
+			srmGui=new tet();
+			srmGuiManager=new InterfaceManager(srmGui);
+			srmGuiManager.loadAllRobots();
 			StartAgentPlatform();
 			hilo.start();
 			
@@ -124,6 +131,9 @@ public class RobotManager extends JFrame {
 		}
 	}
 	
+	public static InterfaceManager getSRMGuiManager(){
+		return srmGuiManager;
+	}
 	
 	private void CreateLogFile(){
 		Path currentPath = getCurrentPath();
