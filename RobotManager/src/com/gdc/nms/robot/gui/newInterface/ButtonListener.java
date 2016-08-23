@@ -47,6 +47,7 @@ public class ButtonListener implements ActionListener{
 	
 	private void setInfoSelected(){
 		String appName = lastButtonPressed.getText();
+		System.out.println("AppNameSelected"+appName);
 		AppInformation appData = AppExaminator.getAppData(appName);
 		if(appData!=null){
 //			InterfaceManager srmGuiManager = RobotManager.getSRMGuiManager();
@@ -54,8 +55,8 @@ public class ButtonListener implements ActionListener{
 			srmGuiManager.setAliasName(appData.getAlias());
 			srmGuiManager.setIdRobot(""+appData.getIdRobot());
 			srmGuiManager.setInfoText(parseInfo(appData));
+			changeMainButtonStatus(appData);
 		}
-		changeMainButtonStatus(appData);
 
 	}
 	
@@ -94,6 +95,11 @@ public class ButtonListener implements ActionListener{
 	
 	private void changColorBackgroundButtonPressed(JButton button){
 		button.setBackground(new Color(200, 213,229));
+	}
+	
+	
+	public static JButton getLastSelectedButton(){
+		return lastButtonPressed;
 	}
 
 }

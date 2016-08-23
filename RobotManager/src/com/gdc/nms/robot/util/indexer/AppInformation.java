@@ -150,5 +150,19 @@ public class AppInformation  implements Comparable<AppInformation>{
 	
 	
 	
+	public File getLogFile(){
+		Path botFile=Paths.get(folderPath).resolve("robot.log");
+		if(Files.exists(botFile)){
+			return botFile.toFile();
+		}
+		return null;
+	}
+	
+	
+	
+
+	
+	
+	
 	
 }

@@ -10,25 +10,24 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
 
+import com.gdc.nms.robot.gui.InfoWindows;
 import com.gdc.nms.robot.gui.newInterface.ButtonListener;
+import com.gdc.nms.robot.gui.tree.test.InterfaceManager;
+import com.gdc.nms.robot.util.indexer.AppInformation;
 
 import java.awt.GridLayout;
 import java.awt.Image;
 
 import javax.swing.BorderFactory;
-import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
-import javax.swing.JViewport;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
 import net.miginfocom.swing.MigLayout;
-import sun.font.LayoutPathImpl.EmptyPath;
 
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -36,37 +35,36 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.SystemColor;
-import java.awt.FlowLayout;
-import javax.swing.JTextField;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.lang.reflect.InvocationTargetException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
-import java.awt.event.ActionEvent;
-import javax.swing.JTextPane;
 
-public class tet extends JFrame {
+public class SRMGUI extends JFrame {
 	private ImageIcon executeIcon = new ImageIcon(
-//			"C:\\Users\\senrigan\\Documents\\desarrollo\\PachitaWindows\\icon\\icn-ejecutar-06.png");
-			"E:\\Projectos\\desarrollo\\robot\\RobotManager\\resources\\com\\gdc\\robotmanager\\icn-ejecutar-06.png");
+			"C:\\Users\\senrigan\\Documents\\desarrollo\\PachitaWindows\\icon\\icn-ejecutar-06.png");
+//			"E:\\Projectos\\desarrollo\\robot\\RobotManager\\resources\\com\\gdc\\robotmanager\\icn-ejecutar-06.png");
 	private ImageIcon stopIcon=new ImageIcon("E:\\Projectos\\desarrollo\\robot\\RobotManager\\resources\\com\\gdc\\robotmanager\\icn-stop-05.png");
 	private ImageIcon infoIcon = new ImageIcon(
-//			"C:\\Users\\senrigan\\Documents\\desarrollo\\PachitaWindows\\icon\\icn-info-rbt-07.png");
-			"E:\\Projectos\\desarrollo\\robot\\RobotManager\\resources\\com\\gdc\\robotmanager\\icn-info-rbt-07.png");
+			"C:\\Users\\senrigan\\Documents\\desarrollo\\PachitaWindows\\icon\\icn-info-rbt-07.png");
+//			"E:\\Projectos\\desarrollo\\robot\\RobotManager\\resources\\com\\gdc\\robotmanager\\icn-info-rbt-07.png");
 	private ImageIcon logIcon = new ImageIcon(
-//			"C:\\Users\\senrigan\\Documents\\desarrollo\\PachitaWindows\\icon\\icn-logs-08.png");
-			"E:\\Projectos\\desarrollo\\robot\\RobotManager\\resources\\com\\gdc\\robotmanager\\icn-logs-08.png");
+			"C:\\Users\\senrigan\\Documents\\desarrollo\\PachitaWindows\\icon\\icn-logs-08.png");
+//			"E:\\Projectos\\desarrollo\\robot\\RobotManager\\resources\\com\\gdc\\robotmanager\\icn-logs-08.png");
 	private ImageIcon addRobotIcon = new ImageIcon(
-//			"C:\\Users\\senrigan\\Documents\\desarrollo\\PachitaWindows\\icon\\icn-agregar-05.png");
-			"E:\\Projectos\\desarrollo\\robot\\RobotManager\\resources\\com\\gdc\\robotmanager\\icn-agregar-05.png");
+			"C:\\Users\\senrigan\\Documents\\desarrollo\\PachitaWindows\\icon\\icn-agregar-05.png");
+//			"E:\\Projectos\\desarrollo\\robot\\RobotManager\\resources\\com\\gdc\\robotmanager\\icn-agregar-05.png");
 	private ImageIcon deleteRobotIcon = new ImageIcon(
-//			"C:\\Users\\senrigan\\Documents\\desarrollo\\PachitaWindows\\icon\\icn-eliminar-04.png");
-			"E:\\Projectos\\desarrollo\\robot\\RobotManager\\resources\\com\\gdc\\robotmanager\\icn-eliminar-04.png");
+			"C:\\Users\\senrigan\\Documents\\desarrollo\\PachitaWindows\\icon\\icn-eliminar-04.png");
+//			"E:\\Projectos\\desarrollo\\robot\\RobotManager\\resources\\com\\gdc\\robotmanager\\icn-eliminar-04.png");
 	private ImageIcon configIcon = new ImageIcon(
-//			"C:\\Users\\senrigan\\Documents\\desarrollo\\PachitaWindows\\icon\\icn-config-03.png");
-			"E:\\Projectos\\desarrollo\\robot\\RobotManager\\resources\\com\\gdc\\robotmanager\\icn-config-03.png");
+			"C:\\Users\\senrigan\\Documents\\desarrollo\\PachitaWindows\\icon\\icn-config-03.png");
+//			"E:\\Projectos\\desarrollo\\robot\\RobotManager\\resources\\com\\gdc\\robotmanager\\icn-config-03.png");
 	private ImageIcon redStatusIcon=new ImageIcon(
-//			"C:\\Users\\senrigan\\Documents\\desarrollo\\PachitaWindows\\icon\\icn-rojo-10.png");
-			"E:\\Projectos\\desarrollo\\robot\\RobotManager\\resources\\com\\gdc\\robotmanager\\icn-rojo-10.png");
+			"C:\\Users\\senrigan\\Documents\\desarrollo\\PachitaWindows\\icon\\icn-rojo-10.png");
+//			"E:\\Projectos\\desarrollo\\robot\\RobotManager\\resources\\com\\gdc\\robotmanager\\icn-rojo-10.png");
 			private ImageIcon greenStatusIcon=new ImageIcon("C:\\Users\\senrigan\\Documents\\desarrollo\\PachitaWindows\\icon\\icn-verde-10.png");
 
 	private JPanel contentPane;
@@ -103,7 +101,7 @@ public class tet extends JFrame {
 //		EventQueue.invokeLater(new Runnable() {
 //			public void run() {
 //				try {
-					tet frame = new tet();
+					SRMGUI frame = new SRMGUI();
 					frame.addNewRobotUI("mudo");
 //					frame.addNewRobotUI("kk");
 //					frame.addNewRobotUI("ss");
@@ -129,7 +127,29 @@ public class tet extends JFrame {
 //			}
 //		});
 	}
-
+	private void initListener(){
+		logListener();
+		
+							
+	}
+	
+	
+	private void logListener(){
+	showLogs.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent paramActionEvent) {
+				SwingUtilities.invokeLater(new Runnable() {
+					
+					@Override
+					public void run() {
+						InterfaceManager.showLogsSelectedApp();
+					}
+				});
+			}
+		});
+			
+	}
 	public void changeIcons() {
 		// Image img = executeIcon.getImage() ;
 		// Image newimg = img.getScaledInstance( 19,25,
@@ -695,11 +715,28 @@ public class tet extends JFrame {
 	public void isEnableActionButton(boolean enable){
 		ActionStatusRobot.setEnabled(enable);
 	}
+	
+	public void changeExecutionCount(int count){
+		executionCountButton.setText(""+count);
+	}
+	
+	public int getExecutionCount(){
+		return Integer.parseInt(executionCountButton.getText());
+	}
+	
+	public int getStopetCount(){
+		return Integer.parseInt(stoppedRobotCount.getText());
+	}
+	
+	public void changeStopedCount(int count){
+		stoppedRobotCount.setText(""+count);
+	}
 
 	/**
 	 * Create the frame.
 	 */
-	public tet() {
+	public SRMGUI() {
 		initComponents();
+		initListener();
 	}
 }
