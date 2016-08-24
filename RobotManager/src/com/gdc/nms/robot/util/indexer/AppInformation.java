@@ -120,20 +120,19 @@ public class AppInformation  implements Comparable<AppInformation>{
 	}
 	
 	public static void main(String[] args) {
-		String st=new String("C:\\Program Files\\GDC\\RobotScript\\data\\SubastaSAT\\.lock");
-		Path path = Paths.get(st);
-		System.out.println(Files.exists(path));
-		try {
-			System.out.println(""+Files.deleteIfExists(path));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		ArrayList<AppInformation> installedApps = AppExaminator.getInstalledApps();
+		for (AppInformation appInformation : installedApps) {
+			System.out.println("--"+appInformation.getBotFile());
 		}
-		System.out.println(	path.toFile().delete());
 //			Files.delete(path);
 	}
 	public File getBotFile() {
-		return botFile;
+		if(botFile!=null){
+			return botFile;
+			
+		}else{
+			return Paths.get(getFolderPath()).resolve("bot.jar").toFile();
+		}
 	}
 	public void setBotFile(File botFile) {
 		this.botFile = botFile;

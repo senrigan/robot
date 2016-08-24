@@ -42,6 +42,7 @@ public class ButtonListener implements ActionListener{
 			lastButtonPressed.setOpaque(true);
 			changColorBackgroundButtonPressed(lastButtonPressed);
 			setInfoSelected();
+			RobotManager.getSRMGuiManager().showFields();
 //		}
 	}
 	
@@ -76,19 +77,19 @@ public class ButtonListener implements ActionListener{
 	
 	private void changeMainButtonStatus(final AppInformation appInfo){
 		if(appInfo.isRunningByAgent()){
-			srmGuiManager.changeActionButton(true);
+			srmGuiManager.changeActionButton(false);
 		}else {
 			srmGuiManager.disableActionButton(true);
-			SwingUtilities.invokeLater(new Runnable() {
-				public void run() {
+			/*SwingUtilities.invokeLater(new Runnable() {
+				public void run() {*/
 					if(appInfo.isServicesRunning()){
 						srmGuiManager.changeActionButton(true);
 					}else{
 						srmGuiManager.changeActionButton(false);
 					}
 					srmGuiManager.disableActionButton(false);
-				}
-			});
+				/*}
+			});*/
 		}
 	}
 	

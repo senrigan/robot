@@ -176,8 +176,8 @@ public class RegisrtryEditorManager {
 	
 	public static void main(String[] args) {
 		RegisrtryEditorManager rd=new RegisrtryEditorManager();
-//		rd.showUbicationRegistry();
-//		rd.showWebServiceConsult();
+		rd.showUbicationRegistry();
+		rd.showWebServiceConsult();
 		rd.showWebServicesCreator();
 	}
 }

@@ -32,6 +32,7 @@ import org.apache.log4j.Logger;
 import com.gdc.nms.robot.Main;
 import com.gdc.nms.robot.gui.tree.test.InterfaceManager;
 import com.gdc.nms.robot.gui.util.SRMGUI;
+import com.gdc.nms.robot.gui.util.process.JavaProcess;
 import com.gdc.nms.robot.util.AppExaminator;
 import com.gdc.nms.robot.util.Constants;
 import com.gdc.nms.robot.util.Environment;
@@ -40,6 +41,7 @@ import com.gdc.nms.robot.util.RobotInformation;
 import com.gdc.nms.robot.util.VirtualMachineExaminator;
 import com.gdc.nms.robot.util.indexer.AppInformation;
 import com.gdc.nms.robot.util.jade.InitPlataform;
+import com.gdc.nms.robot.util.jade.SRMAgent;
 import com.gdc.nms.robot.util.jade.SRMAgentManager;
 import com.gdc.nms.robot.util.registry.CommandExecutor;
 import com.gdc.nms.robot.util.registry.CommandExecutor.REGISTRY_TYPE;
@@ -111,7 +113,7 @@ public class RobotManager extends JFrame {
 				LOGGER.error("excepcion ", e);
 
 			}
-			robotManagerGui=new RobotManagerGui();
+//			robotManagerGui=new RobotManagerGui();
 			Thread hilo=new Thread(new Runnable() {
 				
 				@Override
@@ -418,8 +420,9 @@ public class RobotManager extends JFrame {
 				System.out.println("robot to run"+appInformation.getFolderPath());
 				final AppInformation apF=appInformation;
 				if(appInformation.isServicesRunning()){
+//					srmGuiManager.
 					System.out.println("changing services to already running"+appInformation.getAppName());
-					RobotManager.getGuiManager().getJtreManager().addToRun(appInformation.getAppName()); 
+//					RobotManager.getGuiManager().getJtreManager().addToRun(appInformation.getAppName()); 
 				}else{
 					Thread th=new Thread( new Runnable() {
 						public void run() {
@@ -672,7 +675,35 @@ public class RobotManager extends JFrame {
 		return false;
 	}
 	
-	private static boolean runJarRobot(final File botFile){
+	
+	public static boolean runRobot(AppInformation appInformatio){
+		if(appInformatio!=null){
+			return runJarRobot(appInformatio.getBotFile());
+		}
+		return false;
+	}
+	
+	public static void stopRobot(AppInformation appInformation){
+		HashMap<String, AID> robotRegister = InitPlataform.getRobotRegister();
+		AID aid = robotRegister.get(appInformation.getAppName());
+		if(aid!=null){
+			
+			InitPlataform.getAgentManager().getAgent().senMessageToKill(aid);
+			JOptionPane.showMessageDialog(null, "Espere unos minutos a que el robot "+appInformation.getAppName()+" sea detenido");
+			
+		}else{
+			int result = JOptionPane.showConfirmDialog(null, 
+					   "No es posible detener el servicio de manera normal , deseas forzar su detencion ?",null, JOptionPane.YES_NO_OPTION);
+			if(result == JOptionPane.YES_OPTION) {
+			   long pid = appInformation.getPID();
+			   if(JavaProcess.isValidJavaProceesId(pid)){
+				   stopJar(pid);
+			   }
+			} 
+		}
+	}
+	
+	public static boolean runJarRobot(final File botFile){
 		final CountDownLatch latch=new CountDownLatch(1);
 //		final boolean valueTem=false;
 		valueStart=false;

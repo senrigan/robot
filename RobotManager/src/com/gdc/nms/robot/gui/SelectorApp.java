@@ -4,36 +4,26 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 
 import com.gdc.nms.robot.util.AppExaminator;
-import com.gdc.nms.robot.util.InfoRobotMaker;
 import com.gdc.nms.robot.gui.auxiliar.LoadingFrame;
-import com.gdc.nms.robot.util.AppExaminator;
 import com.gdc.nms.robot.util.ValidatorManagement;
 import com.gdc.nms.robot.util.indexer.AppInformation;
 import com.gdc.nms.robot.util.indexer.AppJsonObject;
-import com.gdc.nms.robot.util.indexer.FlujoInformation;
 
 import java.awt.GridBagLayout;
 
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Comparator;
-import java.util.Date;
 
 import javax.swing.JComboBox;
-import javax.swing.JFileChooser;
 import javax.swing.JButton;
 
 public class SelectorApp extends JFrame {
@@ -70,6 +60,7 @@ public class SelectorApp extends JFrame {
 	 * Create the frame.
 	 */
 	public SelectorApp() {
+		RobotManager.getSRMGuiManager().enableAddRobot();
 		init();
 		setApplicationNames();
 //		setTestApplicatioNames();
@@ -174,16 +165,6 @@ public class SelectorApp extends JFrame {
 	
 	
 	
-
-	
-//	private void setTestApplicatioNames(){
-//		for (int i = 0; i < 10; i++) {
-//			AppJsonObject js=new AppJsonObject();
-//			js.setAlias("hola");
-//			js.setId(i);
-//			comboBox.addItem(js);
-//		}
-//	}
 	
 	private void setButtonListener(){
 		cancelButton.addActionListener(new ActionListener() {
@@ -208,103 +189,10 @@ public class SelectorApp extends JFrame {
 		});
 	}
 	
-//	private void setButtonListenerAddFlujos(){
-//	cancelButton.addActionListener(new ActionListener() {
-//			
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				closeWindows();
-//			}
-//		});
-//		
-//		continueButton.addActionListener(new ActionListener() {
-//			
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				AppJsonObject selectedItem = (AppJsonObject) comboBox.getSelectedItem();
-//				LoadingFrame loading=new LoadingFrame();
-//				System.out.println("se selecciono la app"+selectedItem.getAlias()+"id"+selectedItem.getId());
-//				//DateSelectorPanel dateSelector=new DateSelectorPanel(selectedItem);
-//				loading.close();
-////				closeWindows();
-//				JFileChooser chooser = new JFileChooser();
-//				chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-//				int showOpenDialog = chooser.showOpenDialog(mainFrame);
-//				if(showOpenDialog==JFileChooser.APPROVE_OPTION){
-//					File selectedFile = chooser.getSelectedFile();
-//					Path path = selectedFile.toPath();
-//				
-////					ArrayList<FlujoInformation> validFlujos = ValidatorManagement.
-////							getValidFlujos(path,selectedItem.getId());
-//					ArrayList<FlujoInformation> validFlujos;
-//					final InstallerRobotPanel installer=new InstallerRobotPanel();
-//					Path data;
-//					final InfoRobotMaker infoRobotM=new InfoRobotMaker();
-//					infoRobotM.setTimeLapse((Integer)timeLapse.getSelectedItem());
-//					infoRobotM.setRetries((Integer)retries.getValue());
-//					infoRobotM.setDateForRun(dateTimePicker.getDate());
-//					if(ValidatorManagement.isValidMainFolder(path)){
-//						
-//						validFlujos = ValidatorManagement.getValidFlujos(path.resolve("application"),selectedItem.getId());
-//						if(!validFlujos.isEmpty()){
-//							closeWindows();
-//						}
-//						data=path.resolve("data");
-////						final Path dataPath=data;
-////						final ArrayList<FlujoInformation> validFinalFlujos=validFlujos;
-////						final AppJsonObject finalJsonObject=selectedItem;
-//						infoRobotM.setAppSelected(selectedItem);
-//						infoRobotM.setDataFolder(data);
-//						infoRobotM.setFlujos(validFlujos);
-//					
-//						
-//						SwingUtilities.invokeLater(new Runnable() {
-//							
-//							@Override
-//							public void run() {
-//								installer.createFlujosWithData(infoRobotM);
-//
-//							}
-//						});
-//						
-//					}else{
-//						validFlujos= ValidatorManagement.
-//								getValidFlujos(path,selectedItem.getId());
-//						if(!validFlujos.isEmpty()){
-//							closeWindows();
-//						
-//						}
-////						final ArrayList<FlujoInformation> validFinalFlujos=validFlujos;
-////						final AppJsonObject finalJsonObject=selectedItem;
-//						infoRobotM.setAppSelected(selectedItem);
-//						infoRobotM.setFlujos(validFlujos);
-//						
-//						
-//						SwingUtilities.invokeLater(new Runnable() {
-//							
-//							@Override
-//							public void run() {
-//								installer.createFlujosWithoutData(infoRobotM);
-//								
-//
-//							}
-//						});
-//						
-//						
-//						
-//
-//					}
-//					
-//										
-//				}
-//			}
-//			}
-//		});
-//	}
-//	
 	
 	private void closeWindows(){
 		this.dispose();
+		RobotManager.getSRMGuiManager().enableAddRobot();
 	}
 	
 	

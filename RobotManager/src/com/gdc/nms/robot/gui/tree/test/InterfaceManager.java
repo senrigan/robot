@@ -5,22 +5,40 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.net.URL;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Set;
 
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
+import com.gdc.nms.robot.gui.DeleteRobotPanel;
 import com.gdc.nms.robot.gui.InfoWindows;
+import com.gdc.nms.robot.gui.RobotManager;
+import com.gdc.nms.robot.gui.SelectorApp;
+import com.gdc.nms.robot.gui.RobotManagerGui.ButtonType;
+import com.gdc.nms.robot.gui.auxiliar.LoadingFrame;
 import com.gdc.nms.robot.gui.newInterface.ButtonListener;
+import com.gdc.nms.robot.gui.tree.Element;
 import com.gdc.nms.robot.gui.util.SRMGUI;
 import com.gdc.nms.robot.util.AppExaminator;
 import com.gdc.nms.robot.util.indexer.AppInformation;
+import com.gdc.nms.robot.util.jade.InitPlataform;
+import com.gdc.nms.robot.util.jade.SRMAgentManager;
+import com.gdc.robothelper.webservice.ClientWebService;
+import com.gdc.robothelper.webservice.SisproRobotManagerHelperService;
+import com.gdc.robothelper.webservice.robot.CreatorRobotWebService;
+import com.gdc.robothelper.webservice.robot.Webservice;
+
+import jade.core.AID;
+import jade.core.replication.MainReplicationProxy;
 
 public class InterfaceManager {
 	private SRMGUI gui;
@@ -30,12 +48,17 @@ public class InterfaceManager {
 	
 	
 	public void loadAllRobots(){
-		ArrayList<AppInformation> installedApps = AppExaminator.getInstalledApps();
-		for (AppInformation appInformation : installedApps) {
-			System.out.println("add  "+appInformation.getAppName());
-			gui.addNewRobotUI(appInformation.getAppName());
-			
-		}
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				ArrayList<AppInformation> installedApps = AppExaminator.getInstalledApps();
+				for (AppInformation appInformation : installedApps) {
+					System.out.println("add  "+appInformation.getAppName());
+					gui.addNewRobotUI(appInformation.getAppName());
+					
+				}				
+			}
+		});
 	}
 	
 	
@@ -189,6 +212,154 @@ public class InterfaceManager {
 	         br.close();
 	    }
 	  
+	  public static AppInformation getLastSelectedInfo(){
+		  JButton lastSelectedButton = ButtonListener.getLastSelectedButton();
+		  String text = lastSelectedButton.getText();
+		  AppInformation appData = AppExaminator.getAppData(text);
+		  return appData;
+	  }
+	  public static String getInfoRobot(){
+		  AppInformation selectedAppInformation = getLastSelectedInfo();
+		  if(selectedAppInformation!=null){
+			  
+			  String agentInfo = SRMAgentManager.getAgentInfo(selectedAppInformation);
+			  return agentInfo;
+		  }
+		  return null;
+	  }
 	  
+	  
+	  public static boolean  runSelectedRobot(){
+		  
+		  AppInformation lastSelectedInfo = getLastSelectedInfo();
+		  if(lastSelectedInfo!=null){
+			 return RobotManager.runRobot(lastSelectedInfo);
+		  }
+		  return false;
+	  }
+	  
+	  public static void stopSelectedRobot(){
+		  stopRobot(getLastSelectedInfo());;
+	  }
+	  public static void stopRobot(AppInformation appInformation){
+		  RobotManager.stopRobot(appInformation);
+	  }
+	  
+	  public ArrayList<String> getRobotList(){
+		  HashMap<String, JButton> mapRobots = gui.getMapRobots();
+		  ArrayList<String> robotNames=new ArrayList<String>();
+		  Set<String> keySet = mapRobots.keySet();
+		  for (String key : keySet) {
+			  robotNames.add(key);
+		  }
+		  return robotNames;
+	  }
+	  
+	  
+	  public void changeStatusServicesToActive(String serviceName){
+		  JButton jButton = gui.getMapRobots().get(serviceName);
+		  if(jButton!=null){
+			  gui.changeStatusToActive(jButton);
+		  }
+	  }
+	  
+	  
+	  public void changeStattusServicesToStoped(String serviceName){
+		  JButton jButton = gui.getMapRobots().get(serviceName);
+		  if(jButton!=null){
+			  gui.changeStatusToStoped(jButton);
+		  }
+	  }
+	  
+	  public static void showAddRobot(){
+		
+		System.out.println("servicio de consulta"+checkWebServicesConsult());
+		System.out.println("consultando servicio de creacion"+checkWebServicesCreator());
+		if(checkWebServicesConsult() && checkWebServicesCreator()){
+			SelectorApp selector = new SelectorApp();
+			selector.setVisible(true);
+
+		}else{
+			JOptionPane.showMessageDialog(null, "No es posible conectar con el servidor","Error",JOptionPane.ERROR_MESSAGE);
+		}
+	  }
+	private static boolean checkWebServicesCreator(){
+		URL webServicesCreator = CreatorRobotWebService.getWebServicesCreator();
+		if(webServicesCreator!=null){
+			System.out.println("consultando webservices"+webServicesCreator);
+			return CreatorRobotWebService.existeConexion(webServicesCreator.toString());
+		}else{
+			webServicesCreator=Webservice.getUrl();
+			System.out.println("consultando webservices"+webServicesCreator);
+			return CreatorRobotWebService.existeConexion(webServicesCreator.toString());
+		}
+	}
+	
+	private static boolean checkWebServicesConsult(){
+		URL webServicesConsult = ClientWebService.getWebServicesConsult();
+		if(webServicesConsult!=null){
+			System.out.println("comprobando webservices"+webServicesConsult);
+			return ClientWebService.existeConexion(webServicesConsult.toString());
+		}else{
+			webServicesConsult=SisproRobotManagerHelperService.getUrl();
+			System.out.println("comprobando webservices"+webServicesConsult);
+
+			return ClientWebService.existeConexion(webServicesConsult.toString());
+		}
+	}
+	
+	
+	public static void showDeleteRobot(){
+		if(!AppExaminator.getInstalledApps().isEmpty()){
+			
+			if(checkWebServicesCreator()){
+				DeleteRobotPanel deleterPanel=new DeleteRobotPanel();
+				deleterPanel.setVisible(true);							
+			}else{
+				JOptionPane.showMessageDialog(null, "No es posible conectar con el servidor","Error",JOptionPane.ERROR_MESSAGE);
+			}
+		}else{
+			JOptionPane.showMessageDialog(null, "No existen servicios a eliminar","Error",JOptionPane.ERROR_MESSAGE);
+
+		}
+	}
+	
+	
+	public static void showConfiguractionSRM(){
+		
+	}
+	
+	
+	
+	public void addNewServices(String newServicesName){
+		
+		if(!gui.getMapRobots().containsKey(newServicesName)){
+			System.out.println("***no esta conetnido"+newServicesName);
+			gui.addNewRobotUI(newServicesName);
+			AppInformation appData = AppExaminator.getAppData(newServicesName);
+			if(appData!=null){
+				if(RobotManager.runJarRobot(appData.getBotFile())){
+					changeStatusServicesToActive(newServicesName);
+				}
+			}
+		}else{
+			System.out.println("**si esta contenido"+newServicesName);
+		}
+	}
+	
+	
+	public void  showFields(){
+		gui.showFields();
+	}
+	
+	
+	
+	public void disableAddRobot(){
+		gui.disableAddRobotMenu();
+	}
+	
+	public void enableAddRobot(){
+		gui.enableAddRobotMenu();
+	}
 	  
 }

@@ -34,8 +34,8 @@ public class SisproRobotManagerHelperService
         URL url = null;
         WebServiceException e = null;
         try {
-            url = new URL("http://samyg2.sispro.mx:8080/helper/SRMHelper?wsdl");
-//            url = new URL("http://samyg2pp.sispro.mx:8080/helper/SRMHelper?wsdl");
+//            url = new URL("http://samyg2.sispro.mx:8080/helper/SRMHelper?wsdl");
+            url = new URL("http://samyg2pp.sispro.mx:8080/helper/SRMHelper?wsdl");
 
 
 //            url = new URL("http://samyg2test.sispro.mx:8080/helper/SRMHelper?wsdl");

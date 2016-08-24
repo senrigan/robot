@@ -31,21 +31,21 @@ public class SRMAgentManager {
 	public static final String NXT="NXT";
 	public static final int KILLCODE=666;
 	private static   SRMAgent srmAgent;
-	private static AgentValidator agentValidator;
+//	private static AgentValidator agentValidator;
 	private static StatusAgent staAgent;
 	private static final Logger LOGGER = Logger.getLogger(SRMAgent.class.toString());
 	
 	public void init(){
 		LOGGER.addAppender(RobotManager.logAppender);
 		srmAgent=new SRMAgent();
-		agentValidator=new AgentValidator();
+//		agentValidator=new AgentValidator();
 		staAgent=new StatusAgent();
 		try {
 			//			AgentController agent = InitPlataform.getContainer().createNewAgent("srmagent","com.gdc.nms.robot.util.jade.SRMAgent",new Object[1]);
 			AgentController agent = InitPlataform.getContainer().acceptNewAgent("srmagent", srmAgent);
 			agent.start();
-			agent=InitPlataform.getContainer().acceptNewAgent("validagent", agentValidator);
-			agent.start();
+//			agent=InitPlataform.getContainer().acceptNewAgent("validagent", agentValidator);
+//			agent.start();
 			agent=InitPlataform.getContainer().acceptNewAgent("statusagent",staAgent);
 			agent.start();
 		} catch (StaleProxyException e) {
@@ -77,10 +77,12 @@ public class SRMAgentManager {
 			
 			
 		HashMap<String, AID> robotRegister = InitPlataform.getRobotRegister();
-		AID aid = robotRegister.get(appInfo.getAlias());
+		AID aid = robotRegister.get(appInfo.getAppName());
+		System.out.println("*****************************"+aid);
 		if(aid!=null){
 			StatusAgent agent = InitPlataform.getAgentManager().getStatusAgent();
 			String status = agent.getStatus(robotRegister.get(appInfo.getAlias()));
+			System.out.println("reciving status "+status);
 			try {
 				HashMap<String, String> jsonToMap = jsonToMap(status);
 				Set<String> keySet = jsonToMap.keySet();
@@ -94,6 +96,7 @@ public class SRMAgentManager {
 			}
 		}else{
 			JOptionPane.showMessageDialog(null, "No es posible cumunicarse con el robot");
+			return null;
 		}
 				
 			

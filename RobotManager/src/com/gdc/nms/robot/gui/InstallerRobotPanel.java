@@ -29,6 +29,8 @@ import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Date;
@@ -120,6 +122,14 @@ public class InstallerRobotPanel extends JFrame {
 				dispose();
 			}
 		});
+		this.addWindowListener(new WindowAdapter()
+	        {
+	            @Override
+	            public void windowClosing(WindowEvent e)
+	            {
+	               closeWindows();
+	            }
+	        });
 		GridBagConstraints gbc_cancelButton = new GridBagConstraints();
 		gbc_cancelButton.anchor = GridBagConstraints.SOUTHWEST;
 		gbc_cancelButton.insets = new Insets(0, 0, 0, 5);
@@ -224,7 +234,7 @@ public class InstallerRobotPanel extends JFrame {
 	
 	
 	public void initSelectorWindowsAddFlujos(final InfoRobotMaker infoMaker){
-		SelectorWindows frame = new SelectorWindows();
+		final SelectorWindows frame = new SelectorWindows();
 		frame.setTitleWindows("Instalador Robot");
 		frame.setInstructionLabel("seleccionea las carpetas a agregar");
 //		JButton button=new JButton("hola");
@@ -280,6 +290,10 @@ public class InstallerRobotPanel extends JFrame {
 				
 				CreatorRobotManager creator=new CreatorRobotManager();
 				if(creator.createRobotWithPath(modifiedInfoRobotMaker ,false)){
+					ArrayList<AppInformation> installedApps = AppExaminator.getInstalledApps();
+					for (AppInformation appInfo  : installedApps) {
+						RobotManager.getSRMGuiManager().addNewServices(appInfo.getAppName());
+					}
 					JOptionPane.showMessageDialog(null,
 							"La carpeta fue insatalada correctamente.", "Correcto", JOptionPane.INFORMATION_MESSAGE);
 				}else{
@@ -287,7 +301,8 @@ public class InstallerRobotPanel extends JFrame {
 							 "No fue posible Instalar la aplicacion Correctamente","Error.", JOptionPane.ERROR_MESSAGE);
 
 				}
-				closeWindows();
+//				closeWindows();
+				frame.dispose();
 				
 //				cancelButton.doClick();
 			}
@@ -355,6 +370,11 @@ public class InstallerRobotPanel extends JFrame {
 					CreatorRobotManager creator=new CreatorRobotManager();
 					
 					if(creator.createRobot(infoRobot,addFilesRobot)){
+						ArrayList<AppInformation> installedApps = AppExaminator.getInstalledApps();
+						for (AppInformation appInfo : installedApps) {
+							RobotManager.getSRMGuiManager().addNewServices(appInfo.getAppName());
+							
+						}
 						JOptionPane.showMessageDialog(null, "La carpeta fue insatalada correctamente.", "Correcto", JOptionPane.INFORMATION_MESSAGE);
 					}else{
 						JOptionPane.showMessageDialog(null,
@@ -383,7 +403,8 @@ public class InstallerRobotPanel extends JFrame {
 	}
 	
 	private void closeWindows(){
-		dispose();
+		this.dispose();
+		RobotManager.getSRMGuiManager().enableAddRobot();
 	}
 	
 	

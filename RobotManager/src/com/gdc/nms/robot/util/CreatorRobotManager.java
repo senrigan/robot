@@ -120,7 +120,6 @@ public class CreatorRobotManager {
 		return false;
 	}
 	private boolean createNewRobot(){
-		System.out.println("//// calculateInitDateWebServices"+ getInitDateForWebServices());
 		String location=RobotManager.getUbication();
 		String idFlujos=getIdFlujos();
 		URL webServicesCreator = CreatorRobotWebService.getWebServicesCreator();

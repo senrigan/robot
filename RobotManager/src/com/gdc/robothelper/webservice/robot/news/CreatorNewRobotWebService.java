@@ -49,7 +49,7 @@ public class CreatorNewRobotWebService {
 			String registry = CommandExecutor.readRegistrySpecificRegistry(Constants.LOCALREGISTRY, "webservicesCreator", 
 					CommandExecutor.REGISTRY_TYPE.REG_SZ.getName());
 			if(registry.equals("-1")){
-				return null;
+				return new URL("https://samyg2pp.sispro.mx/wsendusersamyg2/wssamyg/status/soapFlujosV2.php?wsdl");
 			}
 			URL url=new URL(registry);
 			return url;
@@ -195,6 +195,9 @@ public class CreatorNewRobotWebService {
 		System.out.println(webServicesCreator);
 		boolean existeConexion = CreatorNewRobotWebService.existeConexion(webServicesCreator.toString());
 		System.out.println("numero de id"+existeConexion);
+		String deleteRobot = CreatorNewRobotWebService.getPort().deleteRobot("-1");
+		System.out.println("result"+deleteRobot);
+		
 //		String dateServer = CreatorRobotWebService.getDateServer();
 //		System.out.println(dateServer);
 //		SimpleDateFormat dateForm=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

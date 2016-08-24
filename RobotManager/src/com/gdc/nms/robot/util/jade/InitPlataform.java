@@ -48,12 +48,15 @@ public class InitPlataform {
 	
 	public static void registerRobot(String robotName,AID senderId){
 		robotRegister.put(robotName, senderId);
+		RobotManager.getSRMGuiManager().changeStatusServicesToActive(robotName);
 //		RobotManager.getGuiManager().getJtreManager().addToRun(robotName);
 	}
 	
 	
 	public static void deRegisterRobot(String robotName){
 		robotRegister.remove(robotName);
+		RobotManager.getSRMGuiManager().changeStattusServicesToStoped(robotName);
+
 //		RobotManager.getGuiManager().getJtreManager().changeRobotRunToStop(robotName);
 
 	}
@@ -101,7 +104,7 @@ public class InitPlataform {
 		props.setProperty(ProfileImpl.MAIN, "true");
 		props.setProperty(ProfileImpl.PLATFORM_ID, "robot_platform");
 		props.setProperty(ProfileImpl.MAIN_PORT, "1192");
-		props.setProperty(ProfileImpl.GUI, "true");
+//		props.setProperty(ProfileImpl.GUI, "true");
 		
 		props.setProperty(ProfileImpl.MAIN_HOST, ip);
 		props.setProperty(ProfileImpl.LOCAL_HOST, ip);

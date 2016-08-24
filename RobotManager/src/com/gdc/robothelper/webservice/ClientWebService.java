@@ -43,7 +43,7 @@ public class ClientWebService {
 			String registry = CommandExecutor.readRegistrySpecificRegistry(Constants.LOCALREGISTRY, "webservicesConsult", 
 					CommandExecutor.REGISTRY_TYPE.REG_SZ.getName());
 			if(registry.equals("-1")){
-				return null;
+				return SisproRobotManagerHelperService.getUrl();
 			}
 
 			URL url=new URL(registry);
@@ -93,8 +93,8 @@ public class ClientWebService {
 	
 	public static void main(String[] args) throws InterruptedException {
 //		boolean existeConexion = ClientWebService.existeConexion("http://samyg2.sispro.mx:8080/helper/SRMHelper?wsdl");
+		System.out.println(ClientWebService.getWebServicesConsult().toString());
 		boolean existeConexion = ClientWebService.existeConexion(ClientWebService.getWebServicesConsult().toString());
-
 		System.out.println(existeConexion);
 	}
 	public static Object getWebService(String wsdlLocation) {

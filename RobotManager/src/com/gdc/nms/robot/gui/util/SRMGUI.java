@@ -12,15 +12,18 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 
 import com.gdc.nms.robot.gui.InfoWindows;
+import com.gdc.nms.robot.gui.SelectorApp;
 import com.gdc.nms.robot.gui.newInterface.ButtonListener;
 import com.gdc.nms.robot.gui.tree.test.InterfaceManager;
 import com.gdc.nms.robot.util.indexer.AppInformation;
+import com.gdc.nms.robot.util.jade.SRMAgentManager;
 
 import java.awt.GridLayout;
 import java.awt.Image;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
@@ -28,8 +31,11 @@ import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
 import net.miginfocom.swing.MigLayout;
+import pic.ImageTest;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -44,28 +50,40 @@ import java.util.HashMap;
 
 public class SRMGUI extends JFrame {
 	private ImageIcon executeIcon = new ImageIcon(
-			"C:\\Users\\senrigan\\Documents\\desarrollo\\PachitaWindows\\icon\\icn-ejecutar-06.png");
+//			"C:\\Users\\senrigan\\Documents\\desarrollo\\PachitaWindows\\icon\\icn-ejecutar-06.png");
+			ImageTest.class.getResource("/pic/icn-ejecutar-06.png"));
 //			"E:\\Projectos\\desarrollo\\robot\\RobotManager\\resources\\com\\gdc\\robotmanager\\icn-ejecutar-06.png");
-	private ImageIcon stopIcon=new ImageIcon("E:\\Projectos\\desarrollo\\robot\\RobotManager\\resources\\com\\gdc\\robotmanager\\icn-stop-05.png");
+	private ImageIcon stopIcon=new ImageIcon(
+//			"E:\\Projectos\\desarrollo\\robot\\RobotManager\\resources\\com\\gdc\\robotmanager\\icn-stop-05.png");
+			ImageTest.class.getResource("/pic/icn-stop-05.png"));
+
 	private ImageIcon infoIcon = new ImageIcon(
-			"C:\\Users\\senrigan\\Documents\\desarrollo\\PachitaWindows\\icon\\icn-info-rbt-07.png");
+//			"C:\\Users\\senrigan\\Documents\\desarrollo\\PachitaWindows\\icon\\icn-info-rbt-07.png");
 //			"E:\\Projectos\\desarrollo\\robot\\RobotManager\\resources\\com\\gdc\\robotmanager\\icn-info-rbt-07.png");
+			ImageTest.class.getResource("/pic/icn-info-rbt-07.png"));
 	private ImageIcon logIcon = new ImageIcon(
-			"C:\\Users\\senrigan\\Documents\\desarrollo\\PachitaWindows\\icon\\icn-logs-08.png");
+//			"C:\\Users\\senrigan\\Documents\\desarrollo\\PachitaWindows\\icon\\icn-logs-08.png");
 //			"E:\\Projectos\\desarrollo\\robot\\RobotManager\\resources\\com\\gdc\\robotmanager\\icn-logs-08.png");
+			ImageTest.class.getResource("/pic/icn-logs-08.png"));
 	private ImageIcon addRobotIcon = new ImageIcon(
-			"C:\\Users\\senrigan\\Documents\\desarrollo\\PachitaWindows\\icon\\icn-agregar-05.png");
+//			"C:\\Users\\senrigan\\Documents\\desarrollo\\PachitaWindows\\icon\\icn-agregar-05.png");
 //			"E:\\Projectos\\desarrollo\\robot\\RobotManager\\resources\\com\\gdc\\robotmanager\\icn-agregar-05.png");
+			ImageTest.class.getResource("/pic/icn-agregar-05.png"));
 	private ImageIcon deleteRobotIcon = new ImageIcon(
-			"C:\\Users\\senrigan\\Documents\\desarrollo\\PachitaWindows\\icon\\icn-eliminar-04.png");
+//			"C:\\Users\\senrigan\\Documents\\desarrollo\\PachitaWindows\\icon\\icn-eliminar-04.png");
 //			"E:\\Projectos\\desarrollo\\robot\\RobotManager\\resources\\com\\gdc\\robotmanager\\icn-eliminar-04.png");
+			ImageTest.class.getResource("/pic/icn-eliminar-04.png"));
 	private ImageIcon configIcon = new ImageIcon(
-			"C:\\Users\\senrigan\\Documents\\desarrollo\\PachitaWindows\\icon\\icn-config-03.png");
+//			"C:\\Users\\senrigan\\Documents\\desarrollo\\PachitaWindows\\icon\\icn-config-03.png");
 //			"E:\\Projectos\\desarrollo\\robot\\RobotManager\\resources\\com\\gdc\\robotmanager\\icn-config-03.png");
+			ImageTest.class.getResource("/pic/icn-config-03.png"));
 	private ImageIcon redStatusIcon=new ImageIcon(
-			"C:\\Users\\senrigan\\Documents\\desarrollo\\PachitaWindows\\icon\\icn-rojo-10.png");
+//			"C:\\Users\\senrigan\\Documents\\desarrollo\\PachitaWindows\\icon\\icn-rojo-10.png");
 //			"E:\\Projectos\\desarrollo\\robot\\RobotManager\\resources\\com\\gdc\\robotmanager\\icn-rojo-10.png");
-			private ImageIcon greenStatusIcon=new ImageIcon("C:\\Users\\senrigan\\Documents\\desarrollo\\PachitaWindows\\icon\\icn-verde-10.png");
+			ImageTest.class.getResource("/pic/icn-rojo-10.png"));
+	private ImageIcon greenStatusIcon=new ImageIcon(
+//			"C:\\Users\\senrigan\\Documents\\desarrollo\\PachitaWindows\\icon\\icn-verde-10.png");
+			ImageTest.class.getResource("/pic/icn-verde-10.png"));
 
 	private JPanel contentPane;
 	private JPanel verticalBox;
@@ -86,12 +104,12 @@ public class SRMGUI extends JFrame {
 	private JButton ConfigurationMenu;
 	private JButton deleteRobotMenu;
 	private JButton addRobotMenu;
-	private JLabel lblNewLabel;
-	private JLabel lblNewLabel_6;
+	private JLabel FielPrincipal;
+	private JLabel fieldAplication;
 	private JLabel aplicationNameLabel;
-	private JLabel lblNewLabel_7;
+	private JLabel fielAlias;
 	private JLabel aliasNameLabel;
-	private JLabel lblNewLabel_8;
+	private JLabel fielIdRobot;
 	private JLabel robotIdLabel;
 
 	/**
@@ -129,11 +147,67 @@ public class SRMGUI extends JFrame {
 	}
 	private void initListener(){
 		logListener();
-		
-							
+		getInfoListener();
+		executionListener();		
+		addRobotListener();
+		deleteRobotListener();
+		configurationSRMListener();
 	}
-	
-	
+	private void configurationSRMListener(){
+		ConfigurationMenu.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				configurationSRMListener();
+			}
+		});
+	}
+	private  void deleteRobotListener(){
+		deleteRobotMenu.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				InterfaceManager.showDeleteRobot();
+			}
+		});
+	}
+	private void addRobotListener(){
+		addRobotMenu.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				InterfaceManager.showAddRobot();
+					
+			}
+		});
+	}
+	private void executionListener(){
+		ActionStatusRobot.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JButton button=(JButton)e.getSource();
+				Icon icon = button.getIcon();
+				if(icon.equals(stopIcon)){
+					InterfaceManager.stopSelectedRobot();
+				}else if(icon.equals(executeIcon)){
+					InterfaceManager.runSelectedRobot();
+				}
+			}
+		});
+	}
+	private void getInfoListener(){
+		getInfoRobot.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String infoRobot = InterfaceManager.getInfoRobot();
+				if(infoRobot!=null )
+					setTextInfo(infoRobot);
+			}
+		});
+	}
 	private void logListener(){
 	showLogs.addActionListener(new ActionListener() {
 			
@@ -194,6 +268,10 @@ public class SRMGUI extends JFrame {
 	
 	private void modWindows(){
 		this.setResizable(false);
+		this.setLocationRelativeTo(null);
+		setIconImage(new ImageIcon(ImageTest.class.getResource("/pic/gdc.png")).getImage());
+
+		
 	}
 	
 	private void createLeftContent(){
@@ -294,7 +372,7 @@ public class SRMGUI extends JFrame {
 		gbl_contentCountPaneL.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
 		contentCountPaneL.setLayout(gbl_contentCountPaneL);
 		
-		executionCountButton = new RoundButton("10");
+		executionCountButton = new RoundButton("0");
 		executionCountButton.setBackground(new Color(35, 181, 116));
 //		btnNewButton_6.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		executionCountButton.setMargin(new Insets(1, 1, 1, 1));
@@ -317,7 +395,7 @@ public class SRMGUI extends JFrame {
 		gbc_lblNewLabel_4.gridy = 0;
 		contentCountPaneL.add(lblNewLabel_4, gbc_lblNewLabel_4);
 		
-		stoppedRobotCount = new RoundButton("30");
+		stoppedRobotCount = new RoundButton("0");
 		stoppedRobotCount.setBackground(new Color(227, 69, 69));
 		stoppedRobotCount.setForeground(new Color(254, 255, 255));
 		stoppedRobotCount.setFont(new Font("Tahoma", Font.PLAIN, 10));
@@ -439,30 +517,30 @@ public class SRMGUI extends JFrame {
 		gbc_scrollPane.gridx = 0;
 		gbc_scrollPane.gridy = 7;
 		infoArea = new RoundJTextArea();
-		// textArea.setEditable(true);
+		infoArea.setEditable(false);
 		// textArea.setEnabled(true);
 		scrollPane.setViewportView(infoArea);
 		panel_3.add(scrollPane, gbc_scrollPane);
 	}
 	
 	private void createInfoImportant(){
-		lblNewLabel = new JLabel("Generales");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-		gbc_lblNewLabel.gridwidth = 2;
-		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel.gridx = 0;
-		gbc_lblNewLabel.gridy = 1;
-		panel_3.add(lblNewLabel, gbc_lblNewLabel);
+		FielPrincipal = new JLabel("Generales");
+		FielPrincipal.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		GridBagConstraints gbc_FielPrincipal = new GridBagConstraints();
+		gbc_FielPrincipal.gridwidth = 2;
+		gbc_FielPrincipal.insets = new Insets(0, 0, 5, 5);
+		gbc_FielPrincipal.gridx = 0;
+		gbc_FielPrincipal.gridy = 1;
+		panel_3.add(FielPrincipal, gbc_FielPrincipal);
 		
-		lblNewLabel_6 = new JLabel("Nombre de Aplicacion :");
-		lblNewLabel_6.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		GridBagConstraints gbc_lblNewLabel_6 = new GridBagConstraints();
-		gbc_lblNewLabel_6.gridwidth = 2;
-		gbc_lblNewLabel_6.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_6.gridx = 0;
-		gbc_lblNewLabel_6.gridy = 2;
-		panel_3.add(lblNewLabel_6, gbc_lblNewLabel_6);
+		fieldAplication = new JLabel("Nombre de Aplicacion :");
+		fieldAplication.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		GridBagConstraints gbc_fieldAplication = new GridBagConstraints();
+		gbc_fieldAplication.gridwidth = 2;
+		gbc_fieldAplication.insets = new Insets(0, 0, 5, 5);
+		gbc_fieldAplication.gridx = 0;
+		gbc_fieldAplication.gridy = 2;
+		panel_3.add(fieldAplication, gbc_fieldAplication);
 		
 		aplicationNameLabel = new JLabel("AplicationName");
 		aplicationNameLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -472,14 +550,14 @@ public class SRMGUI extends JFrame {
 		gbc_aplicationNameLabel.gridy = 2;
 		panel_3.add(aplicationNameLabel, gbc_aplicationNameLabel);
 		
-		lblNewLabel_7 = new JLabel("Alias:");
-		lblNewLabel_7.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		GridBagConstraints gbc_lblNewLabel_7 = new GridBagConstraints();
-		gbc_lblNewLabel_7.gridwidth = 2;
-		gbc_lblNewLabel_7.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_7.gridx = 0;
-		gbc_lblNewLabel_7.gridy = 3;
-		panel_3.add(lblNewLabel_7, gbc_lblNewLabel_7);
+		fielAlias = new JLabel("Alias:");
+		fielAlias.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		GridBagConstraints gbc_fielAlias = new GridBagConstraints();
+		gbc_fielAlias.gridwidth = 2;
+		gbc_fielAlias.insets = new Insets(0, 0, 5, 5);
+		gbc_fielAlias.gridx = 0;
+		gbc_fielAlias.gridy = 3;
+		panel_3.add(fielAlias, gbc_fielAlias);
 		
 		aliasNameLabel = new JLabel("AliasName");
 		aliasNameLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -489,14 +567,14 @@ public class SRMGUI extends JFrame {
 		gbc_aliasNameLabel.gridy = 3;
 		panel_3.add(aliasNameLabel, gbc_aliasNameLabel);
 		
-		lblNewLabel_8 = new JLabel("Id Robot:");
-		lblNewLabel_8.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		GridBagConstraints gbc_lblNewLabel_8 = new GridBagConstraints();
-		gbc_lblNewLabel_8.gridwidth = 2;
-		gbc_lblNewLabel_8.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_8.gridx = 0;
-		gbc_lblNewLabel_8.gridy = 4;
-		panel_3.add(lblNewLabel_8, gbc_lblNewLabel_8);
+		fielIdRobot = new JLabel("Id Robot:");
+		fielIdRobot.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		GridBagConstraints gbc_fielIdRobot = new GridBagConstraints();
+		gbc_fielIdRobot.gridwidth = 2;
+		gbc_fielIdRobot.insets = new Insets(0, 0, 5, 5);
+		gbc_fielIdRobot.gridx = 0;
+		gbc_fielIdRobot.gridy = 4;
+		panel_3.add(fielIdRobot, gbc_fielIdRobot);
 		
 		robotIdLabel = new JLabel("robotId");
 		robotIdLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -596,13 +674,14 @@ public class SRMGUI extends JFrame {
 	}
 	private void initComponents(){
 	
-		modWindows();
 		createTitleContent();
 		createMenuPanel();
 		createLeftContent();
 		createRigthContent();
+		modWindows();
 		this.setVisible(true);
 		mapRobots=new HashMap<String,JButton>();
+		hiddeFields();
 	}
 	
 	public void  addNewRobotUI(final String robotName){
@@ -611,11 +690,11 @@ public class SRMGUI extends JFrame {
 		}else{
 			System.out.println("no esta en edt");
 		}
-		try {
+		/*try {
 			java.awt.EventQueue.invokeAndWait(new Runnable() {
 				
 				@Override
-				public void run() {
+				public void run() {*/
 					System.out.println("addd **"+robotName);
 					JButton button=new JButton(robotName);
 					button.addActionListener(new ButtonListener());
@@ -633,11 +712,12 @@ public class SRMGUI extends JFrame {
 					button.setFont(new Font("Tahoma",Font.PLAIN, 15));
 					verticalBox.add(button);
 					mapRobots.put(robotName, button);
-					button.setIcon(greenStatusIcon);
+					button.setIcon(redStatusIcon);
 					button.setIconTextGap(20);
-					button.setPressedIcon(greenStatusIcon);
+					changeStopedCount(getStopetCount()+1);
+//					button.setPressedIcon(greenStatusIcon);
 					
-				}
+				/*}
 			});
 		} catch (InvocationTargetException e) {
 			// TODO Auto-generated catch block
@@ -645,7 +725,7 @@ public class SRMGUI extends JFrame {
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 	}
 	
 	
@@ -670,10 +750,16 @@ public class SRMGUI extends JFrame {
 	}
 	
 	public void changeStatusToActive(JButton button){
+		if(button.getIcon().equals(redStatusIcon)){
+			removeStopedCountAddExecutionCount();
+		}
 		button.setIcon(greenStatusIcon);
 	}
 	
-	public void changeStatusToFalse(JButton button){
+	public void changeStatusToStoped(JButton button){
+		if(button.getIcon().equals(greenStatusIcon)){
+			removeExecutionCountAddStopedCount();
+		}
 		button.setIcon(redStatusIcon);
 	}
 	
@@ -731,6 +817,17 @@ public class SRMGUI extends JFrame {
 	public void changeStopedCount(int count){
 		stoppedRobotCount.setText(""+count);
 	}
+	
+	public void removeExecutionCountAddStopedCount(){
+		changeExecutionCount(getExecutionCount()-1);
+		changeStopedCount(getStopetCount()+1);
+	}
+	
+	
+	public void removeStopedCountAddExecutionCount(){
+		changeStopedCount(getStopetCount()-1);
+		changeExecutionCount(getExecutionCount()+1);
+	}
 
 	/**
 	 * Create the frame.
@@ -738,5 +835,34 @@ public class SRMGUI extends JFrame {
 	public SRMGUI() {
 		initComponents();
 		initListener();
+	}
+	
+	
+	
+	public void hiddeFields(){
+		fielAlias.setVisible(false);
+		fieldAplication.setVisible(false);
+		fielIdRobot.setVisible(false);
+		FielPrincipal.setVisible(false);
+		aplicationNameLabel.setVisible(false);
+		aliasNameLabel.setVisible(false);
+		robotIdLabel.setVisible(false);
+	}
+	public void  disableAddRobotMenu(){
+		addRobotMenu.setEnabled(false);
+	}
+	
+	public void enableAddRobotMenu(){
+		addRobotMenu.setEnabled(true);
+	}
+	
+	public void showFields(){
+		fielAlias.setVisible(true);
+		fieldAplication.setVisible(true);
+		fielIdRobot.setVisible(true);
+		FielPrincipal.setVisible(true);
+		aplicationNameLabel.setVisible(true);
+		aliasNameLabel.setVisible(true);
+		robotIdLabel.setVisible(true);
 	}
 }

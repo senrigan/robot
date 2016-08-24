@@ -21,6 +21,8 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.nio.file.Path;
 import java.text.DateFormat;
@@ -140,6 +142,15 @@ public class DateSelectorPanel extends JFrame {
 		contentPane.add(ContinueButton, gbc_ContinueButton);
 		setVisible(true);
 		calculatetValidTimeLapse();
+		 this.addWindowListener(new WindowAdapter()
+	        {
+	            @Override
+	            public void windowClosing(WindowEvent e)
+	            {
+	             closeWindows();
+	             RobotManager.getSRMGuiManager().enableAddRobot();
+	            }
+	        });
 	}
 	
 	private void initListeners(){
@@ -232,7 +243,7 @@ public class DateSelectorPanel extends JFrame {
 									@Override
 									public void run() {
 										installer.initSelectorWindowsAddFlujos(infoRobotM);
-										
+										DateSelectorPanel.this.dispose();
 										
 									}
 								});
@@ -323,6 +334,8 @@ public class DateSelectorPanel extends JFrame {
 
 	private void closeWindows(){
 		this.dispose();
+		RobotManager.getSRMGuiManager().enableAddRobot();
+
 	}
 	
 	
