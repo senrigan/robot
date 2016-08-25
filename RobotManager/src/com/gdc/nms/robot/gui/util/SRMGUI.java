@@ -55,7 +55,7 @@ public class SRMGUI extends JFrame {
 //			"E:\\Projectos\\desarrollo\\robot\\RobotManager\\resources\\com\\gdc\\robotmanager\\icn-ejecutar-06.png");
 	private ImageIcon stopIcon=new ImageIcon(
 //			"E:\\Projectos\\desarrollo\\robot\\RobotManager\\resources\\com\\gdc\\robotmanager\\icn-stop-05.png");
-			ImageTest.class.getResource("/pic/icn-stop-05.png"));
+			ImageTest.class.getResource("/pic/icn-stop-11.png"));
 
 	private ImageIcon infoIcon = new ImageIcon(
 //			"C:\\Users\\senrigan\\Documents\\desarrollo\\PachitaWindows\\icon\\icn-info-rbt-07.png");
