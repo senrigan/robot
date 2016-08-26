@@ -214,9 +214,13 @@ public class InterfaceManager {
 	  
 	  public static AppInformation getLastSelectedInfo(){
 		  JButton lastSelectedButton = ButtonListener.getLastSelectedButton();
-		  String text = lastSelectedButton.getText();
-		  AppInformation appData = AppExaminator.getAppData(text);
-		  return appData;
+		  if(lastSelectedButton!=null){
+			  String text = lastSelectedButton.getText();
+			  AppInformation appData = AppExaminator.getAppData(text);
+			  return appData;
+			  
+		  }
+		  return null;
 	  }
 	  public static String getInfoRobot(){
 		  AppInformation selectedAppInformation = getLastSelectedInfo();
@@ -260,6 +264,8 @@ public class InterfaceManager {
 		  JButton jButton = gui.getMapRobots().get(serviceName);
 		  if(jButton!=null){
 			  gui.changeStatusToActive(jButton);
+			  checkIfAreSelected(serviceName, true);
+
 		  }
 	  }
 	  
@@ -268,7 +274,30 @@ public class InterfaceManager {
 		  JButton jButton = gui.getMapRobots().get(serviceName);
 		  if(jButton!=null){
 			  gui.changeStatusToStoped(jButton);
+			  checkIfAreSelected(serviceName, false);
 		  }
+	  }
+	  
+	  
+	  private void checkIfAreSelected(String serviceName,final boolean running){
+		  System.out.println("checking Selecting Robot");
+		  AppInformation lastSelectedInfo = getLastSelectedInfo();
+		  if(lastSelectedInfo!=null){
+			  String appName = lastSelectedInfo.getAppName();
+			  System.out.println("appName is equal"+appName+" to servicesname"+serviceName+"equals"+appName.equals(serviceName));
+			  if(appName.equals(serviceName)){
+				  SwingUtilities.invokeLater(new Runnable() {
+					
+					@Override
+					public void run() {
+						gui.changeStatusExecuteButton(!running);
+						
+					}
+				});
+			  }
+			  
+		  }
+		  
 	  }
 	  
 	  public static void showAddRobot(){
@@ -344,6 +373,25 @@ public class InterfaceManager {
 			}
 		}else{
 			System.out.println("**si esta contenido"+newServicesName);
+		}
+	}
+	
+	
+	public  void showMessage(final String message ,final String title,final int messageType){
+		if(SwingUtilities.isEventDispatchThread()){
+			System.out.println("mostrando mensaje estando en el edt"+message);
+			JOptionPane.showMessageDialog(null, message, title, messageType);
+			
+		}else{
+			System.out.println("mostrando mensaje sin estar en edt"+message);
+			SwingUtilities.invokeLater(new Runnable() {
+				
+				@Override
+				public void run() {
+					JOptionPane.showMessageDialog(null, message, title, messageType);
+
+				}
+			});
 		}
 	}
 	

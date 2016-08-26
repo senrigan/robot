@@ -51,7 +51,6 @@ public class ButtonListener implements ActionListener{
 		System.out.println("AppNameSelected"+appName);
 		AppInformation appData = AppExaminator.getAppData(appName);
 		if(appData!=null){
-//			InterfaceManager srmGuiManager = RobotManager.getSRMGuiManager();
 			srmGuiManager.setAplicationName(appData.getAppName());
 			srmGuiManager.setAliasName(appData.getAlias());
 			srmGuiManager.setIdRobot(""+appData.getIdRobot());
@@ -77,19 +76,17 @@ public class ButtonListener implements ActionListener{
 	
 	private void changeMainButtonStatus(final AppInformation appInfo){
 		if(appInfo.isRunningByAgent()){
+			System.out.println("***is Ruunning byAgent");
 			srmGuiManager.changeActionButton(false);
 		}else {
+			System.out.println("***is no running byAgent");
 			srmGuiManager.disableActionButton(true);
-			/*SwingUtilities.invokeLater(new Runnable() {
-				public void run() {*/
-					if(appInfo.isServicesRunning()){
-						srmGuiManager.changeActionButton(true);
-					}else{
-						srmGuiManager.changeActionButton(false);
-					}
-					srmGuiManager.disableActionButton(false);
-				/*}
-			});*/
+			if(appInfo.isServicesRunning()){
+				srmGuiManager.changeActionButton(false);
+			}else{
+				srmGuiManager.changeActionButton(true);
+			}
+			srmGuiManager.disableActionButton(false);
 		}
 	}
 	

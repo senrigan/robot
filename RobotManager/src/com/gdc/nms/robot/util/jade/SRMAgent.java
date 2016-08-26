@@ -4,10 +4,13 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Set;
 
+import javax.swing.JOptionPane;
+
 import org.apache.log4j.Logger;
 
 import com.gdc.nms.robot.gui.RobotManager;
 import com.gdc.nms.robot.gui.RobotManagerGui;
+import com.gdc.nms.robot.gui.tree.test.InterfaceManager;
 
 import jade.core.AID;
 import jade.core.Agent;
@@ -135,31 +138,6 @@ public class SRMAgent extends Agent {
 		}
 
 	}
-//	private class MailBoxConfirm extends CyclicBehaviour{
-//
-//		@Override
-//		public void action() {
-//			ACLMessage msg=myAgent.receive(MessageTemplate.MatchPerformative(ACLMessage.CONFIRM));
-//			if(msg!=null){
-//				organizeMessageType(msg);
-//			}
-//			block(5000L);
-//		}
-//		
-//		
-//		private void organizeMessageType(ACLMessage msg){
-//			String content = msg.getContent();
-//			switch(content){
-//			case "IAA":
-//				break;
-//			case "RUN":
-//				break;
-//			case "WAT":
-//				break;
-//			}
-//		}
-//		
-//	}
 	private class MailBox extends CyclicBehaviour {
 
 		private static final String ALIVE_RESPONSE = "OK";
@@ -175,7 +153,7 @@ public class SRMAgent extends Agent {
 					messageResponse(msg);
 					String appName = getAppName(msg.getSender().getName());
 					appName = parseAppName(appName);
-					RobotManagerGui.showMessage("el robot " + appName + " a iniciado correctamente");
+					RobotManager.getSRMGuiManager().showMessage("el robot " + appName + " a iniciado correctamente", "Info", JOptionPane.INFORMATION_MESSAGE);
 				}
 				block(5000L);
 			} catch (Exception ex) {

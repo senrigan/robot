@@ -6,6 +6,8 @@ import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.util.HashMap;
 
+import javax.swing.JOptionPane;
+
 import org.apache.log4j.Logger;
 
 import com.gdc.nms.robot.gui.RobotManager;
@@ -49,7 +51,6 @@ public class InitPlataform {
 	public static void registerRobot(String robotName,AID senderId){
 		robotRegister.put(robotName, senderId);
 		RobotManager.getSRMGuiManager().changeStatusServicesToActive(robotName);
-//		RobotManager.getGuiManager().getJtreManager().addToRun(robotName);
 	}
 	
 	
@@ -57,7 +58,6 @@ public class InitPlataform {
 		robotRegister.remove(robotName);
 		RobotManager.getSRMGuiManager().changeStattusServicesToStoped(robotName);
 
-//		RobotManager.getGuiManager().getJtreManager().changeRobotRunToStop(robotName);
 
 	}
 	
@@ -244,6 +244,8 @@ public class InitPlataform {
 	    }
 	    return false;
 	}
+	
+	
 	
 	public static void main(String[] args) {
 //		int port=0;

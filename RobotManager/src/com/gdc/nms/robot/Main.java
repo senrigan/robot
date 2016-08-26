@@ -19,8 +19,6 @@ public class Main {
 		 Language.load();
 		 RobotManager robotManager= new RobotManager();
 		 robotManager.start();
-//		 System.out.println(ImageTest.class.getResource("./")+"gdc.ico");
-//		 System.out.println(new ImageIcon(ImageTest.class.getResource("/pic/gdc.ico")).getImage());
 	}
 	 
 }

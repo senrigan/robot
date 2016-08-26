@@ -25,6 +25,7 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Appender;
 import org.apache.log4j.FileAppender;
 import org.apache.log4j.Logger;
@@ -37,11 +38,8 @@ import com.gdc.nms.robot.util.AppExaminator;
 import com.gdc.nms.robot.util.Constants;
 import com.gdc.nms.robot.util.Environment;
 import com.gdc.nms.robot.util.LogLayout;
-import com.gdc.nms.robot.util.RobotInformation;
-import com.gdc.nms.robot.util.VirtualMachineExaminator;
 import com.gdc.nms.robot.util.indexer.AppInformation;
 import com.gdc.nms.robot.util.jade.InitPlataform;
-import com.gdc.nms.robot.util.jade.SRMAgent;
 import com.gdc.nms.robot.util.jade.SRMAgentManager;
 import com.gdc.nms.robot.util.registry.CommandExecutor;
 import com.gdc.nms.robot.util.registry.CommandExecutor.REGISTRY_TYPE;
@@ -422,6 +420,7 @@ public class RobotManager extends JFrame {
 				if(appInformation.isServicesRunning()){
 //					srmGuiManager.
 					System.out.println("changing services to already running"+appInformation.getAppName());
+					srmGuiManager.changeStatusServicesToActive(appInformation.getAppName());
 //					RobotManager.getGuiManager().getJtreManager().addToRun(appInformation.getAppName()); 
 				}else{
 					Thread th=new Thread( new Runnable() {
@@ -526,7 +525,6 @@ public class RobotManager extends JFrame {
 		try {
 			String ubication="generic";
 			CommandExecutor.addRegistryWindows(Constants.LOCALREGISTRY, "ubicationRobot", ubication, REGISTRY_TYPE.REG_SZ);
-//			CommandExecutor.addRegistryWindows(Constants.LOCALREGISTRY, "installationPath", getCurrentPath().toString(), REGISTRY_TYPE.REG_SZ);
 			setUbication(ubication);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -544,7 +542,6 @@ public class RobotManager extends JFrame {
 	public static void createUbicationRegistruCreation(String ubication){
 		try {
 			CommandExecutor.addRegistryWindows(Constants.LOCALREGISTRY, "ubicationRobot", ubication, REGISTRY_TYPE.REG_SZ);
-//			CommandExecutor.addRegistryWindows(Constants.LOCALREGISTRY, "installationPath", getCurrentPath().toString(), REGISTRY_TYPE.REG_SZ);
 			setUbication(ubication);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -559,7 +556,6 @@ public class RobotManager extends JFrame {
 	}
 	private static void createUbicationPathRegistry(){
 		try {
-//			CommandExecutor.addRegistryWindows(Constants.LOCALREGISTRY, "installationPath", "C:\\Users\\senrigan\\Documents\\pruebas\\GDC\\RobotScript", REGISTRY_TYPE.REG_SZ);
 			CommandExecutor.addRegistryWindows(Constants.LOCALREGISTRY, "installationPath", getCurrentPath().toString(), REGISTRY_TYPE.REG_SZ);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -705,7 +701,6 @@ public class RobotManager extends JFrame {
 	
 	public static boolean runJarRobot(final File botFile){
 		final CountDownLatch latch=new CountDownLatch(1);
-//		final boolean valueTem=false;
 		valueStart=false;
 		System.out.println("bot file oto run "+botFile);
 		Thread hilo=new Thread( new Runnable() {
@@ -714,17 +709,19 @@ public class RobotManager extends JFrame {
 				String java ="\""+Environment.getJava()+"\"";
 				String nuewName=botFile.getParentFile().getName().replaceAll("\\s+$", "");
 				System.out.println("before run the robos wildacars"+installationPath.resolve("data").resolve(nuewName));
-//				File[] botFiles = AppExaminator.getBotFiles(installationPath.resolve("data").resolve(nuewName));
 				System.out.println("bot files"+botFile.getName());
 				LOGGER.info("botfiles detected "+botFile.getName());
-//				if(botFiles.length>0){
-//					Path ROBOTJAR=botFiles[0].toPath();
 					File parentFile=botFile.getParentFile();
-//					String jar="\""+robotJar.toString()+"\"";
 					String command=java +" -Dname=\"Robot_"+nuewName+"\" "+" -jar "+botFile.getName();
 					try {
 						System.out.println("command"+command);
-						Runtime.getRuntime().exec(command,null,parentFile);
+						Process exec = Runtime.getRuntime().exec(command,null,parentFile);
+						LOGGER.info("Analizando robot "+botFile.toString());
+						if(searchForError(exec)){
+							LOGGER.info("retry to run : "+botFile.toString());
+							exec = Runtime.getRuntime().exec(command,null,parentFile);
+						}
+						
 						value=true;
 					} catch (IOException e) {
 						e.printStackTrace();
@@ -734,9 +731,6 @@ public class RobotManager extends JFrame {
 					}
 					latch.countDown();
 					valueStart=value;
-//				}else{
-//					valueStart=false;
-//				}
 				
 			}
 		});
@@ -750,6 +744,97 @@ public class RobotManager extends JFrame {
 		}
 		return valueStart;
 		
+	}
+	
+	
+	
+	private static boolean searchForError(Process proc){
+		try{
+			BufferedReader stdInput = new BufferedReader(new 
+					InputStreamReader(proc.getInputStream()));
+			BufferedReader stdError = new BufferedReader(new 
+					InputStreamReader(proc.getErrorStream()));
+			System.out.println("Here is the standard output of the command:\n");
+			String s = null;
+			int maxLinesToRead=20;
+			int linesCount=0;
+			while ((s = stdInput.readLine()) != null) {
+				if(linesCount<maxLinesToRead){
+					System.out.println(s);
+					if(checkErrorByJacob(s)){
+						System.out.println("copyin dlls jacobs");
+						LOGGER.info("the robot no contains jacob dlls");
+						copyDllToJavaHome();
+						return true;
+					}else{
+						if(s.equals("Robot has been started.")){
+							return false;
+						}
+					}
+					
+					linesCount++;
+				}else{
+					break;
+				}
+				
+			}
+//			System.out.println("Here is the standard error of the command (if any):\n");
+//			while ((s = stdError.readLine()) != null) {
+//				System.out.println(s);
+//			}
+			return false;
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}
+		return false;
+	}
+	
+	private static void  copyDllToJavaHome() throws IOException{
+		Path javaHome = Environment.getJavaHome();
+		javaHome=javaHome.resolve("bin");
+		System.out.println("javahome "+javaHome.toString());
+		String architecture = System.getProperty("sun.arch.data.model");
+		Path  dll=null;
+		String tempFolder=getInstallationPath().resolve("inMonitor").resolve("lib").toString();
+		String namedll="";
+		if(architecture.endsWith("64")){
+			namedll="jacob-1.18-x64.dll";			
+		}else{ 
+			namedll="jacob-1.18-x86.dll";
+		}
+		dll=Paths.get(tempFolder).resolve(namedll);
+
+		File source=dll.toFile();
+		File dest=javaHome.toFile();
+		LOGGER.info("Copyng dlls jacob "+" source : "+source+" dest "+dest);
+
+		if(!javaHome.resolve(namedll).toFile().exists()){	
+			FileUtils.copyFileToDirectory(source, dest);
+		}
+	}
+	
+	
+	public static boolean existJacobInJava(){
+		Path javaHome = Environment.getJavaHome();
+		javaHome=javaHome.resolve("bin");
+		String architecture = System.getProperty("sun.arch.data.model");
+		String namedll="";
+		if(architecture.endsWith("64")){
+			namedll="jacob-1.18-x64.dll";			
+		}else{ 
+			namedll="jacob-1.18-x86.dll";
+		}
+		if(Files.exists(javaHome.resolve(namedll))){
+			return true;
+		}
+		return false;
+	}
+	
+	private static boolean checkErrorByJacob(String error){
+		if(error.contains("java.lang.UnsatisfiedLinkError")){
+			return true;
+		}
+		return false;
 	}
 	private static boolean runJarRobot(final String appName){
 		System.out.println("+++++ App Nanme : "+appName);
@@ -770,23 +855,11 @@ public class RobotManager extends JFrame {
 					Path robotJar=botFiles[0].toPath();
 					Path appPath=robotJar.getParent();
 					String jar="\""+robotJar.toString()+"\"";
-//				String command="cd  \""+appPath+"\" && "+java +" -Dname=\"Robot_"+appName+"\" "+" -jar "+robotJar.getFileName();
 					String command=java +" -Dname=\"Robot_"+nuewName+"\" "+" -jar "+robotJar;
 					
 					try {
 						System.out.println("command"+command);
-//					Runtime.getRuntime().exec(command);
 						Runtime.getRuntime().exec(command,null,appPath.toFile());
-//					Process exec = Runtime.getRuntime().exec(command);
-//					BufferedReader in=new BufferedReader(new InputStreamReader(exec.getInputStream()));
-//					String line;
-//					while((line=in.readLine())!=null){
-//						System.out.println("stopjar lines"+line);
-//						if(line.contains("Robot has been started")){
-//							value =true;
-//						}
-//						
-//					}
 						value=true;
 					} catch (IOException e) {
 						e.printStackTrace();

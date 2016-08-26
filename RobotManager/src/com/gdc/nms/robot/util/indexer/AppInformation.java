@@ -106,7 +106,25 @@ public class AppInformation  implements Comparable<AppInformation>{
 			return false;
 			
 		}else{
-			return true;
+			Path path = Paths.get(getFolderPath()).resolve(".lock");
+			try{
+				if(Files.exists(path)){
+					File file = path.toFile();
+					if(file.delete()){
+						return false;
+					}else{
+						Thread.sleep(5000L);
+						if(file.delete()){
+							return false;
+						}
+					}
+					return true;
+				}
+			}catch(Exception ex){
+				ex.printStackTrace();
+			}
+			path=null;
+			return false;
 		}
 	}
 	

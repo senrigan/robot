@@ -116,34 +116,8 @@ public class SRMGUI extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-					SRMGUI frame = new SRMGUI();
-					frame.addNewRobotUI("mudo");
-//					frame.addNewRobotUI("kk");
-//					frame.addNewRobotUI("ss");
-//					frame.addNewRobotUI("test");
-//					frame.addNewRobotUI("mudo");
-//					frame.addNewRobotUI("kk");
-//					frame.addNewRobotUI("ss");
-//					frame.addNewRobotUI("test");
-//					frame.addNewRobotUI("mudo");
-//					frame.addNewRobotUI("kk");
-//					frame.addNewRobotUI("ss");
-//					frame.addNewRobotUI("test");
-//					frame.addNewRobotUI("mudo");
-//					frame.addNewRobotUI("kk");
-//					frame.addNewRobotUI("ss");
-//					frame.addNewRobotUI("test");
-//					frame.addNewRobotUI("kk");
-//					frame.addNewRobotUI("ss");
-//					frame.addNewRobotUI("test");
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
+		SRMGUI frame = new SRMGUI();
+		frame.addNewRobotUI("mudo");
 	}
 	private void initListener(){
 		logListener();
@@ -225,37 +199,14 @@ public class SRMGUI extends JFrame {
 			
 	}
 	public void changeIcons() {
-		// Image img = executeIcon.getImage() ;
-		// Image newimg = img.getScaledInstance( 19,25,
-		// java.awt.Image.SCALE_SMOOTH ) ;
-		// executeIcon=new ImageIcon(newimg);
 		executeIcon = changeIconSize(13, 19, executeIcon);
 		stopIcon=changeIconSize(13,19,stopIcon);
-		// img=infoIcon.getImage();
-		// newimg = img.getScaledInstance( 32,37, java.awt.Image.SCALE_SMOOTH )
-		// ;
-		//
-		// infoIcon = new ImageIcon( newimg );
 		infoIcon = changeIconSize(22, 27, infoIcon);
-		//
-		// img = logIcon.getImage() ;
-		// newimg = img.getScaledInstance( 35,39, java.awt.Image.SCALE_SMOOTH )
-		// ;
-		// logIcon = new ImageIcon( newimg );
-
 		logIcon = changeIconSize(23, 27, logIcon);
-		// img=addRobotIcon.getImage();
-		// newimg=img.getScaledInstance( 35,39, java.awt.Image.SCALE_SMOOTH ) ;
-		// addRobotIcon=new ImageIcon(newimg);
-		//
 		addRobotIcon = changeIconSize(15, 15, addRobotIcon);
-
 		deleteRobotIcon = changeIconSize(15, 15, deleteRobotIcon);
-
 		configIcon = changeIconSize(15, 15, configIcon);
-		
 		redStatusIcon=changeIconSize(15, 15, redStatusIcon);
-		
 		greenStatusIcon=changeIconSize(15, 15, greenStatusIcon);
 
 	}
@@ -317,9 +268,6 @@ public class SRMGUI extends JFrame {
 		verticalBox=new JPanel();
 		verticalBox.setLayout(new BoxLayout(verticalBox, BoxLayout.Y_AXIS));
 		verticalBox.setBackground(new Color(234, 244, 254));
-//		verticalBox.add(new JButton("hola"));
-//		verticalBox.setPreferredSize(new Dimension(200, 300));
-		
 		JPanel mainPanel = new JPanel(new BorderLayout());
 	    JPanel robotPanelContentL=new JPanel(new GridLayout(1,0));
 	    robotPanelContentL.setBackground(new Color(234	, 244, 254));
@@ -328,33 +276,12 @@ public class SRMGUI extends JFrame {
 		buttonScrollPanel.getViewport().setOpaque(true);
 		buttonScrollPanel.setBorder(null);
 		robotPanelContentL.add(buttonScrollPanel);
-		// JViewport viewport = new JViewport();
-		//
-		//
-		// //Component that need to be added in Scroll pane//
-		//
-		// viewport.setView(new JPanel());
-		//
-		// viewport.setOpaque(false);
-		//
-		// scrollPane_1.setViewport(viewport);
-		//
-		// scrollPane_1.getViewport().setOpaque(false);
-		//
-		// scrollPane_1.setOpaque(false);
-
-		// // Add Scrollpane to Jframe or JPanel//
-		// scrollPane_1.setOpaque(false);
-		// scrollPane_1.setBackground(new Color(200, 244, 254));
-		// scrollPane_1.getViewport().setOpaque(false);
-		// scrollPane_1.getViewport().setBackground(new Color(200, 244, 254));
 		GridBagConstraints gbc_robotPanelContentL = new GridBagConstraints();
 		gbc_robotPanelContentL.gridheight = 12;
 		gbc_robotPanelContentL.insets = new Insets(0, 0, 0, 0);
 		gbc_robotPanelContentL.fill = GridBagConstraints.BOTH;
 		gbc_robotPanelContentL.gridx = 0;
 		gbc_robotPanelContentL.gridy = 1;
-//		panel.add(buttonScrollPanel, gbc_buttonScrollPanel);
 		leftPanel.add(robotPanelContentL, gbc_robotPanelContentL);
 
 
@@ -374,7 +301,6 @@ public class SRMGUI extends JFrame {
 		
 		executionCountButton = new RoundButton("0");
 		executionCountButton.setBackground(new Color(35, 181, 116));
-//		btnNewButton_6.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		executionCountButton.setMargin(new Insets(1, 1, 1, 1));
 		executionCountButton.setForeground(new Color(254, 255, 255));
 		executionCountButton.setFont(new Font("Tahoma", Font.PLAIN, 10));
@@ -399,7 +325,6 @@ public class SRMGUI extends JFrame {
 		stoppedRobotCount.setBackground(new Color(227, 69, 69));
 		stoppedRobotCount.setForeground(new Color(254, 255, 255));
 		stoppedRobotCount.setFont(new Font("Tahoma", Font.PLAIN, 10));
-//		btnNewButton_7.setText("1");
 		stoppedRobotCount.setMargin(new Insets(1, 1, 1, 1));
 		stoppedRobotCount.setHorizontalAlignment(SwingConstants.CENTER);
 		GridBagConstraints gbc_stoppedRobotCount = new GridBagConstraints();
@@ -423,9 +348,7 @@ public class SRMGUI extends JFrame {
 		panel_3 = new JPanel();
 		panel_3.setBorder(BorderFactory.createEmptyBorder(-1, 0, 1,0));
 		panel_3.setBackground(new Color(234, 244, 254));
-
 		contentPane.add(panel_3, "cell 12 3 20 19,grow");
-		// panel_3.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, -10));
 		GridBagLayout gbl_panel_3 = new GridBagLayout();
 		gbl_panel_3.columnWidths = new int[] { 43, 0, 0, 114, 0, 0, 0 };
 		gbl_panel_3.rowHeights = new int[] { 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
@@ -453,13 +376,11 @@ public class SRMGUI extends JFrame {
 		panel_3.add(panel, gbc_panel);
 		ActionStatusRobot = new JButton("Ejecutar robot");
 		ActionStatusRobot.setBorderPainted(false);
-		// btnNewButton.setBorder(BorderFactory.createEmptyBorder());
 		ActionStatusRobot.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		ActionStatusRobot.setForeground(SystemColor.text);
 		ActionStatusRobot.setIcon(executeIcon);
 		ActionStatusRobot.setBackground(new Color(0, 0, 0, 0));
 		ActionStatusRobot.setContentAreaFilled(false);
-		// btnNewButton.setOpaque(true);
 		GridBagConstraints gbc_ActionStatusRobot = new GridBagConstraints();
 		gbc_ActionStatusRobot.gridheight = 2;
 		gbc_ActionStatusRobot.insets = new Insets(0, 0, 0, 0);
@@ -469,7 +390,6 @@ public class SRMGUI extends JFrame {
 
 		getInfoRobot = new JButton("Obtener Informacion");
 		getInfoRobot.setBorderPainted(false);
-		// btnNewButton_1.setBorder(BorderFactory.createEmptyBorder());
 		getInfoRobot.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		getInfoRobot.setForeground(SystemColor.inactiveCaptionBorder);
 		getInfoRobot.setIcon(infoIcon);
@@ -499,7 +419,6 @@ public class SRMGUI extends JFrame {
 		gbc_showLogs.gridx = 2;
 		gbc_showLogs.gridy = 0;
 		panel.add(showLogs, gbc_showLogs);
-//		center.add(arg0)
 		scrollPane = new JScrollPane();
 		scrollPane.getViewport().setBackground(new Color(234, 244, 254));
 		scrollPane.getViewport().setOpaque(true);
@@ -518,7 +437,6 @@ public class SRMGUI extends JFrame {
 		gbc_scrollPane.gridy = 7;
 		infoArea = new RoundJTextArea();
 		infoArea.setEditable(false);
-		// textArea.setEnabled(true);
 		scrollPane.setViewportView(infoArea);
 		panel_3.add(scrollPane, gbc_scrollPane);
 	}
@@ -690,11 +608,6 @@ public class SRMGUI extends JFrame {
 		}else{
 			System.out.println("no esta en edt");
 		}
-		/*try {
-			java.awt.EventQueue.invokeAndWait(new Runnable() {
-				
-				@Override
-				public void run() {*/
 					System.out.println("addd **"+robotName);
 					JButton button=new JButton(robotName);
 					button.addActionListener(new ButtonListener());
@@ -714,18 +627,7 @@ public class SRMGUI extends JFrame {
 					mapRobots.put(robotName, button);
 					button.setIcon(redStatusIcon);
 					button.setIconTextGap(20);
-					changeStopedCount(getStopetCount()+1);
-//					button.setPressedIcon(greenStatusIcon);
-					
-				/*}
-			});
-		} catch (InvocationTargetException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
+					changeStopedCount(getStopetCount()+1);					
 	}
 	
 	
@@ -781,21 +683,28 @@ public class SRMGUI extends JFrame {
 	public void setTextInfo(String info){
 		infoArea.setText(info);
 	}
-	
+	/**
+	 * 
+	 * @param isRunning true change to start , false change to stop
+	 */
 	public void changeStatusExecuteButton(boolean isRunning){
 		if(isRunning){
+			System.out.println("changin button to start");
 			changeActionButtonToStart();
 		}else{
+			System.out.println("change button to stop");
 			changeActionButtonToStop();
 		}
 	}
 	
 	private  void changeActionButtonToStop(){
 		ActionStatusRobot.setIcon(stopIcon);
+		ActionStatusRobot.setText("Detener robot");
 	}
 	
 	private void changeActionButtonToStart(){
 		ActionStatusRobot.setIcon(executeIcon);
+		ActionStatusRobot.setText("Ejecutar robot");
 	}
 	
 	public void isEnableActionButton(boolean enable){
