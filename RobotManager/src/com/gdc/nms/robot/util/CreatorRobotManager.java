@@ -36,8 +36,10 @@ import com.gdc.nms.robot.gui.DeleteDirectory;
 import com.gdc.nms.robot.gui.RobotManager;
 import com.gdc.nms.robot.util.indexer.FlujoInformation;
 import com.gdc.nms.robot.util.indexer.StepInformation;
+import com.gdc.robothelper.webservice.WebServicesManager;
 import com.gdc.robothelper.webservice.robot.CreatorRobotWebService;
 import com.gdc.robothelper.webservice.robot.news.CreatorNewRobotWebService;
+import com.gdc.robothelper.webservice.robot.news.WebservicePortType;
 import com.gdc.robothelper.webservice.robot.olds.CreatorOldRobotWebService;
 import com.sun.org.apache.xerces.internal.impl.validation.ValidationManager;
 

@@ -17,7 +17,7 @@ import com.gdc.nms.robot.util.indexer.AppInformation;
 import com.gdc.nms.robot.util.indexer.AppJsonObject;
 import com.gdc.nms.robot.util.indexer.FlujoInformation;
 import com.gdc.nms.robot.util.indexer.FlujoJsonObject;
-import com.gdc.robothelper.webservice.ClientWebService;
+import com.gdc.robothelper.webservice.ClientSRMHelperWebService;
 
 public class ValidatorManagement {
 	public static void isValidFlujo(String nameFlujo){
@@ -25,7 +25,7 @@ public class ValidatorManagement {
 	}
 	
 	public static ArrayList<AppJsonObject> getAppsName(){
-		String appName = ClientWebService.getAppName();
+		String appName = ClientSRMHelperWebService.getAppName();
 		System.out.println();
 		if(appName!=null){
 			ArrayList<AppJsonObject> appsJson=new ArrayList<AppJsonObject>();
@@ -59,7 +59,7 @@ public class ValidatorManagement {
 	
 	
 	public static ArrayList<FlujoJsonObject> getFlujosName(long idApp){
-		String flujosByIdApp = ClientWebService.getFlujosByIdApp(idApp);
+		String flujosByIdApp = ClientSRMHelperWebService.getFlujosByIdApp(idApp);
 		if(flujosByIdApp!=null){
 			ArrayList<FlujoJsonObject> flujoJson=new ArrayList<FlujoJsonObject>();
 			try{

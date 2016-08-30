@@ -85,7 +85,7 @@ public class Webservice
         return super.getPort(new QName("urn:webservice", "webservicePort"), WebservicePortType.class, features);
     }
 
-    private static URL __getWsdlLocation() {
+    public static URL __getWsdlLocation() {
         if (WEBSERVICE_EXCEPTION!= null) {
             throw WEBSERVICE_EXCEPTION;
         }

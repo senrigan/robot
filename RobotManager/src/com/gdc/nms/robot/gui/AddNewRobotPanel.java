@@ -1,17 +1,19 @@
 package com.gdc.nms.robot.gui;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JSpinner;
 import javax.swing.border.EmptyBorder;
 
 import com.gdc.nms.robot.util.CreatorRobotManager;
 import com.gdc.nms.robot.util.ValidatorManagement;
 import com.gdc.nms.robot.util.indexer.AppJsonObject;
+import com.gdc.robothelper.webservice.WebServicesManager;
+import com.gdc.robothelper.webservice.robot.news.WebservicePortType;
 
-import javafx.scene.control.ComboBox;
+import javafx.scene.web.WebEngineBuilder;
 
 import java.awt.GridBagLayout;
 import javax.swing.JComboBox;
@@ -48,6 +50,8 @@ public class AddNewRobotPanel extends JFrame {
 	private JTextField textField;
 	private JButton btnNewButton;
 	private DateTimePicker datePickerElement;
+	private JButton btnNewButton_1;
+	private JSpinner retries;
 
 
 
@@ -147,6 +151,14 @@ public class AddNewRobotPanel extends JFrame {
 		gbc_lblNewLabel_3.gridy = 3;
 		extraPanel.add(lblNewLabel_3, gbc_lblNewLabel_3);
 		
+		retries  =new JSpinner();
+		GridBagConstraints gbc_btnNewButton_2 = new GridBagConstraints();
+		gbc_btnNewButton_2.gridwidth = 2;
+		gbc_btnNewButton_2.insets = new Insets(0, 0, 5, 5);
+		gbc_btnNewButton_2.gridx = 2;
+		gbc_btnNewButton_2.gridy = 3;
+		extraPanel.add(retries, gbc_btnNewButton_2);
+		
 		lblNewLabel_4 = new JLabel("Tiempo entre Poleos");
 		GridBagConstraints gbc_lblNewLabel_4 = new GridBagConstraints();
 		gbc_lblNewLabel_4.anchor = GridBagConstraints.EAST;
@@ -172,6 +184,12 @@ public class AddNewRobotPanel extends JFrame {
 		gbc_textField.gridy = 5;
 		extraPanel.add(textField, gbc_textField);
 		textField.setColumns(10);
+		
+		btnNewButton_1 = new JButton("Buscar");
+		GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
+		gbc_btnNewButton_1.gridx = 4;
+		gbc_btnNewButton_1.gridy = 5;
+		extraPanel.add(btnNewButton_1, gbc_btnNewButton_1);
 		
 		cancelButton = new JButton("Cancelar");
 		GridBagConstraints gbc_cancelButton = new GridBagConstraints();
@@ -267,7 +285,8 @@ public class AddNewRobotPanel extends JFrame {
 	
 	
 	private DateTimePicker getDatePickerElement(){
-		String dateServer = CreatorRobotManager.getcalculateDateServer();
+	
+		String dateServer = WebServicesManager.getcalculateDateServer();
 		SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Date parseDate;
 		dateTimePicker = new DateTimePicker();

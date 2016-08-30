@@ -49,9 +49,6 @@ import com.gdc.robothelper.webservice.robot.Webservice;
 import jade.core.AID;
 
 public class RobotManager extends JFrame {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	

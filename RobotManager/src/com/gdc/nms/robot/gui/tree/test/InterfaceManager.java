@@ -32,8 +32,9 @@ import com.gdc.nms.robot.util.AppExaminator;
 import com.gdc.nms.robot.util.indexer.AppInformation;
 import com.gdc.nms.robot.util.jade.InitPlataform;
 import com.gdc.nms.robot.util.jade.SRMAgentManager;
-import com.gdc.robothelper.webservice.ClientWebService;
+import com.gdc.robothelper.webservice.ClientSRMHelperWebService;
 import com.gdc.robothelper.webservice.SisproRobotManagerHelperService;
+import com.gdc.robothelper.webservice.WebServicesManager;
 import com.gdc.robothelper.webservice.robot.CreatorRobotWebService;
 import com.gdc.robothelper.webservice.robot.Webservice;
 
@@ -302,9 +303,9 @@ public class InterfaceManager {
 	  
 	  public static void showAddRobot(){
 		
-		System.out.println("servicio de consulta"+checkWebServicesConsult());
-		System.out.println("consultando servicio de creacion"+checkWebServicesCreator());
-		if(checkWebServicesConsult() && checkWebServicesCreator()){
+//		System.out.println("servicio de consulta"+checkWebServicesConsult());
+//		System.out.println("consultando servicio de creacion"+checkWebServicesCreator());
+		if(WebServicesManager.canConnectToConsultWebservices() && checkWebServicesCreator()){
 			SelectorApp selector = new SelectorApp();
 			selector.setVisible(true);
 
@@ -325,15 +326,15 @@ public class InterfaceManager {
 	}
 	
 	private static boolean checkWebServicesConsult(){
-		URL webServicesConsult = ClientWebService.getWebServicesConsult();
+		URL webServicesConsult = ClientSRMHelperWebService.getWebServicesConsult();
 		if(webServicesConsult!=null){
 			System.out.println("comprobando webservices"+webServicesConsult);
-			return ClientWebService.existeConexion(webServicesConsult.toString());
+			return ClientSRMHelperWebService.existeConexion(webServicesConsult.toString());
 		}else{
 			webServicesConsult=SisproRobotManagerHelperService.getUrl();
 			System.out.println("comprobando webservices"+webServicesConsult);
 
-			return ClientWebService.existeConexion(webServicesConsult.toString());
+			return ClientSRMHelperWebService.existeConexion(webServicesConsult.toString());
 		}
 	}
 	

@@ -20,7 +20,7 @@ import com.gdc.nms.robot.util.Constants;
 import com.gdc.nms.robot.util.registry.CommandExecutor;
 
 
-public class ClientWebService {
+public class ClientSRMHelperWebService {
 
 	
 	private static SisproRobotManagerHelper getPort(){
@@ -93,12 +93,13 @@ public class ClientWebService {
 	
 	public static void main(String[] args) throws InterruptedException {
 //		boolean existeConexion = ClientWebService.existeConexion("http://samyg2.sispro.mx:8080/helper/SRMHelper?wsdl");
-		System.out.println(ClientWebService.getWebServicesConsult().toString());
-		boolean existeConexion = ClientWebService.existeConexion(ClientWebService.getWebServicesConsult().toString());
+		System.out.println(ClientSRMHelperWebService.getWebServicesConsult().toString());
+		boolean existeConexion = ClientSRMHelperWebService.existeConexion(ClientSRMHelperWebService.getWebServicesConsult().toString());
 		System.out.println(existeConexion);
 	}
 	public static Object getWebService(String wsdlLocation) {
 	    try {
+	    	fixUntrustCertificate();
 	        QName qname = new QName("http://webservice.samyg.gdc.com/", "SisproRobotManagerHelperService");
 	        URL url = new URL(wsdlLocation);
 	        SisproRobotManagerHelperService service = new SisproRobotManagerHelperService(url, qname);
@@ -107,7 +108,13 @@ public class ClientWebService {
 	        return ex;
 	    } catch (WebServiceException ws) {
 	        return ws;
-	    }
+	    } catch (KeyManagementException e) {
+			e.printStackTrace();
+			return e;
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+			return e;
+		}
 	}
 	 
 	public static boolean existeConexion(String url) {
@@ -119,6 +126,7 @@ public class ClientWebService {
 	            return true;
 	        }
 	        if ((obj  instanceof WebServiceException)) {
+	        	((WebServiceException) obj).printStackTrace();
 	            respuesta = false;
 	        }
 	        i++;

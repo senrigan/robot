@@ -7,7 +7,7 @@ import java.net.URL;
 import javax.swing.JOptionPane;
 
 import com.gdc.nms.robot.gui.auxiliar.RegisrtyEditor;
-import com.gdc.robothelper.webservice.ClientWebService;
+import com.gdc.robothelper.webservice.ClientSRMHelperWebService;
 import com.gdc.robothelper.webservice.SisproRobotManagerHelper;
 import com.gdc.robothelper.webservice.SisproRobotManagerHelperService;
 import com.gdc.robothelper.webservice.robot.CreatorRobotWebService;
@@ -45,7 +45,7 @@ public class RegisrtryEditorManager {
 	
 	
 	public void showWebServiceConsult(){
-		URL webServicesConsult = ClientWebService.getWebServicesConsult();
+		URL webServicesConsult = ClientSRMHelperWebService.getWebServicesConsult();
 		final RegisrtyEditor reg=new RegisrtyEditor();
 		reg.setTitleWindows("Editar Ubicacion");
 		if(webServicesConsult!=null){
@@ -61,9 +61,9 @@ public class RegisrtryEditorManager {
 			public void actionPerformed(ActionEvent e) {
 				String texBox = reg.getTexBox();
 				
-				if(ClientWebService.existeConexion(texBox)){
+				if(ClientSRMHelperWebService.existeConexion(texBox)){
 					RobotManager.createWebServicesConsultRegistry(texBox);
-					URL wsUrl = ClientWebService.getWebServicesConsult();
+					URL wsUrl = ClientSRMHelperWebService.getWebServicesConsult();
 					
 					System.out.println(wsUrl);
 					System.out.println("textbpox"+texBox);
@@ -92,7 +92,7 @@ public class RegisrtryEditorManager {
 			public void actionPerformed(ActionEvent e) {
 				String texBox = reg.getTexBox();
 				
-				if(ClientWebService.existeConexion(texBox)){
+				if(ClientSRMHelperWebService.existeConexion(texBox)){
 					JOptionPane.showMessageDialog(null, "El webservices el valido","Correcto",JOptionPane.INFORMATION_MESSAGE);
 
 				}else{

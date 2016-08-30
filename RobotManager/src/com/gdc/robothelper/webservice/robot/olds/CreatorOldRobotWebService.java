@@ -32,7 +32,7 @@ public class CreatorOldRobotWebService {
     }
 	
 	
-	private  static WebservicePortType getPort(){
+	public  static WebservicePortType getPort(){
 		URL webServicesCreator = getWebServicesCreator();
 		Webservice service;
 		System.out.println("+++Consultando Webservices URL"+webServicesCreator);
@@ -49,7 +49,7 @@ public class CreatorOldRobotWebService {
 			String registry = CommandExecutor.readRegistrySpecificRegistry(Constants.LOCALREGISTRY, "webservicesCreator", 
 					CommandExecutor.REGISTRY_TYPE.REG_SZ.getName());
 			if(registry.equals("-1")){
-				return null;
+				registry = com.gdc.robothelper.webservice.robot.olds.Webservice.__getWsdlLocation().toString();
 			}
 			URL url=new URL(registry);
 			return url;

@@ -5,7 +5,7 @@ import java.net.URL;
 import javax.swing.JOptionPane;
 
 import com.gdc.nms.robot.gui.RobotManager;
-import com.gdc.robothelper.webservice.ClientWebService;
+import com.gdc.robothelper.webservice.ClientSRMHelperWebService;
 import com.gdc.robothelper.webservice.robot.CreatorRobotWebService;
 import com.gdc.robothelper.webservice.robot.news.CreatorNewRobotWebService;
 import com.gdc.robothelper.webservice.robot.olds.CreatorOldRobotWebService;
@@ -54,12 +54,12 @@ public class RegistryEditorController {
 	
 	public boolean validWSConsult(String url){
 		
-		return ClientWebService.existeConexion(url);
+		return ClientSRMHelperWebService.existeConexion(url);
 	}
 	
 	public void modifyWSConsult(String url){
 		if(validWSConsult(url)){
-			URL webServicesConsult = ClientWebService.getWebServicesConsult();
+			URL webServicesConsult = ClientSRMHelperWebService.getWebServicesConsult();
 			
 		}else{
 			
