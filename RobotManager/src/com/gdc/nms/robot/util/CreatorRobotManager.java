@@ -127,7 +127,7 @@ public class CreatorRobotManager {
 		URL webServicesCreator = CreatorRobotWebService.getWebServicesCreator();
 		String idRobot="";
 		if(webServicesCreator.toString().contains("pp")){
-			idRobot=CreatorNewRobotWebService.getIdRobot(applicationName, "0", location, ""+idApp, ""+retries,""+timeLapse, getInitDateForWebServices(),idFlujos);
+//			idRobot=CreatorNewRobotWebService.getIdRobot(applicationName, "0", location, ""+idApp, ""+retries,""+timeLapse, getInitDateForWebServices(),idFlujos);
 		}else{
 			idRobot=CreatorOldRobotWebService.getIdRobot(applicationName, "0", location, ""+idApp, ""+retries,""+timeLapse, getInitDateForWebServices());
 		}
@@ -164,6 +164,19 @@ public class CreatorRobotManager {
 			return false;
 		}
 		return false;
+	}
+	
+	
+	private String getIdRobot(String location,String idFlujos){
+		String idRobot="-1";
+		if(idFlujos!=null){
+			 idRobot= WebServicesManager.getNewWebServicesCreator().createRobot(applicationName, "0", 
+					location, ""+idApp, ""+retries,""+timeLapse, getInitDateForWebServices(),idFlujos);
+			
+		}else{
+			idRobot=WebServicesManager.getOLDWebServicesCreator().createRobot(applicationName, "0", location, ""+idApp, ""+retries,""+timeLapse, getInitDateForWebServices());
+		}
+		return idRobot;
 	}
 	
 	private String getIdFlujos(){
