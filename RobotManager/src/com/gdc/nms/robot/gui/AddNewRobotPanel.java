@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.border.EmptyBorder;
 
+import com.gdc.nms.robot.gui.auxiliar.CheckBoxList;
 import com.gdc.nms.robot.util.AppExaminator;
 import com.gdc.nms.robot.util.CreatorRobotManager;
 import com.gdc.nms.robot.util.InfoRobotMaker;
@@ -40,10 +41,14 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.Vector;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 public class AddNewRobotPanel extends JFrame {
 
@@ -66,6 +71,9 @@ public class AddNewRobotPanel extends JFrame {
 	private JSpinner retries;
 	private JComboBox<Integer> timeLapse;
 	private AppJsonObject selectedItem;
+	private JPanel flujosPanel;
+	private JScrollPane scrollPane;
+	private JPanel flujosContentPanel;
 
 
 
@@ -107,32 +115,30 @@ public class AddNewRobotPanel extends JFrame {
 	
 	public void initComponents(){
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-//		setPreferredSize(new Dimension(450, 100));
-		setBounds(100, 100, 450, 300);
-//		setMaximizedBounds(new Rectangle(100,100,450,400));
+		setBounds(100, 100, 450, 500);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0};
-		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_contentPane.columnWeights = new double[]{0.0, 1.0, 0.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
 		lblNewLabel = new JLabel("Servicio");
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
+		gbc_lblNewLabel.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblNewLabel.gridwidth = 2;
 		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel.anchor = GridBagConstraints.EAST;
 		gbc_lblNewLabel.gridx = 1;
 		gbc_lblNewLabel.gridy = 1;
 		contentPane.add(lblNewLabel, gbc_lblNewLabel);
 		
 		listServices = new JComboBox<AppJsonObject>();
 		GridBagConstraints gbc_listServices = new GridBagConstraints();
-		gbc_listServices.gridwidth = 2;
-		gbc_listServices.insets = new Insets(0, 0, 5, 5);
+		gbc_listServices.gridwidth = 3;
+		gbc_listServices.insets = new Insets(0, 0, 5, 0);
 		gbc_listServices.fill = GridBagConstraints.HORIZONTAL;
 		gbc_listServices.gridx = 3;
 		gbc_listServices.gridy = 1;
@@ -148,9 +154,9 @@ public class AddNewRobotPanel extends JFrame {
 		gbc_extraPanel.gridy = 2;
 		contentPane.add(extraPanel, gbc_extraPanel);
 		GridBagLayout gbl_extraPanel = new GridBagLayout();
-		gbl_extraPanel.columnWidths = new int[]{0, 0, 0, 0, 0, 0};
+		gbl_extraPanel.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0};
 		gbl_extraPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0};
-		gbl_extraPanel.columnWeights = new double[]{0.0, 1.0, 1.0, 1.0, 0.0, Double.MIN_VALUE};
+		gbl_extraPanel.columnWeights = new double[]{1.0, 0.0, 1.0, 1.0, 1.0, 0.0, Double.MIN_VALUE};
 		gbl_extraPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		extraPanel.setLayout(gbl_extraPanel);
 		
@@ -158,7 +164,7 @@ public class AddNewRobotPanel extends JFrame {
 		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
 		gbc_lblNewLabel_2.anchor = GridBagConstraints.WEST;
 		gbc_lblNewLabel_2.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_2.gridx = 1;
+		gbc_lblNewLabel_2.gridx = 2;
 		gbc_lblNewLabel_2.gridy = 2;
 		extraPanel.add(lblNewLabel_2, gbc_lblNewLabel_2);
 		
@@ -167,7 +173,7 @@ public class AddNewRobotPanel extends JFrame {
 		gbc_btnNewButton.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnNewButton.gridwidth = 2;
 		gbc_btnNewButton.insets = new Insets(0, 0, 5, 5);
-		gbc_btnNewButton.gridx = 2;
+		gbc_btnNewButton.gridx = 3;
 		gbc_btnNewButton.gridy = 2;
 		extraPanel.add(datePickerElement, gbc_btnNewButton);
 		
@@ -175,7 +181,7 @@ public class AddNewRobotPanel extends JFrame {
 		GridBagConstraints gbc_lblNewLabel_3 = new GridBagConstraints();
 		gbc_lblNewLabel_3.anchor = GridBagConstraints.WEST;
 		gbc_lblNewLabel_3.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_3.gridx = 1;
+		gbc_lblNewLabel_3.gridx = 2;
 		gbc_lblNewLabel_3.gridy = 3;
 		extraPanel.add(lblNewLabel_3, gbc_lblNewLabel_3);
 		
@@ -184,7 +190,7 @@ public class AddNewRobotPanel extends JFrame {
 		gbc_btnNewButton_2.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnNewButton_2.gridwidth = 2;
 		gbc_btnNewButton_2.insets = new Insets(0, 0, 5, 5);
-		gbc_btnNewButton_2.gridx = 2;
+		gbc_btnNewButton_2.gridx = 3;
 		gbc_btnNewButton_2.gridy = 3;
 		extraPanel.add(retries, gbc_btnNewButton_2);
 		
@@ -192,7 +198,7 @@ public class AddNewRobotPanel extends JFrame {
 		GridBagConstraints gbc_lblNewLabel_4 = new GridBagConstraints();
 		gbc_lblNewLabel_4.anchor = GridBagConstraints.WEST;
 		gbc_lblNewLabel_4.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_4.gridx = 1;
+		gbc_lblNewLabel_4.gridx = 2;
 		gbc_lblNewLabel_4.gridy = 4;
 		extraPanel.add(lblNewLabel_4, gbc_lblNewLabel_4);
 		
@@ -201,7 +207,7 @@ public class AddNewRobotPanel extends JFrame {
 		gbc_timeLapse.fill = GridBagConstraints.HORIZONTAL;
 		gbc_timeLapse.gridwidth = 2;
 		gbc_timeLapse.insets = new Insets(0, 0, 5, 5);
-		gbc_timeLapse.gridx = 2;
+		gbc_timeLapse.gridx = 3;
 		gbc_timeLapse.gridy = 4;
 		extraPanel.add(timeLapse, gbc_timeLapse);
 		
@@ -209,7 +215,7 @@ public class AddNewRobotPanel extends JFrame {
 		GridBagConstraints gbc_lblNewLabel_5 = new GridBagConstraints();
 		gbc_lblNewLabel_5.anchor = GridBagConstraints.WEST;
 		gbc_lblNewLabel_5.insets = new Insets(0, 0, 0, 5);
-		gbc_lblNewLabel_5.gridx = 1;
+		gbc_lblNewLabel_5.gridx = 2;
 		gbc_lblNewLabel_5.gridy = 5;
 		extraPanel.add(lblNewLabel_5, gbc_lblNewLabel_5);
 		
@@ -219,34 +225,62 @@ public class AddNewRobotPanel extends JFrame {
 		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textField.gridwidth = 2;
 		gbc_textField.insets = new Insets(0, 0, 0, 5);
-		gbc_textField.gridx = 2;
+		gbc_textField.gridx = 3;
 		gbc_textField.gridy = 5;
 		extraPanel.add(textField, gbc_textField);
 		textField.setColumns(10);
 		
 		searchButton = new JButton("Buscar");
 		GridBagConstraints gbc_searchButton = new GridBagConstraints();
-		gbc_searchButton.gridx = 4;
+		gbc_searchButton.gridx = 5;
 		gbc_searchButton.gridy = 5;
 		extraPanel.add(searchButton, gbc_searchButton);
 		
+	
+		flujosPanel();
 		cancelButton = new JButton("Cancelar");
 		GridBagConstraints gbc_cancelButton = new GridBagConstraints();
 		gbc_cancelButton.anchor = GridBagConstraints.EAST;
 		gbc_cancelButton.insets = new Insets(0, 0, 0, 5);
 		gbc_cancelButton.gridx = 3;
-		gbc_cancelButton.gridy = 7;
+		gbc_cancelButton.gridy = 8;
 		contentPane.add(cancelButton, gbc_cancelButton);
 		
 		ContinueButton = new JButton("Continuar");
 		GridBagConstraints gbc_ContinueButton = new GridBagConstraints();
 		gbc_ContinueButton.insets = new Insets(0, 0, 0, 5);
 		gbc_ContinueButton.gridx = 4;
-		gbc_ContinueButton.gridy = 7;
+		gbc_ContinueButton.gridy = 8;
 		contentPane.add(ContinueButton, gbc_ContinueButton);
 	}
 	
 	
+	private void flujosPanel(){
+		flujosPanel = new JPanel();
+		GridBagConstraints gbc_flujosPanel = new GridBagConstraints();
+		gbc_flujosPanel.gridwidth = 4;
+		gbc_flujosPanel.insets = new Insets(0, 0, 5, 5);
+		gbc_flujosPanel.fill = GridBagConstraints.BOTH;
+		gbc_flujosPanel.gridx = 1;
+		gbc_flujosPanel.gridy = 7;
+		contentPane.add(flujosPanel, gbc_flujosPanel);
+		GridBagLayout gbl_flujosPanel = new GridBagLayout();
+		gbl_flujosPanel.columnWidths = new int[]{0, 0};
+		gbl_flujosPanel.rowHeights = new int[]{0, 0, 0};
+		gbl_flujosPanel.columnWeights = new double[]{1.0, Double.MIN_VALUE};
+		gbl_flujosPanel.rowWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
+		flujosPanel.setLayout(gbl_flujosPanel);
+		
+		scrollPane = new JScrollPane();
+		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+		gbc_scrollPane.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane.gridx = 0;
+		gbc_scrollPane.gridy = 1;
+		flujosPanel.add(scrollPane, gbc_scrollPane);
+		
+		flujosContentPanel = new JPanel();
+		scrollPane.setViewportView(flujosContentPanel);
+	}
 	
 	private void searchListener(){
 		searchButton.addActionListener(new ActionListener() {
@@ -276,6 +310,7 @@ public class AddNewRobotPanel extends JFrame {
 		if(showOpenDialog==JFileChooser.APPROVE_OPTION){
 			File selectedFile = chooser.getSelectedFile();
 			Path path = selectedFile.toPath();
+			textField.setText(path.toString());
 			ArrayList<FlujoInformation> validFlujos;
 			final InstallerRobotPanel installer=new InstallerRobotPanel();
 			Path data;
@@ -465,11 +500,41 @@ public class AddNewRobotPanel extends JFrame {
 	
 	
 	private void  hiddenExtraPanel(){
+//		setBounds(new Rectangle(100, 100, 450, 100));
+
 		extraPanel.setVisible(false);
 	}
 	
 	private void showExtraPanel(){
+		setBounds(new Rectangle(100, 100, 450, 300));
 		extraPanel.setVisible(true);
+	}
+	
+	private void setValidFlujos(ArrayList<FlujoInformation> newFlujos){
+		Vector<JCheckBox> validFlujosToCheckBox = getValidFlujosToCheckBox(newFlujos);
+		CheckBoxList cbList = new CheckBoxList();
+		cbList.setListData(validFlujosToCheckBox);
+		flujosContentPanel.add(cbList);
+	}
+	private JCheckBox[] getValidFlujosToCheckBoxArray(ArrayList<FlujoInformation> newFlujos){
+		Vector<JCheckBox> validFlujosToCheckBox = getValidFlujosToCheckBox(newFlujos);
+		JCheckBox[] checkArray=new JCheckBox[validFlujosToCheckBox.size()];
+		int size=validFlujosToCheckBox.size();
+		for(int i=0;i<size;i++){
+			checkArray[i]=validFlujosToCheckBox.elementAt(i);
+		}
+		return checkArray;
+	}
+	
+	private Vector<JCheckBox> getValidFlujosToCheckBox(ArrayList<FlujoInformation> newFlujos){
+		Vector<JCheckBox> listJcheckbox=new Vector();
+		JCheckBox checkBox;
+		for(FlujoInformation flujo:newFlujos){
+			checkBox=new JCheckBox(flujo.getName());
+			listJcheckbox.add(checkBox);
+		}
+		return listJcheckbox;
+		
 	}
 	
 
