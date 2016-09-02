@@ -170,27 +170,30 @@ public class ValidatorManagement {
 		System.out.println("flujos Nakme"+flujosName);
 //		if(!folder.getFileName().toString().equals("application"))
 //			folder=folder.resolve("application");
-
-		ArrayList<FlujoInformation> flujosApp = AppExaminator.getFlujosApp(folder);
 		ArrayList<FlujoInformation> validFluj=new ArrayList<FlujoInformation>();
-		System.out.println("flujos apps vlaidFlijosWithoutcheckInstalled"+flujosApp);
-		for (FlujoInformation flujoInformation : flujosApp) {
-			String flujoName = flujoInformation.getName();
-			System.out.println(flujoName);
-			for (FlujoJsonObject object : flujosName) {
-				String alias = object.getAlias();
-				System.out.println("alias"+alias);
-				if(flujoName.equalsIgnoreCase(alias)){
-					System.out.println("fljoName"+flujoName+" alias"+alias);
-					flujoInformation.setIdFlujo(object.getId());
-				
-					validFluj.add(flujoInformation);
-					
-					
+		if(flujosName!=null){
+			ArrayList<FlujoInformation> flujosApp = AppExaminator.getFlujosApp(folder);
+			System.out.println("flujos apps vlaidFlijosWithoutcheckInstalled"+flujosApp);
+			for (FlujoInformation flujoInformation : flujosApp) {
+				String flujoName = flujoInformation.getName();
+				System.out.println(flujoName);
+				for (FlujoJsonObject object : flujosName) {
+					String alias = object.getAlias();
+					System.out.println("alias"+alias);
+					if(flujoName.equalsIgnoreCase(alias)){
+						System.out.println("fljoName"+flujoName+" alias"+alias);
+						flujoInformation.setIdFlujo(object.getId());
+						
+						validFluj.add(flujoInformation);
+						
+						
+					}
 				}
 			}
+			return validFluj;
+			
 		}
-		return validFluj;
+		return null;
 	}
 	
 	

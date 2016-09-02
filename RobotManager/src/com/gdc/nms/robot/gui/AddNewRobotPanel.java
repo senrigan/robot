@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.border.EmptyBorder;
+import javax.xml.bind.Validator;
 
 import com.gdc.nms.robot.gui.auxiliar.CheckBoxList;
 import com.gdc.nms.robot.util.AppExaminator;
@@ -15,6 +16,7 @@ import com.gdc.nms.robot.util.InfoRobotMaker;
 import com.gdc.nms.robot.util.ValidatorManagement;
 import com.gdc.nms.robot.util.indexer.AppJsonObject;
 import com.gdc.nms.robot.util.indexer.FlujoInformation;
+import com.gdc.nms.robot.util.indexer.FlujoJsonObject;
 import com.gdc.robothelper.webservice.WebServicesManager;
 import com.gdc.robothelper.webservice.robot.news.WebservicePortType;
 
@@ -74,6 +76,7 @@ public class AddNewRobotPanel extends JFrame {
 	private JPanel flujosPanel;
 	private JScrollPane scrollPane;
 	private JPanel flujosContentPanel;
+	private InfoRobotMaker infoRobotM;
 
 
 
@@ -101,6 +104,7 @@ public class AddNewRobotPanel extends JFrame {
 		initListener();
 		initDataComponents();
 		hiddenExtraPanel();
+		hiddenFlujosPanel();
 		checkContinue();
 	}
 	
@@ -115,20 +119,20 @@ public class AddNewRobotPanel extends JFrame {
 	
 	public void initComponents(){
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 450, 500);
+		setBounds(100, 100, 450, 100);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0};
 		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_contentPane.columnWeights = new double[]{0.0, 1.0, 0.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
 		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
 		lblNewLabel = new JLabel("Servicio");
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-		gbc_lblNewLabel.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblNewLabel.anchor = GridBagConstraints.EAST;
 		gbc_lblNewLabel.gridwidth = 2;
 		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel.gridx = 1;
@@ -310,74 +314,84 @@ public class AddNewRobotPanel extends JFrame {
 		if(showOpenDialog==JFileChooser.APPROVE_OPTION){
 			File selectedFile = chooser.getSelectedFile();
 			Path path = selectedFile.toPath();
-			textField.setText(path.toString());
 			ArrayList<FlujoInformation> validFlujos;
 			final InstallerRobotPanel installer=new InstallerRobotPanel();
 			Path data;
-			final InfoRobotMaker infoRobotM=new InfoRobotMaker();
+			infoRobotM=new InfoRobotMaker();
 			infoRobotM.setTimeLapse((Integer)timeLapse.getSelectedItem());
 			infoRobotM.setRetries((Integer)retries.getValue());
 			infoRobotM.setDateForRun(dateTimePicker.getDate());
 			if(ValidatorManagement.isValidMainFolder(path)){
 				System.out.println("is valid main folder");
 				validFlujos = ValidatorManagement.getValidFlujosWithoutCheckInstalled(path.resolve("application"),selectedItem.getId());
-				System.out.println("valid flujos main"+validFlujos.size());
-				if(validFlujos.isEmpty()){
-					JOptionPane.showMessageDialog(null, "No existen flujos validos", "Error",JOptionPane.ERROR_MESSAGE);
+				if(validFlujos==null){
+					JOptionPane.showMessageDialog(null, "No se han encontrado flujos validos correspondientes al servicio ", "Error",JOptionPane.ERROR_MESSAGE);
 					closeWindows();
 				}else{
-					if(AppExaminator.flujosConstanisStepsValid(validFlujos)){
-						data=path.resolve("data");
+					
+					System.out.println("valid flujos main"+validFlujos.size());
+					if(validFlujos.isEmpty()){
+						JOptionPane.showMessageDialog(null, "El Servicio no contine Flujos para añadir ", "Error",JOptionPane.ERROR_MESSAGE);
+						closeWindows();
+					}else{
+						if(AppExaminator.flujosConstanisStepsValid(validFlujos)){
+							data=path.resolve("data");
 //						final Path dataPath=data;
 //						final ArrayList<FlujoInformation> validFinalFlujos=validFlujos;
 //						final AppJsonObject finalJsonObject=selectedItem;
-						infoRobotM.setAppSelected(selectedItem);
-						infoRobotM.setDataFolder(data);
-						infoRobotM.setFlujos(validFlujos);
-						
-						
-						SwingUtilities.invokeLater(new Runnable() {
-							
-							@Override
-							public void run() {
-								installer.initSelectorWindowsAddFlujos(infoRobotM);;
-								
-							}
-						});
-						
-					}else{
-						JOptionPane.showMessageDialog(null, "No existen Pasos validos", "Error",JOptionPane.ERROR_MESSAGE);
+							infoRobotM.setAppSelected(selectedItem);
+							infoRobotM.setDataFolder(data);
+							infoRobotM.setFlujos(validFlujos);
+							textField.setText(path.toString());
 
+							
+//						SwingUtilities.invokeLater(new Runnable() {
+//							
+//							@Override
+//							public void run() {
+//								installer.initSelectorWindowsAddFlujos(infoRobotM);;
+//								
+//							}
+//						});
+//						
+						}else{
+							JOptionPane.showMessageDialog(null, "No existen Pasos validos", "Error",JOptionPane.ERROR_MESSAGE);
+							
+						}
 					}
 				}
 				
 			}else{
-				System.out.println("is not valid main folder");
 				validFlujos= ValidatorManagement.
 						getValidFlujosWithoutCheckInstalled(path,selectedItem.getId());
-				System.out.println("valid flujos without main"+validFlujos.size());
-
-				if(validFlujos.isEmpty()){
-					JOptionPane.showMessageDialog(null, "No existen flujos validos", "Error",JOptionPane.ERROR_MESSAGE);
+				if(validFlujos==null){
+					JOptionPane.showMessageDialog(null, "No se han encontrado flujos validos correspondientes al servicio ", "Error",JOptionPane.ERROR_MESSAGE);
 					closeWindows();
-				
 				}else{
-					if(AppExaminator.flujosConstanisStepsValid(validFlujos)){
-						infoRobotM.setAppSelected(selectedItem);
-						infoRobotM.setFlujos(validFlujos);
-						
-						
-						SwingUtilities.invokeLater(new Runnable() {
-							
-							@Override
-							public void run() {
-								installer.initSelectorWindowsAddFlujos(infoRobotM);
-								AddNewRobotPanel.this.dispose();
-							}
-						});
+					
+					if(validFlujos.isEmpty()){
+						JOptionPane.showMessageDialog(null, "No existen flujos validos", "Error",JOptionPane.ERROR_MESSAGE);
 						
 					}else{
-						JOptionPane.showMessageDialog(null, "No existen Pasos validos", "Error",JOptionPane.ERROR_MESSAGE);
+						if(AppExaminator.flujosConstanisStepsValid(validFlujos)){
+							infoRobotM.setAppSelected(selectedItem);
+							infoRobotM.setFlujos(validFlujos);
+							textField.setText(path.toString());
+
+							
+							
+//						SwingUtilities.invokeLater(new Runnable() {
+//							
+//							@Override
+//							public void run() {
+//								installer.initSelectorWindowsAddFlujos(infoRobotM);
+//								AddNewRobotPanel.this.dispose();
+//							}
+//						});
+							
+						}else{
+							JOptionPane.showMessageDialog(null, "No existen Pasos validos", "Error",JOptionPane.ERROR_MESSAGE);
+						}
 					}
 				}
 				
@@ -385,6 +399,12 @@ public class AddNewRobotPanel extends JFrame {
 				
 
 			}
+			if(infoRobotM.getFlujos()!=null &&!infoRobotM.getFlujos().isEmpty()){
+				setValidFlujos(infoRobotM.getFlujos());
+				showFlujosPanel();
+			}
+			
+
 			
 								
 		}
@@ -394,6 +414,7 @@ public class AddNewRobotPanel extends JFrame {
 	private void initDataComponents(){
 		setApplicationNames();
 		calculatetValidTimeLapse();
+		setDefaultRetries();
 	}
 	
 	
@@ -427,7 +448,10 @@ public class AddNewRobotPanel extends JFrame {
 				JComboBox<AppJsonObject> services=(JComboBox<AppJsonObject>)e.getSource();
 				selectedItem = (AppJsonObject)services.getSelectedItem();
 				if(selectedItem!=null){
+					clearElementes();
 					System.out.println("no es nulo");
+					ArrayList<FlujoJsonObject> flujosName = ValidatorManagement.getFlujosName(selectedItem.getId());
+					System.out.println("flujosname"+flujosName);
 					showExtraPanel();
 				}else{
 					System.out.println("es nulo");
@@ -436,6 +460,16 @@ public class AddNewRobotPanel extends JFrame {
 				
 			}
 		});
+	}
+	
+	
+	private void clearFolderText(){
+		textField.setText("");
+	}
+	private void clearElementes(){
+		retries.setValue(new Integer(3));
+		clearFolderText();
+		datePickerElement=new DateTimePicker();
 	}
 	
 	private void closeWindows(){
@@ -455,7 +489,9 @@ public class AddNewRobotPanel extends JFrame {
 	}
 	
 	
-	
+	private void setDefaultRetries(){
+		retries.setValue(new Integer(3));
+	}
 
 	private class Alias implements Comparator<AppJsonObject>{
 
@@ -500,9 +536,26 @@ public class AddNewRobotPanel extends JFrame {
 	
 	
 	private void  hiddenExtraPanel(){
-//		setBounds(new Rectangle(100, 100, 450, 100));
+		setBounds(new Rectangle(100, 100, 450, 100));
 
 		extraPanel.setVisible(false);
+	}
+	
+	private void hiddenFlujosPanel(){
+		Object selectedItem = listServices.getSelectedItem();
+		if(selectedItem!=null){
+			setBounds(new Rectangle(100, 100, 450, 300));
+			
+		}else{
+			setBounds(new Rectangle(100, 100, 450,100));
+		}
+		
+		flujosPanel.setVisible(false);
+	}
+	
+	private void showFlujosPanel(){
+		setBounds(new Rectangle(100, 100, 450, 500));
+		flujosPanel.setVisible(true);
 	}
 	
 	private void showExtraPanel(){
@@ -511,10 +564,16 @@ public class AddNewRobotPanel extends JFrame {
 	}
 	
 	private void setValidFlujos(ArrayList<FlujoInformation> newFlujos){
+		deleteFlujosContent();
 		Vector<JCheckBox> validFlujosToCheckBox = getValidFlujosToCheckBox(newFlujos);
 		CheckBoxList cbList = new CheckBoxList();
 		cbList.setListData(validFlujosToCheckBox);
 		flujosContentPanel.add(cbList);
+	}
+	
+	
+	private void deleteFlujosContent(){
+		flujosContentPanel.removeAll();
 	}
 	private JCheckBox[] getValidFlujosToCheckBoxArray(ArrayList<FlujoInformation> newFlujos){
 		Vector<JCheckBox> validFlujosToCheckBox = getValidFlujosToCheckBox(newFlujos);

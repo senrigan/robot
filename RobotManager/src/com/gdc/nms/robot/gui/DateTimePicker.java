@@ -30,8 +30,6 @@ public class DateTimePicker extends JXDatePicker {
         commitTime();
         if(getLogewDate().before(this.getDate())){
         	super.commitEdit();
-        	
-        }else{
         }
     }
 
@@ -166,8 +164,8 @@ public class DateTimePicker extends JXDatePicker {
     	return this.getMonthView().getLowerBound();
     }
     
-    public static  void setSpinnerDate(Date spinnerDate){
-    	spinnerDate=spinnerDate;
+    public static  void setSpinnerDate(Date spinnerDateVal){
+    	spinnerDate=spinnerDateVal;
     }
     public static void main(String[] args) {
         Date date = new Date();

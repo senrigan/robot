@@ -577,13 +577,15 @@ public class AppExaminator {
 				}
 				
 				File[] steps = file.listFiles();
-				ArrayList<StepInformation> stepsFiles = indexSteps(steps);
-				flujo.setIdFlujo(idFlujo);
-				flujo.setName(nameFlujo);
-				flujo.setSteps(stepsFiles);
-				flujo.setNumSteps(stepsFiles.size());
-				flujo.setPath(file.toPath());
-				flujos.add(flujo);
+				if(steps !=null && steps.length>0){
+					ArrayList<StepInformation> stepsFiles = indexSteps(steps);
+					flujo.setIdFlujo(idFlujo);
+					flujo.setName(nameFlujo);
+					flujo.setSteps(stepsFiles);
+					flujo.setNumSteps(stepsFiles.size());
+					flujo.setPath(file.toPath());
+					flujos.add(flujo);					
+				}
 			}
 		}
 		return flujos;
