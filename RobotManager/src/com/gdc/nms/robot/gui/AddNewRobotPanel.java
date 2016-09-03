@@ -1,26 +1,25 @@
 package com.gdc.nms.robot.gui;
 
+import java.awt.Checkbox;
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Font;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.border.EmptyBorder;
-import javax.xml.bind.Validator;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import com.gdc.nms.robot.gui.auxiliar.CheckBoxList;
 import com.gdc.nms.robot.util.AppExaminator;
-import com.gdc.nms.robot.util.CreatorRobotManager;
 import com.gdc.nms.robot.util.InfoRobotMaker;
 import com.gdc.nms.robot.util.ValidatorManagement;
 import com.gdc.nms.robot.util.indexer.AppJsonObject;
 import com.gdc.nms.robot.util.indexer.FlujoInformation;
 import com.gdc.nms.robot.util.indexer.FlujoJsonObject;
 import com.gdc.robothelper.webservice.WebServicesManager;
-import com.gdc.robothelper.webservice.robot.news.WebservicePortType;
-
-import javafx.scene.web.WebEngineBuilder;
 
 import java.awt.GridBagLayout;
 import javax.swing.JComboBox;
@@ -32,6 +31,7 @@ import javax.swing.JOptionPane;
 
 import java.awt.Insets;
 import java.awt.Rectangle;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -48,9 +48,7 @@ import java.util.Vector;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 
 public class AddNewRobotPanel extends JFrame {
 
@@ -77,6 +75,8 @@ public class AddNewRobotPanel extends JFrame {
 	private JScrollPane scrollPane;
 	private JPanel flujosContentPanel;
 	private InfoRobotMaker infoRobotM;
+	private ArrayList<FlujoJsonObject> flujosOfServcies;
+	private CheckBoxList cbList;
 
 
 
@@ -94,7 +94,10 @@ public class AddNewRobotPanel extends JFrame {
 				}
 			}
 		});
+		
 	}
+	
+	
 
 	/**
 	 * Create the frame.
@@ -105,16 +108,12 @@ public class AddNewRobotPanel extends JFrame {
 		initDataComponents();
 		hiddenExtraPanel();
 		hiddenFlujosPanel();
-		checkContinue();
+		enableContinue(false);
 	}
 	
 	
-	private void checkContinue(){
-		if(selectedItem!=null){
-			ContinueButton.setEnabled(true);
-		}else{
-			ContinueButton.setEnabled(false);
-		}
+	private void enableContinue(boolean enable){
+		ContinueButton.setEnabled(enable);
 	}
 	
 	public void initComponents(){
@@ -225,6 +224,7 @@ public class AddNewRobotPanel extends JFrame {
 		
 		textField = new JTextField();
 		textField.setEditable(false);
+		textField.setFont(new Font("Times New Roman", Font.BOLD, 9));
 		GridBagConstraints gbc_textField = new GridBagConstraints();
 		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textField.gridwidth = 2;
@@ -323,7 +323,8 @@ public class AddNewRobotPanel extends JFrame {
 			infoRobotM.setDateForRun(dateTimePicker.getDate());
 			if(ValidatorManagement.isValidMainFolder(path)){
 				System.out.println("is valid main folder");
-				validFlujos = ValidatorManagement.getValidFlujosWithoutCheckInstalled(path.resolve("application"),selectedItem.getId());
+				validFlujos=ValidatorManagement.getValidFlujosWithoutCheckInstalled(path.resolve("application"),flujosOfServcies);
+//				validFlujos = ValidatorManagement.getValidFlujosWithoutCheckInstalled(path.resolve("application"),selectedItem.getId());
 				if(validFlujos==null){
 					JOptionPane.showMessageDialog(null, "No se han encontrado flujos validos correspondientes al servicio ", "Error",JOptionPane.ERROR_MESSAGE);
 					closeWindows();
@@ -336,24 +337,12 @@ public class AddNewRobotPanel extends JFrame {
 					}else{
 						if(AppExaminator.flujosConstanisStepsValid(validFlujos)){
 							data=path.resolve("data");
-//						final Path dataPath=data;
-//						final ArrayList<FlujoInformation> validFinalFlujos=validFlujos;
-//						final AppJsonObject finalJsonObject=selectedItem;
 							infoRobotM.setAppSelected(selectedItem);
 							infoRobotM.setDataFolder(data);
 							infoRobotM.setFlujos(validFlujos);
 							textField.setText(path.toString());
 
 							
-//						SwingUtilities.invokeLater(new Runnable() {
-//							
-//							@Override
-//							public void run() {
-//								installer.initSelectorWindowsAddFlujos(infoRobotM);;
-//								
-//							}
-//						});
-//						
 						}else{
 							JOptionPane.showMessageDialog(null, "No existen Pasos validos", "Error",JOptionPane.ERROR_MESSAGE);
 							
@@ -363,7 +352,7 @@ public class AddNewRobotPanel extends JFrame {
 				
 			}else{
 				validFlujos= ValidatorManagement.
-						getValidFlujosWithoutCheckInstalled(path,selectedItem.getId());
+						getValidFlujosWithoutCheckInstalled(path,flujosOfServcies);
 				if(validFlujos==null){
 					JOptionPane.showMessageDialog(null, "No se han encontrado flujos validos correspondientes al servicio ", "Error",JOptionPane.ERROR_MESSAGE);
 					closeWindows();
@@ -448,11 +437,17 @@ public class AddNewRobotPanel extends JFrame {
 				JComboBox<AppJsonObject> services=(JComboBox<AppJsonObject>)e.getSource();
 				selectedItem = (AppJsonObject)services.getSelectedItem();
 				if(selectedItem!=null){
-					clearElementes();
-					System.out.println("no es nulo");
-					ArrayList<FlujoJsonObject> flujosName = ValidatorManagement.getFlujosName(selectedItem.getId());
-					System.out.println("flujosname"+flujosName);
-					showExtraPanel();
+					if(checkIfServicesContainFlujos()){
+						clearElementes();
+						System.out.println("no es nulo");
+						ArrayList<FlujoJsonObject> flujosName = ValidatorManagement.getFlujosName(selectedItem.getId());
+						System.out.println("flujosname"+flujosName);
+						showExtraPanel();
+						hiddenFlujosPanel();
+					}else{
+						JOptionPane.showMessageDialog(null, "El Servicio Seleccionado no contiene Flujos", "Error", JOptionPane.ERROR_MESSAGE);
+						hiddenExtraPanel();
+					}
 				}else{
 					System.out.println("es nulo");
 					hiddenExtraPanel();
@@ -462,14 +457,25 @@ public class AddNewRobotPanel extends JFrame {
 		});
 	}
 	
-	
+	private boolean checkIfServicesContainFlujos(){
+		ArrayList<FlujoJsonObject> flujosName = ValidatorManagement.getFlujosName(selectedItem.getId());
+		if(flujosName!=null && !flujosName.isEmpty()){
+			flujosOfServcies=flujosName;
+			return true;
+		}
+		return false;
+	}
 	private void clearFolderText(){
 		textField.setText("");
+		
 	}
 	private void clearElementes(){
 		retries.setValue(new Integer(3));
 		clearFolderText();
-		datePickerElement=new DateTimePicker();
+//		datePickerElement=new DateTimePicker();
+		dateTimePicker=new DateTimePicker();
+		deleteFlujosContent();
+
 	}
 	
 	private void closeWindows(){
@@ -544,7 +550,7 @@ public class AddNewRobotPanel extends JFrame {
 	private void hiddenFlujosPanel(){
 		Object selectedItem = listServices.getSelectedItem();
 		if(selectedItem!=null){
-			setBounds(new Rectangle(100, 100, 450, 300));
+			setBounds(new Rectangle(100, 100, 450, 250));
 			
 		}else{
 			setBounds(new Rectangle(100, 100, 450,100));
@@ -554,7 +560,7 @@ public class AddNewRobotPanel extends JFrame {
 	}
 	
 	private void showFlujosPanel(){
-		setBounds(new Rectangle(100, 100, 450, 500));
+		setBounds(new Rectangle(100, 100, 450, 350));
 		flujosPanel.setVisible(true);
 	}
 	
@@ -565,9 +571,26 @@ public class AddNewRobotPanel extends JFrame {
 	
 	private void setValidFlujos(ArrayList<FlujoInformation> newFlujos){
 		deleteFlujosContent();
-		Vector<JCheckBox> validFlujosToCheckBox = getValidFlujosToCheckBox(newFlujos);
-		CheckBoxList cbList = new CheckBoxList();
-		cbList.setListData(validFlujosToCheckBox);
+//		Vector<JCheckBox> validFlujosToCheckBox = getValidFlujosToCheckBox(newFlujos);
+		JCheckBox[] validFlujosToCheckBoxArray = getValidFlujosToCheckBoxArray(newFlujos);
+		
+		cbList = new CheckBoxList();
+		cbList.setListData(validFlujosToCheckBoxArray);
+	
+//		cbList.addListSelectionListener(new ListSelectionListener() {
+//			
+//			@Override
+//			public void valueChanged(ListSelectionEvent e) {
+//				JCheckBox checkBox=(JCheckBox)((CheckBoxList)e.getSource()).getSelectedValue();
+//				if(checkBox.isSelected()){
+//					System.out.println("the folder "+checkBox.getText()+" is Selected");
+//				}else{
+//					System.out.println("the folder "+checkBox.getText()+" is Deselect");
+//
+//				}
+//				
+//			}
+//		});
 		flujosContentPanel.add(cbList);
 	}
 	
@@ -590,11 +613,46 @@ public class AddNewRobotPanel extends JFrame {
 		JCheckBox checkBox;
 		for(FlujoInformation flujo:newFlujos){
 			checkBox=new JCheckBox(flujo.getName());
+			setCheckBoxListner(checkBox);
 			listJcheckbox.add(checkBox);
 		}
 		return listJcheckbox;
 		
 	}
+	
+	private void setCheckBoxListner(JCheckBox checkBoxElement){
+		checkBoxElement.addChangeListener(new ChangeListener() {
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				JCheckBox check=(JCheckBox)e.getSource();
+//				if(check.isSelected()){
+//					System.out.println("the folder "+check.getText()+" is selected");
+//				}else{
+//					System.out.println("the folder"+check.getText()+" is deseleected");
+//				}
+				checkIfExistSelectCheckBox();
+			}
+		});
+	}
+	
+	
+	private void checkIfExistSelectCheckBox(){
+		ArrayList<JCheckBox> selectedCheckBox = cbList.getSelectedCheckBox();
+		if(!selectedCheckBox.isEmpty()){
+			enableContinue(true);
+		}else{
+			enableContinue(false);
+		}
+	}
+	
+	
+	private boolean isValidForm(){
+		dateTimePicker.get
+		return false;
+	}
+	
+	
+
 	
 
 }
