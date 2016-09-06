@@ -19,6 +19,7 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
+import com.gdc.nms.robot.gui.AddNewRobotPanel;
 import com.gdc.nms.robot.gui.DeleteRobotPanel;
 import com.gdc.nms.robot.gui.InfoWindows;
 import com.gdc.nms.robot.gui.RobotManager;
@@ -306,9 +307,10 @@ public class InterfaceManager {
 //		System.out.println("servicio de consulta"+checkWebServicesConsult());
 //		System.out.println("consultando servicio de creacion"+checkWebServicesCreator());
 		if(WebServicesManager.canConnectToConsultWebservices() && checkWebServicesCreator()){
-			SelectorApp selector = new SelectorApp();
-			selector.setVisible(true);
-
+//			SelectorApp selector = new SelectorApp();
+//			selector.setVisible(true);
+			AddNewRobotPanel addRobot=new AddNewRobotPanel();
+			addRobot.setVisible(true);
 		}else{
 			JOptionPane.showMessageDialog(null, "No es posible conectar con el servidor","Error",JOptionPane.ERROR_MESSAGE);
 		}

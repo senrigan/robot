@@ -14,6 +14,7 @@ import javax.swing.event.ChangeListener;
 
 import com.gdc.nms.robot.gui.auxiliar.CheckBoxList;
 import com.gdc.nms.robot.util.AppExaminator;
+import com.gdc.nms.robot.util.CreatorRobotManager;
 import com.gdc.nms.robot.util.InfoRobotMaker;
 import com.gdc.nms.robot.util.ValidatorManagement;
 import com.gdc.nms.robot.util.indexer.AppJsonObject;
@@ -31,10 +32,10 @@ import javax.swing.JOptionPane;
 
 import java.awt.Insets;
 import java.awt.Rectangle;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Path;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -48,6 +49,8 @@ import java.util.Vector;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JTextField;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.SwingUtilities;
 import javax.swing.JScrollPane;
 
 public class AddNewRobotPanel extends JFrame {
@@ -291,6 +294,10 @@ public class AddNewRobotPanel extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				if(checkExistFlujosPanel()){
+					clearFolderText();
+					deleteFlujosContent();
+				}
 				showFileChoser();
 			}
 		});
@@ -304,7 +311,13 @@ public class AddNewRobotPanel extends JFrame {
 				timeLapse.addItem(i);
 			}
 		}
+		setDefaultTimePolling();
+	}
+	
+	
+	private void setDefaultTimePolling(){
 		timeLapse.setSelectedItem(new Integer(15));
+
 	}
 	
 	private void showFileChoser(){
@@ -398,7 +411,15 @@ public class AddNewRobotPanel extends JFrame {
 								
 		}
 	}
-	
+	private boolean checkExistFlujosPanel(){
+		if(cbList!=null){
+			System.out.println("list of checkBox"+cbList.getListCheckBox());
+			if(cbList.getListCheckBox().size()>0){
+				return true;
+			}			
+		}
+		return false;
+	}
 	
 	private void initDataComponents(){
 		setApplicationNames();
@@ -426,7 +447,20 @@ public class AddNewRobotPanel extends JFrame {
 	}
 	
 	private void continueListener(){
-		
+		ContinueButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(isValidForm()){
+					CreatorRobotManager creator=new CreatorRobotManager();
+					ArrayList<FlujoInformation> selectedFlows = getSelectedFlows();
+					infoRobotM.setFlujos(selectedFlows);
+					creator.createRobotWithPath(infoRobotM, false);
+				}else{
+					System.out.println("nada esta bien");
+				}
+			}
+		});
 	}
 	
 	private void listServicesListener(){
@@ -438,7 +472,7 @@ public class AddNewRobotPanel extends JFrame {
 				selectedItem = (AppJsonObject)services.getSelectedItem();
 				if(selectedItem!=null){
 					if(checkIfServicesContainFlujos()){
-						clearElementes();
+						clearElements();
 						System.out.println("no es nulo");
 						ArrayList<FlujoJsonObject> flujosName = ValidatorManagement.getFlujosName(selectedItem.getId());
 						System.out.println("flujosname"+flujosName);
@@ -469,11 +503,14 @@ public class AddNewRobotPanel extends JFrame {
 		textField.setText("");
 		
 	}
-	private void clearElementes(){
+	private void clearElements(){
 		retries.setValue(new Integer(3));
 		clearFolderText();
 //		datePickerElement=new DateTimePicker();
-		dateTimePicker=new DateTimePicker();
+//		dateTimePicker=new DateTimePicker();
+//		datePickerElement=new DateTimePicker();
+		setDefaultRetries();
+		setDefaultTimePolling();
 		deleteFlujosContent();
 
 	}
@@ -496,7 +533,9 @@ public class AddNewRobotPanel extends JFrame {
 	
 	
 	private void setDefaultRetries(){
-		retries.setValue(new Integer(3));
+//		retries.setValue(new Integer(3));
+//		SpinnerModel model = retries.getModel();
+		retries.setModel(new SpinnerNumberModel(3, 0, 1440, 1));
 	}
 
 	private class Alias implements Comparator<AppJsonObject>{
@@ -596,7 +635,22 @@ public class AddNewRobotPanel extends JFrame {
 	
 	
 	private void deleteFlujosContent(){
-		flujosContentPanel.removeAll();
+
+		if(SwingUtilities.isEventDispatchThread()){	
+			System.out.println("is in edt");
+			flujosContentPanel.removeAll();
+			flujosContentPanel.repaint();
+		}else{
+			System.out.println("are not in edt");
+				SwingUtilities.invokeLater(new Runnable() {
+					
+					@Override
+					public void run() {
+						flujosContentPanel.removeAll();
+						flujosContentPanel.repaint();
+					}
+				});
+		}
 	}
 	private JCheckBox[] getValidFlujosToCheckBoxArray(ArrayList<FlujoInformation> newFlujos){
 		Vector<JCheckBox> validFlujosToCheckBox = getValidFlujosToCheckBox(newFlujos);
@@ -636,6 +690,24 @@ public class AddNewRobotPanel extends JFrame {
 	}
 	
 	
+	private ArrayList<FlujoInformation> getSelectedFlows(){
+		ArrayList<JCheckBox> selectedCheckBox = cbList.getSelectedCheckBox();
+		ArrayList<FlujoInformation> newFlujos=new ArrayList<FlujoInformation>();
+		ArrayList<FlujoInformation> flujos = infoRobotM.getFlujos();
+		for (JCheckBox jCheckBox : selectedCheckBox) {
+			for (FlujoInformation flujo : flujos) {
+				String flujName=flujo.getName();
+				System.out.println("flujoName"+flujName+"selectedName"+jCheckBox.getText());
+				System.out.println("equals"+flujName.equalsIgnoreCase(jCheckBox.getText()));
+				if(flujName.equalsIgnoreCase(jCheckBox.getText())){
+					newFlujos.add(flujo);
+					break;
+				}
+			}
+		}
+		return newFlujos;
+	}
+	
 	private void checkIfExistSelectCheckBox(){
 		ArrayList<JCheckBox> selectedCheckBox = cbList.getSelectedCheckBox();
 		if(!selectedCheckBox.isEmpty()){
@@ -647,7 +719,34 @@ public class AddNewRobotPanel extends JFrame {
 	
 	
 	private boolean isValidForm(){
-		dateTimePicker.get
+		System.out.println("datepikckerElement"+datePickerElement.getDate());;
+		System.out.println("dateleTimePicker"+dateTimePicker.getDate());
+		if(textField!=null &&!textField.equals("")){
+			if(datePickerElement.getDate()!=null){
+				if(timeLapse.getSelectedItem()!=null){
+					if(retries.getValue()!=null){
+						ArrayList<JCheckBox> selectedCheckBox = cbList.getSelectedCheckBox();	
+						if(selectedCheckBox!=null){
+							System.out.println(selectedCheckBox);
+							return true;
+						}else{
+							JOptionPane.showMessageDialog(this,"Es necesario Seleccionar un flujo" , "Error", JOptionPane.ERROR_MESSAGE);
+						}
+					}else{
+						JOptionPane.showMessageDialog(this,"Es necesario especificar numero de reintentos" , "Error", JOptionPane.ERROR_MESSAGE);
+					}
+				}else{
+					JOptionPane.showMessageDialog(this,"Es necesario especificar un tiempo de poleo" , "Error", JOptionPane.ERROR_MESSAGE);
+				}
+			}else{
+				JOptionPane.showMessageDialog(this,"Es necesario especificar la fecha de inicio del robot" , "Error", JOptionPane.ERROR_MESSAGE);
+			}
+		}else{
+			JOptionPane.showMessageDialog(this,"Es necesario seleccionar una ruta de flujos" , "Error", JOptionPane.ERROR_MESSAGE);
+		}
+		
+		
+		
 		return false;
 	}
 	

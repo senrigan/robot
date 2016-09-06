@@ -44,6 +44,17 @@ public class CheckBoxList extends JList
        }
        return list;
    }
+   
+   public ArrayList<JCheckBox> getListCheckBox(){
+       @SuppressWarnings("unchecked")
+	ListModel<JCheckBox> model = getModel();
+	   ArrayList<JCheckBox> list=new ArrayList<JCheckBox>();
+       for(int i=0;i<model.getSize();i++){
+     	  JCheckBox elementAt = model.getElementAt(i);
+     	  list.add(elementAt);
+       }
+       return list;
+   }
 
    protected class CellRenderer implements ListCellRenderer
    {
