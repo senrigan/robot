@@ -30,6 +30,7 @@ import com.gdc.nms.robot.gui.newInterface.ButtonListener;
 import com.gdc.nms.robot.gui.tree.Element;
 import com.gdc.nms.robot.gui.util.SRMGUI;
 import com.gdc.nms.robot.util.AppExaminator;
+import com.gdc.nms.robot.util.Language;
 import com.gdc.nms.robot.util.indexer.AppInformation;
 import com.gdc.nms.robot.util.jade.InitPlataform;
 import com.gdc.nms.robot.util.jade.SRMAgentManager;
@@ -44,6 +45,8 @@ import jade.core.replication.MainReplicationProxy;
 
 public class InterfaceManager {
 	private SRMGUI gui;
+	private boolean addRobotActive;
+	private boolean deleteRobotActive;
 	public InterfaceManager(SRMGUI gui){
 		this.gui=gui;
 	}
@@ -301,18 +304,23 @@ public class InterfaceManager {
 		  }
 		  
 	  }
-	  
-	  public static void showAddRobot(){
+/**
+ * invoke a new instance of addnewRobotPanel and show them only if already not runnining other instances of same 	  
+ */
+	  public  void showAddRobot(){
 		
 //		System.out.println("servicio de consulta"+checkWebServicesConsult());
 //		System.out.println("consultando servicio de creacion"+checkWebServicesCreator());
-		if(WebServicesManager.canConnectToConsultWebservices() && checkWebServicesCreator()){
-//			SelectorApp selector = new SelectorApp();
-//			selector.setVisible(true);
-			AddNewRobotPanel addRobot=new AddNewRobotPanel();
-			addRobot.setVisible(true);
+		if(addRobotActive){
+			JOptionPane.showMessageDialog(null, Language.get("addrobot.error"), "Error", JOptionPane.ERROR_MESSAGE);
 		}else{
-			JOptionPane.showMessageDialog(null, "No es posible conectar con el servidor","Error",JOptionPane.ERROR_MESSAGE);
+			if(WebServicesManager.canConnectToConsultWebservices() && checkWebServicesCreator()){
+				AddNewRobotPanel addRobot=new AddNewRobotPanel();
+				addRobot.setVisible(true);
+			}else{
+				JOptionPane.showMessageDialog(null, Language.get("addrobot.error.connection"),"Error",JOptionPane.ERROR_MESSAGE);
+			}
+			
 		}
 	  }
 	private static boolean checkWebServicesCreator(){
@@ -412,5 +420,18 @@ public class InterfaceManager {
 	public void enableAddRobot(){
 		gui.enableAddRobotMenu();
 	}
+	
+	public void alReadyInUseAddRobotMenu(boolean inUse){
+		if(inUse){
+			disableAddRobot();
+		}else{
+			enableAddRobot();
+		}
+		addRobotActive=inUse;
+		
+	}
+	
+	
+	
 	  
 }

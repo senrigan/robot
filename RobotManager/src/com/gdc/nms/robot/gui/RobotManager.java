@@ -62,8 +62,16 @@ public class RobotManager extends JFrame {
 	private static InterfaceManager srmGuiManager;
 	private static SRMGUI srmGui;
 	public static Appender logAppender;
+	private static RobotManager instance;
 	public RobotManager() {
 		
+	}
+	
+	public static RobotManager getInstance(){
+		if(instance==null){
+			instance=new RobotManager();
+		}
+		return instance;
 	}
 	
 	public void start(){
@@ -225,8 +233,8 @@ public class RobotManager extends JFrame {
 	}
 	private void checkWindowsRegistry(){
 		LOGGER.info( "reading and creating windows registry necessary for sysprorobotmanager");
-		checkRegistryRobotMustRun();
-		checkRegistryRobotNoRunning();
+//		checkRegistryRobotMustRun();
+//		checkRegistryRobotNoRunning();
 		checkUbicationRegistry();
 		checkWebServicesRegistry();
 		checkUbicationCreationRegistry();

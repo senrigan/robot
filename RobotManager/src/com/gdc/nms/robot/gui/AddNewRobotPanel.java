@@ -34,6 +34,8 @@ import java.awt.Insets;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Path;
@@ -345,7 +347,7 @@ public class AddNewRobotPanel extends JFrame {
 					
 					System.out.println("valid flujos main"+validFlujos.size());
 					if(validFlujos.isEmpty()){
-						JOptionPane.showMessageDialog(null, "El Servicio no contine Flujos para añadir ", "Error",JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, "El Servicio no contine Flujos para agregar ", "Error",JOptionPane.ERROR_MESSAGE);
 						closeWindows();
 					}else{
 						if(AppExaminator.flujosConstanisStepsValid(validFlujos)){
@@ -433,6 +435,53 @@ public class AddNewRobotPanel extends JFrame {
 		continueListener();
 		listServicesListener();
 		searchListener();
+		initWindowsListener();
+	}
+	
+	
+	private void initWindowsListener(){
+		this.addWindowListener(new WindowListener() {
+			
+			@Override
+			public void windowOpened(WindowEvent e) {
+				RobotManager.getSRMGuiManager().alReadyInUseAddRobotMenu(true);
+			}
+			
+			@Override
+			public void windowIconified(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowDeiconified(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowDeactivated(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowClosing(WindowEvent e) {
+				
+			}
+			
+			@Override
+			public void windowClosed(WindowEvent e) {
+				RobotManager.getSRMGuiManager().alReadyInUseAddRobotMenu(false);
+
+			}
+			
+			@Override
+			public void windowActivated(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 	}
 	
 	
@@ -455,7 +504,15 @@ public class AddNewRobotPanel extends JFrame {
 					CreatorRobotManager creator=new CreatorRobotManager();
 					ArrayList<FlujoInformation> selectedFlows = getSelectedFlows();
 					infoRobotM.setFlujos(selectedFlows);
-					creator.createRobotWithPath(infoRobotM, false);
+					if(creator.createRobotWithPath(infoRobotM, false)){
+						JOptionPane.showInternalMessageDialog(null, "El robot se instalo correctamente", "info", JOptionPane.INFORMATION_MESSAGE);
+						closeWindows();
+					}else{
+						JOptionPane.showInternalMessageDialog(null, "No es posible instalar el robot", "Error", JOptionPane.ERROR_MESSAGE);
+
+					}
+					
+					
 				}else{
 					System.out.println("nada esta bien");
 				}
@@ -749,6 +806,9 @@ public class AddNewRobotPanel extends JFrame {
 		
 		return false;
 	}
+	
+	
+	
 	
 	
 

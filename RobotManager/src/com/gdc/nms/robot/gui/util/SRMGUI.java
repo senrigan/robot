@@ -12,6 +12,7 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 
 import com.gdc.nms.robot.gui.InfoWindows;
+import com.gdc.nms.robot.gui.RobotManager;
 import com.gdc.nms.robot.gui.SelectorApp;
 import com.gdc.nms.robot.gui.newInterface.ButtonListener;
 import com.gdc.nms.robot.gui.tree.test.InterfaceManager;
@@ -50,39 +51,23 @@ import java.util.HashMap;
 
 public class SRMGUI extends JFrame {
 	private ImageIcon executeIcon = new ImageIcon(
-//			"C:\\Users\\senrigan\\Documents\\desarrollo\\PachitaWindows\\icon\\icn-ejecutar-06.png");
 			ImageTest.class.getResource("/pic/icn-ejecutar-06.png"));
-//			"E:\\Projectos\\desarrollo\\robot\\RobotManager\\resources\\com\\gdc\\robotmanager\\icn-ejecutar-06.png");
 	private ImageIcon stopIcon=new ImageIcon(
-//			"E:\\Projectos\\desarrollo\\robot\\RobotManager\\resources\\com\\gdc\\robotmanager\\icn-stop-05.png");
 			ImageTest.class.getResource("/pic/icn-stop-11.png"));
 
 	private ImageIcon infoIcon = new ImageIcon(
-//			"C:\\Users\\senrigan\\Documents\\desarrollo\\PachitaWindows\\icon\\icn-info-rbt-07.png");
-//			"E:\\Projectos\\desarrollo\\robot\\RobotManager\\resources\\com\\gdc\\robotmanager\\icn-info-rbt-07.png");
 			ImageTest.class.getResource("/pic/icn-info-rbt-07.png"));
 	private ImageIcon logIcon = new ImageIcon(
-//			"C:\\Users\\senrigan\\Documents\\desarrollo\\PachitaWindows\\icon\\icn-logs-08.png");
-//			"E:\\Projectos\\desarrollo\\robot\\RobotManager\\resources\\com\\gdc\\robotmanager\\icn-logs-08.png");
 			ImageTest.class.getResource("/pic/icn-logs-08.png"));
 	private ImageIcon addRobotIcon = new ImageIcon(
-//			"C:\\Users\\senrigan\\Documents\\desarrollo\\PachitaWindows\\icon\\icn-agregar-05.png");
-//			"E:\\Projectos\\desarrollo\\robot\\RobotManager\\resources\\com\\gdc\\robotmanager\\icn-agregar-05.png");
 			ImageTest.class.getResource("/pic/icn-agregar-05.png"));
 	private ImageIcon deleteRobotIcon = new ImageIcon(
-//			"C:\\Users\\senrigan\\Documents\\desarrollo\\PachitaWindows\\icon\\icn-eliminar-04.png");
-//			"E:\\Projectos\\desarrollo\\robot\\RobotManager\\resources\\com\\gdc\\robotmanager\\icn-eliminar-04.png");
 			ImageTest.class.getResource("/pic/icn-eliminar-04.png"));
 	private ImageIcon configIcon = new ImageIcon(
-//			"C:\\Users\\senrigan\\Documents\\desarrollo\\PachitaWindows\\icon\\icn-config-03.png");
-//			"E:\\Projectos\\desarrollo\\robot\\RobotManager\\resources\\com\\gdc\\robotmanager\\icn-config-03.png");
 			ImageTest.class.getResource("/pic/icn-config-03.png"));
 	private ImageIcon redStatusIcon=new ImageIcon(
-//			"C:\\Users\\senrigan\\Documents\\desarrollo\\PachitaWindows\\icon\\icn-rojo-10.png");
-//			"E:\\Projectos\\desarrollo\\robot\\RobotManager\\resources\\com\\gdc\\robotmanager\\icn-rojo-10.png");
 			ImageTest.class.getResource("/pic/icn-rojo-10.png"));
 	private ImageIcon greenStatusIcon=new ImageIcon(
-//			"C:\\Users\\senrigan\\Documents\\desarrollo\\PachitaWindows\\icon\\icn-verde-10.png");
 			ImageTest.class.getResource("/pic/icn-verde-10.png"));
 
 	private JPanel contentPane;
@@ -111,6 +96,7 @@ public class SRMGUI extends JFrame {
 	private JLabel aliasNameLabel;
 	private JLabel fielIdRobot;
 	private JLabel robotIdLabel;
+	private InterfaceManager interfaceManager;
 
 	/**
 	 * Launch the application.
@@ -118,6 +104,7 @@ public class SRMGUI extends JFrame {
 	public static void main(String[] args) {
 		SRMGUI frame = new SRMGUI();
 		frame.addNewRobotUI("mudo");
+		
 	}
 	private void initListener(){
 		logListener();
@@ -150,8 +137,7 @@ public class SRMGUI extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
-				InterfaceManager.showAddRobot();
+				interfaceManager.showAddRobot();
 					
 			}
 		});
@@ -744,6 +730,7 @@ public class SRMGUI extends JFrame {
 	public SRMGUI() {
 		initComponents();
 		initListener();
+		interfaceManager=RobotManager.getSRMGuiManager();
 	}
 	
 	
