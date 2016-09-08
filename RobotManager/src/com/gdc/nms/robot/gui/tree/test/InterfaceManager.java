@@ -314,12 +314,15 @@ public class InterfaceManager {
 		if(addRobotActive){
 			JOptionPane.showMessageDialog(null, Language.get("addrobot.error"), "Error", JOptionPane.ERROR_MESSAGE);
 		}else{
+			LoadingFrame.getInstance().showLoadingFrame(Language.get("addrtobo.loading.message"));
 			if(WebServicesManager.canConnectToConsultWebservices() && checkWebServicesCreator()){
 				AddNewRobotPanel addRobot=new AddNewRobotPanel();
 				addRobot.setVisible(true);
 			}else{
+				LoadingFrame.getInstance().hiddenLoadingFrame();
 				JOptionPane.showMessageDialog(null, Language.get("addrobot.error.connection"),"Error",JOptionPane.ERROR_MESSAGE);
 			}
+			
 			
 		}
 	  }

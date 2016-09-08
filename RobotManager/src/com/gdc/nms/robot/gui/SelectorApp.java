@@ -180,7 +180,7 @@ public class SelectorApp extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				AppJsonObject selectedItem = (AppJsonObject) comboBox.getSelectedItem();
-				LoadingFrame loading=new LoadingFrame();
+				LoadingFrame loading=LoadingFrame.getInstance();
 				System.out.println("se selecciono la app"+selectedItem.getAlias()+"id"+selectedItem.getId());
 				DateSelectorPanel dateSelector=new DateSelectorPanel(selectedItem);
 				loading.close();

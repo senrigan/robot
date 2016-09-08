@@ -27,47 +27,66 @@ public class LoadingFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
     private JLabel imageLabel = new JLabel();
-    JLabel headerLabel = new JLabel();
-//    private string
-
-    public LoadingFrame() {
-        try {
-            setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-            contentPane = (JPanel) getContentPane();
-            contentPane.setLayout(new BorderLayout());
-            setSize(new Dimension(100, 80));
-            // add the header label
-           
-            // add the image label
-//            ImageIcon ii = new ImageIcon(new URL(
-//                    ));
-            setUndecorated(true);
-            getRootPane().setWindowDecorationStyle(JRootPane.NONE);
-//            ImageIcon ii=new ImageIcon(this.getClass().getResource("loading.gif"));
-        	ClassLoader loader=LoadingFrame.class.getClassLoader();
-            ImageIcon ii=new ImageIcon(ImageTest.class.getResource("/pic/loading.gif"));
-
-//            imageLabel.setBackground(new Color(0,0,0,0));
-            
-            
-            imageLabel.setIcon(ii);
-            contentPane.add(imageLabel, BorderLayout.CENTER);
-            headerLabel.setText("Procesando ....");
-            contentPane.add(headerLabel,BorderLayout.SOUTH);
-            // show it
-            this.setLocationRelativeTo(null);
-            this.setVisible(true);
+    private JLabel headerLabel = new JLabel();
+    private static LoadingFrame instance;
+    
+    public static LoadingFrame getInstance(){
+    	if(instance==null){
+    		instance=new LoadingFrame();
+    	}
+    	return instance;
+    }
+    
+    private LoadingFrame() {
+//        try {
+//            setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+//            contentPane = (JPanel) getContentPane();
+//            contentPane.setLayout(new BorderLayout());
+//            setSize(new Dimension(100, 80));
+//            // add the header label
+//           
+//            // add the image label
+////            ImageIcon ii = new ImageIcon(new URL(
+////                    ));
 //            setUndecorated(true);
-            setBackground(new Color(0,0,0,0));
-        } catch (Exception exception) {
-        	System.out.println("Error al cargar la imagen de precarga");
-//            exception.printStackTrace();
-        }
+//            getRootPane().setWindowDecorationStyle(JRootPane.NONE);
+////            ImageIcon ii=new ImageIcon(this.getClass().getResource("loading.gif"));
+//        	ClassLoader loader=LoadingFrame.class.getClassLoader();
+//            ImageIcon ii=new ImageIcon(ImageTest.class.getResource("/pic/loading.gif"));
+//
+////            imageLabel.setBackground(new Color(0,0,0,0));
+//            
+//            
+//            imageLabel.setIcon(ii);
+//            contentPane.add(imageLabel, BorderLayout.CENTER);
+//            headerLabel.setText("Procesando ....");
+//            contentPane.add(headerLabel,BorderLayout.SOUTH);
+//            // show it
+//            this.setLocationRelativeTo(null);
+//            this.setVisible(true);
+////            setUndecorated(true);
+//            setBackground(new Color(0,0,0,0));
+//        } catch (Exception exception) {
+//        	System.out.println("Error al cargar la imagen de precarga");
+////            exception.printStackTrace();
+//        }
+    	initComponents();
     }
     
     
-    public LoadingFrame(String text){
-    	
+    public void showLoadingFrame(String text){
+    	this.setVisible(true);
+    	headerLabel.setText(text);
+    }
+    
+    public void hiddenLoadingFrame(){
+    	this.setVisible(false);
+    	headerLabel.setText("");
+    }
+    
+    
+    public void changeText(String newText){
+    	headerLabel.setText(newText);
     }
     
     
@@ -77,46 +96,35 @@ public class LoadingFrame extends JFrame {
             contentPane = (JPanel) getContentPane();
             contentPane.setLayout(new BorderLayout());
             setSize(new Dimension(100, 80));
-            // add the header label
-           
-            // add the image label
-//            ImageIcon ii = new ImageIcon(new URL(
-//                    ));
             setUndecorated(true);
             getRootPane().setWindowDecorationStyle(JRootPane.NONE);
-//            ImageIcon ii=new ImageIcon(this.getClass().getResource("loading.gif"));
         	ClassLoader loader=LoadingFrame.class.getClassLoader();
             ImageIcon ii=new ImageIcon(ImageTest.class.getResource("/pic/loading.gif"));
-
-//            imageLabel.setBackground(new Color(0,0,0,0));
-            
-            
             imageLabel.setIcon(ii);
             contentPane.add(imageLabel, BorderLayout.CENTER);
-            headerLabel.setText("Procesando ....");
+            headerLabel.setText("");
             contentPane.add(headerLabel,BorderLayout.SOUTH);
-            // show it
             this.setLocationRelativeTo(null);
-            this.setVisible(true);
-//            setUndecorated(true);
+//            this.setVisible(true);
             setBackground(new Color(0,0,0,0));
         } catch (Exception exception) {
         	System.out.println("Error al cargar la imagen de precarga");
-//            exception.printStackTrace();
         }
     }
 
     public static void main(String[] args) {
     System.out.println(ImageTest.class.getResource("/pic/loading.gif"));
 //    	System.out.println(LoadingFrame.class.getClass().getResource("loading.gif"));
-        LoadingFrame test=new LoadingFrame();
+        LoadingFrame test=LoadingFrame.getInstance();
         try {
+        	test.showLoadingFrame("hola");
 			Thread.sleep(10000);
 			test.close();
+			Thread.sleep(15000);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+        test.showLoadingFrame("mundo");
     }
     
     

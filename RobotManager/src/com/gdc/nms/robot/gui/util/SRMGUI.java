@@ -734,7 +734,9 @@ public class SRMGUI extends JFrame {
 	}
 	
 	
-	
+	/**
+	 * hidden the inputs values
+	 */
 	public void hiddeFields(){
 		fielAlias.setVisible(false);
 		fieldAplication.setVisible(false);
@@ -744,14 +746,22 @@ public class SRMGUI extends JFrame {
 		aliasNameLabel.setVisible(false);
 		robotIdLabel.setVisible(false);
 	}
+	/**
+	 * disable addRobotMenu
+	 */
 	public void  disableAddRobotMenu(){
 		addRobotMenu.setEnabled(false);
 	}
 	
+	/**
+	 * enable addrobotMenu
+	 */
 	public void enableAddRobotMenu(){
 		addRobotMenu.setEnabled(true);
 	}
-	
+	/**
+	 * show the inputs values of form
+	 */
 	public void showFields(){
 		fielAlias.setVisible(true);
 		fieldAplication.setVisible(true);

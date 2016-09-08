@@ -13,9 +13,11 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import com.gdc.nms.robot.gui.auxiliar.CheckBoxList;
+import com.gdc.nms.robot.gui.auxiliar.LoadingFrame;
 import com.gdc.nms.robot.util.AppExaminator;
 import com.gdc.nms.robot.util.CreatorRobotManager;
 import com.gdc.nms.robot.util.InfoRobotMaker;
+import com.gdc.nms.robot.util.Language;
 import com.gdc.nms.robot.util.ValidatorManagement;
 import com.gdc.nms.robot.util.indexer.AppJsonObject;
 import com.gdc.nms.robot.util.indexer.FlujoInformation;
@@ -82,6 +84,7 @@ public class AddNewRobotPanel extends JFrame {
 	private InfoRobotMaker infoRobotM;
 	private ArrayList<FlujoJsonObject> flujosOfServcies;
 	private CheckBoxList cbList;
+	private LoadingFrame loading;
 
 
 
@@ -108,12 +111,15 @@ public class AddNewRobotPanel extends JFrame {
 	 * Create the frame.
 	 */
 	public AddNewRobotPanel() {
+		loading=LoadingFrame.getInstance();
+	
 		initComponents();
 		initListener();
 		initDataComponents();
 		hiddenExtraPanel();
 		hiddenFlujosPanel();
 		enableContinue(false);
+		loading.hiddenLoadingFrame();
 	}
 	
 	
@@ -528,6 +534,7 @@ public class AddNewRobotPanel extends JFrame {
 				JComboBox<AppJsonObject> services=(JComboBox<AppJsonObject>)e.getSource();
 				selectedItem = (AppJsonObject)services.getSelectedItem();
 				if(selectedItem!=null){
+					loading.showLoadingFrame(Language.get("addrobot.loading.services.message"));
 					if(checkIfServicesContainFlujos()){
 						clearElements();
 						System.out.println("no es nulo");
@@ -539,6 +546,7 @@ public class AddNewRobotPanel extends JFrame {
 						JOptionPane.showMessageDialog(null, "El Servicio Seleccionado no contiene Flujos", "Error", JOptionPane.ERROR_MESSAGE);
 						hiddenExtraPanel();
 					}
+					loading.hiddenLoadingFrame();
 				}else{
 					System.out.println("es nulo");
 					hiddenExtraPanel();

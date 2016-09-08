@@ -432,7 +432,7 @@ public class RobotManagerGui extends JFrame {
 				
 				long idRobot = appinfo.getIdRobot();
 				long idApp=appinfo.getIdApp();
-				LoadingFrame loading=new LoadingFrame();
+				LoadingFrame loading=LoadingFrame.getInstance();
 				if (RobotManager.runRobotWithGui(idRobot,idApp)) {
 					loading.close();
 					
@@ -478,7 +478,7 @@ public class RobotManagerGui extends JFrame {
 				Element element = (Element) dinamicTree.getSelectdNode();
 				AppInformation appinfo = element.getAppinfo();
 //				long idRobot = appinfo.getIdRobot();
-				LoadingFrame loading=new LoadingFrame();
+				LoadingFrame loading=LoadingFrame.getInstance();
 				try {
 //					AID aid = InitPlataform.getRobotRegister().get(appinfo.getAppName());
 					boolean stopAgent;

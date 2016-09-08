@@ -1,17 +1,7 @@
 package com.gdc.nms.robot;
 
-
-
-
-
-
-
-
-
 import com.gdc.nms.robot.gui.RobotManager;
 import com.gdc.nms.robot.util.Language;
-
-
 
 public class Main {
 	

@@ -76,7 +76,18 @@ public class Installation {
 	}
 
 	public static Path getInstallaPath() {
-		return ;
+		return Paths.get(getInstallationPathRegistry()) ;
+	}
+	
+	public static String getInstallationPathRegistry(){
+		String ubicationRegist=null;
+		try {
+			ubicationRegist = CommandExecutor.readRegistrySpecificRegistry(Constants.LOCALREGISTRY, "installationPath","REG_SZ");
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+		return ubicationRegist;
 	}
 
 	public static boolean addClient(String client) {
