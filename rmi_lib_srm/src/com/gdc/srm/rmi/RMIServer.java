@@ -60,21 +60,7 @@ public class RMIServer extends java.rmi.server.UnicastRemoteObject  implements R
 	
 	public static void main(String[] args)
 	  {
-//		try {
-////			Runtime.getRuntime().exec("rmiregistry 1193");
-//			LocateRegistry.createRegistry(1193);
-//
-//			System.setProperty("java.rmi.server.hostname", java.net.InetAddress.getLocalHost().getHostAddress());
-//			ClaseRemota rem=new ClaseRemota();
-////			rmiTest stub=(rmiTest) UnicastRemoteObject.exp;
-//			rmiTest stub= (rmiTest)UnicastRemoteObject.exportObject(rem,1193);
-//			
-//			Registry registry = LocateRegistry.getRegistry();
-//			registry.bind("PruebaRMI", stub);
-//			System.out.println("Server ready");
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
+		RMIServer.getInstance().startServerRMI();
 		
 	   
 	  }
@@ -101,6 +87,7 @@ public class RMIServer extends java.rmi.server.UnicastRemoteObject  implements R
 	 */
 	public boolean registerNewRobotRMIClient(ClientInterface robotClient) throws RemoteException{
 		String robotName = robotClient.getRobotName();
+		System.out.println("new robot incoming"+robotClient.getRobotName()+" id"+robotClient.getRobotId());
 		if(registerRobots.containsKey(robotName)){
 			registerRobots.put(robotName, robotClient);
 			return true;
