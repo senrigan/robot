@@ -2,11 +2,17 @@ package com.gdc.nms.robot.gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
 import com.gdc.nms.robot.gui.auxiliar.RegisrtyEditor;
+import com.gdc.nms.robot.util.AppExaminator;
+import com.gdc.nms.robot.util.Constants;
+import com.gdc.nms.robot.util.indexer.AppInformation;
+import com.gdc.nms.robot.util.registry.CommandExecutor;
 import com.gdc.robothelper.webservice.ClientSRMHelperWebService;
 import com.gdc.robothelper.webservice.SisproRobotManagerHelper;
 import com.gdc.robothelper.webservice.SisproRobotManagerHelperService;
@@ -15,7 +21,11 @@ import com.gdc.robothelper.webservice.robot.news.CreatorNewRobotWebService;
 import com.gdc.robothelper.webservice.robot.news.Webservice;
 import com.gdc.robothelper.webservice.robot.olds.CreatorOldRobotWebService;
 
+import org.apache.log4j.Logger;
+
+
 public class RegisrtryEditorManager {
+	private static final Logger LOGGER = Logger.getLogger(RegisrtryEditorManager.class);
 	public RegisrtryEditorManager(){
 		
 	}
@@ -62,7 +72,7 @@ public class RegisrtryEditorManager {
 				String texBox = reg.getTexBox();
 				
 				if(ClientSRMHelperWebService.existeConexion(texBox)){
-					RobotManager.createWebServicesConsultRegistry(texBox);
+					createWebServicesConsultRegistry(texBox);
 					URL wsUrl = ClientSRMHelperWebService.getWebServicesConsult();
 					
 					System.out.println(wsUrl);
@@ -130,7 +140,7 @@ public class RegisrtryEditorManager {
 				}
 				
 				if(validConnection){
-					RobotManager.createWebServicesConsultRegistry(texBox);
+					createWebServicesConsultRegistry(texBox);
 					URL wsUrl = CreatorRobotWebService.getWebServicesCreator();
 					
 					System.out.println(wsUrl);
@@ -172,6 +182,55 @@ public class RegisrtryEditorManager {
 	}
 	
 	
+	public static  void checkRegistryRobotMustRun(){
+		String redRegistryWindows="";
+		
+		try {
+			redRegistryWindows=CommandExecutor.readRegistrySpecificRegistry(Constants.LOCALREGISTRY, "robotmustRun", "REG_SZ");
+//			if(redRegistryWindows.equals("")){
+//				createRegistryRobotMustRun();
+//			}
+		} catch (Exception e) {
+			createRegistryRobotMustRun();
+			e.printStackTrace();
+			LOGGER.error("excepcion ", e);
+
+		}
+	}
+	
+	private static void createRegistryRobotMustRun(){
+		ArrayList<AppInformation> installedApps = AppExaminator.getInstalledApps();
+		String idRobots="";
+		for (AppInformation appInformation : installedApps) {
+			idRobots+= appInformation.getIdRobot()+",";
+		}
+		try {
+			CommandExecutor.addRegistryWindows(Constants.LOCALREGISTRY, "robotmustRun",idRobots );
+		} catch (IOException e) {
+			e.printStackTrace();
+			LOGGER.error("excepcion ", e);
+
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+			LOGGER.error("excepcion ", e);
+
+		}
+
+	}
+	
+	
+	private static  void checkRegistryRobotNoRunning(){
+		try {
+			CommandExecutor.readRegistrySpecificRegistry(Constants.LOCALREGISTRY, "robotnotRun","REG_SZ");
+		} catch (Exception e) {
+			createregistryRobotNotRunning();
+			e.printStackTrace();
+			LOGGER.error("excepcion ", e);
+
+		}
+	}
+	
+	
 	
 	
 	public static void main(String[] args) {
@@ -180,4 +239,131 @@ public class RegisrtryEditorManager {
 		rd.showWebServiceConsult();
 		rd.showWebServicesCreator();
 	}
+	
+	
+	
+	private static void createregistryRobotNotRunning(){
+		try {
+			CommandExecutor.addRegistryWindows(Constants.LOCALREGISTRY, "robotnotRun","");
+		} catch (IOException e) {
+			e.printStackTrace();
+			LOGGER.error("excepcion ", e);
+
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+			LOGGER.error("excepcion ", e);
+
+		}
+	}
+	
+	
+
+	private void checkWebServicesRegistry(){
+		try {
+			CommandExecutor.readRegistrySpecificRegistry(Constants.LOCALREGISTRY, "webservicesCreator", "REG_SZ");
+		} catch (Exception e) {
+			createWebServicesCreatorRegistry();
+			e.printStackTrace();
+			LOGGER.error("excepcion ", e);
+
+		}
+		
+		try {
+			CommandExecutor.readRegistrySpecificRegistry(Constants.LOCALREGISTRY, "webservicesConsult", "REG_SZ");
+		} catch (Exception e) {
+			e.printStackTrace();
+			createWebServicesConsultRegistry();
+			LOGGER.error("excepcion ", e);
+
+		}
+	}
+	
+	
+	public static void createWebServicesCreatorRegistry(String wsUrl){
+		try {
+			CommandExecutor.addRegistryWindows(Constants.LOCALREGISTRY, "webservicesCreator", wsUrl);
+		} catch (IOException e) {
+			e.printStackTrace();
+			LOGGER.error("excepcion ", e);
+
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+			LOGGER.error("excepcion ", e);
+
+		}
+	}
+	private void createWebServicesCreatorRegistry(){
+		try {
+			CommandExecutor.addRegistryWindows(Constants.LOCALREGISTRY, "webservicesCreator", Webservice.getUrl().toString());
+		} catch (IOException e) {
+			e.printStackTrace();
+			LOGGER.error("excepcion ", e);
+
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+			LOGGER.error("excepcion ", e);
+
+		}
+	}
+	
+	
+	public static String getWebServicesCreatorRegistry(){
+		String urlRegistry=null;
+		try {
+			urlRegistry=CommandExecutor.readRegistrySpecificRegistry(Constants.LOCALREGISTRY, "webservicesCreator", "REG_SZ");
+		} catch (Exception e) {
+			e.printStackTrace();
+			LOGGER.error("excepcion ", e);
+
+		}
+		return urlRegistry;
+		
+	}
+	
+	
+	public static void createWebServicesConsultRegistry(String wsUrl){
+		try {
+			CommandExecutor.addRegistryWindows(Constants.LOCALREGISTRY, "webservicesConsult",wsUrl);
+		} catch (IOException e) {
+			e.printStackTrace();
+			LOGGER.error("excepcion ", e);
+
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+			LOGGER.error("excepcion ", e);
+
+		}
+	}
+	
+	private static void createWebServicesConsultRegistry(){
+		try {
+			CommandExecutor.addRegistryWindows(Constants.LOCALREGISTRY, "webservicesConsult",
+					SisproRobotManagerHelperService.getUrl().toString());
+		} catch (IOException e) {
+			e.printStackTrace();
+			LOGGER.error("excepcion ", e);
+
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+			LOGGER.error("excepcion ", e);
+
+		}
+	}
+	
+	
+	public static String getWebServicesConsultRegistry(){
+		String wsUrl=null;
+		try {
+			wsUrl=CommandExecutor.readRegistrySpecificRegistry(Constants.LOCALREGISTRY, "webservicesConsult", "REG_SZ");
+		} catch (Exception e) {
+			e.printStackTrace();
+			LOGGER.error("excepcion ", e);
+
+		}
+		return wsUrl;
+		
+	}
+	
+	
+	
 }

@@ -187,12 +187,14 @@ public class WebServicesConfiguration extends JFrame {
 	}
 	
 	private void initListeners(){
-		wsConsultValidator();
-		wsCreatorValidator();
+		wsConsultValidatorListener();
+		wsCreatorValidatorListener();
+		restarCheckBoxListener();
+		encryptionCheckBoxListener();
 	}
 	
 	
-	private void wsConsultValidator(){
+	private void wsConsultValidatorListener(){
 		validWSConsultButton.addActionListener(new ActionListener() {
 			
 			@Override
@@ -209,7 +211,7 @@ public class WebServicesConfiguration extends JFrame {
 	}
 	
 	
-	private void wsCreatorValidator(){
+	private void wsCreatorValidatorListener(){
 		validWSCreatorButton.addActionListener(new ActionListener() {
 			
 			@Override
@@ -223,6 +225,27 @@ public class WebServicesConfiguration extends JFrame {
 				}else{
 					JOptionPane.showMessageDialog(null, Language.get("webservices.configuration.wscreator.validator.message.error"), "Error", JOptionPane.INFORMATION_MESSAGE);
 				}
+			}
+		});
+	}
+	
+	
+	private void restarCheckBoxListener(){
+		restarRobotCheckBox.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+	}
+	
+	private void encryptionCheckBoxListener(){
+		encriptationImacrosCheckBox.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
 			}
 		});
 	}

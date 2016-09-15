@@ -240,69 +240,14 @@ public class RobotManager extends JFrame {
 		checkUbicationCreationRegistry();
 	}
 	
-	private void checkRegistryRobotMustRun(){
-		String redRegistryWindows="";
-		
-		try {
-			redRegistryWindows=CommandExecutor.readRegistrySpecificRegistry(Constants.LOCALREGISTRY, "robotmustRun", "REG_SZ");
-//			if(redRegistryWindows.equals("")){
-//				createRegistryRobotMustRun();
-//			}
-		} catch (Exception e) {
-			createRegistryRobotMustRun();
-			e.printStackTrace();
-			LOGGER.error("excepcion ", e);
 
-		}
-	}
 	
 	
 	
 	
-	private void createRegistryRobotMustRun(){
-		ArrayList<AppInformation> installedApps = AppExaminator.getInstalledApps();
-		String idRobots="";
-		for (AppInformation appInformation : installedApps) {
-			idRobots+= appInformation.getIdRobot()+",";
-		}
-		try {
-			CommandExecutor.addRegistryWindows(Constants.LOCALREGISTRY, "robotmustRun",idRobots );
-		} catch (IOException e) {
-			e.printStackTrace();
-			LOGGER.error("excepcion ", e);
-
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-			LOGGER.error("excepcion ", e);
-
-		}
-
-	}
 	
-	private void checkRegistryRobotNoRunning(){
-		try {
-			CommandExecutor.readRegistrySpecificRegistry(Constants.LOCALREGISTRY, "robotnotRun","REG_SZ");
-		} catch (Exception e) {
-			createregistryRobotNotRunning();
-			e.printStackTrace();
-			LOGGER.error("excepcion ", e);
-
-		}
-	}
 	
-	private void createregistryRobotNotRunning(){
-		try {
-			CommandExecutor.addRegistryWindows(Constants.LOCALREGISTRY, "robotnotRun","");
-		} catch (IOException e) {
-			e.printStackTrace();
-			LOGGER.error("excepcion ", e);
 
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-			LOGGER.error("excepcion ", e);
-
-		}
-	}
 	
 	
 	private void checkWebServicesRegistry(){
