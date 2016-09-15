@@ -1,6 +1,7 @@
 package com.gdc.nms.robot.gui.util;
 
 import java.awt.BorderLayout;
+import java.awt.Button;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
@@ -44,6 +45,8 @@ import java.awt.Insets;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -141,6 +144,46 @@ public class SRMGUI extends JFrame {
 					
 			}
 		});
+		addRobotMenu.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				System.out.println("mouse released");
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				System.out.println("mouse pressed");
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				System.out.println("mouse exited");
+				changeButtonMouseExit(addRobotMenu);
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				System.out.println("Mouse enterder");
+				changeButtonMouseOver(addRobotMenu);
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				System.out.println("mouse clicked");
+			}
+		});
+	}
+	
+	
+	private void changeButtonMouseOver(JButton button){
+		Font font = button.getFont();
+		button.setFont(new Font(font.getFontName(), Font.HANGING_BASELINE, font.getSize()));
+	}
+	
+	private void changeButtonMouseExit(JButton button){
+		Font font = button.getFont();
+		button.setFont(new Font(font.getFontName(), Font.PLAIN, font.getSize()));
 	}
 	private void executionListener(){
 		ActionStatusRobot.addActionListener(new ActionListener() {
