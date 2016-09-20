@@ -10,6 +10,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JRootPane;
 
+import com.gdc.nms.robot.util.Language;
+
 import pic.ImageTest;
 
 import java.awt.BorderLayout;
@@ -113,18 +115,21 @@ public class LoadingFrame extends JFrame {
     }
 
     public static void main(String[] args) {
-    System.out.println(ImageTest.class.getResource("/pic/loading.gif"));
-//    	System.out.println(LoadingFrame.class.getClass().getResource("loading.gif"));
-        LoadingFrame test=LoadingFrame.getInstance();
-        try {
-        	test.showLoadingFrame("hola");
-			Thread.sleep(10000);
-			test.close();
-			Thread.sleep(15000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-        test.showLoadingFrame("mundo");
+//    System.out.println(ImageTest.class.getResource("/pic/loading.gif"));
+////    	System.out.println(LoadingFrame.class.getClass().getResource("loading.gif"));
+//        LoadingFrame test=LoadingFrame.getInstance();
+//        try {
+//        	test.showLoadingFrame("hola");
+//			Thread.sleep(10000);
+//			test.close();
+//			Thread.sleep(15000);
+//		} catch (InterruptedException e) {
+//			e.printStackTrace();
+//		}
+//        test.showLoadingFrame("mundo");
+    	Language.load();
+		LoadingFrame.getInstance().showLoadingFrame(Language.get("addrtobo.loading.message"));
+
     }
     
     

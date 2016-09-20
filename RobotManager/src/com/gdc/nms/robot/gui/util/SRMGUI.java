@@ -47,10 +47,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.font.TextAttribute;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
+import java.util.Map;
 
 public class SRMGUI extends JFrame {
 	private ImageIcon executeIcon = new ImageIcon(
@@ -89,7 +91,7 @@ public class SRMGUI extends JFrame {
 	private JPanel panel;
 	private RoundButton stoppedRobotCount;
 	private RoundButton executionCountButton;
-	private JButton ConfigurationMenu;
+	private JButton configurationMenu;
 	private JButton deleteRobotMenu;
 	private JButton addRobotMenu;
 	private JLabel FielPrincipal;
@@ -118,11 +120,40 @@ public class SRMGUI extends JFrame {
 		configurationSRMListener();
 	}
 	private void configurationSRMListener(){
-		ConfigurationMenu.addActionListener(new ActionListener() {
+		configurationMenu.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				configurationSRMListener();
+			}
+		});
+		configurationMenu.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				System.out.println("mouse released");
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				System.out.println("mouse pressed");
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				System.out.println("mouse exited");
+				changeButtonMouseExit(configurationMenu);
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				System.out.println("Mouse enterder");
+				changeButtonMouseOver(configurationMenu);
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				System.out.println("mouse clicked");
 			}
 		});
 	}
@@ -134,12 +165,42 @@ public class SRMGUI extends JFrame {
 				InterfaceManager.showDeleteRobot();
 			}
 		});
+		deleteRobotMenu.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				System.out.println("mouse released");
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				System.out.println("mouse pressed");
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				System.out.println("mouse exited");
+				changeButtonMouseExit(deleteRobotMenu);
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				System.out.println("Mouse enterder");
+				changeButtonMouseOver(deleteRobotMenu);
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				System.out.println("mouse clicked");
+			}
+		});
 	}
 	private void addRobotListener(){
 		addRobotMenu.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				System.out.println("intercae manbager ad"+interfaceManager);
 				interfaceManager.showAddRobot();
 					
 			}
@@ -178,7 +239,9 @@ public class SRMGUI extends JFrame {
 	
 	private void changeButtonMouseOver(JButton button){
 		Font font = button.getFont();
-		button.setFont(new Font(font.getFontName(), Font.HANGING_BASELINE, font.getSize()));
+		Map<TextAttribute,Integer> attributes = (Map<TextAttribute, Integer>) font.getAttributes();
+		attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+		button.setFont(font.deriveFont(attributes));
 	}
 	
 	private void changeButtonMouseExit(JButton button){
@@ -199,6 +262,30 @@ public class SRMGUI extends JFrame {
 				}
 			}
 		});
+		ActionStatusRobot.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				changeButtonMouseOver(ActionStatusRobot);
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				changeButtonMouseExit(ActionStatusRobot);
+			}
+		});
 	}
 	private void getInfoListener(){
 		getInfoRobot.addActionListener(new ActionListener() {
@@ -208,6 +295,30 @@ public class SRMGUI extends JFrame {
 				String infoRobot = InterfaceManager.getInfoRobot();
 				if(infoRobot!=null )
 					setTextInfo(infoRobot);
+			}
+		});
+		getInfoRobot.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				changeButtonMouseExit(getInfoRobot);
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				changeButtonMouseOver(getInfoRobot);
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
 			}
 		});
 	}
@@ -225,6 +336,31 @@ public class SRMGUI extends JFrame {
 				});
 			}
 		});
+	showLogs.addMouseListener(new MouseListener() {
+		
+		@Override
+		public void mouseReleased(MouseEvent e) {
+		}
+		
+		@Override
+		public void mousePressed(MouseEvent e) {
+		}
+		
+		@Override
+		public void mouseExited(MouseEvent e) {
+			changeButtonMouseExit(showLogs);
+		}
+		
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			changeButtonMouseOver(showLogs);
+		}
+		
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			
+		}
+	});
 			
 	}
 	public void changeIcons() {
@@ -334,6 +470,7 @@ public class SRMGUI extends JFrame {
 		executionCountButton.setForeground(new Color(254, 255, 255));
 		executionCountButton.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		executionCountButton.setHorizontalAlignment(SwingConstants.CENTER);
+		executionCountButton.setEnabled(false);
 		GridBagConstraints gbc_executionCountButton = new GridBagConstraints();
 		gbc_executionCountButton.gridheight = 2;
 		gbc_executionCountButton.insets = new Insets(17, 20, 0,10 );
@@ -356,6 +493,7 @@ public class SRMGUI extends JFrame {
 		stoppedRobotCount.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		stoppedRobotCount.setMargin(new Insets(1, 1, 1, 1));
 		stoppedRobotCount.setHorizontalAlignment(SwingConstants.CENTER);
+		stoppedRobotCount.setEnabled(false);
 		GridBagConstraints gbc_stoppedRobotCount = new GridBagConstraints();
 		gbc_stoppedRobotCount.gridheight = 2;
 		gbc_stoppedRobotCount.insets = new Insets(17, 0, 0, 0);
@@ -587,18 +725,18 @@ public class SRMGUI extends JFrame {
 		gbc_lblNewLabel_2.gridy = 0;
 		menuPanel.add(lblNewLabel_2, gbc_lblNewLabel_2);
 
-		ConfigurationMenu = new JButton("Configuracion");
-		ConfigurationMenu.setBorder(BorderFactory.createEmptyBorder());
-		ConfigurationMenu.setForeground(SystemColor.inactiveCaptionBorder);
+		configurationMenu = new JButton("Configuracion");
+		configurationMenu.setBorder(BorderFactory.createEmptyBorder());
+		configurationMenu.setForeground(SystemColor.inactiveCaptionBorder);
 
-		ConfigurationMenu.setIcon(configIcon);
-		ConfigurationMenu.setBackground(new Color(58, 135, 249));
-		ConfigurationMenu.setContentAreaFilled(false);
-		ConfigurationMenu.setOpaque(true);
+		configurationMenu.setIcon(configIcon);
+		configurationMenu.setBackground(new Color(58, 135, 249));
+		configurationMenu.setContentAreaFilled(false);
+		configurationMenu.setOpaque(true);
 		GridBagConstraints gbc_ConfigurationMenu = new GridBagConstraints();
 		gbc_ConfigurationMenu.gridx = 4;
 		gbc_ConfigurationMenu.gridy = 0;
-		menuPanel.add(ConfigurationMenu, gbc_ConfigurationMenu);
+		menuPanel.add(configurationMenu, gbc_ConfigurationMenu);
 	}
 	
 	private void createTitleContent(){
@@ -771,9 +909,14 @@ public class SRMGUI extends JFrame {
 	 * Create the frame.
 	 */
 	public SRMGUI() {
+		interfaceManager=RobotManager.getSRMGuiManager();
+		System.out.println("interfaceMAnager"+interfaceManager);
 		initComponents();
 		initListener();
-		interfaceManager=RobotManager.getSRMGuiManager();
+	}
+	
+	public void setInterfaceManager(InterfaceManager interfaceManager){
+		this.interfaceManager=interfaceManager;
 	}
 	
 	

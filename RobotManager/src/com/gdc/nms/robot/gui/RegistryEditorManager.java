@@ -3,30 +3,35 @@ package com.gdc.nms.robot.gui;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
+import com.gdc.nms.robot.Main;
 import com.gdc.nms.robot.gui.auxiliar.RegisrtyEditor;
 import com.gdc.nms.robot.util.AppExaminator;
 import com.gdc.nms.robot.util.Constants;
 import com.gdc.nms.robot.util.indexer.AppInformation;
 import com.gdc.nms.robot.util.registry.CommandExecutor;
+import com.gdc.nms.robot.util.registry.CommandExecutor.REGISTRY_TYPE;
 import com.gdc.robothelper.webservice.ClientSRMHelperWebService;
-import com.gdc.robothelper.webservice.SisproRobotManagerHelper;
 import com.gdc.robothelper.webservice.SisproRobotManagerHelperService;
+import com.gdc.robothelper.webservice.WebServicesManager;
 import com.gdc.robothelper.webservice.robot.CreatorRobotWebService;
 import com.gdc.robothelper.webservice.robot.news.CreatorNewRobotWebService;
-import com.gdc.robothelper.webservice.robot.news.Webservice;
 import com.gdc.robothelper.webservice.robot.olds.CreatorOldRobotWebService;
 
 import org.apache.log4j.Logger;
 
 
-public class RegisrtryEditorManager {
-	private static final Logger LOGGER = Logger.getLogger(RegisrtryEditorManager.class);
-	public RegisrtryEditorManager(){
+public class RegistryEditorManager {
+	private static final Logger LOGGER = Logger.getLogger(RegistryEditorManager.class);
+	public RegistryEditorManager(){
 		
 	}
 	
@@ -42,7 +47,7 @@ public class RegisrtryEditorManager {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				RobotManager.createUbicationRegistruCreation(reg.getTexBox());
+				createUbicationRegistruCreation(reg.getTexBox());
 				if(RobotManager.getUbication().equals(reg.getTexBox())){
 					JOptionPane.showMessageDialog(null, "El registro ha sido cambiado exitosamente","Regsitro Actualizado",JOptionPane.INFORMATION_MESSAGE);
 				}else{
@@ -219,7 +224,7 @@ public class RegisrtryEditorManager {
 	}
 	
 	
-	private static  void checkRegistryRobotNoRunning(){
+	public static  void checkRegistryRobotNoRunning(){
 		try {
 			CommandExecutor.readRegistrySpecificRegistry(Constants.LOCALREGISTRY, "robotnotRun","REG_SZ");
 		} catch (Exception e) {
@@ -234,7 +239,7 @@ public class RegisrtryEditorManager {
 	
 	
 	public static void main(String[] args) {
-		RegisrtryEditorManager rd=new RegisrtryEditorManager();
+		RegistryEditorManager rd=new RegistryEditorManager();
 		rd.showUbicationRegistry();
 		rd.showWebServiceConsult();
 		rd.showWebServicesCreator();
@@ -258,7 +263,7 @@ public class RegisrtryEditorManager {
 	
 	
 
-	private void checkWebServicesRegistry(){
+	public static void checkWebServicesRegistry(){
 		try {
 			CommandExecutor.readRegistrySpecificRegistry(Constants.LOCALREGISTRY, "webservicesCreator", "REG_SZ");
 		} catch (Exception e) {
@@ -292,9 +297,9 @@ public class RegisrtryEditorManager {
 
 		}
 	}
-	private void createWebServicesCreatorRegistry(){
+	private static void createWebServicesCreatorRegistry(){
 		try {
-			CommandExecutor.addRegistryWindows(Constants.LOCALREGISTRY, "webservicesCreator", Webservice.getUrl().toString());
+			CommandExecutor.addRegistryWindows(Constants.LOCALREGISTRY, "webservicesCreator",WebServicesManager.getWebServicesCreatorUrl().toString());
 		} catch (IOException e) {
 			e.printStackTrace();
 			LOGGER.error("excepcion ", e);
@@ -363,7 +368,108 @@ public class RegisrtryEditorManager {
 		return wsUrl;
 		
 	}
+	public static void createUbicationRegistruCreation(String ubication){
+		try {
+			CommandExecutor.addRegistryWindows(Constants.LOCALREGISTRY, "ubicationRobot", ubication, REGISTRY_TYPE.REG_SZ);
+			RobotManager.setUbication(ubication);
+		} catch (IOException e) {
+			e.printStackTrace();
+			LOGGER.error("excepcion ", e);
+
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+			LOGGER.error("excepcion ", e);
+
+		}
+
+	}
+	private static void createUbicationPathRegistry(){
+		try {
+			CommandExecutor.addRegistryWindows(Constants.LOCALREGISTRY, "installationPath", getCurrentPath().toString(), REGISTRY_TYPE.REG_SZ);
+		} catch (IOException e) {
+			e.printStackTrace();
+			LOGGER.error("excepcion ", e);
+
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+			LOGGER.error("excepcion ", e);
+
+		}
+
+	}
 	
 	
+
+	public static Path getCurrentPath() {
+        try {
+            Path currentPath = Paths.get(Main.class.getProtectionDomain().getCodeSource().getLocation().toURI());
+
+            if (Files.isRegularFile(currentPath, new java.nio.file.LinkOption[0])) {
+                return currentPath.getParent();
+            }
+            return currentPath;
+        } catch (URISyntaxException e) {
+			LOGGER.error("excepcion ", e);
+
+        }
+        return null;
+    }
+
+	
+	public static String getInstallationPathRegistry(){
+		String ubicationRegist=null;
+		try {
+			ubicationRegist = CommandExecutor.readRegistrySpecificRegistry(Constants.LOCALREGISTRY, "installationPath","REG_SZ");
+		} catch (Exception e) {
+			e.printStackTrace();
+			LOGGER.error("excepcion ", e);
+
+		}
+		return ubicationRegist;
+	}
+	
+
+	/**
+	 * this for ubucation is for robotCreation
+	 */
+	public static void checkUbicationCreationRegistry(){
+		try{
+			String ubicationRegist = CommandExecutor.readRegistrySpecificRegistry(Constants.LOCALREGISTRY, "ubicationRobot","REG_SZ");
+			RobotManager.setUbication(ubicationRegist);
+		}catch(Exception ex){
+			createUbicationRegistruCreation();
+			LOGGER.error("excepcion ", ex);
+
+		}
+	}
+	
+	public static void checkUbicationRegistry(){
+		try {
+			String ubicationRegist = CommandExecutor.readRegistrySpecificRegistry(Constants.LOCALREGISTRY, "installationPath","REG_SZ");
+		} catch (Exception e) {
+			createUbicationPathRegistry();
+			e.printStackTrace();
+			LOGGER.error("excepcion ", e);
+
+		}
+	}
+	
+	
+	private static void createUbicationRegistruCreation(){
+		try {
+			String ubication="generic";
+			CommandExecutor.addRegistryWindows(Constants.LOCALREGISTRY, "ubicationRobot", ubication, REGISTRY_TYPE.REG_SZ);
+			RobotManager.setUbication(ubication);
+		} catch (IOException e) {
+			e.printStackTrace();
+			LOGGER.error("excepcion ", e);
+
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+			LOGGER.error("excepcion ", e);
+
+		}
+
+	}
 	
 }

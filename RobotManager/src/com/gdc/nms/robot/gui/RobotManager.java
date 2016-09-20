@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.RandomAccessFile;
-import java.net.URISyntaxException;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileLock;
 import java.nio.file.Files;
@@ -30,7 +29,6 @@ import org.apache.log4j.Appender;
 import org.apache.log4j.FileAppender;
 import org.apache.log4j.Logger;
 
-import com.gdc.nms.robot.Main;
 import com.gdc.nms.robot.gui.tree.test.InterfaceManager;
 import com.gdc.nms.robot.gui.util.SRMGUI;
 import com.gdc.nms.robot.gui.util.process.JavaProcess;
@@ -42,9 +40,6 @@ import com.gdc.nms.robot.util.indexer.AppInformation;
 import com.gdc.nms.robot.util.jade.InitPlataform;
 import com.gdc.nms.robot.util.jade.SRMAgentManager;
 import com.gdc.nms.robot.util.registry.CommandExecutor;
-import com.gdc.nms.robot.util.registry.CommandExecutor.REGISTRY_TYPE;
-import com.gdc.robothelper.webservice.SisproRobotManagerHelperService;
-import com.gdc.robothelper.webservice.robot.Webservice;
 
 import jade.core.AID;
 
@@ -127,6 +122,8 @@ public class RobotManager extends JFrame {
 			});
 			srmGui=new SRMGUI();
 			srmGuiManager=new InterfaceManager(srmGui);
+			srmGui.setInterfaceManager(srmGuiManager);
+			System.out.println("srmgui"+srmGui);
 			srmGuiManager.loadAllRobots();
 			StartAgentPlatform();
 			hilo.start();
@@ -141,7 +138,7 @@ public class RobotManager extends JFrame {
 	}
 	
 	private void CreateLogFile(){
-		Path currentPath = getCurrentPath();
+		Path currentPath = RegistryEditorManager.getCurrentPath();
 		currentPath = currentPath.resolve("inMonitor").resolve("srm.log");
 		System.out.println("**** cuenrrrent path for srmlog"+currentPath.toString());
 		try {
@@ -163,7 +160,7 @@ public class RobotManager extends JFrame {
 	}
 	
 	private boolean checkAndCreatedLockFile(){
-		Path currentPath = getCurrentPath();
+		Path currentPath = RegistryEditorManager.getCurrentPath();
 		File lockFile = new File(currentPath.resolve("SRM.LOCK").toString());
 		boolean created=false;
 		if(lockFile.exists()){
@@ -235,126 +232,25 @@ public class RobotManager extends JFrame {
 		LOGGER.info( "reading and creating windows registry necessary for sysprorobotmanager");
 //		checkRegistryRobotMustRun();
 //		checkRegistryRobotNoRunning();
-		checkUbicationRegistry();
-		checkWebServicesRegistry();
-		checkUbicationCreationRegistry();
-	}
-	
-
-	
-	
-	
-	
-	
-	
-
-	
-	
-	private void checkWebServicesRegistry(){
-		try {
-			CommandExecutor.readRegistrySpecificRegistry(Constants.LOCALREGISTRY, "webservicesCreator", "REG_SZ");
-		} catch (Exception e) {
-			createWebServicesCreatorRegistry();
-			e.printStackTrace();
-			LOGGER.error("excepcion ", e);
-
-		}
 		
-		try {
-			CommandExecutor.readRegistrySpecificRegistry(Constants.LOCALREGISTRY, "webservicesConsult", "REG_SZ");
-		} catch (Exception e) {
-			e.printStackTrace();
-			createWebServicesConsultRegistry();
-			LOGGER.error("excepcion ", e);
-
-		}
+		RegistryEditorManager.checkWebServicesRegistry();
+		RegistryEditorManager.checkUbicationRegistry();
+		RegistryEditorManager.checkUbicationCreationRegistry();
+//		checkUbicationRegistry();
+//		checkWebServicesRegistry();
+//		checkUbicationCreationRegistry();
 	}
 	
-	
-	public static void createWebServicesCreatorRegistry(String wsUrl){
-		try {
-			CommandExecutor.addRegistryWindows(Constants.LOCALREGISTRY, "webservicesCreator", wsUrl);
-		} catch (IOException e) {
-			e.printStackTrace();
-			LOGGER.error("excepcion ", e);
 
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-			LOGGER.error("excepcion ", e);
-
-		}
-	}
-	private void createWebServicesCreatorRegistry(){
-		try {
-			CommandExecutor.addRegistryWindows(Constants.LOCALREGISTRY, "webservicesCreator", Webservice.getUrl().toString());
-		} catch (IOException e) {
-			e.printStackTrace();
-			LOGGER.error("excepcion ", e);
-
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-			LOGGER.error("excepcion ", e);
-
-		}
-	}
 	
 	
-	public static String getWebServicesCreatorRegistry(){
-		String urlRegistry=null;
-		try {
-			urlRegistry=CommandExecutor.readRegistrySpecificRegistry(Constants.LOCALREGISTRY, "webservicesCreator", "REG_SZ");
-		} catch (Exception e) {
-			e.printStackTrace();
-			LOGGER.error("excepcion ", e);
-
-		}
-		return urlRegistry;
-		
-	}
 	
 	
-	public static void createWebServicesConsultRegistry(String wsUrl){
-		try {
-			CommandExecutor.addRegistryWindows(Constants.LOCALREGISTRY, "webservicesConsult",wsUrl);
-		} catch (IOException e) {
-			e.printStackTrace();
-			LOGGER.error("excepcion ", e);
-
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-			LOGGER.error("excepcion ", e);
-
-		}
-	}
-	
-	private void createWebServicesConsultRegistry(){
-		try {
-			CommandExecutor.addRegistryWindows(Constants.LOCALREGISTRY, "webservicesConsult",
-					SisproRobotManagerHelperService.getUrl().toString());
-		} catch (IOException e) {
-			e.printStackTrace();
-			LOGGER.error("excepcion ", e);
-
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-			LOGGER.error("excepcion ", e);
-
-		}
-	}
 	
 	
-	public static String getWebServicesConsultRegistry(){
-		String wsUrl=null;
-		try {
-			wsUrl=CommandExecutor.readRegistrySpecificRegistry(Constants.LOCALREGISTRY, "webservicesConsult", "REG_SZ");
-		} catch (Exception e) {
-			e.printStackTrace();
-			LOGGER.error("excepcion ", e);
 
-		}
-		return wsUrl;
-		
-	}
+	
+	
 	
 	
 	public static void initAllRobots(){
@@ -446,107 +342,14 @@ public class RobotManager extends JFrame {
 	
 
 	
-	private static void checkUbicationRegistry(){
-		try {
-			String ubicationRegist = CommandExecutor.readRegistrySpecificRegistry(Constants.LOCALREGISTRY, "installationPath","REG_SZ");
-		} catch (Exception e) {
-			createUbicationPathRegistry();
-			e.printStackTrace();
-			LOGGER.error("excepcion ", e);
 
-		}
-	}
-	
-	/**
-	 * this for ubucation is for robotCreation
-	 */
-	private static void checkUbicationCreationRegistry(){
-		try{
-			String ubicationRegist = CommandExecutor.readRegistrySpecificRegistry(Constants.LOCALREGISTRY, "ubicationRobot","REG_SZ");
-			setUbication(ubicationRegist);
-		}catch(Exception ex){
-			createUbicationRegistruCreation();
-			LOGGER.error("excepcion ", ex);
-
-		}
-	}
-	
-	private static void createUbicationRegistruCreation(){
-		try {
-			String ubication="generic";
-			CommandExecutor.addRegistryWindows(Constants.LOCALREGISTRY, "ubicationRobot", ubication, REGISTRY_TYPE.REG_SZ);
-			setUbication(ubication);
-		} catch (IOException e) {
-			e.printStackTrace();
-			LOGGER.error("excepcion ", e);
-
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-			LOGGER.error("excepcion ", e);
-
-		}
-
-	}
 	
 	
-	public static void createUbicationRegistruCreation(String ubication){
-		try {
-			CommandExecutor.addRegistryWindows(Constants.LOCALREGISTRY, "ubicationRobot", ubication, REGISTRY_TYPE.REG_SZ);
-			setUbication(ubication);
-		} catch (IOException e) {
-			e.printStackTrace();
-			LOGGER.error("excepcion ", e);
-
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-			LOGGER.error("excepcion ", e);
-
-		}
-
-	}
-	private static void createUbicationPathRegistry(){
-		try {
-			CommandExecutor.addRegistryWindows(Constants.LOCALREGISTRY, "installationPath", getCurrentPath().toString(), REGISTRY_TYPE.REG_SZ);
-		} catch (IOException e) {
-			e.printStackTrace();
-			LOGGER.error("excepcion ", e);
-
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-			LOGGER.error("excepcion ", e);
-
-		}
-
-	}
-	
-	public static String getInstallationPathRegistry(){
-		String ubicationRegist=null;
-		try {
-			ubicationRegist = CommandExecutor.readRegistrySpecificRegistry(Constants.LOCALREGISTRY, "installationPath","REG_SZ");
-		} catch (Exception e) {
-			e.printStackTrace();
-			LOGGER.error("excepcion ", e);
-
-		}
-		return ubicationRegist;
-	}
 	
 	
-	public static Path getCurrentPath() {
-        try {
-            Path currentPath = Paths.get(Main.class.getProtectionDomain().getCodeSource().getLocation().toURI());
-
-            if (Files.isRegularFile(currentPath, new java.nio.file.LinkOption[0])) {
-                return currentPath.getParent();
-            }
-            return currentPath;
-        } catch (URISyntaxException e) {
-			LOGGER.error("excepcion ", e);
-
-        }
-        return null;
-    }
-
+	
+	
+	
 	
 	
 	private static HashMap<Long,String> getRobotNotRunning(){

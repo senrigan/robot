@@ -91,16 +91,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="11" language="java" name="com.gdc.nms.robot.gui.RegisrtryEditorManager" project="RobotManager" 
-    file="/RobotManager/src/com/gdc/nms/robot/gui/RegisrtryEditorManager.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="2093" y="464"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="12" language="java" name="com.gdc.nms.robot.gui.DeleteRobotPanel" project="RobotManager" 
+  <class id="11" language="java" name="com.gdc.nms.robot.gui.DeleteRobotPanel" project="RobotManager" 
     file="/RobotManager/src/com/gdc/nms/robot/gui/DeleteRobotPanel.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="2604" y="518"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -109,7 +100,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="13" language="java" name="com.gdc.nms.robot.gui.FileSystemModel.TreeFile" project="RobotManager" 
+  <class id="12" language="java" name="com.gdc.nms.robot.gui.FileSystemModel.TreeFile" project="RobotManager" 
     file="/RobotManager/src/com/gdc/nms/robot/gui/FileTreeFrame.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1848" y="1273"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -118,7 +109,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="14" language="java" name="com.gdc.nms.robot.gui.InfoWindows" project="RobotManager" 
+  <class id="13" language="java" name="com.gdc.nms.robot.gui.InfoWindows" project="RobotManager" 
     file="/RobotManager/src/com/gdc/nms/robot/gui/InfoWindows.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="2835" y="482"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -127,7 +118,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="15" language="java" name="com.gdc.nms.robot.gui.FileTreeFrame" project="RobotManager" 
+  <class id="14" language="java" name="com.gdc.nms.robot.gui.FileTreeFrame" project="RobotManager" 
     file="/RobotManager/src/com/gdc/nms/robot/gui/FileTreeFrame.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1874" y="464"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -136,7 +127,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="16" language="java" name="com.gdc.nms.robot.gui.SelectorApp.Alias" project="RobotManager" 
+  <class id="15" language="java" name="com.gdc.nms.robot.gui.SelectorApp.Alias" project="RobotManager" 
     file="/RobotManager/src/com/gdc/nms/robot/gui/SelectorApp.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="2346" y="954"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -145,7 +136,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="17" language="java" name="com.gdc.nms.robot.gui.SelectorApp" project="RobotManager" 
+  <class id="16" language="java" name="com.gdc.nms.robot.gui.SelectorApp" project="RobotManager" 
     file="/RobotManager/src/com/gdc/nms/robot/gui/SelectorApp.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="2339" y="554"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -154,7 +145,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="18" language="java" name="com.gdc.nms.robot.gui.FileSystemModel" project="RobotManager" 
+  <class id="17" language="java" name="com.gdc.nms.robot.gui.FileSystemModel" project="RobotManager" 
     file="/RobotManager/src/com/gdc/nms/robot/gui/FileTreeFrame.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1953" y="960"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -163,7 +154,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="19" language="java" name="com.gdc.nms.robot.gui.auxiliar.SelectorWindows" project="RobotManager" 
+  <class id="18" language="java" name="com.gdc.nms.robot.gui.auxiliar.SelectorWindows" project="RobotManager" 
     file="/RobotManager/src/com/gdc/nms/robot/gui/auxiliar/SelectorWindows.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1525" y="8"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -172,7 +163,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="20" language="java" name="com.gdc.nms.robot.gui.auxiliar.UpdateTask" project="RobotManager" 
+  <class id="19" language="java" name="com.gdc.nms.robot.gui.auxiliar.UpdateTask" project="RobotManager" 
     file="/RobotManager/src/com/gdc/nms/robot/gui/auxiliar/UpdateTask.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="4770" y="4010"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -181,7 +172,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="21" language="java" name="com.gdc.nms.robot.gui.auxiliar.LoadingFrame" project="RobotManager" 
+  <class id="20" language="java" name="com.gdc.nms.robot.gui.auxiliar.LoadingFrame" project="RobotManager" 
     file="/RobotManager/src/com/gdc/nms/robot/gui/auxiliar/LoadingFrame.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="189" width="138" x="2449" y="-156"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -190,7 +181,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="22" language="java" name="com.gdc.nms.robot.gui.auxiliar.CheckBoxList.CellRenderer" project="RobotManager" 
+  <class id="21" language="java" name="com.gdc.nms.robot.gui.auxiliar.CheckBoxList.CellRenderer" project="RobotManager" 
     file="/RobotManager/src/com/gdc/nms/robot/gui/auxiliar/CheckBoxList.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="99" width="391" x="2155" y="289"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -199,7 +190,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="23" language="java" name="com.gdc.nms.robot.gui.auxiliar.RegisrtyEditor" project="RobotManager" 
+  <class id="22" language="java" name="com.gdc.nms.robot.gui.auxiliar.RegisrtyEditor" project="RobotManager" 
     file="/RobotManager/src/com/gdc/nms/robot/gui/auxiliar/RegisrtyEditor.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="405" width="219" x="2627" y="-156"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -208,7 +199,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="24" language="java" name="com.gdc.nms.robot.gui.auxiliar.CheckBoxList" project="RobotManager" 
+  <class id="23" language="java" name="com.gdc.nms.robot.gui.auxiliar.CheckBoxList" project="RobotManager" 
     file="/RobotManager/src/com/gdc/nms/robot/gui/auxiliar/CheckBoxList.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="117" width="254" x="2155" y="-156"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -217,7 +208,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="25" language="java" name="com.gdc.nms.robot.gui.menuAction.RegsitryEditor" project="RobotManager" 
+  <class id="24" language="java" name="com.gdc.nms.robot.gui.menuAction.RegsitryEditor" project="RobotManager" 
     file="/RobotManager/src/com/gdc/nms/robot/gui/menuAction/RegsitryEditor.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1239" y="87"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -226,7 +217,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="26" language="java" name="com.gdc.nms.robot.gui.menuAction.controller.RegistryEditorController" 
+  <class id="25" language="java" name="com.gdc.nms.robot.gui.menuAction.controller.RegistryEditorController" 
     project="RobotManager" 
     file="/RobotManager/src/com/gdc/nms/robot/gui/menuAction/controller/RegistryEditorController.java" binary="false" 
     corner="BOTTOM_RIGHT">    
@@ -237,7 +228,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="27" language="java" name="com.gdc.nms.robot.gui.tree.Element" project="RobotManager" 
+  <class id="26" language="java" name="com.gdc.nms.robot.gui.tree.Element" project="RobotManager" 
     file="/RobotManager/src/com/gdc/nms/robot/gui/tree/Element.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="610" y="2016"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -246,7 +237,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="28" language="java" name="com.gdc.nms.robot.gui.tree.TreeModelElements" project="RobotManager" 
+  <class id="27" language="java" name="com.gdc.nms.robot.gui.tree.TreeModelElements" project="RobotManager" 
     file="/RobotManager/src/com/gdc/nms/robot/gui/tree/TreeModelElements.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="900" y="1595"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -255,7 +246,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="29" language="java" name="com.gdc.nms.robot.gui.tree.TestTree" project="RobotManager" 
+  <class id="28" language="java" name="com.gdc.nms.robot.gui.tree.TestTree" project="RobotManager" 
     file="/RobotManager/src/com/gdc/nms/robot/gui/tree/TestTree.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="557" y="1351"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -264,7 +255,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="30" language="java" name="com.gdc.nms.robot.gui.tree.TestTree.TestModel" project="RobotManager" 
+  <class id="29" language="java" name="com.gdc.nms.robot.gui.tree.TestTree.TestModel" project="RobotManager" 
     file="/RobotManager/src/com/gdc/nms/robot/gui/tree/TestTree.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="317" y="1591"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -273,7 +264,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="31" language="java" name="com.gdc.nms.robot.gui.tree.TreeListener" project="RobotManager" 
+  <class id="30" language="java" name="com.gdc.nms.robot.gui.tree.TreeListener" project="RobotManager" 
     file="/RobotManager/src/com/gdc/nms/robot/gui/tree/TreeListener.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="2165" y="2590"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -282,7 +273,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="32" language="java" name="com.gdc.nms.robot.gui.tree.Element.PreorderEnumeration" project="RobotManager" 
+  <class id="31" language="java" name="com.gdc.nms.robot.gui.tree.Element.PreorderEnumeration" project="RobotManager" 
     file="/RobotManager/src/com/gdc/nms/robot/gui/tree/Element.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="591" y="2400"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -291,7 +282,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="33" language="java" name="com.gdc.nms.robot.gui.tree.test.Test" project="RobotManager" 
+  <class id="32" language="java" name="com.gdc.nms.robot.gui.tree.test.Test" project="RobotManager" 
     file="/RobotManager/src/com/gdc/nms/robot/gui/tree/test/Test.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="99" width="384" x="13" y="2624"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -300,7 +291,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="34" language="java" name="com.gdc.nms.robot.gui.tree.test.RobotJTree" project="RobotManager" 
+  <class id="33" language="java" name="com.gdc.nms.robot.gui.tree.test.RobotJTree" project="RobotManager" 
     file="/RobotManager/src/com/gdc/nms/robot/gui/tree/test/RobotJTree.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="333" width="491" x="371" y="2564"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -309,7 +300,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="35" language="java" name="com.gdc.nms.robot.gui.tree.test.SRMGui" project="RobotManager" 
+  <class id="34" language="java" name="com.gdc.nms.robot.gui.tree.test.SRMGui" project="RobotManager" 
     file="/RobotManager/src/com/gdc/nms/robot/gui/tree/test/SRMGui.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="117" width="384" x="785" y="2921"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -318,7 +309,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="36" language="java" name="com.gdc.nms.robot.gui.tree.test.TreeDynamic" project="RobotManager" 
+  <class id="35" language="java" name="com.gdc.nms.robot.gui.tree.test.TreeDynamic" project="RobotManager" 
     file="/RobotManager/src/com/gdc/nms/robot/gui/tree/test/TreeDynamic.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="369" width="637" x="197" y="3179"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -327,7 +318,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="37" language="java" name="com.gdc.nms.robot.gui.tree.test.Element" project="RobotManager" 
+  <class id="36" language="java" name="com.gdc.nms.robot.gui.tree.test.Element" project="RobotManager" 
     file="/RobotManager/src/com/gdc/nms/robot/gui/tree/test/Element.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="495" width="460" x="1752" y="3592"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -336,7 +327,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="38" language="java" name="com.gdc.nms.robot.gui.tree.test.SRMGuiTes" project="RobotManager" 
+  <class id="37" language="java" name="com.gdc.nms.robot.gui.tree.test.SRMGuiTes" project="RobotManager" 
     file="/RobotManager/src/com/gdc/nms/robot/gui/tree/test/SRMGuiTes.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="117" width="384" x="952" y="2624"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -345,7 +336,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="39" language="java" name="com.gdc.nms.robot.gui.tree.test.TreeListener" project="RobotManager" 
+  <class id="38" language="java" name="com.gdc.nms.robot.gui.tree.test.TreeListener" project="RobotManager" 
     file="/RobotManager/src/com/gdc/nms/robot/gui/tree/test/TreeListener.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="153" width="459" x="1285" y="2913"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -354,7 +345,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="40" language="java" name="com.gdc.nms.robot.gui.tree.test.Element.PreorderEnumeration" 
+  <class id="39" language="java" name="com.gdc.nms.robot.gui.tree.test.Element.PreorderEnumeration" 
     project="RobotManager" file="/RobotManager/src/com/gdc/nms/robot/gui/tree/test/Element.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="135" width="422" x="1584" y="3299"/>    
@@ -364,7 +355,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="41" language="java" name="com.gdc.nms.robot.gui.tryicon.TryIconManager" project="RobotManager" 
+  <class id="40" language="java" name="com.gdc.nms.robot.gui.tryicon.TryIconManager" project="RobotManager" 
     file="/RobotManager/src/com/gdc/nms/robot/gui/tryicon/TryIconManager.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="171" width="183" x="4280" y="566"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -373,7 +364,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="42" language="java" name="com.gdc.nms.robot.gui.util.RoundJTextField" project="RobotManager" 
+  <class id="41" language="java" name="com.gdc.nms.robot.gui.util.RoundJTextField" project="RobotManager" 
     file="/RobotManager/src/com/gdc/nms/robot/gui/util/RoundJTextField.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="171" width="178" x="4659" y="1163"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -382,7 +373,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="43" language="java" name="com.gdc.nms.robot.gui.util.SRMGuiTes" project="RobotManager" 
+  <class id="42" language="java" name="com.gdc.nms.robot.gui.util.SRMGuiTes" project="RobotManager" 
     file="/RobotManager/src/com/gdc/nms/robot/gui/util/SRMGuiTes.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="117" width="123" x="4877" y="1163"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -391,7 +382,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="44" language="java" name="com.gdc.nms.robot.gui.util.RoundJTextArea" project="RobotManager" 
+  <class id="43" language="java" name="com.gdc.nms.robot.gui.util.RoundJTextArea" project="RobotManager" 
     file="/RobotManager/src/com/gdc/nms/robot/gui/util/RoundJTextArea.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="153" width="178" x="5040" y="1163"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -400,7 +391,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="45" language="java" name="com.gdc.nms.robot.gui.util.ScrollTest" project="RobotManager" 
+  <class id="44" language="java" name="com.gdc.nms.robot.gui.util.ScrollTest" project="RobotManager" 
     file="/RobotManager/src/com/gdc/nms/robot/gui/util/ScrollTest.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="117" width="123" x="5258" y="1163"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -409,7 +400,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="46" language="java" name="com.gdc.nms.robot.gui.util.RoundButton" project="RobotManager" 
+  <class id="45" language="java" name="com.gdc.nms.robot.gui.util.RoundButton" project="RobotManager" 
     file="/RobotManager/src/com/gdc/nms/robot/gui/util/RoundButton.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="171" width="178" x="5421" y="1163"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -418,7 +409,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="47" language="java" name="com.gdc.nms.robot.gui.util.SRMGUI" project="RobotManager" 
+  <class id="46" language="java" name="com.gdc.nms.robot.gui.util.SRMGUI" project="RobotManager" 
     file="/RobotManager/src/com/gdc/nms/robot/gui/util/SRMGUI.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="315" width="238" x="5639" y="1163"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -427,7 +418,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="48" language="java" name="com.gdc.nms.robot.gui.util.Jtext" project="RobotManager" 
+  <class id="47" language="java" name="com.gdc.nms.robot.gui.util.Jtext" project="RobotManager" 
     file="/RobotManager/src/com/gdc/nms/robot/gui/util/Jtext.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="117" width="123" x="5917" y="1163"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -436,7 +427,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="49" language="java" name="com.gdc.nms.robot.gui.util.process.ScannerServicesBot" project="RobotManager" 
+  <class id="48" language="java" name="com.gdc.nms.robot.gui.util.process.ScannerServicesBot" project="RobotManager" 
     file="/RobotManager/src/com/gdc/nms/robot/gui/util/process/ScannerServicesBot.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="4644" y="2279"/>    
@@ -446,7 +437,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="50" language="java" name="com.gdc.nms.robot.gui.util.process.JavaProcess" project="RobotManager" 
+  <class id="49" language="java" name="com.gdc.nms.robot.gui.util.process.JavaProcess" project="RobotManager" 
     file="/RobotManager/src/com/gdc/nms/robot/gui/util/process/JavaProcess.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="4910" y="2333"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -455,7 +446,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="51" language="java" name="com.gdc.nms.robot.gui.util.process.ListProcesses" project="RobotManager" 
+  <class id="50" language="java" name="com.gdc.nms.robot.gui.util.process.ListProcesses" project="RobotManager" 
     file="/RobotManager/src/com/gdc/nms/robot/gui/util/process/ListProcesses.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="5176" y="2288"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -464,7 +455,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="52" language="java" name="com.gdc.nms.robot.gui.util.process.jWMI" project="RobotManager" 
+  <class id="51" language="java" name="com.gdc.nms.robot.gui.util.process.jWMI" project="RobotManager" 
     file="/RobotManager/src/com/gdc/nms/robot/gui/util/process/jWMI.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="5557" y="6212"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -473,7 +464,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="53" language="java" name="com.gdc.nms.robot.gui.util.process.ScannerServicesBotWorker" 
+  <class id="52" language="java" name="com.gdc.nms.robot.gui.util.process.ScannerServicesBotWorker" 
     project="RobotManager" file="/RobotManager/src/com/gdc/nms/robot/gui/util/process/ScannerServicesBotWorker.java" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="5952" y="2288"/>    
@@ -483,7 +474,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="54" language="java" name="com.gdc.nms.robot.gui.util.process.JavaProcessInfo" project="RobotManager" 
+  <class id="53" language="java" name="com.gdc.nms.robot.gui.util.process.JavaProcessInfo" project="RobotManager" 
     file="/RobotManager/src/com/gdc/nms/robot/gui/util/process/JavaProcessInfo.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="6167" y="2369"/>    
@@ -493,7 +484,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="55" language="java" name="com.gdc.nms.robot.util.InfoRobotMaker" project="RobotManager" 
+  <class id="54" language="java" name="com.gdc.nms.robot.util.InfoRobotMaker" project="RobotManager" 
     file="/RobotManager/src/com/gdc/nms/robot/util/InfoRobotMaker.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="996" y="6159"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -502,7 +493,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="56" language="java" name="com.gdc.nms.robot.util.JpsManager" project="RobotManager" 
+  <class id="55" language="java" name="com.gdc.nms.robot.util.JpsManager" project="RobotManager" 
     file="/RobotManager/src/com/gdc/nms/robot/util/JpsManager.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1289" y="6535"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -511,7 +502,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="57" language="java" name="com.gdc.nms.robot.util.AppExaminator" project="RobotManager" 
+  <class id="56" language="java" name="com.gdc.nms.robot.util.AppExaminator" project="RobotManager" 
     file="/RobotManager/src/com/gdc/nms/robot/util/AppExaminator.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1660" y="6688"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -520,7 +511,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="58" language="java" name="com.gdc.nms.robot.util.LogLayout" project="RobotManager" 
+  <class id="57" language="java" name="com.gdc.nms.robot.util.LogLayout" project="RobotManager" 
     file="/RobotManager/src/com/gdc/nms/robot/util/LogLayout.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1947" y="6508"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -529,7 +520,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="59" language="java" name="com.gdc.nms.robot.util.RobotInformation" project="RobotManager" 
+  <class id="58" language="java" name="com.gdc.nms.robot.util.RobotInformation" project="RobotManager" 
     file="/RobotManager/src/com/gdc/nms/robot/util/RobotInformation.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="2188" y="6598"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -538,7 +529,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="60" language="java" name="com.gdc.nms.robot.util.UpdaterRobot" project="RobotManager" 
+  <class id="59" language="java" name="com.gdc.nms.robot.util.UpdaterRobot" project="RobotManager" 
     file="/RobotManager/src/com/gdc/nms/robot/util/UpdaterRobot.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="2448" y="6526"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -547,7 +538,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="61" language="java" name="com.gdc.nms.robot.util.PermissionController" project="RobotManager" 
+  <class id="60" language="java" name="com.gdc.nms.robot.util.PermissionController" project="RobotManager" 
     file="/RobotManager/src/com/gdc/nms/robot/util/PermissionController.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="2724" y="6562"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -556,7 +547,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="62" language="java" name="com.gdc.nms.robot.util.DeleteServiceController" project="RobotManager" 
+  <class id="61" language="java" name="com.gdc.nms.robot.util.DeleteServiceController" project="RobotManager" 
     file="/RobotManager/src/com/gdc/nms/robot/util/DeleteServiceController.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="3011" y="6544"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -565,7 +556,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="63" language="java" name="com.gdc.nms.robot.util.Language" project="RobotManager" 
+  <class id="62" language="java" name="com.gdc.nms.robot.util.Language" project="RobotManager" 
     file="/RobotManager/src/com/gdc/nms/robot/util/Language.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="3237" y="6508"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -574,7 +565,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="64" language="java" name="com.gdc.nms.robot.util.CreatorRobotManager" project="RobotManager" 
+  <class id="63" language="java" name="com.gdc.nms.robot.util.CreatorRobotManager" project="RobotManager" 
     file="/RobotManager/src/com/gdc/nms/robot/util/CreatorRobotManager.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="3504" y="6760"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -583,7 +574,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="65" language="java" name="com.gdc.nms.robot.util.JavaProcessInfo" project="RobotManager" 
+  <class id="64" language="java" name="com.gdc.nms.robot.util.JavaProcessInfo" project="RobotManager" 
     file="/RobotManager/src/com/gdc/nms/robot/util/JavaProcessInfo.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="3760" y="6535"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -592,7 +583,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="66" language="java" name="com.gdc.nms.robot.util.ValidatorManagement" project="RobotManager" 
+  <class id="65" language="java" name="com.gdc.nms.robot.util.ValidatorManagement" project="RobotManager" 
     file="/RobotManager/src/com/gdc/nms/robot/util/ValidatorManagement.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="4058" y="6562"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -601,7 +592,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="67" language="java" name="com.gdc.nms.robot.util.Environment" project="RobotManager" 
+  <class id="66" language="java" name="com.gdc.nms.robot.util.Environment" project="RobotManager" 
     file="/RobotManager/src/com/gdc/nms/robot/util/Environment.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="4377" y="6562"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -610,7 +601,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="68" language="java" name="com.gdc.nms.robot.util.ExtracterJar" project="RobotManager" 
+  <class id="67" language="java" name="com.gdc.nms.robot.util.ExtracterJar" project="RobotManager" 
     file="/RobotManager/src/com/gdc/nms/robot/util/ExtracterJar.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="4634" y="6535"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -619,7 +610,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="69" language="java" name="com.gdc.nms.robot.util.VirtualMachineExaminator" project="RobotManager" 
+  <class id="68" language="java" name="com.gdc.nms.robot.util.VirtualMachineExaminator" project="RobotManager" 
     file="/RobotManager/src/com/gdc/nms/robot/util/VirtualMachineExaminator.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="4931" y="6499"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -628,7 +619,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="70" language="java" name="com.gdc.nms.robot.util.Constants" project="RobotManager" 
+  <class id="69" language="java" name="com.gdc.nms.robot.util.Constants" project="RobotManager" 
     file="/RobotManager/src/com/gdc/nms/robot/util/Constants.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="5217" y="6661"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -637,7 +628,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="71" language="java" name="com.gdc.nms.robot.util.indexer.AppJsonObject" project="RobotManager" 
+  <class id="70" language="java" name="com.gdc.nms.robot.util.indexer.AppJsonObject" project="RobotManager" 
     file="/RobotManager/src/com/gdc/nms/robot/util/indexer/AppJsonObject.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1329" y="5577"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -646,7 +637,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="72" language="java" name="com.gdc.nms.robot.util.indexer.FlujoJsonObject" project="RobotManager" 
+  <class id="71" language="java" name="com.gdc.nms.robot.util.indexer.FlujoJsonObject" project="RobotManager" 
     file="/RobotManager/src/com/gdc/nms/robot/util/indexer/FlujoJsonObject.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="3322" y="5171"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -655,7 +646,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="73" language="java" name="com.gdc.nms.robot.util.indexer.StepInformation" project="RobotManager" 
+  <class id="72" language="java" name="com.gdc.nms.robot.util.indexer.StepInformation" project="RobotManager" 
     file="/RobotManager/src/com/gdc/nms/robot/util/indexer/StepInformation.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="3167" y="4665"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -664,7 +655,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="74" language="java" name="com.gdc.nms.robot.util.indexer.AppInformation" project="RobotManager" 
+  <class id="73" language="java" name="com.gdc.nms.robot.util.indexer.AppInformation" project="RobotManager" 
     file="/RobotManager/src/com/gdc/nms/robot/util/indexer/AppInformation.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="3217" y="3856"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -673,7 +664,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="75" language="java" name="com.gdc.nms.robot.util.indexer.FlujoInformation" project="RobotManager" 
+  <class id="74" language="java" name="com.gdc.nms.robot.util.indexer.FlujoInformation" project="RobotManager" 
     file="/RobotManager/src/com/gdc/nms/robot/util/indexer/FlujoInformation.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="3214" y="4319"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -682,7 +673,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="76" language="java" name="com.gdc.nms.robot.util.jade.SRMAgent.MailBox" project="RobotManager" 
+  <class id="75" language="java" name="com.gdc.nms.robot.util.jade.SRMAgent.MailBox" project="RobotManager" 
     file="/RobotManager/src/com/gdc/nms/robot/util/jade/SRMAgent.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="534" y="5167"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -691,7 +682,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="77" language="java" name="com.gdc.nms.robot.util.jade.MailBoxRobot.MailReader" project="RobotManager" 
+  <class id="76" language="java" name="com.gdc.nms.robot.util.jade.MailBoxRobot.MailReader" project="RobotManager" 
     file="/RobotManager/src/com/gdc/nms/robot/util/jade/MailBoxRobot.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1340" y="4529"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -700,7 +691,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="78" language="java" name="com.gdc.nms.robot.util.jade.AgentValidator.SearchedManually" 
+  <class id="77" language="java" name="com.gdc.nms.robot.util.jade.AgentValidator.SearchedManually" 
     project="RobotManager" file="/RobotManager/src/com/gdc/nms/robot/util/jade/AgentValidator.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1197" y="5149"/>    
@@ -710,7 +701,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="79" language="java" name="com.gdc.nms.robot.util.jade.SRMAgent" project="RobotManager" 
+  <class id="78" language="java" name="com.gdc.nms.robot.util.jade.SRMAgent" project="RobotManager" 
     file="/RobotManager/src/com/gdc/nms/robot/util/jade/SRMAgent.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="878" y="4965"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -719,7 +710,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="80" language="java" name="com.gdc.nms.robot.util.jade.AgentValidator" project="RobotManager" 
+  <class id="79" language="java" name="com.gdc.nms.robot.util.jade.AgentValidator" project="RobotManager" 
     file="/RobotManager/src/com/gdc/nms/robot/util/jade/AgentValidator.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1173" y="4929"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -728,7 +719,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="81" language="java" name="com.gdc.nms.robot.util.jade.SRMAgent.Searched" project="RobotManager" 
+  <class id="80" language="java" name="com.gdc.nms.robot.util.jade.SRMAgent.Searched" project="RobotManager" 
     file="/RobotManager/src/com/gdc/nms/robot/util/jade/SRMAgent.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="793" y="5158"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -737,7 +728,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="82" language="java" name="com.gdc.nms.robot.util.jade.SRMAgent.SuicideBox" project="RobotManager" 
+  <class id="81" language="java" name="com.gdc.nms.robot.util.jade.SRMAgent.SuicideBox" project="RobotManager" 
     file="/RobotManager/src/com/gdc/nms/robot/util/jade/SRMAgent.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1007" y="5149"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -746,7 +737,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="83" language="java" name="com.gdc.nms.robot.util.jade.InitPlataform" project="RobotManager" 
+  <class id="82" language="java" name="com.gdc.nms.robot.util.jade.InitPlataform" project="RobotManager" 
     file="/RobotManager/src/com/gdc/nms/robot/util/jade/InitPlataform.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="903" y="4191"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -755,7 +746,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="84" language="java" name="com.gdc.nms.robot.util.jade.SRMAgentManager" project="RobotManager" 
+  <class id="83" language="java" name="com.gdc.nms.robot.util.jade.SRMAgentManager" project="RobotManager" 
     file="/RobotManager/src/com/gdc/nms/robot/util/jade/SRMAgentManager.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="891" y="4646"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -764,7 +755,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="85" language="java" name="com.gdc.nms.robot.util.jade.AgentValidator.Searched" project="RobotManager" 
+  <class id="84" language="java" name="com.gdc.nms.robot.util.jade.AgentValidator.Searched" project="RobotManager" 
     file="/RobotManager/src/com/gdc/nms/robot/util/jade/AgentValidator.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1436" y="5158"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -773,7 +764,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="86" language="java" name="com.gdc.nms.robot.util.jade.MailBoxRobot" project="RobotManager" 
+  <class id="85" language="java" name="com.gdc.nms.robot.util.jade.MailBoxRobot" project="RobotManager" 
     file="/RobotManager/src/com/gdc/nms/robot/util/jade/MailBoxRobot.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1296" y="4047"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -782,7 +773,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="87" language="java" name="com.gdc.nms.robot.util.jade.StatusAgent" project="RobotManager" 
+  <class id="86" language="java" name="com.gdc.nms.robot.util.jade.StatusAgent" project="RobotManager" 
     file="/RobotManager/src/com/gdc/nms/robot/util/jade/StatusAgent.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="663" y="4947"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -791,7 +782,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <enumeration id="88" language="java" name="com.gdc.nms.robot.util.registry.CommandExecutor.REGISTRY_TYPE" 
+  <enumeration id="87" language="java" name="com.gdc.nms.robot.util.registry.CommandExecutor.REGISTRY_TYPE" 
     project="RobotManager" file="/RobotManager/src/com/gdc/nms/robot/util/registry/CommandExecutor.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="2401" y="8036"/>    
@@ -801,7 +792,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </enumeration>  
-  <class id="89" language="java" name="com.gdc.nms.robot.util.registry.CommandExecutor" project="RobotManager" 
+  <class id="88" language="java" name="com.gdc.nms.robot.util.registry.CommandExecutor" project="RobotManager" 
     file="/RobotManager/src/com/gdc/nms/robot/util/registry/CommandExecutor.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="2420" y="7744"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -810,7 +801,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="90" language="java" name="com.gdc.robothelper.webservice.ClientSRMHelperWebService" project="RobotManager" 
+  <class id="89" language="java" name="com.gdc.robothelper.webservice.ClientSRMHelperWebService" project="RobotManager" 
     file="/RobotManager/src/com/gdc/robothelper/webservice/ClientSRMHelperWebService.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="3264" y="8008"/>    
@@ -820,7 +811,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="91" language="java" name="com.gdc.robothelper.webservice.SisproRobotManagerHelper" 
+  <interface id="90" language="java" name="com.gdc.robothelper.webservice.SisproRobotManagerHelper" 
     project="RobotManager" file="/RobotManager/src/com/gdc/robothelper/webservice/SisproRobotManagerHelper.java" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="3508" y="7945"/>    
@@ -830,7 +821,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="92" language="java" name="com.gdc.robothelper.webservice.SisproRobotManagerHelperService" 
+  <class id="91" language="java" name="com.gdc.robothelper.webservice.SisproRobotManagerHelperService" 
     project="RobotManager" file="/RobotManager/src/com/gdc/robothelper/webservice/SisproRobotManagerHelperService.java" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="3868" y="8044"/>    
@@ -840,7 +831,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="93" language="java" name="com.gdc.robothelper.webservice.robot.CreatorRobotWebService" 
+  <class id="92" language="java" name="com.gdc.robothelper.webservice.robot.CreatorRobotWebService" 
     project="RobotManager" file="/RobotManager/src/com/gdc/robothelper/webservice/robot/CreatorRobotWebService.java" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="3548" y="8768"/>    
@@ -850,7 +841,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="94" language="java" name="com.gdc.robothelper.webservice.robot.Webservice" project="RobotManager" 
+  <class id="93" language="java" name="com.gdc.robothelper.webservice.robot.Webservice" project="RobotManager" 
     file="/RobotManager/src/com/gdc/robothelper/webservice/robot/Webservice.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="3934" y="8759"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -859,7 +850,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="95" language="java" name="com.gdc.robothelper.webservice.robot.WebservicePortType" 
+  <interface id="94" language="java" name="com.gdc.robothelper.webservice.robot.WebservicePortType" 
     project="RobotManager" file="/RobotManager/src/com/gdc/robothelper/webservice/robot/WebservicePortType.java" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="4354" y="8687"/>    
@@ -869,7 +860,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="96" language="java" name="com.gdc.robothelper.webservice.robot.news.CreatorNewRobotWebService" 
+  <class id="95" language="java" name="com.gdc.robothelper.webservice.robot.news.CreatorNewRobotWebService" 
     project="RobotManager" 
     file="/RobotManager/src/com/gdc/robothelper/webservice/robot/news/CreatorNewRobotWebService.java" binary="false" 
     corner="BOTTOM_RIGHT">    
@@ -880,7 +871,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="97" language="java" name="com.gdc.robothelper.webservice.robot.news.WebservicePortType" 
+  <interface id="96" language="java" name="com.gdc.robothelper.webservice.robot.news.WebservicePortType" 
     project="RobotManager" file="/RobotManager/src/com/gdc/robothelper/webservice/robot/news/WebservicePortType.java" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="2027" y="8276"/>    
@@ -890,7 +881,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="98" language="java" name="com.gdc.robothelper.webservice.robot.news.Webservice" project="RobotManager" 
+  <class id="97" language="java" name="com.gdc.robothelper.webservice.robot.news.Webservice" project="RobotManager" 
     file="/RobotManager/src/com/gdc/robothelper/webservice/robot/news/Webservice.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="2446" y="8339"/>    
@@ -900,7 +891,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="99" language="java" name="com.gdc.robothelper.webservice.robot.olds.WebservicePortType" 
+  <interface id="98" language="java" name="com.gdc.robothelper.webservice.robot.olds.WebservicePortType" 
     project="RobotManager" file="/RobotManager/src/com/gdc/robothelper/webservice/robot/olds/WebservicePortType.java" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="724" y="7740"/>    
@@ -910,7 +901,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="100" language="java" name="com.gdc.robothelper.webservice.robot.olds.Webservice" project="RobotManager" 
+  <class id="99" language="java" name="com.gdc.robothelper.webservice.robot.olds.Webservice" project="RobotManager" 
     file="/RobotManager/src/com/gdc/robothelper/webservice/robot/olds/Webservice.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1143" y="7803"/>    
@@ -920,7 +911,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="101" language="java" name="com.gdc.robothelper.webservice.robot.olds.CreatorOldRobotWebService" 
+  <class id="100" language="java" name="com.gdc.robothelper.webservice.robot.olds.CreatorOldRobotWebService" 
     project="RobotManager" 
     file="/RobotManager/src/com/gdc/robothelper/webservice/robot/olds/CreatorOldRobotWebService.java" binary="false" 
     corner="BOTTOM_RIGHT">    
@@ -931,468 +922,468 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <association id="102">    
-    <end type="SOURCE" refId="15" navigable="false">      
-      <attribute id="103" name="fileSystemModel">        
+  <association id="101">    
+    <end type="SOURCE" refId="73" navigable="false">      
+      <attribute id="102" name="flujos">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="104" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="18" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="105">    
-    <end type="SOURCE" refId="27" navigable="false">      
-      <attribute id="106" name="nodes">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="107" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="27" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <nesting id="108">    
-    <end type="SOURCE" refId="29"/>    
-    <end type="TARGET" refId="30"/>  
-  </nesting>  
-  <association id="109">    
-    <end type="SOURCE" refId="20" navigable="false">      
-      <attribute id="110" name="resultUpdate">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="111" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="9" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="112">    
-    <end type="SOURCE" refId="30" navigable="false">      
-      <attribute id="113" name="data">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="114" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="27" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <nesting id="115">    
-    <end type="SOURCE" refId="86"/>    
-    <end type="TARGET" refId="77"/>  
-  </nesting>  
-  <association id="116">    
-    <end type="SOURCE" refId="84" navigable="false">      
-      <attribute id="117" name="srmAgent">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="118" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="79" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="119">    
-    <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="120" name="model">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="121" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="28" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="122">    
-    <end type="SOURCE" refId="37" navigable="false">      
-      <attribute id="123" name="nodes">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="124" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="37" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="125">    
-    <end type="SOURCE" refId="55" navigable="false">      
-      <attribute id="126" name="flujos">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="127" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="75" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="128">    
-    <end type="SOURCE" refId="75" navigable="false">      
-      <attribute id="129" name="steps">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="130" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="73" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <nesting id="131">    
-    <end type="SOURCE" refId="80"/>    
-    <end type="TARGET" refId="78"/>  
-  </nesting>  
-  <nesting id="132">    
-    <end type="SOURCE" refId="79"/>    
-    <end type="TARGET" refId="81"/>  
-  </nesting>  
-  <association id="133">    
-    <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="134" name="root">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="135" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="27" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <nesting id="136">    
-    <end type="SOURCE" refId="18"/>    
-    <end type="TARGET" refId="13"/>  
-  </nesting>  
-  <nesting id="137">    
-    <end type="SOURCE" refId="80"/>    
-    <end type="TARGET" refId="85"/>  
-  </nesting>  
-  <association id="138">    
-    <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="139" name="listenerTree">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="140" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="31" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <nesting id="141">    
-    <end type="SOURCE" refId="24"/>    
-    <end type="TARGET" refId="22"/>  
-  </nesting>  
-  <association id="142">    
-    <end type="SOURCE" refId="20" navigable="false">      
-      <attribute id="143" name="appInformation">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="144" minimum="0" maximum="1">        
+      <multiplicity id="103" minimum="0" maximum="2147483647">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="74" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="145">    
-    <end type="SOURCE" refId="74" navigable="false">      
-      <attribute id="146" name="flujos">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="147" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="75" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="148">    
-    <end type="SOURCE" refId="31" navigable="false">      
-      <attribute id="149" name="gui">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="150" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="4" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <nesting id="151">    
-    <end type="SOURCE" refId="79"/>    
-    <end type="TARGET" refId="82"/>  
+  <nesting id="104">    
+    <end type="SOURCE" refId="78"/>    
+    <end type="TARGET" refId="75"/>  
   </nesting>  
-  <association id="152">    
-    <end type="SOURCE" refId="25" navigable="false">      
-      <attribute id="153" name="controller">        
+  <association id="105">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="106" name="root">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="154" minimum="0" maximum="1">        
+      <multiplicity id="107" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="26" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="155">    
-    <end type="SOURCE" refId="27" navigable="false">      
-      <attribute id="156" name="parent">        
+  <association id="108">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="109" name="listenerTree">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="157" minimum="0" maximum="1">        
+      <multiplicity id="110" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="27" navigable="true"/>    
+    <end type="TARGET" refId="30" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="158">    
-    <end type="SOURCE" refId="5" navigable="false">      
-      <attribute id="159" name="dateTimePicker">        
+  <association id="111">    
+    <end type="SOURCE" refId="30" navigable="false">      
+      <attribute id="112" name="gui">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="160" minimum="0" maximum="1">        
+      <multiplicity id="113" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="114">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="115" name="robotManagerGui">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="116" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="117">    
+    <end type="SOURCE" refId="26" navigable="false">      
+      <attribute id="118" name="appinfo">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="119" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="73" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="120">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="3"/>  
+  </nesting>  
+  <association id="121">    
+    <end type="SOURCE" refId="38" navigable="false">      
+      <attribute id="122" name="gui">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="123" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="124">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="125" name="datePickerElement">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="126" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="6" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="161">    
-    <end type="SOURCE" refId="27" navigable="false">      
-      <attribute id="162" name="appinfo">        
+  <association id="127">    
+    <end type="SOURCE" refId="61" navigable="false">      
+      <attribute id="128" name="app">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="163" minimum="0" maximum="1">        
+      <multiplicity id="129" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="74" navigable="true"/>    
+    <end type="TARGET" refId="73" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="164">    
-    <end type="SOURCE" refId="37" navigable="false">      
-      <attribute id="165" name="parent">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="166" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="37" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <nesting id="167">    
-    <end type="SOURCE" refId="79"/>    
-    <end type="TARGET" refId="76"/>  
+  <nesting id="130">    
+    <end type="SOURCE" refId="78"/>    
+    <end type="TARGET" refId="81"/>  
   </nesting>  
-  <nesting id="168">    
-    <end type="SOURCE" refId="27"/>    
-    <end type="TARGET" refId="32"/>  
-  </nesting>  
-  <association id="169">    
-    <end type="SOURCE" refId="55" navigable="false">      
-      <attribute id="170" name="appSelected">        
+  <association id="131">    
+    <end type="SOURCE" refId="82" navigable="false">      
+      <attribute id="132" name="srmAgentManager">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="171" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="71" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="172">    
-    <end type="SOURCE" refId="83" navigable="false">      
-      <attribute id="173" name="srmAgentManager">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="174" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="84" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="175">    
-    <end type="SOURCE" refId="28" navigable="false">      
-      <attribute id="176" name="data">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="177" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="27" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="178">    
-    <end type="SOURCE" refId="39" navigable="false">      
-      <attribute id="179" name="gui">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="180" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="4" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="181">    
-    <end type="SOURCE" refId="41" navigable="false">      
-      <attribute id="182" name="instance">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="183" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="41" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="184">    
-    <end type="SOURCE" refId="64" navigable="false">      
-      <attribute id="185" name="flujos">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="186" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="75" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="187">    
-    <end type="SOURCE" refId="84" navigable="false">      
-      <attribute id="188" name="staAgent">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="189" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="87" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="190">    
-    <end type="SOURCE" refId="37" navigable="false">      
-      <attribute id="191" name="appinfo">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="192" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="74" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="193">    
-    <end type="SOURCE" refId="34" navigable="false">      
-      <attribute id="194" name="tree">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="195" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="36" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <nesting id="196">    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="3"/>  
-  </nesting>  
-  <association id="197">    
-    <end type="SOURCE" refId="62" navigable="false">      
-      <attribute id="198" name="app">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="199" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="74" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <nesting id="200">    
-    <end type="SOURCE" refId="17"/>    
-    <end type="TARGET" refId="16"/>  
-  </nesting>  
-  <association id="201">    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="202" name="robotManagerGui">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="203" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="4" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <nesting id="204">    
-    <end type="SOURCE" refId="89"/>    
-    <end type="TARGET" refId="88"/>  
-  </nesting>  
-  <association id="205">    
-    <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="206" name="dinamicTree">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="207" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="34" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <nesting id="208">    
-    <end type="SOURCE" refId="37"/>    
-    <end type="TARGET" refId="40"/>  
-  </nesting>  
-  <association id="209">    
-    <end type="SOURCE" refId="83" navigable="false">      
-      <attribute id="210" name="instance">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="211" minimum="0" maximum="1">        
+      <multiplicity id="133" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="83" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="212">    
-    <end type="SOURCE" refId="5" navigable="false">      
-      <attribute id="213" name="datePickerElement">        
+  <association id="134">    
+    <end type="SOURCE" refId="83" navigable="false">      
+      <attribute id="135" name="staAgent">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="214" minimum="0" maximum="1">        
+      <multiplicity id="136" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="86" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="137">    
+    <end type="SOURCE" refId="36"/>    
+    <end type="TARGET" refId="39"/>  
+  </nesting>  
+  <association id="138">    
+    <end type="SOURCE" refId="27" navigable="false">      
+      <attribute id="139" name="data">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="140" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="26" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="141">    
+    <end type="SOURCE" refId="88"/>    
+    <end type="TARGET" refId="87"/>  
+  </nesting>  
+  <association id="142">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="143" name="selectedItem">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="144" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="70" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="145">    
+    <end type="SOURCE" refId="33" navigable="false">      
+      <attribute id="146" name="tree">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="147" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="35" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="148">    
+    <end type="SOURCE" refId="23"/>    
+    <end type="TARGET" refId="21"/>  
+  </nesting>  
+  <nesting id="149">    
+    <end type="SOURCE" refId="85"/>    
+    <end type="TARGET" refId="76"/>  
+  </nesting>  
+  <nesting id="150">    
+    <end type="SOURCE" refId="78"/>    
+    <end type="TARGET" refId="80"/>  
+  </nesting>  
+  <association id="151">    
+    <end type="SOURCE" refId="24" navigable="false">      
+      <attribute id="152" name="controller">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="153" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="25" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="154">    
+    <end type="SOURCE" refId="26" navigable="false">      
+      <attribute id="155" name="nodes">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="156" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="26" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="157">    
+    <end type="SOURCE" refId="36" navigable="false">      
+      <attribute id="158" name="appinfo">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="159" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="73" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="160">    
+    <end type="SOURCE" refId="79"/>    
+    <end type="TARGET" refId="84"/>  
+  </nesting>  
+  <association id="161">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="162" name="dateTimePicker">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="163" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="6" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="215">    
-    <end type="SOURCE" refId="5" navigable="false">      
-      <attribute id="216" name="selectedItem">        
+  <association id="164">    
+    <end type="SOURCE" refId="19" navigable="false">      
+      <attribute id="165" name="resultUpdate">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="217" minimum="0" maximum="1">        
+      <multiplicity id="166" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="71" navigable="true"/>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="167">    
+    <end type="SOURCE" refId="83" navigable="false">      
+      <attribute id="168" name="srmAgent">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="169" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="78" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="170">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="171" name="model">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="172" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="27" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="173">    
+    <end type="SOURCE" refId="74" navigable="false">      
+      <attribute id="174" name="steps">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="175" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="72" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="176">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="177" name="dinamicTree">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="178" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="33" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="179">    
+    <end type="SOURCE" refId="19" navigable="false">      
+      <attribute id="180" name="appInformation">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="181" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="73" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="182">    
+    <end type="SOURCE" refId="14" navigable="false">      
+      <attribute id="183" name="fileSystemModel">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="184" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="185">    
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="12"/>  
+  </nesting>  
+  <association id="186">    
+    <end type="SOURCE" refId="40" navigable="false">      
+      <attribute id="187" name="instance">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="188" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="40" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="189">    
+    <end type="SOURCE" refId="79"/>    
+    <end type="TARGET" refId="77"/>  
+  </nesting>  
+  <association id="190">    
+    <end type="SOURCE" refId="54" navigable="false">      
+      <attribute id="191" name="appSelected">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="192" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="70" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="193">    
+    <end type="SOURCE" refId="54" navigable="false">      
+      <attribute id="194" name="flujos">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="195" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="74" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="196">    
+    <end type="SOURCE" refId="63" navigable="false">      
+      <attribute id="197" name="flujos">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="198" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="74" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="199">    
+    <end type="SOURCE" refId="36" navigable="false">      
+      <attribute id="200" name="nodes">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="201" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="36" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="202">    
+    <end type="SOURCE" refId="26" navigable="false">      
+      <attribute id="203" name="parent">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="204" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="26" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="205">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="29"/>  
+  </nesting>  
+  <nesting id="206">    
+    <end type="SOURCE" refId="26"/>    
+    <end type="TARGET" refId="31"/>  
+  </nesting>  
+  <association id="207">    
+    <end type="SOURCE" refId="82" navigable="false">      
+      <attribute id="208" name="instance">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="209" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="82" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="210">    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="15"/>  
+  </nesting>  
+  <association id="211">    
+    <end type="SOURCE" refId="29" navigable="false">      
+      <attribute id="212" name="data">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="213" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="26" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="214">    
+    <end type="SOURCE" refId="36" navigable="false">      
+      <attribute id="215" name="parent">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="216" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="36" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
