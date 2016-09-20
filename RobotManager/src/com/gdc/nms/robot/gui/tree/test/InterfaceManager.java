@@ -39,7 +39,10 @@ import com.gdc.robothelper.webservice.robot.Webservice;
 public class InterfaceManager {
 	private SRMGUI gui;
 	private boolean addRobotActive;
+	private boolean getInfoActive;
 	private boolean deleteRobotActive;
+	private boolean configurationRobotActive;
+	private boolean showlogsActive;
 	public InterfaceManager(SRMGUI gui){
 		this.gui=gui;
 	}
@@ -358,14 +361,19 @@ public class InterfaceManager {
 	}
 	
 	
-	public static void showDeleteRobot(){
+	public  void showDeleteRobot(){
 		if(!AppExaminator.getInstalledApps().isEmpty()){
-			
-			if(checkWebServicesCreator()){
-				DeleteRobotPanel deleterPanel=new DeleteRobotPanel();
-				deleterPanel.setVisible(true);							
+			if(deleteRobotActive){
+				alReadyInUseDeleteMenu(deleteRobotActive);
 			}else{
-				JOptionPane.showMessageDialog(null, "No es posible conectar con el servidor","Error",JOptionPane.ERROR_MESSAGE);
+				
+				alReadyInUseDeleteMenu(deleteRobotActive);
+				if(checkWebServicesCreator()){
+					DeleteRobotPanel deleterPanel=new DeleteRobotPanel();
+					deleterPanel.setVisible(true);							
+				}else{
+					JOptionPane.showMessageDialog(null, "No es posible conectar con el servidor","Error",JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		}else{
 			JOptionPane.showMessageDialog(null, "No existen servicios a eliminar","Error",JOptionPane.ERROR_MESSAGE);
@@ -430,6 +438,22 @@ public class InterfaceManager {
 		gui.enableAddRobotMenu();
 	}
 	
+	public void disableConfigurationRobot(){
+		gui.disableConfigurationRobotMenu();
+	}
+	
+	public void enableConfigurationRobot(){
+		gui.enableConfigurationRobotMenu();
+	}
+	
+	public void enableDeleteRobot(){
+		gui.enableDeleteRobotMenu();
+	}
+	
+	public void disableDeleteRobot(){
+		gui.disableDeleteRobotMenu();
+	}
+	
 	public void alReadyInUseAddRobotMenu(boolean inUse){
 		if(inUse){
 			disableAddRobot();
@@ -438,6 +462,23 @@ public class InterfaceManager {
 		}
 		addRobotActive=inUse;
 		
+	}
+	
+	public void alReadyInUseConfigurationMenu(boolean inUse){
+		if(inUse){
+			disableConfigurationRobot();
+		}else{
+			enableConfigurationRobot();
+		}
+	}
+	
+	
+	public void alReadyInUseDeleteMenu(boolean inUse){
+		if(inUse){
+			disableDeleteRobot();
+		}else{
+			enableDeleteRobot();
+		}
 	}
 	
 	

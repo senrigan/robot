@@ -1,46 +1,14 @@
 package com.gdc.nms.robot.gui.util;
 
 import java.awt.BorderLayout;
-import java.awt.Button;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.Border;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.EmptyBorder;
-
-import com.gdc.nms.robot.gui.InfoWindows;
-import com.gdc.nms.robot.gui.RobotManager;
-import com.gdc.nms.robot.gui.SelectorApp;
-import com.gdc.nms.robot.gui.newInterface.ButtonListener;
-import com.gdc.nms.robot.gui.tree.test.InterfaceManager;
-import com.gdc.nms.robot.util.indexer.AppInformation;
-import com.gdc.nms.robot.util.jade.SRMAgentManager;
-
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
-
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JScrollPane;
-import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
-
-import net.miginfocom.swing.MigLayout;
-import pic.ImageTest;
-
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
-import java.awt.Font;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
@@ -48,11 +16,30 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.font.TextAttribute;
-import java.lang.reflect.InvocationTargetException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
+import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
+
+import com.gdc.nms.robot.gui.RobotManager;
+import com.gdc.nms.robot.gui.newInterface.ButtonListener;
+import com.gdc.nms.robot.gui.tree.test.InterfaceManager;
+
+import net.miginfocom.swing.MigLayout;
+import pic.ImageTest;
 
 public class SRMGUI extends JFrame {
 	private ImageIcon executeIcon = new ImageIcon(
@@ -162,7 +149,7 @@ public class SRMGUI extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				InterfaceManager.showDeleteRobot();
+				RobotManager.getSRMGuiManager().showDeleteRobot();
 			}
 		});
 		deleteRobotMenu.addMouseListener(new MouseListener() {
@@ -939,12 +926,60 @@ public class SRMGUI extends JFrame {
 		addRobotMenu.setEnabled(false);
 	}
 	
+	
+	public void enableConfigurationRobotMenu(){
+		configurationMenu.setEnabled(true);
+	}
+	
+	public void disableConfigurationRobotMenu(){
+		configurationMenu.setEnabled(false);
+	}
+	
+	
+	public void enableDeleteRobotMenu(){
+		deleteRobotMenu.setEnabled(true);
+	}
+	
+	public void disableDeleteRobotMenu(){
+		deleteRobotMenu.setEnabled(false);
+	}
+	
+	
+	
 	/**
 	 * enable addrobotMenu
 	 */
 	public void enableAddRobotMenu(){
 		addRobotMenu.setEnabled(true);
 	}
+	
+	
+	public void enableActionButton(){
+		ActionStatusRobot.setEnabled(true);
+	}
+	
+	public void disableActiobButton(){
+		ActionStatusRobot.setEnabled(false);
+	}
+	
+	
+	public void enableGetInfoButton(){
+		getInfoRobot.setEnabled(true);
+	}
+	
+	public void disableGetInfoButton(){
+		getInfoRobot.setEnabled(false);
+	}
+	
+	
+	public void enableLogButton(){
+		showLogs.setEnabled(true);
+	}
+	
+	public void disableLogButton(){
+		showLogs.setEnabled(false);
+	}
+	
 	/**
 	 * show the inputs values of form
 	 */
