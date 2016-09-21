@@ -47,7 +47,6 @@ public class RMIServer extends java.rmi.server.UnicastRemoteObject  implements R
 		      RMIServer rmiServer = new RMIServer();
 		      java.rmi.registry.LocateRegistry.createRegistry(Constants.PORT);
 		      java.rmi.Naming.rebind(Constants.SERVERNAME, rmiServer);
-		      System.out.println("Server Ready");
 		    }catch (Exception e){
 		    	e.printStackTrace();
 		    }
@@ -87,7 +86,6 @@ public class RMIServer extends java.rmi.server.UnicastRemoteObject  implements R
 	 */
 	public boolean registerNewRobotRMIClient(ClientInterface robotClient) throws RemoteException{
 		String robotName = robotClient.getRobotName();
-		System.out.println("new robot incoming"+robotClient.getRobotName()+" id"+robotClient.getRobotId());
 		if(registerRobots.containsKey(robotName)){
 			registerRobots.put(robotName, robotClient);
 			return true;

@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.RandomAccessFile;
 import java.net.URL;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
@@ -23,16 +22,12 @@ import com.gdc.nms.robot.gui.AddNewRobotPanel;
 import com.gdc.nms.robot.gui.DeleteRobotPanel;
 import com.gdc.nms.robot.gui.InfoWindows;
 import com.gdc.nms.robot.gui.RobotManager;
-import com.gdc.nms.robot.gui.SelectorApp;
-import com.gdc.nms.robot.gui.RobotManagerGui.ButtonType;
 import com.gdc.nms.robot.gui.auxiliar.LoadingFrame;
 import com.gdc.nms.robot.gui.newInterface.ButtonListener;
-import com.gdc.nms.robot.gui.tree.Element;
 import com.gdc.nms.robot.gui.util.SRMGUI;
 import com.gdc.nms.robot.util.AppExaminator;
 import com.gdc.nms.robot.util.Language;
 import com.gdc.nms.robot.util.indexer.AppInformation;
-import com.gdc.nms.robot.util.jade.InitPlataform;
 import com.gdc.nms.robot.util.jade.SRMAgentManager;
 import com.gdc.robothelper.webservice.ClientSRMHelperWebService;
 import com.gdc.robothelper.webservice.SisproRobotManagerHelperService;
@@ -40,16 +35,24 @@ import com.gdc.robothelper.webservice.WebServicesManager;
 import com.gdc.robothelper.webservice.robot.CreatorRobotWebService;
 import com.gdc.robothelper.webservice.robot.Webservice;
 
-import jade.core.AID;
-import jade.core.replication.MainReplicationProxy;
 
 public class InterfaceManager {
 	private SRMGUI gui;
 	private boolean addRobotActive;
+	private boolean getInfoActive;
 	private boolean deleteRobotActive;
+	private boolean configurationRobotActive;
+	private boolean showlogsActive;
 	public InterfaceManager(SRMGUI gui){
 		this.gui=gui;
 	}
+	
+//	public InterfaceManager(){
+//		
+//	}
+//	public void setSRMGUI(SRMGUI gui){
+//		this.gui=gui;
+//	}
 	
 	
 	public void loadAllRobots(){
@@ -312,16 +315,22 @@ public class InterfaceManager {
 //		System.out.println("servicio de consulta"+checkWebServicesConsult());
 //		System.out.println("consultando servicio de creacion"+checkWebServicesCreator());
 		if(addRobotActive){
+			
 			JOptionPane.showMessageDialog(null, Language.get("addrobot.error"), "Error", JOptionPane.ERROR_MESSAGE);
+			alReadyInUseAddRobotMenu(addRobotActive);
 		}else{
+			alReadyInUseAddRobotMenu(addRobotActive);
 			LoadingFrame.getInstance().showLoadingFrame(Language.get("addrtobo.loading.message"));
 			if(WebServicesManager.canConnectToConsultWebservices() && checkWebServicesCreator()){
 				AddNewRobotPanel addRobot=new AddNewRobotPanel();
 				addRobot.setVisible(true);
+				addRobotActive=true;
+				alReadyInUseAddRobotMenu(addRobotActive);
 			}else{
 				LoadingFrame.getInstance().hiddenLoadingFrame();
 				JOptionPane.showMessageDialog(null, Language.get("addrobot.error.connection"),"Error",JOptionPane.ERROR_MESSAGE);
 			}
+			
 			
 			
 		}
@@ -352,14 +361,21 @@ public class InterfaceManager {
 	}
 	
 	
-	public static void showDeleteRobot(){
+	public  void showDeleteRobot(){
 		if(!AppExaminator.getInstalledApps().isEmpty()){
-			
-			if(checkWebServicesCreator()){
-				DeleteRobotPanel deleterPanel=new DeleteRobotPanel();
-				deleterPanel.setVisible(true);							
+			if(deleteRobotActive){
+				alReadyInUseDeleteMenu(deleteRobotActive);
 			}else{
-				JOptionPane.showMessageDialog(null, "No es posible conectar con el servidor","Error",JOptionPane.ERROR_MESSAGE);
+				
+				alReadyInUseDeleteMenu(deleteRobotActive);
+				
+				if(checkWebServicesCreator()){
+					deleteRobotActive=true;
+					DeleteRobotPanel deleterPanel=new DeleteRobotPanel();
+					deleterPanel.setVisible(true);							
+				}else{
+					JOptionPane.showMessageDialog(null, "No es posible conectar con el servidor","Error",JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		}else{
 			JOptionPane.showMessageDialog(null, "No existen servicios a eliminar","Error",JOptionPane.ERROR_MESSAGE);
@@ -424,6 +440,22 @@ public class InterfaceManager {
 		gui.enableAddRobotMenu();
 	}
 	
+	public void disableConfigurationRobot(){
+		gui.disableConfigurationRobotMenu();
+	}
+	
+	public void enableConfigurationRobot(){
+		gui.enableConfigurationRobotMenu();
+	}
+	
+	public void enableDeleteRobot(){
+		gui.enableDeleteRobotMenu();
+	}
+	
+	public void disableDeleteRobot(){
+		gui.disableDeleteRobotMenu();
+	}
+	
 	public void alReadyInUseAddRobotMenu(boolean inUse){
 		if(inUse){
 			disableAddRobot();
@@ -432,6 +464,23 @@ public class InterfaceManager {
 		}
 		addRobotActive=inUse;
 		
+	}
+	
+	public void alReadyInUseConfigurationMenu(boolean inUse){
+		if(inUse){
+			disableConfigurationRobot();
+		}else{
+			enableConfigurationRobot();
+		}
+	}
+	
+	
+	public void alReadyInUseDeleteMenu(boolean inUse){
+		if(inUse){
+			disableDeleteRobot();
+		}else{
+			enableDeleteRobot();
+		}
 	}
 	
 	
