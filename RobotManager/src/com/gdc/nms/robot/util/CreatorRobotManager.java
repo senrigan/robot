@@ -91,7 +91,6 @@ public class CreatorRobotManager {
 			
 			if(createNewRobot()){
 				return true;
-				
 			}else{
 				Path installationPath = RobotManager.getInstallationPath();
 				String validName=applicationName;

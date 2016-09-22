@@ -785,12 +785,13 @@ public class SRMGUI extends JFrame {
 	}
 	
 	
-	public void removeRobot(String robotName) throws Exception{
+	public void removeRobot(String robotName){
 		if(mapRobots.containsKey(robotName)){
 			JButton jButton = mapRobots.get(robotName);
 			verticalBox.remove(jButton);
 		}else{
-			throw new Exception("the robot "+robotName +"is no found in the list");
+//			Logger
+//			throw new Exception("the robot "+robotName +"is no found in the list");
 		}
 		
 	}

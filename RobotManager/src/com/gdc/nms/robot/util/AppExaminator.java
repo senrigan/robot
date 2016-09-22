@@ -23,6 +23,7 @@ import org.apache.commons.io.filefilter.WildcardFileFilter;
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 
+import com.gdc.nms.robot.gui.RegistryEditorManager;
 import com.gdc.nms.robot.gui.RobotManager;
 import com.gdc.nms.robot.util.indexer.AppInformation;
 import com.gdc.nms.robot.util.indexer.FlujoInformation;
@@ -163,7 +164,7 @@ public class AppExaminator {
 	
 	public static String getNewNameForAppIfExist(String app){
 		FileFilter fileFilter=new WildcardFileFilter(app+"*");
-		Path folderData = Paths.get(RobotManager.getInstallationPathRegistry()).resolve("data");
+		Path folderData = Paths.get(RegistryEditorManager.getInstallationPathRegistry()).resolve("data");
 		File [] files = folderData.toFile().listFiles(fileFilter);
 		if(files.length>0){
 			String graterName="";

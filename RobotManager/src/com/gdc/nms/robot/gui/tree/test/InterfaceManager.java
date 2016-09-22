@@ -19,6 +19,7 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 import com.gdc.nms.robot.gui.AddNewRobotPanel;
+import com.gdc.nms.robot.gui.ConfigurationPanel;
 import com.gdc.nms.robot.gui.DeleteRobotPanel;
 import com.gdc.nms.robot.gui.InfoWindows;
 import com.gdc.nms.robot.gui.RobotManager;
@@ -90,7 +91,6 @@ public class InterfaceManager {
 			try {
 				Thread.sleep(5000L);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			gui.changeStatusToActive(gui.getMapRobots().get(string));
@@ -104,7 +104,6 @@ public class InterfaceManager {
 			System.out.println("finish reading data logFile"+new Date());
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -365,12 +364,15 @@ public class InterfaceManager {
 		if(!AppExaminator.getInstalledApps().isEmpty()){
 			if(deleteRobotActive){
 				alReadyInUseDeleteMenu(deleteRobotActive);
+				JOptionPane.showMessageDialog(null, Language.get("deleterobot.error"),"Error",JOptionPane.ERROR_MESSAGE);
 			}else{
 				
 				alReadyInUseDeleteMenu(deleteRobotActive);
 				if(checkWebServicesCreator()){
 					DeleteRobotPanel deleterPanel=new DeleteRobotPanel();
-					deleterPanel.setVisible(true);							
+					deleterPanel.setVisible(true);
+					deleteRobotActive=true;
+					alReadyInUseDeleteMenu(deleteRobotActive);
 				}else{
 					JOptionPane.showMessageDialog(null, "No es posible conectar con el servidor","Error",JOptionPane.ERROR_MESSAGE);
 				}
@@ -382,12 +384,21 @@ public class InterfaceManager {
 	}
 	
 	
-	public static void showConfiguractionSRM(){
-		
+	public  void showConfiguractionSRM(){
+		if(configurationRobotActive){
+			alReadyInUseConfigurationMenu(configurationRobotActive);
+		}else{
+			ConfigurationPanel configPanel=new ConfigurationPanel();
+			configurationRobotActive=true;
+			alReadyInUseConfigurationMenu(configurationRobotActive);
+		}
 	}
 	
 	
-	
+	/**
+	 * add to newServicesName to Interface only if not exist yet
+	 * @param newServicesName
+	 */
 	public void addNewServices(String newServicesName){
 		
 		if(!gui.getMapRobots().containsKey(newServicesName)){
@@ -404,6 +415,20 @@ public class InterfaceManager {
 		}
 	}
 	
+	
+	/**
+	 * remove to newServicesName to Interface only if not exist yet
+	 * @param newServicesName
+	 */
+	public void RemoveServices(String newServicesName){
+		
+		if(!gui.getMapRobots().containsKey(newServicesName)){
+			System.out.println("***no esta conetnido"+newServicesName);
+			gui.removeRobot(newServicesName);
+		}else{
+			System.out.println("**si esta contenido"+newServicesName);
+		}
+	}
 	
 	public  void showMessage(final String message ,final String title,final int messageType){
 		if(SwingUtilities.isEventDispatchThread()){
