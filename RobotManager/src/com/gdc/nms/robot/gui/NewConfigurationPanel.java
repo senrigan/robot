@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import com.gdc.nms.robot.gui.auxiliar.LoadingFrame;
 import com.gdc.nms.robot.util.Language;
 import com.gdc.robothelper.webservice.WebServicesManager;
 
@@ -19,13 +20,15 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.net.URL;
 
 import javax.swing.JTextField;
 import javax.swing.JCheckBox;
 import javax.swing.JButton;
 
-public class WebServicesConfiguration extends JFrame {
+public class NewConfigurationPanel extends JFrame {
 
 	/**
 	 * 
@@ -53,7 +56,7 @@ public class WebServicesConfiguration extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					WebServicesConfiguration frame = new WebServicesConfiguration();
+					NewConfigurationPanel frame = new NewConfigurationPanel();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -61,6 +64,7 @@ public class WebServicesConfiguration extends JFrame {
 			}
 		});
 	}
+	
 	public void initComponents(){
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBackground(new Color(234, 244, 254));
@@ -175,10 +179,11 @@ public class WebServicesConfiguration extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public WebServicesConfiguration() {
+	public NewConfigurationPanel() {
 		initComponents();
 		initDataComponents();
 		initListeners();
+		setVisible(true);
 	}
 	
 	private void initDataComponents(){
@@ -191,8 +196,43 @@ public class WebServicesConfiguration extends JFrame {
 		wsCreatorValidatorListener();
 		restarCheckBoxListener();
 		encryptionCheckBoxListener();
+		initWindowsListener();
 	}
 	
+	private void initWindowsListener(){
+		addWindowListener(new WindowListener() {
+			
+			@Override
+			public void windowOpened(WindowEvent e) {
+				RobotManager.getSRMGuiManager().alReadyInUseConfigurationMenu(true);
+			}
+			
+			@Override
+			public void windowIconified(WindowEvent e) {
+			}
+			
+			@Override
+			public void windowDeiconified(WindowEvent e) {
+			}
+			
+			@Override
+			public void windowDeactivated(WindowEvent e) {
+			}
+			
+			@Override
+			public void windowClosing(WindowEvent e) {
+			}
+			
+			@Override
+			public void windowClosed(WindowEvent e) {
+				RobotManager.getSRMGuiManager().alReadyInUseConfigurationMenu(false);
+			}
+			
+			@Override
+			public void windowActivated(WindowEvent e) {
+			}
+		});
+	}
 	
 	private void wsConsultValidatorListener(){
 		validWSConsultButton.addActionListener(new ActionListener() {
@@ -200,12 +240,15 @@ public class WebServicesConfiguration extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("consultando wsConsult");
+				LoadingFrame.getInstance().showLoadingFrame("configuration.loading.wsconsult.message");
+
 				if(WebServicesManager.checkWebServicesConsult(webservicesConsultText.getText())){
 					JOptionPane.showMessageDialog(null, Language.get("webservices.configuration.wsconsult.validator.message"), "Info", JOptionPane.INFORMATION_MESSAGE);
 
 				}else{
 					JOptionPane.showMessageDialog(null, Language.get("webservices.configuration.wsconsult.validator.message.error"), "Error", JOptionPane.INFORMATION_MESSAGE);
 				}
+				LoadingFrame.getInstance().close();
 			}
 		});
 	}
@@ -216,6 +259,7 @@ public class WebServicesConfiguration extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				LoadingFrame.getInstance().showLoadingFrame("configuration.loading.wscreator.message");
 				System.out.println("consultando wsCreator");
 				if(WebServicesManager.checkNewVersionCreator(webservicesCreatorText.getText())){
 					JOptionPane.showMessageDialog(null, Language.get("webservices.configuration.wscreator.validator.message"), "Info", JOptionPane.INFORMATION_MESSAGE);
@@ -225,6 +269,7 @@ public class WebServicesConfiguration extends JFrame {
 				}else{
 					JOptionPane.showMessageDialog(null, Language.get("webservices.configuration.wscreator.validator.message.error"), "Error", JOptionPane.INFORMATION_MESSAGE);
 				}
+				LoadingFrame.getInstance().close();
 			}
 		});
 	}

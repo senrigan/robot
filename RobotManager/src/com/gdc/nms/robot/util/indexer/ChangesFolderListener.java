@@ -46,6 +46,7 @@ public class ChangesFolderListener {
             path.register(service, ENTRY_CREATE, ENTRY_MODIFY, ENTRY_DELETE); 
             // Start the infinite polling loop
             WatchKey key = null;
+            ServicesChangeChecker servicesCheker = ServicesChangeChecker.getInstance();
             while (true) {
                 key = service.take();
 
@@ -61,17 +62,29 @@ public class ChangesFolderListener {
                         Path newPath = ((WatchEvent<Path>) watchEvent)
                                 .context();
                         // Output
+                        
                         System.out.println("New path created: " + newPath);
+                        Path dir = (Path)key.watchable();
+                        Path resolve = dir.resolve((Path)watchEvent.context());
+                        System.out.println("Resolve "+resolve);
+                        servicesCheker.checkForNewServices(resolve);
                     } else if (ENTRY_MODIFY == kind) {
                         // modified
                         Path newPath = ((WatchEvent<Path>) watchEvent)
                                 .context();
                         // Output
                         System.out.println("New path modified: " + newPath);
+                        Path dir = (Path)key.watchable();
+                        Path resolve = dir.resolve((Path)watchEvent.context());
+                        System.out.println("Resolve "+resolve);
                     }else if(ENTRY_DELETE == kind){
                     	  Path newPath = ((WatchEvent<Path>) watchEvent)
                                   .context();
                     	  System.out.println("New PAth deleted : " + newPath);
+                    	  Path dir = (Path)key.watchable();
+                          Path resolve = dir.resolve((Path)watchEvent.context());
+                          System.out.println("Resolve "+resolve);
+                          servicesCheker.checkForDeleteServices(resolve);
                     }
                 }
 

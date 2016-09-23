@@ -15,9 +15,6 @@ import com.gdc.nms.robot.util.Language;
 import pic.ImageTest;
 
 import java.awt.BorderLayout;
-import java.net.URL;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;

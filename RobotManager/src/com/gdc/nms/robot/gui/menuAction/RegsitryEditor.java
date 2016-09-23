@@ -171,6 +171,12 @@ public class RegsitryEditor extends JFrame {
 	
 	
 	private void initListener(){
+		initCancelListener();
+		initAccepListener();
+	
+	}
+	
+	private void initCancelListener(){
 		CancelButton.addActionListener(new ActionListener() {
 			
 			@Override
@@ -178,6 +184,9 @@ public class RegsitryEditor extends JFrame {
 				closeWindows();
 			}
 		});
+	}
+	
+	private void initAccepListener(){
 		acceptButton.addActionListener(new ActionListener() {
 			
 			@Override

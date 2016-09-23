@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -22,6 +24,7 @@ import com.gdc.nms.robot.gui.AddNewRobotPanel;
 import com.gdc.nms.robot.gui.ConfigurationPanel;
 import com.gdc.nms.robot.gui.DeleteRobotPanel;
 import com.gdc.nms.robot.gui.InfoWindows;
+import com.gdc.nms.robot.gui.NewConfigurationPanel;
 import com.gdc.nms.robot.gui.RobotManager;
 import com.gdc.nms.robot.gui.auxiliar.LoadingFrame;
 import com.gdc.nms.robot.gui.newInterface.ButtonListener;
@@ -44,6 +47,7 @@ public class InterfaceManager {
 	private boolean deleteRobotActive;
 	private boolean configurationRobotActive;
 	private boolean showlogsActive;
+	private Logger LOGGER=Logger.getLogger(InterfaceManager.class.getName());
 	public InterfaceManager(SRMGUI gui){
 		this.gui=gui;
 	}
@@ -388,7 +392,9 @@ public class InterfaceManager {
 		if(configurationRobotActive){
 			alReadyInUseConfigurationMenu(configurationRobotActive);
 		}else{
-			ConfigurationPanel configPanel=new ConfigurationPanel();
+			LoadingFrame.getInstance().showLoadingFrame("configuration.loading.message");
+			NewConfigurationPanel configPanel=new NewConfigurationPanel();
+			LoadingFrame.getInstance().close();
 			configurationRobotActive=true;
 			alReadyInUseConfigurationMenu(configurationRobotActive);
 		}
@@ -402,8 +408,9 @@ public class InterfaceManager {
 	public void addNewServices(String newServicesName){
 		
 		if(!gui.getMapRobots().containsKey(newServicesName)){
-			System.out.println("***no esta conetnido"+newServicesName);
+//			System.out.println("***no esta conetnido"+newServicesName);
 			gui.addNewRobotUI(newServicesName);
+			LOGGER.log(Level.INFO, "add new services "+newServicesName);
 			AppInformation appData = AppExaminator.getAppData(newServicesName);
 			if(appData!=null){
 				if(RobotManager.runJarRobot(appData.getBotFile())){
@@ -411,7 +418,7 @@ public class InterfaceManager {
 				}
 			}
 		}else{
-			System.out.println("**si esta contenido"+newServicesName);
+			LOGGER.log(Level.SEVERE, "cannot add the services "+ newServicesName);
 		}
 	}
 	

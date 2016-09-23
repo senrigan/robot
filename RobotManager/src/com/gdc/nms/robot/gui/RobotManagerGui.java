@@ -374,7 +374,7 @@ public class RobotManagerGui extends JFrame {
 		});
 	}
 	private void configMenuAction(){
-		final RegisrtryEditorManager reg=new RegisrtryEditorManager();
+//		final RegisrtryEditorManager reg=new RegisrtryEditorManager();
 		
 		ubicationMenu.addActionListener(new ActionListener() {
 			
@@ -382,7 +382,7 @@ public class RobotManagerGui extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				SwingUtilities.invokeLater(new  Runnable() {
 					public void run() {
-						reg.showUbicationRegistry();
+//						reg.showUbicationRegistry();
 						
 					}
 				});
@@ -397,7 +397,7 @@ public class RobotManagerGui extends JFrame {
 					
 					@Override
 					public void run() {
-						reg.showWebServiceConsult();
+//						reg.showWebServiceConsult();
 					}
 				});
 			}
@@ -409,7 +409,7 @@ public class RobotManagerGui extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				SwingUtilities.invokeLater( new Runnable() {
 					public void run() {
-						reg.showWebServicesCreator();
+//						reg.showWebServicesCreator();
 					}
 				});
 			}

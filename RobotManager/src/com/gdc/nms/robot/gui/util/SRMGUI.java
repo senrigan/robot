@@ -34,6 +34,7 @@ import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 
+import com.gdc.nms.robot.gui.NewConfigurationPanel;
 import com.gdc.nms.robot.gui.RobotManager;
 import com.gdc.nms.robot.gui.newInterface.ButtonListener;
 import com.gdc.nms.robot.gui.tree.test.InterfaceManager;
@@ -111,7 +112,7 @@ public class SRMGUI extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				configurationSRMListener();
+				interfaceManager.showConfiguractionSRM();
 			}
 		});
 		configurationMenu.addMouseListener(new MouseListener() {

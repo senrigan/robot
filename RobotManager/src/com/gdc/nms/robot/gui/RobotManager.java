@@ -37,9 +37,11 @@ import com.gdc.nms.robot.util.Constants;
 import com.gdc.nms.robot.util.Environment;
 import com.gdc.nms.robot.util.LogLayout;
 import com.gdc.nms.robot.util.indexer.AppInformation;
+import com.gdc.nms.robot.util.indexer.ChangesFolderListener;
 import com.gdc.nms.robot.util.jade.InitPlataform;
 import com.gdc.nms.robot.util.jade.SRMAgentManager;
 import com.gdc.nms.robot.util.registry.CommandExecutor;
+import com.sun.prism.impl.ps.CachingEllipseRep;
 
 import jade.core.AID;
 
@@ -75,23 +77,6 @@ public class RobotManager extends JFrame {
 			Path regInstallationPath = AppExaminator.getInstallationPath();
 			setInstallationPath(regInstallationPath);
 			checkWindowsRegistry();
-//		  DefaultMutableTreeNode root = new DefaultMutableTreeNode("Root");
-//	        //create the child nodes
-//	        DefaultMutableTreeNode vegetableNode = new DefaultMutableTreeNode("Vegetables");
-//	        DefaultMutableTreeNode fruitNode = new DefaultMutableTreeNode("Fruits");
-//	 
-//	        //add the child nodes to the root node
-//	        root.add(vegetableNode);
-//	        root.add(fruitNode);
-//	         
-//	        //create the tree by passing in the root node
-//	        tree = new JTree(root);
-//	        add(tree);
-//	         
-//	        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//	        this.setTitle("JTree Example");       
-//	        this.pack();
-//	        this.setVisible(true);
 			try {
 				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 			} catch (ClassNotFoundException e) {
@@ -127,6 +112,7 @@ public class RobotManager extends JFrame {
 			srmGuiManager.loadAllRobots();
 			StartAgentPlatform();
 			hilo.start();
+			initDataFolderListener();
 			
 		}else{
 			JOptionPane.showMessageDialog(null, "El Programa ya esta en ejecucion", "Error", JOptionPane.ERROR_MESSAGE);
@@ -242,7 +228,10 @@ public class RobotManager extends JFrame {
 	}
 	
 
-	
+	public void initDataFolderListener(){
+		System.out.println("services folder"+getServicesFolderPath());
+		ChangesFolderListener.checkChangeDataPath(getServicesFolderPath());
+	}
 	
 	
 	

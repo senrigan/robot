@@ -4,6 +4,7 @@ import java.net.URL;
 
 import javax.swing.JOptionPane;
 
+import com.gdc.nms.robot.gui.RegistryEditorManager;
 import com.gdc.nms.robot.gui.RobotManager;
 import com.gdc.robothelper.webservice.ClientSRMHelperWebService;
 import com.gdc.robothelper.webservice.robot.CreatorRobotWebService;
@@ -36,7 +37,8 @@ public class RegistryEditorController {
 	public void modifyWsCreation(String url){
 		
 		if(validWSCreationConection(url)){
-			RobotManager.createWebServicesConsultRegistry(url);
+			RegistryEditorManager.createWebServicesConsultRegistry(url);
+//			RobotManager.createWebServicesConsultRegistry(url);
 			URL wsUrl = CreatorRobotWebService.getWebServicesCreator();
 			
 			if(wsUrl!=null && wsUrl.toString().equals(url)){

@@ -1,17 +1,14 @@
 package com.gdc.nms.robot.gui;
 
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import org.apache.commons.io.FileUtils;
 
 import com.gdc.nms.robot.util.AppExaminator;
 import com.gdc.nms.robot.util.DeleteServiceController;
 import com.gdc.nms.robot.util.indexer.AppInformation;
-import com.gdc.robothelper.webservice.robot.CreatorRobotWebService;
 
 import java.awt.GridBagLayout;
 import javax.swing.JComboBox;
@@ -19,23 +16,21 @@ import javax.swing.JComboBox;
 import java.awt.GridBagConstraints;
 import javax.swing.JButton;
 import java.awt.Insets;
-import java.awt.JobAttributes;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 public class DeleteRobotPanel extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JLabel lblSeleccioneElServicio;
 	private JComboBox<AppInformation> comboBox;
@@ -120,7 +115,12 @@ public class DeleteRobotPanel extends JFrame {
 	
 	
 	private void initListener(){
-		continuButton.addActionListener(new ActionListener() {
+		initContinueListener();
+		initWindowsListener();
+	}
+	
+	private void initContinueListener(){
+	continuButton.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -143,7 +143,46 @@ public class DeleteRobotPanel extends JFrame {
 		});
 	}
 	
-	
+	private void initWindowsListener(){
+		addWindowListener(new WindowListener() {
+			
+			@Override
+			public void windowOpened(WindowEvent e) {
+				RobotManager.getSRMGuiManager().alReadyInUseDeleteMenu(true);
+
+			}
+			
+			@Override
+			public void windowIconified(WindowEvent e) {
+				
+			}
+			
+			@Override
+			public void windowDeiconified(WindowEvent e) {
+				
+			}
+			
+			@Override
+			public void windowDeactivated(WindowEvent e) {
+				
+			}
+			
+			@Override
+			public void windowClosing(WindowEvent e) {
+				
+			}
+			
+			@Override
+			public void windowClosed(WindowEvent e) {
+				RobotManager.getSRMGuiManager().alReadyInUseDeleteMenu(false);
+			}
+			
+			@Override
+			public void windowActivated(WindowEvent e) {
+				
+			}
+		});
+	}
 	
 
 	
