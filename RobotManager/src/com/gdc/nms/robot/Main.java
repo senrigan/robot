@@ -10,6 +10,5 @@ public class Main {
 		 RobotManager robotManager= new RobotManager();
 		 robotManager.start();
 	}
-	 
 }
 

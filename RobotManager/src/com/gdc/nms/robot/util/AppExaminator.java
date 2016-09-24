@@ -279,18 +279,14 @@ public class AppExaminator {
 		Path path = Paths.get( app.getFolderPath());
 		File file = path.resolve(".lock").toFile();
 		String sCurrentLine,content="";
-
 		try{
-			
 			BufferedReader fil = new BufferedReader(new FileReader(file));
-			
 			while ((sCurrentLine = fil.readLine()) != null) {
 				content+=sCurrentLine;
 			}
 		}catch(Exception ex){
 			ex.printStackTrace();
 			LOGGER.error("excepcion ", ex);
-
 		}
 		return content;
 	}
@@ -304,9 +300,7 @@ public class AppExaminator {
 			FileInputStream fileInputStream=null;
 			BufferedReader br=null;
 			try{
-				
 				br = new BufferedReader(new FileReader(file));
-				
 				while ((sCurrentLine = br.readLine()) != null) {
 					content=sCurrentLine;
 					System.out.println("pid del robot a detener"+sCurrentLine);

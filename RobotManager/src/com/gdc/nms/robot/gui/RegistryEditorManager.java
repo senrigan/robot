@@ -16,6 +16,7 @@ import com.gdc.nms.robot.Main;
 import com.gdc.nms.robot.gui.auxiliar.RegisrtyEditor;
 import com.gdc.nms.robot.util.AppExaminator;
 import com.gdc.nms.robot.util.Constants;
+import com.gdc.nms.robot.util.Language;
 import com.gdc.nms.robot.util.indexer.AppInformation;
 import com.gdc.nms.robot.util.registry.CommandExecutor;
 import com.gdc.nms.robot.util.registry.CommandExecutor.REGISTRY_TYPE;
@@ -471,5 +472,71 @@ public class RegistryEditorManager {
 		}
 
 	}
+	
+	public static boolean getAutoRestarRegistry(){
+		try {
+			String redRegistryWindows = CommandExecutor.redRegistryWindows(Constants.LOCALREGISTRY+"\\"+Language.get("registry.robot.restar"));
+			if(redRegistryWindows.equals("1")){
+				return true;
+			}
+		}  catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return false;
+
+	}
+	
+	public static boolean getImacrosPasswordRegistry(){
+		try {
+			String redRegistryWindows = CommandExecutor.redRegistryWindows(Constants.LOCALREGISTRY+"\\"+Language.get("registry.robot.imacrospassword") );
+			if(redRegistryWindows.equals("1")){
+				return true;
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	private void checkImacrosPasswordRegistry(){
+		try {
+			String redRegistryWindows = CommandExecutor.redRegistryWindows(Constants.LOCALREGISTRY+"\\"+Language.get("registry.robot.imacrospassword") );
+			if(redRegistryWindows==null){
+				createImacrosPasswordRegistry();
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			createImacrosPasswordRegistry();
+		}
+	}
+	
+	private void createImacrosPasswordRegistry(){
+		try {
+			CommandExecutor.addRegistryWindows(Constants.LOCALREGISTRY, Language.get("registry.robot.imacrospassword"), "1",REGISTRY_TYPE.REG_BINARY );
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	public static  void setImacrosPasswordRegistry(boolean value){
+		try{
+			
+			if(value){
+				CommandExecutor.addRegistryWindows(Constants.LOCALREGISTRY, Language.get("registry.robot.imacrospassword"), "1",REGISTRY_TYPE.REG_BINARY );
+				
+			}else{
+				CommandExecutor.addRegistryWindows(Constants.LOCALREGISTRY, Language.get("registry.robot.imacrospassword"), "1",REGISTRY_TYPE.REG_BINARY );
+				
+			}
+		}catch(Exception ex){
+			
+		}
+	}
+
 	
 }

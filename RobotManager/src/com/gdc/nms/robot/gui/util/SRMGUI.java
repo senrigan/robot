@@ -262,6 +262,8 @@ public class SRMGUI extends JFrame {
 			
 			@Override
 			public void mouseExited(MouseEvent e) {
+				changeButtonMouseExit(ActionStatusRobot);
+
 			}
 			
 			@Override
@@ -271,7 +273,6 @@ public class SRMGUI extends JFrame {
 			
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				changeButtonMouseExit(ActionStatusRobot);
 			}
 		});
 	}

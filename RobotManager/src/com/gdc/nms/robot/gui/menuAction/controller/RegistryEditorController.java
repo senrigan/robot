@@ -5,7 +5,6 @@ import java.net.URL;
 import javax.swing.JOptionPane;
 
 import com.gdc.nms.robot.gui.RegistryEditorManager;
-import com.gdc.nms.robot.gui.RobotManager;
 import com.gdc.robothelper.webservice.ClientSRMHelperWebService;
 import com.gdc.robothelper.webservice.robot.CreatorRobotWebService;
 import com.gdc.robothelper.webservice.robot.news.CreatorNewRobotWebService;

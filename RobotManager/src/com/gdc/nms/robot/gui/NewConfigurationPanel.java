@@ -46,7 +46,7 @@ public class NewConfigurationPanel extends JFrame {
 	private JLabel lblNewLabel_3;
 	private JCheckBox encriptationImacrosCheckBox;
 	private JButton saveButtton;
-	private JButton btnNewButton;
+	private JButton defautlValuesButton;
 
 	/**
 	 * Launch the application.
@@ -161,14 +161,14 @@ public class NewConfigurationPanel extends JFrame {
 		gbc_encriptationImacrosCheckBox.gridy = 4;
 		contentPane.add(encriptationImacrosCheckBox, gbc_encriptationImacrosCheckBox);
 		
-		btnNewButton = new JButton(Language.get("webservices.configuration.defautl.button"));
-		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
-		gbc_btnNewButton.anchor = GridBagConstraints.WEST;
-		gbc_btnNewButton.gridwidth = 3;
-		gbc_btnNewButton.insets = new Insets(0, 0, 0, 5);
-		gbc_btnNewButton.gridx = 1;
-		gbc_btnNewButton.gridy = 5;
-		contentPane.add(btnNewButton, gbc_btnNewButton);
+		defautlValuesButton = new JButton(Language.get("webservices.configuration.defautl.button"));
+		GridBagConstraints gbc_defautlValuesButton = new GridBagConstraints();
+		gbc_defautlValuesButton.anchor = GridBagConstraints.WEST;
+		gbc_defautlValuesButton.gridwidth = 3;
+		gbc_defautlValuesButton.insets = new Insets(0, 0, 0, 5);
+		gbc_defautlValuesButton.gridx = 1;
+		gbc_defautlValuesButton.gridy = 5;
+		contentPane.add(defautlValuesButton, gbc_defautlValuesButton);
 		
 		saveButtton = new JButton(Language.get("webservices.configuration.save.button"));
 		GridBagConstraints gbc_saveButtton = new GridBagConstraints();
@@ -189,6 +189,7 @@ public class NewConfigurationPanel extends JFrame {
 	private void initDataComponents(){
 		initWebServicesCreatorText();
 		initWebServicesConsultText();
+		setEncryptionCheckBoxData();
 	}
 	
 	private void initListeners(){
@@ -293,6 +294,15 @@ public class NewConfigurationPanel extends JFrame {
 				
 			}
 		});
+	}
+	
+	private void setEncryptionCheckBoxData(){
+		boolean imacrosPasswordRegistry = RegistryEditorManager.getImacrosPasswordRegistry();
+		encriptationImacrosCheckBox.setSelected(imacrosPasswordRegistry);
+	}
+	
+	private boolean saveEncryptionImacros(){
+		
 	}
 	
 	private void  initWebServicesCreatorText(){
