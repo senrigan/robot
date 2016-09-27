@@ -21,7 +21,6 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 import com.gdc.nms.robot.gui.AddNewRobotPanel;
-import com.gdc.nms.robot.gui.ConfigurationPanel;
 import com.gdc.nms.robot.gui.DeleteRobotPanel;
 import com.gdc.nms.robot.gui.InfoWindows;
 import com.gdc.nms.robot.gui.NewConfigurationPanel;

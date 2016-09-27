@@ -32,8 +32,17 @@
 		<mkdir dir="${bin}"/>
 		<mkdir dir="${dist}"/>
 	</target>
-
-	<target name="compile" depends="clean">
+	<target name="runAntFile" depends="clean">
+		<subant >
+			<property name="basedir" value="../SRMUtils"></property>
+			<fileset dir="C:\Users\senrigan\Documents\desarrollo\robot\SRMUtils" includes="build.xml" ></fileset>
+		</subant>	
+		<copy todir="${lib}">
+			<fileset dir="C:\Users\senrigan\Documents\desarrollo\robot\SRMUtils\dist" />
+		</copy>
+	</target>
+	
+	<target name="compile" depends="runAntFile">
 		<javac srcdir="${src}" destdir="${bin}" includeantruntime="no" encoding="utf-8">
 			<classpath refid="src.classpath" />
 		</javac>
