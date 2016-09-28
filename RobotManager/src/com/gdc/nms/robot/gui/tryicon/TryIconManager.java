@@ -1,17 +1,13 @@
 package com.gdc.nms.robot.gui.tryicon;
 
 import java.awt.AWTException;
-import java.awt.CheckboxMenuItem;
 import java.awt.Image;
-import java.awt.Menu;
 import java.awt.MenuItem;
 import java.awt.PopupMenu;
 import java.awt.SystemTray;
 import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -22,7 +18,8 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import com.gdc.nms.robot.gui.RobotManager;
+import com.gdc.srm.register.windows.RegistryManager;
+
 
 public class TryIconManager {
 	private static TryIconManager instance;
@@ -70,7 +67,7 @@ public class TryIconManager {
         });
     }
     private Path getIconaPath(){
-    	Path installationPath = Paths.get(RobotManager.getInstallationPathRegistry());
+    	Path installationPath = Paths.get(RegistryManager.getInstallationPathRegistry());
     	return installationPath.resolve("images").resolve("gdc_logo.gif");
     }
     private  void createAndShowGUI() {

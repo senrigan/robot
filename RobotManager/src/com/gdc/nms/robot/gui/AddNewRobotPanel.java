@@ -14,6 +14,7 @@ import javax.swing.event.ChangeListener;
 
 import com.gdc.nms.robot.gui.auxiliar.CheckBoxList;
 import com.gdc.nms.robot.gui.auxiliar.LoadingFrame;
+import com.gdc.nms.robot.gui.util.SRMGUI;
 import com.gdc.nms.robot.util.AppExaminator;
 import com.gdc.nms.robot.util.CreatorRobotManager;
 import com.gdc.nms.robot.util.InfoRobotMaker;
@@ -336,12 +337,12 @@ public class AddNewRobotPanel extends JFrame {
 			File selectedFile = chooser.getSelectedFile();
 			Path path = selectedFile.toPath();
 			ArrayList<FlujoInformation> validFlujos;
-			final InstallerRobotPanel installer=new InstallerRobotPanel();
 			Path data;
 			infoRobotM=new InfoRobotMaker();
 			infoRobotM.setTimeLapse((Integer)timeLapse.getSelectedItem());
 			infoRobotM.setRetries((Integer)retries.getValue());
 			infoRobotM.setDateForRun(dateTimePicker.getDate());
+			System.out.println("dateTimePicker****"+dateTimePicker.getDate());
 			if(ValidatorManagement.isValidMainFolder(path)){
 				System.out.println("is valid main folder");
 				validFlujos=ValidatorManagement.getValidFlujosWithoutCheckInstalled(path.resolve("application"),flujosOfServcies);
@@ -510,6 +511,7 @@ public class AddNewRobotPanel extends JFrame {
 					CreatorRobotManager creator=new CreatorRobotManager();
 					ArrayList<FlujoInformation> selectedFlows = getSelectedFlows();
 					infoRobotM.setFlujos(selectedFlows);
+					infoRobotM.setDateForRun(dateTimePicker.getDate());
 					if(creator.createRobotWithPath(infoRobotM, false)){
 						JOptionPane.showInternalMessageDialog(null, "El robot se instalo correctamente", "info", JOptionPane.INFORMATION_MESSAGE);
 						closeWindows();

@@ -322,6 +322,7 @@ public class InterfaceManager {
 			alReadyInUseAddRobotMenu(addRobotActive);
 		}else{
 			alReadyInUseAddRobotMenu(addRobotActive);
+			System.out.println("cheking addRobot Loadint message"+Language.get("addrtobo.loading.message"));
 			LoadingFrame.getInstance().showLoadingFrame(Language.get("addrtobo.loading.message"));
 			if(WebServicesManager.canConnectToConsultWebservices() && checkWebServicesCreator()){
 				AddNewRobotPanel addRobot=new AddNewRobotPanel();

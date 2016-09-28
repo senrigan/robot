@@ -15,6 +15,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.awt.font.TextAttribute;
 import java.util.HashMap;
 import java.util.Map;
@@ -995,4 +997,55 @@ public class SRMGUI extends JFrame {
 		aliasNameLabel.setVisible(true);
 		robotIdLabel.setVisible(true);
 	}
+	
+	
+	
+	
+	public void initWindowsListener(){
+		addWindowListener(new WindowListener() {
+			
+			@Override
+			public void windowOpened(WindowEvent e) {
+				
+			}
+			
+			@Override
+			public void windowIconified(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowDeiconified(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowDeactivated(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowClosing(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowClosed(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowActivated(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+	}
+	
+	
 }

@@ -23,6 +23,7 @@
 		<pathelement location="${lib}/miglayout-4.0-swing.jar" />
 		<pathelement location="${lib}/jna-4.2.2.jar" />
 		<pathelement location="${lib}/jna-platform-4.2.2.jar" />
+		<pathelement location="${lib}/srm_lib.jar"/>
 		
 	</path>
 
@@ -40,13 +41,19 @@
 		<copy todir="${lib}">
 			<fileset dir="C:\Users\senrigan\Documents\desarrollo\robot\SRMUtils\dist" />
 		</copy>
+		<subant >
+			<property name="basedir" value="../rmi_lib_srm"></property>
+			<fileset dir="C:\Users\senrigan\Documents\desarrollo\robot\rmi_lib_srm" includes="build.xml" ></fileset>
+		</subant>	
+		<copy todir="${lib}">
+			<fileset dir="C:\Users\senrigan\Documents\desarrollo\robot\rmi_lib_srm\dist" />
+		</copy>
 	</target>
 	
 	<target name="compile" depends="runAntFile">
 		<javac srcdir="${src}" destdir="${bin}" includeantruntime="no" encoding="utf-8">
 			<classpath refid="src.classpath" />
 		</javac>
-	
 		<copy todir="${bin}">
 			<fileset dir="${res}" />
 		</copy>
@@ -57,7 +64,7 @@
 			
 			<manifest>
 				<attribute name="Main-Class" value="com.gdc.nms.robot.Main" />
-				<attribute name="Class-Path" value="${extlib}tools_32.jar ${extlib}jettison-1.3.7.jar ${extlib}xtream-1.4.8.jar ${extlib}commons-io-2.0.1.jar ${extlib}swingx-all-1.6.4.jar ${extlib}jade.jar  ${extlib}log4j-1.2.17.jar ${extlib}${lib}miglayout-4.0-swing.jar ${extlib}${lib}jna-4.2.2.jar  ${extlib}${lib}jna-platform-4.2.2.jar "/>
+				<attribute name="Class-Path" value="${extlib}tools_32.jar ${extlib}jettison-1.3.7.jar ${extlib}xtream-1.4.8.jar ${extlib}commons-io-2.0.1.jar ${extlib}swingx-all-1.6.4.jar ${extlib}jade.jar  ${extlib}log4j-1.2.17.jar ${extlib}${lib}miglayout-4.0-swing.jar ${extlib}${lib}jna-4.2.2.jar  ${extlib}${lib}jna-platform-4.2.2.jar ${extlib}${lib}srm_lib.jar"/>
 
 			</manifest>
 			 <fileset dir="${src}">

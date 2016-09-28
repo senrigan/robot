@@ -16,7 +16,6 @@ import java.nio.file.FileSystem;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -38,10 +37,7 @@ import com.gdc.nms.robot.util.indexer.FlujoInformation;
 import com.gdc.nms.robot.util.indexer.StepInformation;
 import com.gdc.robothelper.webservice.WebServicesManager;
 import com.gdc.robothelper.webservice.robot.CreatorRobotWebService;
-import com.gdc.robothelper.webservice.robot.news.CreatorNewRobotWebService;
 import com.gdc.robothelper.webservice.robot.news.WebservicePortType;
-import com.gdc.robothelper.webservice.robot.olds.CreatorOldRobotWebService;
-import com.sun.org.apache.xerces.internal.impl.validation.ValidationManager;
 
 
 public class CreatorRobotManager {
@@ -120,16 +116,23 @@ public class CreatorRobotManager {
 		}
 		return false;
 	}
+	private String getIDNewRobot(String location,String idFlujos){
+		WebservicePortType newWebServicesCreator = WebServicesManager.getNewWebServicesCreator();
+		String idNewRobot="";
+		if(newWebServicesCreator!=null){
+			idNewRobot=newWebServicesCreator.createRobot(applicationName, "0", location, ""+idApp, ""+retries,""+timeLapse, getInitDateForWebServices(),idFlujos);
+		}else{
+			com.gdc.robothelper.webservice.robot.olds.WebservicePortType oldWebServicesCreator = WebServicesManager.getOLDWebServicesCreator();
+			idNewRobot = oldWebServicesCreator.createRobot(applicationName, location, ""+idApp, "0",""+timeLapse,""+ retries, getInitDateForWebServices());
+			
+		}
+		return idNewRobot;
+	}
 	private boolean createNewRobot(){
 		String location=RobotManager.getUbication();
 		String idFlujos=getIdFlujos();
-		URL webServicesCreator = CreatorRobotWebService.getWebServicesCreator();
 		String idRobot="";
-		if(webServicesCreator.toString().contains("pp")){
-//			idRobot=CreatorNewRobotWebService.getIdRobot(applicationName, "0", location, ""+idApp, ""+retries,""+timeLapse, getInitDateForWebServices(),idFlujos);
-		}else{
-			idRobot=CreatorOldRobotWebService.getIdRobot(applicationName, "0", location, ""+idApp, ""+retries,""+timeLapse, getInitDateForWebServices());
-		}
+		idRobot=getIDNewRobot(location, idFlujos);
 		try{
 			realRobot=Long.parseLong(idRobot);
 			System.out.println(realRobot);

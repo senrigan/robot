@@ -45,10 +45,15 @@ public class ServicesChangeChecker {
 	
 	
 	public void checkForNewServices(Path servicesPath){
-		AppInformation appData = AppExaminator.getAppData(servicesPath);
-		LOGGER.log(Level.INFO, "Try to add Services "+appData.getAppName());
-		if(appData!=null){
-			RobotManager.getSRMGuiManager().addNewServices(appData.getAppName());
+		try{
+			AppInformation appData = AppExaminator.getAppData(servicesPath);
+			LOGGER.log(Level.INFO, "Try to add Services "+appData.getAppName());
+			if(appData!=null){
+				RobotManager.getSRMGuiManager().addNewServices(appData.getAppName());
+			}
+			
+		}catch(Exception ex){
+			ex.printStackTrace();
 		}
 	}
 	

@@ -41,7 +41,6 @@ import com.gdc.nms.robot.util.indexer.ChangesFolderListener;
 import com.gdc.nms.robot.util.jade.InitPlataform;
 import com.gdc.nms.robot.util.jade.SRMAgentManager;
 import com.gdc.nms.robot.util.registry.CommandExecutor;
-import com.sun.prism.impl.ps.CachingEllipseRep;
 
 import jade.core.AID;
 
@@ -54,7 +53,6 @@ public class RobotManager extends JFrame {
 	private static final Logger LOGGER=Logger.getLogger(RobotManager.class);
 	private static boolean valueStart=false;
 	private static boolean valueStop=false;
-	private static boolean executeScan=true;
 	private static RobotManagerGui robotManagerGui;
 	private static InterfaceManager srmGuiManager;
 	private static SRMGUI srmGui;
