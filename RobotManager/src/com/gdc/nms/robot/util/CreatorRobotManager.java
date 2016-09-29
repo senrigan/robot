@@ -16,6 +16,7 @@ import java.nio.file.FileSystem;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -120,7 +121,7 @@ public class CreatorRobotManager {
 		WebservicePortType newWebServicesCreator = WebServicesManager.getNewWebServicesCreator();
 		String idNewRobot="";
 		if(newWebServicesCreator!=null){
-			idNewRobot=newWebServicesCreator.createRobot(applicationName, "0", location, ""+idApp, ""+retries,""+timeLapse, getInitDateForWebServices(),idFlujos);
+			idNewRobot=newWebServicesCreator.createRobot(applicationName, location, ""+idApp, "0", ""+timeLapse,""+retries, getInitDateForWebServices(),idFlujos);
 		}else{
 			com.gdc.robothelper.webservice.robot.olds.WebservicePortType oldWebServicesCreator = WebServicesManager.getOLDWebServicesCreator();
 			idNewRobot = oldWebServicesCreator.createRobot(applicationName, location, ""+idApp, "0",""+timeLapse,""+ retries, getInitDateForWebServices());
@@ -273,7 +274,6 @@ public class CreatorRobotManager {
 		}
 		
 		validName=validName.replaceAll("\\s+$", "");
-		System.out.println("validName *****"+validName);
 		appPath = installationPath.resolve("data").resolve(validName);
 		System.out.println("creando folder aplicaction");
 		if(Files.exists(appPath)){
@@ -321,6 +321,9 @@ public class CreatorRobotManager {
 			return false;
 		}
 	}
+	
+	
+	
 	
 	
 	private boolean createSubFolderApplication(Path parentFolder){
@@ -623,7 +626,25 @@ public class CreatorRobotManager {
 		 }
 		 return false;
 	 }
+	 
+	 public static boolean createRobotConfig(Path test) {
+		 Path file = test.resolve("robot-config.xml");
+		 ArrayList<String> list=new ArrayList<String>();
+		 list.add("<robot-config insert-threads=\"2"+"\" debug=\"false"+"\"  >");
+		 list.add("<read-from>"+WebServicesManager.getWebServicesCreatorUrl()+"</read-from>");
+		 list.add("<report-to>"+WebServicesManager.getWebServicesCreatorUrl()+"</report-to>");
+		 list.add("<report-image-to>"+WebServicesManager.getWebServicesConsult()+"</report-image-to>");
+		 list.add("</robot-config>");
+		 try{
+			 Files.write(file, list, Charset.forName("UTF-8"));
+			 return true;
+		 }catch(Exception ex){
+			 
+		 }
+		 return false;
+	 }
 	 public static void main(String[] args) {
-	
+		 boolean createRobotConfig = CreatorRobotManager.createRobotConfig(Paths.get("C:\\Program Files\\GDC\\RobotScript\\data\\OPERACIONES"));
+		 System.out.println(createRobotConfig);
 	 }
 }

@@ -91,5 +91,9 @@ public class Webservice
         }
         return WEBSERVICE_WSDL_LOCATION;
     }
+    
+    public static URL getUrl(){
+    	return WEBSERVICE_WSDL_LOCATION;
+    }
 
 }

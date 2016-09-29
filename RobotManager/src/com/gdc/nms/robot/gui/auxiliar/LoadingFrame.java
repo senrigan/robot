@@ -2,10 +2,10 @@ package com.gdc.nms.robot.gui.auxiliar;
 
 import java.awt.*;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JRootPane;
 import javax.swing.SwingUtilities;
+import javax.swing.SwingWorker;
 
 import com.gdc.nms.robot.util.Language;
 
@@ -43,7 +43,7 @@ public class LoadingFrame extends JDialog {
 	public void showLoadingFrame(String text) {
 		System.out.println("inUse Loadigg Frame :"+inUse);
 		if(inUse){
-			
+			System.out.println("el loading frame ya esta en uso");
 		}else{
 			showLoadingFrame(text, null);
 			inUse=true;
@@ -52,27 +52,42 @@ public class LoadingFrame extends JDialog {
 	}
 
 	public void showLoadingFrame(final String text, Component c) {
-		if (SwingUtilities.isEventDispatchThread()) {
-			System.out.println("is en edt");
-			headerLabel.setText(text);
-			this.setLocationRelativeTo(c);
-			this.setAlwaysOnTop(true);
-			this.setVisible(true);
+		SwingWorker<Object, Object> swingWorker = new SwingWorker<Object, Object>() {
 
-		} else {
-			System.out.println("no is en edt");
-			SwingUtilities.invokeLater(new Runnable() {
-				public void run() {
-					showElement();
-					headerLabel.setText(text);
-				}
-			});
-		}
+			@Override
+			protected Object doInBackground() throws Exception {
+				SwingUtilities.invokeLater(new Runnable() {
+					public void run() {
+						showElement(text);
+					}
+				});
+				return null;
+			}
+		};
+		swingWorker.execute();
+		
+//		if (SwingUtilities.isEventDispatchThread()) {
+//			System.out.println("is en edt");
+//			headerLabel.setText(text);
+//			setLocationRelativeTo(c);
+//			setAlwaysOnTop(true);
+//			setVisible(true);
+//
+//		} else {
+//			System.out.println("no is en edt");
+//			SwingUtilities.invokeLater(new Runnable() {
+//				public void run() {
+//					showElement();
+//					headerLabel.setText(text);
+//				}
+//			});
+//		}
 	}
 
-	private void showElement() {
+	private void showElement(String text) {
 		this.setAlwaysOnTop(true);
 		this.setVisible(true);
+		headerLabel.setText(text);
 	}
 
 	public void hiddenLoadingFrame() {
@@ -90,12 +105,10 @@ public class LoadingFrame extends JDialog {
 			setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 			contentPane = (JPanel) getContentPane();
 			contentPane.setLayout(new BorderLayout());
-			setSize(new Dimension(100, 80));
+			setSize(new Dimension(200, 80));
 			setUndecorated(true);
 			getRootPane().setWindowDecorationStyle(JRootPane.NONE);
-			// ClassLoader loader=LoadingFrame.class.getClassLoader();
 			ImageIcon ii = new ImageIcon(ImageTest.class.getResource("/pic/loading.gif"));
-			System.out.println("image icon " + ii);
 			imageLabel.setIcon(ii);
 			contentPane.add(imageLabel, BorderLayout.CENTER);
 			headerLabel.setText("");
@@ -123,11 +136,25 @@ public class LoadingFrame extends JDialog {
 		// test.showLoadingFrame("mundo");
 		Language.load();
 		LoadingFrame.getInstance().showLoadingFrame(Language.get("addrtobo.loading.message"));
+		try {
+			System.out.println("epserando");
+			Thread.sleep(5000);
+			System.out.println("termiando");
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		LoadingFrame.getInstance().close();
+		LoadingFrame.getInstance().showLoadingFrame(Language.get("addrtobo.loading.message"));
 
 	}
 
 	public void close() {
-		this.dispose();
+		System.out.println("closing element loadfing frame");
+		Runnable doWorkRunnable = new Runnable() {
+		    public void run() { dispose(); }
+		};
+		SwingUtilities.invokeLater(doWorkRunnable);
+//		dispose();
 		inUse=false;
 	}
 

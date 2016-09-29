@@ -513,10 +513,10 @@ public class AddNewRobotPanel extends JFrame {
 					infoRobotM.setFlujos(selectedFlows);
 					infoRobotM.setDateForRun(dateTimePicker.getDate());
 					if(creator.createRobotWithPath(infoRobotM, false)){
-						JOptionPane.showInternalMessageDialog(null, "El robot se instalo correctamente", "info", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(null, "El robot se instalo correctamente", "info", JOptionPane.INFORMATION_MESSAGE);
 						closeWindows();
 					}else{
-						JOptionPane.showInternalMessageDialog(null, "No es posible instalar el robot", "Error", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, "No es posible instalar el robot", "Error", JOptionPane.ERROR_MESSAGE);
 
 					}
 					

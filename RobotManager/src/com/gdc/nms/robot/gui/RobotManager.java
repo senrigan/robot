@@ -35,6 +35,7 @@ import com.gdc.nms.robot.gui.util.process.JavaProcess;
 import com.gdc.nms.robot.util.AppExaminator;
 import com.gdc.nms.robot.util.Constants;
 import com.gdc.nms.robot.util.Environment;
+import com.gdc.nms.robot.util.Language;
 import com.gdc.nms.robot.util.LogLayout;
 import com.gdc.nms.robot.util.indexer.AppInformation;
 import com.gdc.nms.robot.util.indexer.ChangesFolderListener;
@@ -433,7 +434,11 @@ public class RobotManager extends JFrame {
 			if(result == JOptionPane.YES_OPTION) {
 			   long pid = appInformation.getPID();
 			   if(JavaProcess.isValidJavaProceesId(pid)){
-				   stopJar(pid);
+				   if(stopJar(pid)){
+					   srmGuiManager.changeStattusServicesToStoped(appInformation.getAppName());
+				   }else{
+					   JOptionPane.showMessageDialog(null,Language.get("robot.stop.erro.message") ,"Error", JOptionPane.ERROR_MESSAGE);
+				   }
 			   }
 			} 
 		}

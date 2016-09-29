@@ -234,11 +234,14 @@ public class InterfaceManager {
 	  }
 	  public static String getInfoRobot(){
 		  AppInformation selectedAppInformation = getLastSelectedInfo();
+		  LoadingFrame.getInstance().showLoadingFrame(Language.get("robot.getinfo.message"));
 		  if(selectedAppInformation!=null){
 			  
 			  String agentInfo = SRMAgentManager.getAgentInfo(selectedAppInformation);
+			  LoadingFrame.getInstance().close();
 			  return agentInfo;
 		  }
+		  LoadingFrame.getInstance().close();
 		  return null;
 	  }
 	  

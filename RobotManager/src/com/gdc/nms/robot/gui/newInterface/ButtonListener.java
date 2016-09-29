@@ -6,11 +6,12 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
-import javax.swing.SwingUtilities;
 
 import com.gdc.nms.robot.gui.RobotManager;
+import com.gdc.nms.robot.gui.auxiliar.LoadingFrame;
 import com.gdc.nms.robot.gui.tree.test.InterfaceManager;
 import com.gdc.nms.robot.util.AppExaminator;
+import com.gdc.nms.robot.util.Language;
 import com.gdc.nms.robot.util.indexer.AppInformation;
 import com.gdc.nms.robot.util.indexer.FlujoInformation;
 
@@ -47,9 +48,10 @@ public class ButtonListener implements ActionListener{
 	}
 	
 	private void setInfoSelected(){
+		LoadingFrame.getInstance().showLoadingFrame(Language.get("robot.getinfo.message"));
 		String appName = lastButtonPressed.getText();
-		System.out.println("AppNameSelected"+appName);
 		AppInformation appData = AppExaminator.getAppData(appName);
+		LoadingFrame.getInstance().close();
 		if(appData!=null){
 			srmGuiManager.setAplicationName(appData.getAppName());
 			srmGuiManager.setAliasName(appData.getAlias());

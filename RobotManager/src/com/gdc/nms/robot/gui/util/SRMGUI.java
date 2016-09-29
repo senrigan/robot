@@ -36,7 +36,6 @@ import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 
-import com.gdc.nms.robot.gui.NewConfigurationPanel;
 import com.gdc.nms.robot.gui.RobotManager;
 import com.gdc.nms.robot.gui.newInterface.ButtonListener;
 import com.gdc.nms.robot.gui.tree.test.InterfaceManager;
@@ -45,6 +44,10 @@ import net.miginfocom.swing.MigLayout;
 import pic.ImageTest;
 
 public class SRMGUI extends JFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1444420184578649397L;
 	private ImageIcon executeIcon = new ImageIcon(
 			ImageTest.class.getResource("/pic/icn-ejecutar-06.png"));
 	private ImageIcon stopIcon=new ImageIcon(
@@ -761,11 +764,6 @@ public class SRMGUI extends JFrame {
 	}
 	
 	public void  addNewRobotUI(final String robotName){
-		if(EventQueue.isDispatchThread()){
-			System.out.println("is in edt");
-		}else{
-			System.out.println("no esta en edt");
-		}
 					System.out.println("addd **"+robotName);
 					JButton button=new JButton(robotName);
 					button.addActionListener(new ButtonListener());

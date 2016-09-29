@@ -53,9 +53,12 @@ public class ServicesChangeChecker {
 			}
 			
 		}catch(Exception ex){
-			ex.printStackTrace();
+//			ex.printStackTrace();
+			
 		}
 	}
+	
+	
 	
 	@SuppressWarnings("unused")
 	public void checkForDeleteServices(Path servicesPath){

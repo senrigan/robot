@@ -11,6 +11,7 @@ import com.gdc.nms.robot.util.Constants;
 import com.gdc.nms.robot.util.registry.CommandExecutor;
 import com.gdc.robothelper.webservice.robot.CreatorRobotWebService;
 import com.gdc.robothelper.webservice.robot.news.CreatorNewRobotWebService;
+import com.gdc.robothelper.webservice.robot.news.Webservice;
 import com.gdc.robothelper.webservice.robot.news.WebservicePortType;
 import com.gdc.robothelper.webservice.robot.olds.CreatorOldRobotWebService;
 
@@ -95,7 +96,7 @@ public class WebServicesManager {
 			String registry = CommandExecutor.readRegistrySpecificRegistry(Constants.LOCALREGISTRY, "webservicesCreator", 
 					CommandExecutor.REGISTRY_TYPE.REG_SZ.getName());
 			if(registry.equals("-1")){
-				return new URL("https://samyg2pp.sispro.mx/wsendusersamyg2/wssamyg/status/soapFlujosV2.php?wsdl");
+				return Webservice.getUrl();
 //				return new URL("https://samyg2.sispro.mx/wsendusersamyg2/wssamyg/status/soapFlujosV2.php?wsdl");
 			}
 			URL url=new URL(registry);
