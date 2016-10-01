@@ -8,9 +8,9 @@ import java.awt.SystemTray;
 import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -18,7 +18,8 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import com.gdc.srm.register.windows.RegistryManager;
+
+import pic.ImageTest;
 
 
 public class TryIconManager {
@@ -39,9 +40,7 @@ public class TryIconManager {
 	
 	public static void main(String[] args) {
         /* Use an appropriate Look and Feel */
-    	Path path = Paths.get("C:\\Users\\senrigan\\Documents\\pruebas\\GDC\\RobotScript\\images\\gdc_logo.ico");
     	
-    	System.out.println(path);
     	
     	System.out.println(Files.exists(getInstance().getIconaPath()));
     	try {
@@ -67,17 +66,15 @@ public class TryIconManager {
         });
     }
     private Path getIconaPath(){
-    	Path installationPath = Paths.get(RegistryManager.getInstallationPathRegistry());
-    	return installationPath.resolve("images").resolve("gdc_logo.gif");
+    	File file=new File(ImageTest.class.getResource("/pic/gdc.ico").getFile());
+    	return file.toPath();
     }
     private  void createAndShowGUI() {
-        //Check the SystemTray support
         if (!SystemTray.isSupported()) {
             System.out.println("SystemTray is not supported");
             return;
         }
         final PopupMenu popup = new PopupMenu();
-//        Image img = createImage("C:\\Users\\senrigan\\Documents\\pruebas\\GDC\\RobotScript\\images\\bulb.gif", "tray icon");
         Image img = createImage(getIconaPath().toString(), "tray icon");
 
         System.out.println("Images"+img);
@@ -85,37 +82,19 @@ public class TryIconManager {
                 new TrayIcon(img,"Sispro Robot Manager");
         final SystemTray tray = SystemTray.getSystemTray();
          
-        // Create a popup menu components
         MenuItem aboutItem = new MenuItem("Informacion");
-//        CheckboxMenuItem cb1 = new CheckboxMenuItem("Set auto size");
-//        CheckboxMenuItem cb2 = new CheckboxMenuItem("Set tooltip");
-//        Menu displayMenu = new Menu("Display");
         MenuItem errorItem = new MenuItem("Error");
         MenuItem warningItem = new MenuItem("Warning");
         MenuItem infoItem = new MenuItem("Info");
         MenuItem noneItem = new MenuItem("None");
         MenuItem exitItem = new MenuItem("Apagar");
         MenuItem openItem=new MenuItem("Abrir");
-         
-        //Add components to popup menu
         popup.add(aboutItem);
         popup.addSeparator();
-//        popup.add(cb1);
-//        popup.add(cb2);
-//        popup.addSeparator();
-//        popup.add(displayMenu);
-//        displayMenu.add(errorItem);
-//        displayMenu.add(warningItem);
-//        displayMenu.add(infoItem);
-//        displayMenu.add(noneItem);
         popup.add(openItem);
         popup.add(exitItem);
-        
-         
         trayIcon.setPopupMenu(popup);
         trayIcon.setImageAutoSize(true);
-//        trayIcon.setToolTip("Sispro Robot Manager");
-         
         try {
             tray.add(trayIcon);
         } catch (AWTException e) {
@@ -139,27 +118,6 @@ public class TryIconManager {
             }
         });
          
-//        cb1.addItemListener(new ItemListener() {
-//            public void itemStateChanged(ItemEvent e) {
-//                int cb1Id = e.getStateChange();
-//                if (cb1Id == ItemEvent.SELECTED){
-//                    trayIcon.setImageAutoSize(true);
-//                } else {
-//                    trayIcon.setImageAutoSize(false);
-//                }
-//            }
-//        });
-         
-//        cb2.addItemListener(new ItemListener() {
-//            public void itemStateChanged(ItemEvent e) {
-//                int cb2Id = e.getStateChange();
-//                if (cb2Id == ItemEvent.SELECTED){
-//                    trayIcon.setToolTip("Sun TrayIcon");
-//                } else {
-//                    trayIcon.setToolTip(null);
-//                }
-//            }
-//        });
          
         ActionListener listener = new ActionListener() {
             public void actionPerformed(ActionEvent e) {

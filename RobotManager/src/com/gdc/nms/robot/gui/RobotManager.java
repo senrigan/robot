@@ -172,7 +172,6 @@ public class RobotManager extends JFrame {
 				LOGGER.info("try lock file");
 				FileLock lock = channel.lock();
 //				channel.tryLock();
-				
 				return true;
 			}
 		} catch (IOException e) {

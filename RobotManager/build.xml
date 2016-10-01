@@ -69,6 +69,7 @@
 			</manifest>
 			 <fileset dir="${src}">
 			            <include name="pic/**/*.png" />
+			 			<include name="languaje/**"/>
 			 </fileset>
 
 		</jar>
