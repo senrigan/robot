@@ -11,6 +11,8 @@ import javax.swing.border.EmptyBorder;
 import com.gdc.nms.robot.gui.auxiliar.LoadingFrame;
 import com.gdc.nms.robot.util.Language;
 import com.gdc.robothelper.webservice.WebServicesManager;
+import com.gdc.srm.register.windows.RegistryManager;
+import com.gdc.srm.robot.gui.conf.ConfigurationController;
 
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
@@ -48,7 +50,8 @@ public class NewConfigurationPanel extends JFrame {
 	private JButton saveButtton;
 	private JButton defautlValuesButton;
 	private JLabel ubicationLabel;
-	private JTextField textField;
+	private JTextField ubicationField;
+	private ConfigurationController controller;
 
 	/**
 	 * Launch the application.
@@ -68,7 +71,7 @@ public class NewConfigurationPanel extends JFrame {
 	}
 	
 	public void initComponents(){
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBackground(new Color(234, 244, 254));
 		setBounds(100, 100, 552, 200);
 		contentPane = new JPanel();
@@ -133,21 +136,21 @@ public class NewConfigurationPanel extends JFrame {
 		
 		ubicationLabel = new JLabel(Language.get("configuration.ubication.label"));
 		GridBagConstraints gbc_ubicationLabel = new GridBagConstraints();
-		gbc_ubicationLabel.anchor = GridBagConstraints.EAST;
+		gbc_ubicationLabel.anchor = GridBagConstraints.WEST;
 		gbc_ubicationLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_ubicationLabel.gridx = 1;
 		gbc_ubicationLabel.gridy = 3;
 		contentPane.add(ubicationLabel, gbc_ubicationLabel);
 		
-		textField = new JTextField();
+		ubicationField = new JTextField();
 		GridBagConstraints gbc_textField = new GridBagConstraints();
 		gbc_textField.gridwidth = 2;
 		gbc_textField.insets = new Insets(0, 0, 5, 5);
 		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textField.gridx = 2;
 		gbc_textField.gridy = 3;
-		contentPane.add(textField, gbc_textField);
-		textField.setColumns(10);
+		contentPane.add(ubicationField, gbc_textField);
+		ubicationField.setColumns(10);
 		
 		autoRestarLabel = new JLabel(Language.get("webservices.configuration.autorestar.check"));
 		GridBagConstraints gbc_autoRestarLabel = new GridBagConstraints();
@@ -200,6 +203,7 @@ public class NewConfigurationPanel extends JFrame {
 	 * Create the frame.
 	 */
 	public NewConfigurationPanel() {
+		controller = new ConfigurationController();
 		initComponents();
 		initDataComponents();
 		initListeners();
@@ -210,6 +214,7 @@ public class NewConfigurationPanel extends JFrame {
 		initWebServicesCreatorText();
 		initWebServicesConsultText();
 		setEncryptionCheckBoxData();
+		setUbicationData();
 	}
 	
 	private void initListeners(){
@@ -218,6 +223,24 @@ public class NewConfigurationPanel extends JFrame {
 		restarCheckBoxListener();
 		encryptionCheckBoxListener();
 		initWindowsListener();
+		saveButtonListener();
+	}
+	
+	
+	private void saveButtonListener(){
+		saveButtton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+	}
+	
+	
+	
+	private void saveDataConfig(){
+		
 	}
 	
 	private void initWindowsListener(){
@@ -319,6 +342,12 @@ public class NewConfigurationPanel extends JFrame {
 	private void setEncryptionCheckBoxData(){
 		boolean imacrosPasswordRegistry = RegistryEditorManager.getImacrosPasswordRegistry();
 		encriptationImacrosCheckBox.setSelected(imacrosPasswordRegistry);
+	}
+	
+	private void setUbicationData(){
+		String ubicationRobotRegistry = RegistryManager.getUbicationRobotRegistry();
+		ubicationField.setText(ubicationRobotRegistry);
+		
 	}
 	
 	

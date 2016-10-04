@@ -505,6 +505,7 @@ public class InterfaceManager {
 		}else{
 			enableConfigurationRobot();
 		}
+		configurationRobotActive=inUse;
 	}
 	
 	
@@ -514,6 +515,7 @@ public class InterfaceManager {
 		}else{
 			enableDeleteRobot();
 		}
+		deleteRobotActive=inUse;
 	}
 	
 	

@@ -35,12 +35,12 @@ public class RegistryManager {
 	
 	
 	private void setImacrosMasterPasswordRegistry() throws IOException, InterruptedException{
-		String exit = CommandExecutor.addRegistryWindows(Constants.IMACROS_REGISTRY, "MasterPassword", "RzNuM3I0bEQ0dDRDMDBt",REGISTRY_TYPE.REG_SZ);
+		String exit = CommandExecutor.addRegistryWindows(Constants.IMACROS_REGISTRY, Constants.MASTERPASWORD_REGISTRYKEY, Constants.IM_MASTERPASWORD_ENCRIPT,REGISTRY_TYPE.REG_SZ);
 		System.out.println("exit"+exit);
 	}
 	
 	private void setEncriptionModImacros() throws IOException, InterruptedException{
-		String exit = CommandExecutor.addRegistryWindows(Constants.IMACROS_REGISTRY, "EncryptionPasswordMode", "Storedkey",REGISTRY_TYPE.REG_SZ);
+		String exit = CommandExecutor.addRegistryWindows(Constants.IMACROS_REGISTRY, Constants.IM_ENCRIPTATION_REGISTRYKEY, Constants.IM_ENCRIPT_TYPE,REGISTRY_TYPE.REG_SZ);
 
 	}
 	
@@ -98,6 +98,17 @@ public class RegistryManager {
 			e.printStackTrace();
 		}
 
+	}
+	
+	
+	public static void setUbicationRegistry(String newUbication){
+		try {
+			CommandExecutor.addRegistryWindows(Constants.LOCALREGISTRY, Constants.UBICATION_ROBOT_REGISTYKEY, newUbication);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public static void main(String[] args) {
@@ -194,7 +205,7 @@ public class RegistryManager {
 	public static String getInstallationPathRegistry(){
 		String ubicationRegist=null;
 		try {
-			ubicationRegist = CommandExecutor.readRegistrySpecificRegistry(Constants.LOCALREGISTRY, "installationPath","REG_SZ");
+			ubicationRegist = CommandExecutor.readRegistrySpecificRegistry(Constants.LOCALREGISTRY,Constants.INSTALLATION_PATH_KEY,REGISTRY_TYPE.REG_SZ.getName());
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -203,19 +214,93 @@ public class RegistryManager {
 	}
 	
 	
+	public static String getWebSErvicesCreatorUrlRegistry(){
+		String registry=null;
+		try {
+			 registry = CommandExecutor.readRegistrySpecificRegistry(Constants.LOCALREGISTRY, Constants.WEBSERVICESCREATOR_REGISTRYKEY, 
+					CommandExecutor.REGISTRY_TYPE.REG_SZ.getName());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	
+		return registry;
+	}
+	
+	
+	public static String getWebServicesConsultRegistry(){
+		String registry=null;
+		try {
+			registry = CommandExecutor.readRegistrySpecificRegistry(Constants.LOCALREGISTRY, Constants.WEBSERVICESCONSULT_REGISTRYKEY, 
+					CommandExecutor.REGISTRY_TYPE.REG_SZ.getName());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return registry;
+		
+
+	}
+	
+	public static void setWebServicesConsultRegistry(String urlWebServices){
+		try {
+			CommandExecutor.addRegistryWindows(Constants.LOCALREGISTRY, Constants.WEBSERVICESCONSULT_REGISTRYKEY,
+					urlWebServices);
+		} catch (IOException e) {
+			e.printStackTrace();
+
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+
+		}
+	}
+	
+	
+	
+	public static void setWebServicesCreatorRegistry(String urlWebServices){
+		try {
+			CommandExecutor.addRegistryWindows(Constants.LOCALREGISTRY, Constants.WEBSERVICESCREATOR_REGISTRYKEY,
+					urlWebServices);
+		} catch (IOException e) {
+			e.printStackTrace();
+
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+
+		}
+	}
+
+	
+	
+	
 	public static Path  getInstallationPath(){
 		return Paths.get(getInstallationPathRegistry());
 	}
 	
 	private void registryForRunInStarUp(){
-		String starupPath="HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run";
-		Path sysproRobotManager = getInstallationPath().resolve("SRM.exe");
+		Path sysproRobotManager = getInstallationPath().resolve(Constants.EXECUTABLE_NAME);
 		try {
-			CommandExecutor.addRegistryWindows(starupPath, "sysproRobotManager","\""+sysproRobotManager.toString()+"\"" );
+			CommandExecutor.addRegistryWindows(Constants.STARTUP_REGISTRY, Constants.APPLICATION_NAME_STARUP_REG,"\""+sysproRobotManager.toString()+"\"" );
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
+		}
+	}
+	
+	
+	
+	
+	
+	public static  void setImacrosPasswordRegistry(boolean value){
+		try{
+			
+			if(value){
+				CommandExecutor.addRegistryWindows(Constants.LOCALREGISTRY, Constants.IMACROSPASSWORD_REGISTRYKEY, "1",REGISTRY_TYPE.REG_BINARY );
+				
+			}else{
+				CommandExecutor.addRegistryWindows(Constants.LOCALREGISTRY,Constants.IMACROSPASSWORD_REGISTRYKEY, "1",REGISTRY_TYPE.REG_BINARY );
+				
+			}
+		}catch(Exception ex){
+			
 		}
 	}
 	
