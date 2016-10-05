@@ -7,6 +7,10 @@ import java.awt.Font;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 import com.gdc.nms.robot.gui.auxiliar.LoadingFrame;
 import com.gdc.nms.robot.util.Language;
@@ -52,6 +56,11 @@ public class NewConfigurationPanel extends JFrame {
 	private JLabel ubicationLabel;
 	private JTextField ubicationField;
 	private ConfigurationController controller;
+	private boolean wsCreatorChange;
+	private boolean wsConsultChange;
+	private boolean ubicationChange;
+	private boolean restarChange;
+	private boolean passworChange;
 
 	/**
 	 * Launch the application.
@@ -224,7 +233,78 @@ public class NewConfigurationPanel extends JFrame {
 		encryptionCheckBoxListener();
 		initWindowsListener();
 		saveButtonListener();
+		changeFielDListener();
+		
 	}
+	private void changeFielDListener(){
+		wsCreatorTextListener();
+		wsConsultTextListener();
+		ubicationListener();
+		
+	}
+	private void restarListener(){
+	}
+	private void ubicationListener(){
+		ubicationField.getDocument().addDocumentListener(new DocumentListener() {
+			
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				ubicationChange=true;
+			}
+			
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				ubicationChange=true;
+			}
+			
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				ubicationChange=true;
+			}
+		});
+	}
+	
+	private void wsCreatorTextListener(){
+		webservicesCreatorText.getDocument().addDocumentListener(new DocumentListener() {
+			
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				wsCreatorChange=true;
+			}
+			
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				wsCreatorChange=true;
+			}
+			
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				System.out.println("cambiado");
+				wsCreatorChange=true;
+			}
+		});
+	}
+	
+	private void wsConsultTextListener(){
+		webservicesConsultText.getDocument().addDocumentListener(new DocumentListener() {
+			
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				wsConsultChange=true;
+			}
+			
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				wsConsultChange=true;
+			}
+			
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				wsConsultChange=true;
+			}
+		});
+	}
+	
 	
 	
 	private void saveButtonListener(){
@@ -240,6 +320,57 @@ public class NewConfigurationPanel extends JFrame {
 	
 	
 	private void saveDataConfig(){
+		if(wsCreatorChange){
+			String wsCreator = wsCreatorLabel.getText();
+			if(WebServicesManager.checkNewVersionCreator(wsCreator)){
+				
+			}else if(WebServicesManager.checkOldVersionCreator(wsCreator)){
+				controller.saveWebServicesCreator(wsCreator);
+			}else{
+				JOptionPane.showMessageDialog(null, Language.get("configuration.save.wscreator.error"), "title", JOptionPane.ERROR_MESSAGE);
+				return ;
+			}
+		}
+		if(wsConsultChange){
+			String wsConsult = wsConsultLabel.getText();
+			if(WebServicesManager.checkWebServicesConsult(wsConsult)){
+				if(!controller.saveWebServicesConsult(wsConsult)){
+					//error save
+					JOptionPane.showMessageDialog(null, Language.get("configuration.save.wsconsult.error"), "Error", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+			}else{
+				
+			}
+			
+		}
+		if(ubicationChange){
+			boolean saveUbicationRobot = controller.saveUbicationRobot(ubicationField.getText());
+			if(!saveUbicationRobot){
+				//error vase
+				JOptionPane.showMessageDialog(null, Language.get("configuration.save.ubication.error"),"Error", JOptionPane.ERROR_MESSAGE);;
+				return;
+			}
+		}
+		
+		if(restarChange){
+			boolean selected = restarRobotCheckBox.isSelected();
+			boolean saveAutoStart = controller.saveAutoStart(selected);
+			if(!saveAutoStart){
+				JOptionPane.showMessageDialog(null,Language.get("configuration.save.restar.error"), "Error", JOptionPane.ERROR_MESSAGE);
+				return ;
+			}
+		}
+		if(passworChange){
+			boolean selected = encriptationImacrosCheckBox.isSelected();
+			boolean saveEncriptationImacros = controller.saveEncriptationImacros(selected);
+			if(!saveEncriptationImacros){
+				JOptionPane.showMessageDialog(null, Language.get("configuration.save.passwor.error"), "Error",JOptionPane.ERROR_MESSAGE);
+				return ;
+			}
+		}
+		
+		JOptionPane.showMessageDialog(null, Language.get("configuration.save.sucess"), "Info", JOptionPane.INFORMATION_MESSAGE);
 		
 	}
 	
@@ -320,21 +451,22 @@ public class NewConfigurationPanel extends JFrame {
 	
 	
 	private void restarCheckBoxListener(){
-		restarRobotCheckBox.addActionListener(new ActionListener() {
+		restarRobotCheckBox.addChangeListener(new ChangeListener() {
 			
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void stateChanged(ChangeEvent e) {
+				restarChange=true;
 				
 			}
 		});
 	}
 	
 	private void encryptionCheckBoxListener(){
-		encriptationImacrosCheckBox.addActionListener(new ActionListener() {
+		encriptationImacrosCheckBox.addChangeListener(new ChangeListener() {
 			
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				
+			public void stateChanged(ChangeEvent e) {
+				passworChange=true;
 			}
 		});
 	}

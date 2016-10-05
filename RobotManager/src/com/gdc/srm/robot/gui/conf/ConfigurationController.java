@@ -3,6 +3,7 @@ package com.gdc.srm.robot.gui.conf;
 import com.gdc.srm.register.windows.RegistryManager;
 
 public class ConfigurationController {
+	
 	public boolean saveUbicationRobot(String newUbication){
 		RegistryManager.setUbicationRegistry(newUbication);
 		String ubicationRobotRegistry = RegistryManager.getUbicationRobotRegistry();
@@ -27,6 +28,16 @@ public class ConfigurationController {
 		RegistryManager.setWebServicesCreatorRegistry(newUrl);
 		String webSErvicesCreatorUrlRegistry = RegistryManager.getWebSErvicesCreatorUrlRegistry();
 		if(webSErvicesCreatorUrlRegistry.equals(newUrl)){
+			return true;
+		}
+		return false;
+	}
+	
+	
+	public boolean saveAutoStart(boolean active){
+		RegistryManager.createAutoRestarRegistry(active);
+		boolean autoRestarRegistry = RegistryManager.getAutoRestarRegistry();
+		if(autoRestarRegistry==active){
 			return true;
 		}
 		return false;

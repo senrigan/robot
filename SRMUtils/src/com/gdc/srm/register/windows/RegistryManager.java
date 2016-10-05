@@ -157,6 +157,20 @@ public class RegistryManager {
 		}
 	}
 	
+	
+	public static void createAutoRestarRegistry(boolean active){
+		try{
+			if(active){
+				CommandExecutor.addRegistryWindows(Constants.LOCALREGISTRY, Constants.AUTORESTAR_REGISTRYKEY, "1",REGISTRY_TYPE.REG_BINARY );
+			}else{
+				CommandExecutor.addRegistryWindows(Constants.LOCALREGISTRY, Constants.AUTORESTAR_REGISTRYKEY, "0",REGISTRY_TYPE.REG_BINARY );
+			}
+			
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}
+	}
+	
 	public static boolean getImacrosPasswordRegistry(){
 		try {
 			String redRegistryWindows = CommandExecutor.redRegistryWindows(Constants.LOCALREGISTRY+"\\"+Constants.IMACROSPASSWORD_REGISTRYKEY);
@@ -185,6 +199,21 @@ public class RegistryManager {
 	private void createImacrosPasswordRegistry(){
 		try {
 			CommandExecutor.addRegistryWindows(Constants.LOCALREGISTRY, Constants.IMACROSPASSWORD_REGISTRYKEY, "1",REGISTRY_TYPE.REG_BINARY );
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	public static void  createImacrosPasswordRegistry(boolean active){
+		try {
+			if(active){
+				CommandExecutor.addRegistryWindows(Constants.LOCALREGISTRY, Constants.IMACROSPASSWORD_REGISTRYKEY, "1",REGISTRY_TYPE.REG_BINARY );
+			}else{
+				CommandExecutor.addRegistryWindows(Constants.LOCALREGISTRY, Constants.IMACROSPASSWORD_REGISTRYKEY, "0",REGISTRY_TYPE.REG_BINARY );
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (InterruptedException e) {
