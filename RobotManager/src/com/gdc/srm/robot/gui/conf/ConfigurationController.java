@@ -44,4 +44,10 @@ public class ConfigurationController {
 	}
 	
 	
+	public boolean saveEncriptationImacros(boolean active){
+		
+		return false;	
+	}
+	
+	
 }

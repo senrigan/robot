@@ -42,6 +42,7 @@ import com.gdc.nms.robot.util.indexer.ChangesFolderListener;
 import com.gdc.nms.robot.util.jade.InitPlataform;
 import com.gdc.nms.robot.util.jade.SRMAgentManager;
 import com.gdc.nms.robot.util.registry.CommandExecutor;
+import com.gdc.srm.register.windows.RegistryManager;
 
 import jade.core.AID;
 
@@ -452,8 +453,8 @@ public class RobotManager extends JFrame {
 				boolean value=false;
 				String java ="\""+Environment.getJava()+"\"";
 				String nuewName=botFile.getParentFile().getName().replaceAll("\\s+$", "");
-				System.out.println("before run the robos wildacars"+installationPath.resolve("data").resolve(nuewName));
-				System.out.println("bot files"+botFile.getName());
+//				System.out.println("before run the robos wildacars"+installationPath.resolve("data").resolve(nuewName));
+//				System.out.println("bot files"+botFile.getName());
 				LOGGER.info("botfiles detected "+botFile.getName());
 					File parentFile=botFile.getParentFile();
 					String command=java +" -Dname=\"Robot_"+nuewName+"\" "+" -jar "+botFile.getName();
@@ -511,7 +512,7 @@ public class RobotManager extends JFrame {
 						copyDllToJavaHome();
 						return true;
 					}else{
-						if(s.equals("Robot has been started.")){
+						if(s.equals("Robot has been started.") || s.contains("Robot has been started")){
 							return false;
 						}
 					}
@@ -723,7 +724,9 @@ public class RobotManager extends JFrame {
 	}
 
 	public static Path getInstallationPath() {
-		return installationPath;
+		if(installationPath!=null)
+			return installationPath;
+		return RegistryManager.getInstallationPath();
 	}
 	
 	

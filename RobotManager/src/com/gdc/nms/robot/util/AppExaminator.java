@@ -374,7 +374,7 @@ public class AppExaminator {
 		AppInformation app=new AppInformation();
 		setMetaInfoApp(appFolder, app);
 		app.setAppName(file.getName());
-		System.out.println("++++ file name "+file.getName());
+//		System.out.println("++++ file name "+file.getName());
 		ArrayList<FlujoInformation> flujosApp;
 		if(Files.exists(appFolder.resolve("application"))){
 			
@@ -387,7 +387,7 @@ public class AppExaminator {
 		}
 		app.setFlujos(flujosApp);
 		app.setIdRobot(getRobotID(appFolder));
-		System.out.println("id robot"+app.getIdRobot()+" "+app.getAppName());
+//		System.out.println("id robot"+app.getIdRobot()+" "+app.getAppName());
 		if(app.getIdRobot()==0){
 			return null;
 		}
@@ -401,7 +401,7 @@ public class AppExaminator {
 			AppInformation app=new AppInformation();
 			setMetaInfoApp(appFolder, app);
 			app.setAppName(file.getName());
-			System.out.println("++++ file name "+file.getName());
+//			System.out.println("++++ file name "+file.getName());
 			ArrayList<FlujoInformation> flujosApp;
 			if(Files.exists(appFolder.resolve("application"))){
 				
@@ -414,7 +414,7 @@ public class AppExaminator {
 			}
 			app.setFlujos(flujosApp);
 			app.setIdRobot(getRobotID(appFolder));
-			System.out.println("id robot"+app.getIdRobot()+" "+app.getAppName());
+//			System.out.println("id robot"+app.getIdRobot()+" "+app.getAppName());
 			if(app.getIdRobot()==0){
 				return null;
 			}
@@ -430,7 +430,7 @@ public class AppExaminator {
 		AppInformation app=new AppInformation();
 		setMetaInfoApp(appFolder, app);
 		app.setAppName(file.getName());
-		System.out.println("++++ file name "+file.getName());
+//		System.out.println("++++ file name "+file.getName());
 		ArrayList<FlujoInformation> flujosApp;
 		if(Files.exists(appFolder.resolve("application"))){
 			
@@ -443,7 +443,7 @@ public class AppExaminator {
 		}
 		app.setFlujos(flujosApp);
 		app.setIdRobot(getRobotID(botFile));
-		System.out.println("id robot"+app.getIdRobot()+" "+app.getAppName());
+//		System.out.println("id robot"+app.getIdRobot()+" "+app.getAppName());
 		if(app.getIdRobot()==0){
 			return null;
 		}else{
@@ -547,9 +547,9 @@ public class AppExaminator {
 	public static ArrayList<FlujoInformation> getFlujosApp(Path appPath){
 		ArrayList<FlujoInformation> flujos=new ArrayList<FlujoInformation>();
 		File applicationFolder = appPath.toFile();
-		System.out.println("consultando carpeta"+appPath.toString()+"aplicationfolder file"+applicationFolder);
+//		System.out.println("consultando carpeta"+appPath.toString()+"aplicationfolder file"+applicationFolder);
 		File[] listFiles = applicationFolder.listFiles();
-		System.out.println("lista de archivos"+Arrays.toString(listFiles));
+//		System.out.println("lista de archivos"+Arrays.toString(listFiles));
 //		Arrays.sort(listFiles);
 		for(File file: listFiles){
 			if(file.isDirectory()){

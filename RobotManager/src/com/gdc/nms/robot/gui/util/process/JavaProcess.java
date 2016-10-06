@@ -27,7 +27,7 @@ public class JavaProcess {
 				javaP.setProcessid(Long.parseLong(split[i+1].trim()));
 				javaP.setCommandLine(split[i+2]);
 				DateFormat dt=new SimpleDateFormat("yyyymmddHHMMSS");
-				System.out.println("date fornat"+split[i+3]);
+//				System.out.println("date fornat"+split[i+3]);
 				Date date = dt.parse(split[i+3]);
 				javaP.setCreationDate(date);
 				i=i+3;
