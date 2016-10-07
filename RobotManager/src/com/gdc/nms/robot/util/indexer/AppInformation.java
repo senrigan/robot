@@ -84,27 +84,27 @@ public class AppInformation  implements Comparable<AppInformation>{
 	}
 	
 	public boolean isServicesRunning(){
-		if(!JavaProcess.isServicesAlreadyRunningForMoreFiveMinutes(appName)){
-			Path path = Paths.get(getFolderPath()).resolve(".lock");
-			try{
-				if(Files.exists(path)){
-					File file = path.toFile();
-					if(file.delete()){
-						return false;
-					}else{
-						Thread.sleep(5000L);
-						if(file.delete()){
-							return false;
-						}
-					}
-					return true;
-				}
-			}catch(Exception ex){
-				ex.printStackTrace();
-			}
-			path=null;
-			return false;
-			
+		if(JavaProcess.isServicesAlreadyRunningForMoreFiveMinutes(appName)){
+//			Path path = Paths.get(getFolderPath()).resolve(".lock");
+//			try{
+//				if(Files.exists(path)){
+//					File file = path.toFile();
+//					if(file.delete()){
+//						return false;
+//					}else{
+//						Thread.sleep(5000L);
+//						if(file.delete()){
+//							return false;
+//						}
+//					}
+//					return true;
+//				}
+//			}catch(Exception ex){
+//				ex.printStackTrace();
+//			}
+//			path=null;
+//			return false;
+			return true;
 		}else{
 			Path path = Paths.get(getFolderPath()).resolve(".lock");
 			try{
