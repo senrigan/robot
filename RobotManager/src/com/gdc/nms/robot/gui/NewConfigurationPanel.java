@@ -312,6 +312,7 @@ public class NewConfigurationPanel extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				saveDataConfig();
 				
 			}
 		});

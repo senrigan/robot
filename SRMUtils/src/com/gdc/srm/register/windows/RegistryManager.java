@@ -24,13 +24,14 @@ public class RegistryManager {
 		createImacrosRegistrys();
 		checkAutoRestarRegistry();
 		checkImacrosPasswordRegistry();
+		createRobotNotRunRegistry();
 
 	}
 	
 	
 	private void createImacrosRegistrys() throws IOException, InterruptedException{
 		setImacrosMasterPasswordRegistry();
-		setEncriptionModImacros();
+		setEncriptionModImacros(true);
 	}
 	
 	
@@ -39,9 +40,22 @@ public class RegistryManager {
 		System.out.println("exit"+exit);
 	}
 	
-	private void setEncriptionModImacros() throws IOException, InterruptedException{
-		String exit = CommandExecutor.addRegistryWindows(Constants.IMACROS_REGISTRY, Constants.IM_ENCRIPTATION_REGISTRYKEY, Constants.IM_ENCRIPT_TYPE,REGISTRY_TYPE.REG_SZ);
+	private void setEncriptionModImacros(boolean active) throws IOException, InterruptedException{
+		if(active){
+			CommandExecutor.addRegistryWindows(Constants.IMACROS_REGISTRY, Constants.IM_ENCRIPTATION_REGISTRYKEY, Constants.IM_ENCRIPT_TYPE,REGISTRY_TYPE.REG_SZ);
+		}else{
+			CommandExecutor.addRegistryWindows(Constants.IMACROS_REGISTRY, Constants.IM_ENCRIPTATION_REGISTRYKEY, Constants.IM_ENCRIPT_TYPE_NO,REGISTRY_TYPE.REG_SZ);
+		}
 
+	}
+	
+	private void createRobotNotRunRegistry() throws IOException, InterruptedException{
+		CommandExecutor.addRegistryWindows(Constants.LOCALREGISTRY, Constants.ROBOTNOTRUN_REGISTRY, " ");
+	}
+	
+	
+	private void addRobotToNoRunRegistry(String nedIdRobot){
+		
 	}
 	
 	private void createRegistrySystem() throws IOException, InterruptedException{

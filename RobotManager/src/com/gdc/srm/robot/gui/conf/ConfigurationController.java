@@ -45,7 +45,11 @@ public class ConfigurationController {
 	
 	
 	public boolean saveEncriptationImacros(boolean active){
-		
+		RegistryManager.createImacrosPasswordRegistry(active);
+		boolean imacrosEncript = RegistryManager.getImacrosPasswordRegistry();
+		if(imacrosEncript==active){
+			return true;
+		}
 		return false;	
 	}
 	

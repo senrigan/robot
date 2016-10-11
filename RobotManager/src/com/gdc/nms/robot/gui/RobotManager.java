@@ -232,15 +232,6 @@ public class RobotManager extends JFrame {
 		ChangesFolderListener.checkChangeDataPath(getServicesFolderPath());
 	}
 	
-	
-	
-	
-	
-
-	
-	
-	
-	
 	public static void initAllRobots(){
 		try {
 			
@@ -326,19 +317,6 @@ public class RobotManager extends JFrame {
 
 		}
 	}
-	
-	
-
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	private static HashMap<Long,String> getRobotNotRunning(){
 		HashMap<Long,String> robotNotRun=new HashMap<Long,String>();
@@ -632,23 +610,6 @@ public class RobotManager extends JFrame {
 		
 	}
 	
-	public static void runRobot(String applicationName){
-		
-	}
-//ya no funciona es necesario realizar otro metodo	
-//	public static void stopRobot(long idRobot) throws Exception{
-//		ArrayList<RobotInformation> runningRobot = VirtualMachineExaminator.getRunningRobot();
-//		for (RobotInformation robotInformation : runningRobot) {
-//			if(robotInformation.getRobotId()==idRobot){
-//				LOGGER.info( "stopping robotid "+idRobot);
-//				if(!stopJar(robotInformation.getIdProcess())){
-//					
-//					LOGGER.info("the robotid "+idRobot +"cannot stoped");
-//					throw new Exception("cannot stop jar of appName"+robotInformation.getAppName());
-//				}
-//			}
-//		}
-//	}
 	public static void stopAllRobots() throws Exception{
 		HashMap<String, AID> robotRegister = InitPlataform.getRobotRegister();
 		Set<String> keySet = robotRegister.keySet();
@@ -698,30 +659,6 @@ public class RobotManager extends JFrame {
 	}
 	
 	
-	public static void stopRobot(String applicationName){
-		
-	}
-	
-	
-	public static void getRobotMustRunb(){
-		
-	}
-	
-	public static void getRobotMustNotRun(){
-		
-	}
-	
-	public static void addNewRobot(Path source){
-		
-	}
-	
-	public static void updateRobot(long idRobot,Path souruce){
-		
-	}
-	
-	public static void updateAllRobots(Path source){
-		
-	}
 
 	public static Path getInstallationPath() {
 		if(installationPath!=null)

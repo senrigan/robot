@@ -55,9 +55,11 @@ public class Constants {
 	public static final String WEBSERVICESCONSULT_REGISTRYKEY="webservicesConsult";
 	public static final String WEBSERVICESCREATOR_REGISTRYKEY="webservicesCreator";
 	public static final String MASTERPASWORD_REGISTRYKEY="MasterPassword";
+	public static final String ROBOTNOTRUN_REGISTRY="robotnotRun";
 	public static final String IM_ENCRIPTATION_REGISTRYKEY="EncryptionPasswordMode";
 	public static final String IM_MASTERPASWORD_ENCRIPT="RzNuM3I0bEQ0dDRDMDBt";
 	public static final String IM_ENCRIPT_TYPE="Storedkey";
+	public static final String IM_ENCRIPT_TYPE_NO="No";
 	
 
 	
