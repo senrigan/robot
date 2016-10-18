@@ -58,6 +58,11 @@ public class RegistryManager {
 		
 	}
 	
+	
+	private boolean alredyExist(String idRobot){
+		
+	}
+	
 	private void createRegistrySystem() throws IOException, InterruptedException{
 		String redRegistryWindows = CommandExecutor.redRegistryWindows(Constants.LOCALREGISTRY);
 		if(!redRegistryWindows.contains("ERROR")){
