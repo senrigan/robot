@@ -124,8 +124,9 @@ public class AgentValidator extends Agent{
 						String parseAppName = SRMAgent.parseAppName(string);
 						if(installedAppsMap.containsKey(parseAppName)){
 							if(AppExaminator.isRunningByLockFileAgent(installedAppsMap.get(parseAppName))){
-								RobotManagerGui guiManager = RobotManager.getGuiManager();
-								guiManager.changeRobotToRun(parseAppName);
+								RobotManager.getSRMGuiManager().changeStatusServicesToActive(parseAppName);
+//								RobotManagerGui guiManager = RobotManager.getGuiManager();
+//								guiManager.changeRobotToRun(parseAppName);
 								continue;
 							}
 							

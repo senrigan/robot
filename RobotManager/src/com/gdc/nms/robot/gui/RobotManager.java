@@ -112,7 +112,7 @@ public class RobotManager extends JFrame {
 			srmGuiManager.loadAllRobots();
 			StartAgentPlatform();
 			hilo.start();
-			initDataFolderListener();
+//			initDataFolderListener();
 			
 		}else{
 			JOptionPane.showMessageDialog(null, "El Programa ya esta en ejecucion", "Error", JOptionPane.ERROR_MESSAGE);
@@ -228,7 +228,6 @@ public class RobotManager extends JFrame {
 	
 
 	public void initDataFolderListener(){
-		System.out.println("services folder"+getServicesFolderPath());
 		ChangesFolderListener.checkChangeDataPath(getServicesFolderPath());
 	}
 	

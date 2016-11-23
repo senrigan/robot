@@ -179,7 +179,7 @@ public class SRMAgent extends Agent {
 					replyMessage.setContent(ALIVE_RESPONSE);
 					replyMessage.setConversationId("" + ALIVE_RESPONSE + System.currentTimeMillis());
 					send(replyMessage);
-					RobotManagerGui guiManager = RobotManager.getGuiManager();
+//					RobotManagerGui guiManager = RobotManager.getGuiManager();
 //					if (!InitPlataform.getRobotRegister().keySet().isEmpty())
 //						guiManager.UpdateTree(InitPlataform.getRobotRegister().keySet());
 				}
@@ -208,8 +208,9 @@ public class SRMAgent extends Agent {
 					appName = getAppName(appName);
 					appName = parseAppName(appName);
 					InitPlataform.removeToKill(appName);
-					RobotManagerGui.showMessage("el robot " + appName + "se ha detenido correctamente");
-					RobotManager.getGuiManager().getJtreManager().addToStop(appName);
+					RobotManager.getSRMGuiManager().changeStattusServicesToStoped(appName);
+//					RobotManagerGui.showMessage("el robot " + appName + "se ha detenido correctamente");
+//					RobotManager.getGuiManager().getJtreManager().addToStop(appName);
 				}
 				block(5000L);
 			} catch (Exception ex) {

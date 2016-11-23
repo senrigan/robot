@@ -322,10 +322,15 @@ public class NewConfigurationPanel extends JFrame {
 	
 	private void saveDataConfig(){
 		if(wsCreatorChange){
-			String wsCreator = wsCreatorLabel.getText();
+			
+			String wsCreator = webservicesCreatorText.getText();
+			System.out.println("creator si hay nuevos cambios *****"+wsCreator+"  url "+wsCreator);
 			if(WebServicesManager.checkNewVersionCreator(wsCreator)){
-				
+				System.out.println("si exte concion nueva version");
+				controller.saveWebServicesCreator(wsCreator);
 			}else if(WebServicesManager.checkOldVersionCreator(wsCreator)){
+				System.out.println("si exte concion vieja version version");
+
 				controller.saveWebServicesCreator(wsCreator);
 			}else{
 				JOptionPane.showMessageDialog(null, Language.get("configuration.save.wscreator.error"), "title", JOptionPane.ERROR_MESSAGE);
@@ -333,7 +338,7 @@ public class NewConfigurationPanel extends JFrame {
 			}
 		}
 		if(wsConsultChange){
-			String wsConsult = wsConsultLabel.getText();
+			String wsConsult = webservicesConsultText.getText();
 			if(WebServicesManager.checkWebServicesConsult(wsConsult)){
 				if(!controller.saveWebServicesConsult(wsConsult)){
 					//error save
@@ -439,13 +444,18 @@ public class NewConfigurationPanel extends JFrame {
 				System.out.println("consultando wsCreator");
 				if(WebServicesManager.checkNewVersionCreator(webservicesCreatorText.getText())){
 					JOptionPane.showMessageDialog(null, Language.get("webservices.configuration.wscreator.validator.message"), "Info", JOptionPane.INFORMATION_MESSAGE);
+					LoadingFrame.getInstance().close();
+
 				}else if(WebServicesManager.checkOldVersionCreator(webservicesCreatorText.getText())){
 					JOptionPane.showMessageDialog(null, Language.get("webservices.configuration.wscreator.validator.message"), "Info", JOptionPane.INFORMATION_MESSAGE);
+					LoadingFrame.getInstance().close();
 
 				}else{
 					JOptionPane.showMessageDialog(null, Language.get("webservices.configuration.wscreator.validator.message.error"), "Error", JOptionPane.INFORMATION_MESSAGE);
+					LoadingFrame.getInstance().close();
+
 				}
-				LoadingFrame.getInstance().close();
+//				LoadingFrame.getInstance().close();
 			}
 		});
 	}
@@ -456,7 +466,8 @@ public class NewConfigurationPanel extends JFrame {
 			
 			@Override
 			public void stateChanged(ChangeEvent e) {
-				restarChange=true;
+//				restarChange=true;
+				restarChange=(!restarChange);
 				
 			}
 		});
@@ -467,7 +478,8 @@ public class NewConfigurationPanel extends JFrame {
 			
 			@Override
 			public void stateChanged(ChangeEvent e) {
-				passworChange=true;
+//				passworChange=true;
+				passworChange=(!passworChange);
 			}
 		});
 	}

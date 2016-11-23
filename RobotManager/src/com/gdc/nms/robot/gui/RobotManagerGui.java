@@ -33,7 +33,7 @@ import javax.swing.JMenu;
 
 import com.gdc.nms.robot.gui.auxiliar.LoadingFrame;
 import com.gdc.nms.robot.gui.tree.Element;
-import com.gdc.nms.robot.gui.tree.TreeListener;
+//import com.gdc.nms.robot.gui.tree.TreeListener;
 import com.gdc.nms.robot.gui.tree.TreeModelElements;
 import com.gdc.nms.robot.gui.tree.test.RobotJTree;
 import com.gdc.nms.robot.gui.tree.test.TreeDynamic;
@@ -73,7 +73,7 @@ public class RobotManagerGui extends JFrame {
 	private JSplitPane splitPane;
 	private JScrollPane scrollPane;
 	private JMenuBar menuBar;
-	private TreeListener listenerTree;
+//	private TreeListener listenerTree;
 	private TreeModelElements model;
 	private Element root;
 	private JButton logButton;
@@ -113,8 +113,8 @@ public class RobotManagerGui extends JFrame {
 	private void initComponents(){
 //		model = new TreeModelElements(getDataForTree());
 		dinamicTree=new RobotJTree();
-		listenerTree = new TreeListener(RobotManagerGui.this, dinamicTree.getTree().getTree());
-		dinamicTree.getTree().getTree().addTreeSelectionListener(listenerTree);
+//		listenerTree = new TreeListener(RobotManagerGui.this, dinamicTree.getTree().getTree());
+//		dinamicTree.getTree().getTree().addTreeSelectionListener(listenerTree);
 		Element elementRunning = getElementRunning();
 		Enumeration<?> children = elementRunning.children();
 		System.out.println("childen elementRunning"+children);
