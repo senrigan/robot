@@ -24,7 +24,6 @@
 		<pathelement location="${lib}/jna-4.2.2.jar" />
 		<pathelement location="${lib}/jna-platform-4.2.2.jar" />
 		<pathelement location="${lib}/srm_lib.jar"/>
-		
 	</path>
 
 	<target name="clean">

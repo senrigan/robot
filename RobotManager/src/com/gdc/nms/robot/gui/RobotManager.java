@@ -2,6 +2,8 @@ package com.gdc.nms.robot.gui;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.RandomAccessFile;
@@ -18,6 +20,12 @@ import java.util.HashMap;
 import java.util.Set;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.FileHandler;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -25,9 +33,6 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.log4j.Appender;
-import org.apache.log4j.FileAppender;
-import org.apache.log4j.Logger;
 
 import com.gdc.nms.robot.gui.tree.test.InterfaceManager;
 import com.gdc.nms.robot.gui.util.SRMGUI;
@@ -47,18 +52,18 @@ import com.gdc.srm.register.windows.RegistryManager;
 import jade.core.AID;
 
 public class RobotManager extends JFrame {
+	private static final Logger LOGGER=Logger.getLogger(RobotManager.class.getName());
 	private static final long serialVersionUID = 1L;
 
 	
 	private static Path installationPath;
 	private static String ubication;
-	private static final Logger LOGGER=Logger.getLogger(RobotManager.class);
 	private static boolean valueStart=false;
 	private static boolean valueStop=false;
 	private static RobotManagerGui robotManagerGui;
 	private static InterfaceManager srmGuiManager;
 	private static SRMGUI srmGui;
-	public static Appender logAppender;
+//	public static Appender logAppender;
 	private static RobotManager instance;
 	public RobotManager() {
 		
@@ -81,20 +86,21 @@ public class RobotManager extends JFrame {
 				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
-				LOGGER.error("excepcion ", e);
+				LOGGER.severe(e.toString());
+//				LOGGER.error("excepcion ", e);
 
 			} catch (InstantiationException e) {
 				e.printStackTrace();
-				LOGGER.error("excepcion ", e);
+				LOGGER.severe(e.toString());
+
+//				LOGGER.error("excepcion ", e);
 
 			} catch (IllegalAccessException e) {
 				e.printStackTrace();
-				LOGGER.error("excepcion ", e);
-
+				LOGGER.severe(e.toString());
 			} catch (UnsupportedLookAndFeelException e) {
 				e.printStackTrace();
-				LOGGER.error("excepcion ", e);
-
+				LOGGER.severe(e.toString());
 			}
 //			robotManagerGui=new RobotManagerGui();
 			Thread hilo=new Thread(new Runnable() {
@@ -124,20 +130,32 @@ public class RobotManager extends JFrame {
 	}
 	
 	private void CreateLogFile(){
-		Path currentPath = RegistryEditorManager.getCurrentPath();
-		currentPath = currentPath.resolve("inMonitor").resolve("srm.log");
-		System.out.println("**** cuenrrrent path for srmlog"+currentPath.toString());
+//		Path currentPath = RegistryEditorManager.getCurrentPath();
+//		currentPath = currentPath.resolve("inMonitor").resolve("srm.log");
+//		System.out.println("**** cuenrrrent path for srmlog"+currentPath.toString());
+//		try {
+//			FileHandler fileHandler=new FileHandler(currentPath.toString());
+//			fileHandler.setFormatter(new SimpleFormatter());
+//			
+//			logAppender=new FileAppender(new LogLayout(),currentPath.toString());
+//			LOGGER.addAppender(logAppender);
+//			logAppender.setLayout(new LogLayout());
+//			
+//			LOGGER.info("The RobotManager Instance is Created");
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//			LOGGER.error("excepcion ", e);
+//		}
 		try {
-			
-			logAppender=new FileAppender(new LogLayout(),currentPath.toString());
-			LOGGER.addAppender(logAppender);
-			logAppender.setLayout(new LogLayout());
-			
-			LOGGER.info("The RobotManager Instance is Created");
+			LogManager.getLogManager().readConfiguration(new FileInputStream(new File("logging.properties")));
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
-			LOGGER.error("excepcion ", e);
 		}
+		LOGGER.config("Configuration done.");
 		
 	}
 	
@@ -177,10 +195,10 @@ public class RobotManager extends JFrame {
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
-			LOGGER.error("excepcion ", e);
-
+			LOGGER.log(Level.SEVERE,e.getMessage(),e );
 		}catch(Exception e){
-			LOGGER.error("excepcion ", e);
+			LOGGER.log(Level.SEVERE,e.getMessage(),e );
+
 		}
 		return false;
 	}
@@ -196,8 +214,7 @@ public class RobotManager extends JFrame {
 				System.out.println("el archivo ya esta oculta");
 			}
 		} catch (IOException e) {
-			LOGGER.error("excepcion ", e);
-
+			LOGGER.log(Level.SEVERE,e.getMessage(),e );
 			e.printStackTrace();
 		}
 	}
@@ -217,7 +234,6 @@ public class RobotManager extends JFrame {
 		LOGGER.info( "reading and creating windows registry necessary for sysprorobotmanager");
 //		checkRegistryRobotMustRun();
 //		checkRegistryRobotNoRunning();
-		
 		RegistryEditorManager.checkWebServicesRegistry();
 		RegistryEditorManager.checkUbicationRegistry();
 		RegistryEditorManager.checkUbicationCreationRegistry();
@@ -250,17 +266,15 @@ public class RobotManager extends JFrame {
 					Thread th=new Thread( new Runnable() {
 						public void run() {
 							runJarRobot(apF.getBotFile());
-							
 						}
 					});
 					th.start();
-					
 				}
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			LOGGER.error("excepcion ", e);
+			LOGGER.log(Level.SEVERE,e.getMessage(),e );
 
 		}
 	}
@@ -303,7 +317,7 @@ public class RobotManager extends JFrame {
 							
 						}catch(NumberFormatException nex){
 							LOGGER.info("cannot parse the id for run");
-							LOGGER.error("excepcion ", nex);
+							LOGGER.log(Level.SEVERE,nex.getMessage(),nex );
 
 						}						
 					}
@@ -312,7 +326,7 @@ public class RobotManager extends JFrame {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			LOGGER.error("excepcion ", e);
+			LOGGER.log(Level.SEVERE,e.getMessage(),e );
 
 		}
 	}
@@ -323,14 +337,12 @@ public class RobotManager extends JFrame {
 			String robotIds = CommandExecutor.readRegistrySpecificRegistry(Constants.LOCALREGISTRY,"robotnotRun","REG_SZ");
 			if(robotIds.endsWith(",")){
 				robotIds=robotIds.substring(0,robotIds.length()-1 );
-				
 			}
 			String[] split = robotIds.split(",");
 			for (int i = 0; i < split.length; i++) {
 				String string = split[i];
 				if(string.length()>0){
 					try{
-						
 						long idRobot = Long.parseLong(string);
 						robotNotRun.put(idRobot, "");
 					}catch(NumberFormatException ex){
@@ -340,10 +352,8 @@ public class RobotManager extends JFrame {
 			}
 			
 		} catch (Exception e) {
-			
 			e.printStackTrace();
-			LOGGER.error("excepcion ", e);
-
+			LOGGER.log(Level.SEVERE,e.getMessage(),e );
 		}
 		return robotNotRun;
 	}
@@ -448,7 +458,7 @@ public class RobotManager extends JFrame {
 					} catch (IOException e) {
 						e.printStackTrace();
 						value=false;
-						LOGGER.error("excepcion ", e);
+						LOGGER.log(Level.SEVERE,e.getMessage(),e );
 
 					}
 					latch.countDown();
@@ -461,7 +471,7 @@ public class RobotManager extends JFrame {
 			latch.await(60,TimeUnit.SECONDS);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
-			LOGGER.error("excepcion ", e);
+			LOGGER.log(Level.SEVERE,e.getMessage(),e );
 
 		}
 		return valueStart;
@@ -586,7 +596,7 @@ public class RobotManager extends JFrame {
 					} catch (IOException e) {
 						e.printStackTrace();
 						value=false;
-						LOGGER.error("excepcion ", e);
+						LOGGER.log(Level.SEVERE,e.getMessage(),e );
 
 					}
 					latch.countDown();
@@ -602,7 +612,7 @@ public class RobotManager extends JFrame {
 			latch.await(60,TimeUnit.SECONDS);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
-			LOGGER.error("excepcion ", e);
+			LOGGER.log(Level.SEVERE,e.getMessage(),e );
 
 		}
 		return valueStart;
@@ -641,7 +651,7 @@ public class RobotManager extends JFrame {
 				} catch (IOException e) {
 					e.printStackTrace();
 					valueStop=false;
-					LOGGER.error("excepcion ", e);
+					LOGGER.log(Level.SEVERE,e.getMessage(),e );
 				}
 				
 				latch.countDown();
@@ -691,7 +701,7 @@ public class RobotManager extends JFrame {
 				setUbication(ubicationRegist);
 			} catch (Exception e) {
 				e.printStackTrace();
-				LOGGER.error("excepcion ", e);
+				LOGGER.log(Level.SEVERE,e.getMessage(),e );
 
 			}
 			

@@ -31,7 +31,7 @@ public class Webservice
         URL url = null;
         WebServiceException e = null;
         try {
-            url = new URL("https://samyg2pp.sispro.mx/wsendusersamyg2/wssamyg/status/soapFlujosV2.php?wsdl");
+            url = new URL("https://samyg2.sispro.mx/wsendusersamyg2/wssamyg/status/soapFlujosV2.php?wsdl");
         } catch (MalformedURLException ex) {
             e = new WebServiceException(ex);
         }

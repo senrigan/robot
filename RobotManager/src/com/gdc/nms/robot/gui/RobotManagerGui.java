@@ -94,7 +94,6 @@ public class RobotManagerGui extends JFrame {
 
 	public RobotManagerGui() {
 		super("SisproRobotManager");
-		LOGGER.addAppender(RobotManager.logAppender);
 		
 		initComponents();
 		
