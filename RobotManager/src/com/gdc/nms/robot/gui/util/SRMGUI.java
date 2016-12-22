@@ -101,6 +101,13 @@ public class SRMGUI extends JFrame {
 	public static void main(String[] args) {
 		SRMGUI frame = new SRMGUI();
 		frame.addNewRobotUI("mudo");
+		try {
+			Thread.sleep(5000L);
+			System.out.println("removing ");
+			frame.removeRobot("mudo");
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		
 	}
 	private void initListener(){
@@ -787,12 +794,15 @@ public class SRMGUI extends JFrame {
 	
 	
 	public void removeRobot(String robotName){
+		System.out.println("Map robot"+mapRobots);
 		if(mapRobots.containsKey(robotName)){
+			System.out.println("is contained");
 			JButton jButton = mapRobots.get(robotName);
 			verticalBox.remove(jButton);
+			verticalBox.repaint();
+			changeStopedCount(getStopetCount()-1);
 		}else{
-//			Logger
-//			throw new Exception("the robot "+robotName +"is no found in the list");
+			System.out.println("is no containeid");
 		}
 		
 	}

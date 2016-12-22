@@ -6,13 +6,13 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
-
-import org.apache.log4j.Logger;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.gdc.nms.robot.util.DeleteServiceController;
 
 public class JavaProcess {
-	private static final Logger LOGGER=Logger.getLogger(JavaProcess.class);
+	private static final Logger LOGGER=Logger.getLogger(JavaProcess.class.toString());
 
 	public static ArrayList<JavaProcessInfo> getAllJavaProcess(){
 		ArrayList<JavaProcessInfo> process=new ArrayList<JavaProcessInfo>();
@@ -35,6 +35,7 @@ public class JavaProcess {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			LOGGER.log(Level.SEVERE,"Error",e);
 		}
 		return process;
 	}
@@ -72,6 +73,8 @@ public class JavaProcess {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			LOGGER.log(Level.SEVERE,"Error",e);
+
 		}
 		return null;
 

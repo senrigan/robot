@@ -1,7 +1,9 @@
 package com.gdc.nms.robot.util.jade;
 
 
-import org.apache.log4j.Logger;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.gdc.nms.robot.gui.RobotManager;
 
@@ -19,9 +21,6 @@ public class MailBoxRobot extends Agent{
 	 */
 	private static final long serialVersionUID = 1L;
 	private static final Logger LOGGER=Logger.getLogger(MailBoxRobot.class.toString());
-	static {
-		LOGGER.addAppender(RobotManager.logAppender);
-	}
 	public static void initReciver(){
 		Object []obj= new Object[1];
 		AgentContainer container = InitPlataform.getContainer();
@@ -30,7 +29,7 @@ public class MailBoxRobot extends Agent{
 			createNewAgent.start();
 		} catch (StaleProxyException e) {
 			e.printStackTrace();
-			LOGGER.error("Excepcion ", e);
+			LOGGER.log(Level.SEVERE,"Excepcion ", e);
 		}
 	}
 

@@ -14,6 +14,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.CountDownLatch;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -27,7 +29,6 @@ import javax.swing.JTree;
 import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
 
-import org.apache.log4j.Logger;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 
@@ -87,7 +88,7 @@ public class RobotManagerGui extends JFrame {
 	private JMenu mnAr;
 	private JMenuItem ubicationMenu;
 	private JMenuItem wsCreactionMenu;
-	private static final Logger LOGGER=Logger.getLogger(RobotManagerGui.class);
+	private static final Logger LOGGER=Logger.getLogger(RobotManagerGui.class.toString());
 	private static int parche=0;
 
 	
@@ -567,7 +568,7 @@ public class RobotManagerGui extends JFrame {
 //					enableButton(ButtonType.STOP, true);
 
 					e1.printStackTrace();
-					LOGGER.error("excepcion ", e1);
+					LOGGER.log(Level.SEVERE,"excepcion ", e1);
 
 				}
 			}
@@ -637,7 +638,7 @@ public class RobotManagerGui extends JFrame {
 
 		} catch (IOException e) {
 			e.printStackTrace();
-			LOGGER.error("excepcion ", e);
+			LOGGER.log(Level.SEVERE,"excepcion ", e);
 		} 
 		return text;
 	}
@@ -666,7 +667,7 @@ public class RobotManagerGui extends JFrame {
 			CommandExecutor.addRegistryWindows(Constants.LOCALREGISTRY, "robotnotRun", registry);
 		} catch (Exception e) {
 			e.printStackTrace();
-			LOGGER.error("excepcion ", e);
+			LOGGER.log(Level.SEVERE,"excepcion ", e);
 
 		}
 	}
@@ -695,7 +696,7 @@ public class RobotManagerGui extends JFrame {
 			CommandExecutor.addRegistryWindows(Constants.LOCALREGISTRY, "robotmustRun", registry);
 		} catch (Exception e) {
 			e.printStackTrace();
-			LOGGER.error("excepcion ", e);
+			LOGGER.log(Level.SEVERE,"excepcion ", e);
 
 		}
 	}
@@ -726,7 +727,7 @@ public class RobotManagerGui extends JFrame {
 			CommandExecutor.addRegistryWindows(Constants.LOCALREGISTRY, "robotmustRun", newRegistry);
 		} catch (Exception e) {
 			e.printStackTrace();
-			LOGGER.error("excepcion ", e);
+			LOGGER.log(Level.SEVERE,"excepcion ", e);
 
 		}
 	}
@@ -757,7 +758,7 @@ public class RobotManagerGui extends JFrame {
 			CommandExecutor.addRegistryWindows(Constants.LOCALREGISTRY, "robotnotRun", newRegistry);
 		} catch (Exception e) {
 			e.printStackTrace();
-			LOGGER.error("excepcion ", e);
+			LOGGER.log(Level.SEVERE,"excepcion ", e);
 
 		}
 	}
@@ -948,7 +949,7 @@ public class RobotManagerGui extends JFrame {
 //
 //		} catch (Exception e) {
 //			e.printStackTrace();
-//			LOGGER.error("excepcion ", e);
+//			LOGGER.log(Level.SEVERE,"excepcion ", e);
 //
 //		}
 //	}
@@ -1040,7 +1041,7 @@ public class RobotManagerGui extends JFrame {
 			latch.await();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
-			LOGGER.error("excepcion ", e);
+			LOGGER.log(Level.SEVERE,"excepcion ", e);
 
 		}
 //		for (Thread thread : hilos) {

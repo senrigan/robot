@@ -5,10 +5,10 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
 
-import org.apache.log4j.Logger;
 
 import com.gdc.nms.robot.gui.DeleteDirectory;
 import com.gdc.nms.robot.gui.RobotManager;
@@ -22,7 +22,7 @@ import com.gdc.nms.robot.util.indexer.AppInformation;
 
 public class DeleteServiceController {
 	private AppInformation app;
-	private static final Logger LOGGER=Logger.getLogger(DeleteServiceController.class);
+	private static final Logger LOGGER=Logger.getLogger(DeleteServiceController.class.toString());
 
 	
 	public DeleteServiceController(AppInformation app){
@@ -34,20 +34,34 @@ public class DeleteServiceController {
 	 */
 	public boolean deleteService(){
 			LOGGER.info("try to stop robot for services "+app.getAppName());
-			if(stopRobot()){
+			if(app.isServicesRunning()){
+				if(stopRobot()){
+					long idRobot = app.getIdRobot();
+					LOGGER.info("Starting to Delete Robot id :"+idRobot);
+					boolean continueProcess=false;
+					LOGGER.info("robot webservices is deleted :"+continueProcess);
+					System.out.println("appfolerd "+app.getFolderPath());
+					continueProcess=deleteServices(app.getFolderPath());
+					LOGGER.info("moving folder to trash "+continueProcess);
+					startDeleteFolderTask(new File(app.getFolderPath()));
+					return continueProcess;
+					
+				}else{
+					JOptionPane.showMessageDialog(null,"No es posible detener el robot del servicio "+app.getAlias()+"es necesario detenerlo manualmente  y volver a intertarlo");
+					return false;
+				}
+				
+			}else{
 				long idRobot = app.getIdRobot();
 				LOGGER.info("Starting to Delete Robot id :"+idRobot);
 				boolean continueProcess=false;
 				LOGGER.info("robot webservices is deleted :"+continueProcess);
 				System.out.println("appfolerd "+app.getFolderPath());
-					continueProcess=deleteServices(app.getFolderPath());
-					LOGGER.info("moving folder to trash "+continueProcess);
+				continueProcess=deleteServices(app.getFolderPath());
+				LOGGER.info("moving folder to trash "+continueProcess);
 				startDeleteFolderTask(new File(app.getFolderPath()));
-				return continueProcess;
-				
-			}else{
-				JOptionPane.showMessageDialog(null,"No es posible detener el robot del servicio "+app.getAlias()+"es necesario detenerlo manualmente  y volver a intertarlo");
-				return false;
+				return true;
+
 			}
 	}
 

@@ -31,7 +31,6 @@ public class InitPlataform {
 	private static SRMAgentManager srmAgentManager;
 	private static final Logger LOGGER=Logger.getLogger(InitPlataform.class.toString());
 	private InitPlataform(){
-		LOGGER.addAppender(RobotManager.logAppender);
 	}
 	
 

@@ -15,12 +15,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.apache.commons.io.filefilter.WildcardFileFilter;
-import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 
 import com.gdc.nms.robot.gui.RegistryEditorManager;
@@ -39,9 +40,6 @@ public class AppExaminator {
 	 * @return a list of all elements with information of application installed in data folder
 	 */
 	private static final Logger LOGGER=Logger.getLogger(AppExaminator.class.toString());
-	static{
-		LOGGER.addAppender(RobotManager.logAppender);
-	}
 	public static ArrayList<AppInformation> getInstalledApps(){
 		ArrayList<AppInformation> apps=new ArrayList<AppInformation>();
 		try {
@@ -75,7 +73,7 @@ public class AppExaminator {
 			}
 		}catch(Exception ex){
 			ex.printStackTrace();
-			LOGGER.error("excepcion ", ex);
+			LOGGER.log(Level.SEVERE,"excepcion ", ex);
 
 		}
 		return apps;
@@ -137,7 +135,7 @@ public class AppExaminator {
 			}
 		}catch(Exception ex){
 			ex.printStackTrace();
-			LOGGER.error("excepcion ", ex);
+			LOGGER.log(Level.SEVERE,"excepcion ", ex);
 
 		}
 		return apps;
@@ -233,7 +231,7 @@ public class AppExaminator {
 				LOGGER.info("the lock file can not deleted for robot :"+app.getAppName());
 			}catch(InterruptedException ex){
 				ex.printStackTrace();
-				LOGGER.error("Error: ", ex);
+				LOGGER.log(Level.SEVERE,"Error: ", ex);
 			}
 		}
 		return true;
@@ -268,7 +266,7 @@ public class AppExaminator {
 			redRegistryWindows=CommandExecutor.readRegistrySpecificRegistry(LOCALREGISTRY, "installationPath", "REG_SZ");
 		} catch (Exception e) {
 			e.printStackTrace();
-			LOGGER.error("excepcion ", e);
+			LOGGER.log(Level.SEVERE,"excepcion ", e);
 
 		}
 		Path installationPath = Paths.get(redRegistryWindows);
@@ -286,7 +284,7 @@ public class AppExaminator {
 			}
 		}catch(Exception ex){
 			ex.printStackTrace();
-			LOGGER.error("excepcion ", ex);
+			LOGGER.log(Level.SEVERE,"excepcion ", ex);
 		}
 		return content;
 	}
@@ -307,7 +305,7 @@ public class AppExaminator {
 				}
 			}catch(Exception ex){
 				ex.printStackTrace();
-				LOGGER.error("excepcion ", ex);
+				LOGGER.log(Level.SEVERE,"excepcion ", ex);
 				
 			}
 			return content;
@@ -483,7 +481,7 @@ public class AppExaminator {
 			}
 			
 		}catch(Exception ex){
-			LOGGER.error("excepcion ", ex);
+			LOGGER.log(Level.WARNING,"excepcion ", ex);
 
 		}
 		return robotId;
@@ -513,11 +511,11 @@ public class AppExaminator {
 					
 				}catch(Exception ex){
 					ex.printStackTrace();
-					LOGGER.error("Exepcion",ex);
+					LOGGER.log(Level.SEVERE,"Exepcion",ex);
 				}
 			
 		}catch(Exception ex){
-			LOGGER.error("excepcion ", ex);
+			LOGGER.log(Level.SEVERE,"excepcion ", ex);
 
 		}
 		return robotId;
@@ -537,7 +535,7 @@ public class AppExaminator {
 			app.setIdApp(Long.parseLong(doc.getDocumentElement().getAttribute("id")));
 		}catch(Exception ex){
 			ex.printStackTrace();
-			LOGGER.error("excepcion ", ex);
+			LOGGER.log(Level.SEVERE,"excepcion ", ex);
 
 		}
 		

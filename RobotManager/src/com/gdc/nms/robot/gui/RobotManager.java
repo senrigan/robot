@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.RandomAccessFile;
+import java.net.URL;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileLock;
 import java.nio.file.Files;
@@ -34,6 +35,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 import org.apache.commons.io.FileUtils;
 
+import com.gdc.nms.robot.Main;
 import com.gdc.nms.robot.gui.tree.test.InterfaceManager;
 import com.gdc.nms.robot.gui.util.SRMGUI;
 import com.gdc.nms.robot.gui.util.process.JavaProcess;
@@ -87,14 +89,10 @@ public class RobotManager extends JFrame {
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 				LOGGER.severe(e.toString());
-//				LOGGER.error("excepcion ", e);
 
 			} catch (InstantiationException e) {
 				e.printStackTrace();
 				LOGGER.severe(e.toString());
-
-//				LOGGER.error("excepcion ", e);
-
 			} catch (IllegalAccessException e) {
 				e.printStackTrace();
 				LOGGER.severe(e.toString());
@@ -147,12 +145,20 @@ public class RobotManager extends JFrame {
 //			LOGGER.error("excepcion ", e);
 //		}
 		try {
-			LogManager.getLogManager().readConfiguration(new FileInputStream(new File("logging.properties")));
+			URL resource =Main.class.getResource("logging.properties");
+//			URL resource = RobotManager.class.getResource("/logging.properties");
+			System.out.println("Resoruces ***"+resource);
+			FileInputStream fileInputStream = new FileInputStream(new File(resource.toURI()));
+			System.out.println("existe"+new File(resource.toURI()).exists());
+			System.out.println(fileInputStream);
+			LogManager.getLogManager().readConfiguration(new FileInputStream(new File(resource.toURI())));
 		} catch (SecurityException e) {
 			e.printStackTrace();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
+			e.printStackTrace();
+		}catch(Exception e){
 			e.printStackTrace();
 		}
 		LOGGER.config("Configuration done.");
@@ -258,10 +264,8 @@ public class RobotManager extends JFrame {
 				System.out.println("robot to run"+appInformation.getFolderPath());
 				final AppInformation apF=appInformation;
 				if(appInformation.isServicesRunning()){
-//					srmGuiManager.
 					System.out.println("changing services to already running"+appInformation.getAppName());
 					srmGuiManager.changeStatusServicesToActive(appInformation.getAppName());
-//					RobotManager.getGuiManager().getJtreManager().addToRun(appInformation.getAppName()); 
 				}else{
 					Thread th=new Thread( new Runnable() {
 						public void run() {

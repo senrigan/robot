@@ -9,6 +9,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
 
@@ -27,11 +29,10 @@ import com.gdc.robothelper.webservice.robot.CreatorRobotWebService;
 import com.gdc.robothelper.webservice.robot.news.CreatorNewRobotWebService;
 import com.gdc.robothelper.webservice.robot.olds.CreatorOldRobotWebService;
 
-import org.apache.log4j.Logger;
 
 
 public class RegistryEditorManager {
-	private static final Logger LOGGER = Logger.getLogger(RegistryEditorManager.class);
+	private static final Logger LOGGER = Logger.getLogger(RegistryEditorManager.class.toString());
 	public RegistryEditorManager(){
 		
 	}
@@ -199,7 +200,7 @@ public class RegistryEditorManager {
 		} catch (Exception e) {
 			createRegistryRobotMustRun();
 			e.printStackTrace();
-			LOGGER.error("excepcion ", e);
+			LOGGER.log(Level.SEVERE,"excepcion ", e);
 
 		}
 	}
@@ -214,11 +215,11 @@ public class RegistryEditorManager {
 			CommandExecutor.addRegistryWindows(Constants.LOCALREGISTRY, "robotmustRun",idRobots );
 		} catch (IOException e) {
 			e.printStackTrace();
-			LOGGER.error("excepcion ", e);
+			LOGGER.log(Level.SEVERE,"excepcion ", e);
 
 		} catch (InterruptedException e) {
 			e.printStackTrace();
-			LOGGER.error("excepcion ", e);
+			LOGGER.log(Level.SEVERE,"excepcion ", e);
 
 		}
 
@@ -231,7 +232,7 @@ public class RegistryEditorManager {
 		} catch (Exception e) {
 			createregistryRobotNotRunning();
 			e.printStackTrace();
-			LOGGER.error("excepcion ", e);
+			LOGGER.log(Level.SEVERE,"excepcion ", e);
 
 		}
 	}
@@ -253,11 +254,11 @@ public class RegistryEditorManager {
 			CommandExecutor.addRegistryWindows(Constants.LOCALREGISTRY, "robotnotRun","");
 		} catch (IOException e) {
 			e.printStackTrace();
-			LOGGER.error("excepcion ", e);
+			LOGGER.log(Level.SEVERE,"excepcion ", e);
 
 		} catch (InterruptedException e) {
 			e.printStackTrace();
-			LOGGER.error("excepcion ", e);
+			LOGGER.log(Level.SEVERE,"excepcion ", e);
 
 		}
 	}
@@ -270,7 +271,7 @@ public class RegistryEditorManager {
 		} catch (Exception e) {
 			createWebServicesCreatorRegistry();
 			e.printStackTrace();
-			LOGGER.error("excepcion ", e);
+			LOGGER.log(Level.SEVERE,"excepcion ", e);
 
 		}
 		
@@ -279,7 +280,7 @@ public class RegistryEditorManager {
 		} catch (Exception e) {
 			e.printStackTrace();
 			createWebServicesConsultRegistry();
-			LOGGER.error("excepcion ", e);
+			LOGGER.log(Level.SEVERE,"excepcion ", e);
 
 		}
 	}
@@ -290,11 +291,11 @@ public class RegistryEditorManager {
 			CommandExecutor.addRegistryWindows(Constants.LOCALREGISTRY, "webservicesCreator", wsUrl);
 		} catch (IOException e) {
 			e.printStackTrace();
-			LOGGER.error("excepcion ", e);
+			LOGGER.log(Level.SEVERE,"excepcion ", e);
 
 		} catch (InterruptedException e) {
 			e.printStackTrace();
-			LOGGER.error("excepcion ", e);
+			LOGGER.log(Level.SEVERE,"excepcion ", e);
 
 		}
 	}
@@ -303,11 +304,11 @@ public class RegistryEditorManager {
 			CommandExecutor.addRegistryWindows(Constants.LOCALREGISTRY, "webservicesCreator",WebServicesManager.getWebServicesCreatorUrl().toString());
 		} catch (IOException e) {
 			e.printStackTrace();
-			LOGGER.error("excepcion ", e);
+			LOGGER.log(Level.SEVERE,"excepcion ", e);
 
 		} catch (InterruptedException e) {
 			e.printStackTrace();
-			LOGGER.error("excepcion ", e);
+			LOGGER.log(Level.SEVERE,"excepcion ", e);
 
 		}
 	}
@@ -319,7 +320,7 @@ public class RegistryEditorManager {
 			urlRegistry=CommandExecutor.readRegistrySpecificRegistry(Constants.LOCALREGISTRY, "webservicesCreator", "REG_SZ");
 		} catch (Exception e) {
 			e.printStackTrace();
-			LOGGER.error("excepcion ", e);
+			LOGGER.log(Level.SEVERE,"excepcion ", e);
 
 		}
 		return urlRegistry;
@@ -332,11 +333,11 @@ public class RegistryEditorManager {
 			CommandExecutor.addRegistryWindows(Constants.LOCALREGISTRY, "webservicesConsult",wsUrl);
 		} catch (IOException e) {
 			e.printStackTrace();
-			LOGGER.error("excepcion ", e);
+			LOGGER.log(Level.SEVERE,"excepcion ", e);
 
 		} catch (InterruptedException e) {
 			e.printStackTrace();
-			LOGGER.error("excepcion ", e);
+			LOGGER.log(Level.SEVERE,"excepcion ", e);
 
 		}
 	}
@@ -347,11 +348,11 @@ public class RegistryEditorManager {
 					SisproRobotManagerHelperService.getUrl().toString());
 		} catch (IOException e) {
 			e.printStackTrace();
-			LOGGER.error("excepcion ", e);
+			LOGGER.log(Level.SEVERE,"excepcion ", e);
 
 		} catch (InterruptedException e) {
 			e.printStackTrace();
-			LOGGER.error("excepcion ", e);
+			LOGGER.log(Level.SEVERE,"excepcion ", e);
 
 		}
 	}
@@ -363,7 +364,7 @@ public class RegistryEditorManager {
 			wsUrl=CommandExecutor.readRegistrySpecificRegistry(Constants.LOCALREGISTRY, "webservicesConsult", "REG_SZ");
 		} catch (Exception e) {
 			e.printStackTrace();
-			LOGGER.error("excepcion ", e);
+			LOGGER.log(Level.SEVERE,"excepcion ", e);
 
 		}
 		return wsUrl;
@@ -375,11 +376,11 @@ public class RegistryEditorManager {
 			RobotManager.setUbication(ubication);
 		} catch (IOException e) {
 			e.printStackTrace();
-			LOGGER.error("excepcion ", e);
+			LOGGER.log(Level.SEVERE,"excepcion ", e);
 
 		} catch (InterruptedException e) {
 			e.printStackTrace();
-			LOGGER.error("excepcion ", e);
+			LOGGER.log(Level.SEVERE,"excepcion ", e);
 
 		}
 
@@ -389,11 +390,11 @@ public class RegistryEditorManager {
 			CommandExecutor.addRegistryWindows(Constants.LOCALREGISTRY, "installationPath", getCurrentPath().toString(), REGISTRY_TYPE.REG_SZ);
 		} catch (IOException e) {
 			e.printStackTrace();
-			LOGGER.error("excepcion ", e);
+			LOGGER.log(Level.SEVERE,"excepcion ", e);
 
 		} catch (InterruptedException e) {
 			e.printStackTrace();
-			LOGGER.error("excepcion ", e);
+			LOGGER.log(Level.SEVERE,"excepcion ", e);
 
 		}
 
@@ -410,7 +411,7 @@ public class RegistryEditorManager {
             }
             return currentPath;
         } catch (URISyntaxException e) {
-			LOGGER.error("excepcion ", e);
+			LOGGER.log(Level.SEVERE,"excepcion ", e);
 
         }
         return null;
@@ -423,7 +424,7 @@ public class RegistryEditorManager {
 			ubicationRegist = CommandExecutor.readRegistrySpecificRegistry(Constants.LOCALREGISTRY, "installationPath","REG_SZ");
 		} catch (Exception e) {
 			e.printStackTrace();
-			LOGGER.error("excepcion ", e);
+			LOGGER.log(Level.SEVERE,"excepcion ", e);
 
 		}
 		return ubicationRegist;
@@ -439,7 +440,7 @@ public class RegistryEditorManager {
 			RobotManager.setUbication(ubicationRegist);
 		}catch(Exception ex){
 			createUbicationRegistruCreation();
-			LOGGER.error("excepcion ", ex);
+			LOGGER.log(Level.SEVERE,"excepcion ", ex);
 
 		}
 	}
@@ -450,7 +451,7 @@ public class RegistryEditorManager {
 		} catch (Exception e) {
 			createUbicationPathRegistry();
 			e.printStackTrace();
-			LOGGER.error("excepcion ", e);
+			LOGGER.log(Level.SEVERE,"excepcion ", e);
 
 		}
 	}
@@ -463,11 +464,11 @@ public class RegistryEditorManager {
 			RobotManager.setUbication(ubication);
 		} catch (IOException e) {
 			e.printStackTrace();
-			LOGGER.error("excepcion ", e);
+			LOGGER.log(Level.SEVERE,"excepcion ", e);
 
 		} catch (InterruptedException e) {
 			e.printStackTrace();
-			LOGGER.error("excepcion ", e);
+			LOGGER.log(Level.SEVERE,"excepcion ", e);
 
 		}
 

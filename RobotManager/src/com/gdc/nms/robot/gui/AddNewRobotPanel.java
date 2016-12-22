@@ -1,7 +1,5 @@
 package com.gdc.nms.robot.gui;
 
-import java.awt.Checkbox;
-import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 
@@ -14,7 +12,6 @@ import javax.swing.event.ChangeListener;
 
 import com.gdc.nms.robot.gui.auxiliar.CheckBoxList;
 import com.gdc.nms.robot.gui.auxiliar.LoadingFrame;
-import com.gdc.nms.robot.gui.util.SRMGUI;
 import com.gdc.nms.robot.util.AppExaminator;
 import com.gdc.nms.robot.util.CreatorRobotManager;
 import com.gdc.nms.robot.util.InfoRobotMaker;
@@ -60,6 +57,10 @@ import javax.swing.JScrollPane;
 
 public class AddNewRobotPanel extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JComboBox listServices;
 	private JLabel lblNewLabel;
@@ -113,7 +114,7 @@ public class AddNewRobotPanel extends JFrame {
 	 */
 	public AddNewRobotPanel() {
 		loading=LoadingFrame.getInstance();
-	
+		loading.showLoadingFrame("precarging");
 		initComponents();
 		initListener();
 		initDataComponents();
@@ -536,7 +537,8 @@ public class AddNewRobotPanel extends JFrame {
 				JComboBox<AppJsonObject> services=(JComboBox<AppJsonObject>)e.getSource();
 				selectedItem = (AppJsonObject)services.getSelectedItem();
 				if(selectedItem!=null){
-					loading.showLoadingFrame(Language.get("addrobot.loading.services.message"));
+					loading.showLoadingFrame("hola");
+//					loading.showLoadingFrame(Language.get("addrobot.loading.services.message"));
 					if(checkIfServicesContainFlujos()){
 						clearElements();
 						System.out.println("no es nulo");

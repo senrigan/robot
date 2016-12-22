@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
-
-import org.apache.log4j.Logger;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.gdc.nms.robot.gui.RobotManager;
 import com.gdc.nms.robot.gui.RobotManagerGui;
@@ -73,7 +73,7 @@ public class AgentValidator extends Agent{
 				System.out.println("termino la espera del poleo");
 			} catch (Exception ex) {
 				ex.printStackTrace();
-				LOGGER.error("Error :", ex);
+				LOGGER.log(Level.SEVERE,"Error :", ex);
 			}
 		}
 	}
@@ -146,7 +146,7 @@ public class AgentValidator extends Agent{
 				System.out.println("termino la espera del poleo");
 			} catch (Exception ex) {
 				ex.printStackTrace();
-				LOGGER.error("Error :", ex);
+				LOGGER.log(Level.SEVERE,"Error :", ex);
 			}
 		}
 

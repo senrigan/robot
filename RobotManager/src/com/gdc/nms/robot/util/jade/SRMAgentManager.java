@@ -3,11 +3,12 @@ package com.gdc.nms.robot.util.jade;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
-import org.apache.log4j.Logger;
 import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
@@ -36,7 +37,6 @@ public class SRMAgentManager {
 	private static final Logger LOGGER = Logger.getLogger(SRMAgent.class.toString());
 	
 	public void init(){
-		LOGGER.addAppender(RobotManager.logAppender);
 		srmAgent=new SRMAgent();
 //		agentValidator=new AgentValidator();
 		staAgent=new StatusAgent();
@@ -50,7 +50,7 @@ public class SRMAgentManager {
 			agent.start();
 		} catch (StaleProxyException e) {
 			e.printStackTrace();
-			LOGGER.error("Excepcion", e);
+			LOGGER.log(Level.SEVERE,"Excepcion", e);
 		}
 	}
 	

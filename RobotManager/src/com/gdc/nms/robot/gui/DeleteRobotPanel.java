@@ -132,6 +132,7 @@ public class DeleteRobotPanel extends JFrame {
 					DeleteServiceController deleter=new DeleteServiceController(app);
 					if(deleter.deleteService()){
 						JOptionPane.showMessageDialog(null,"El robot del servicio "+app.getAlias()+"ha sido eliminado correctamente");
+						RobotManager.getSRMGuiManager().RemoveServices(app.getAppName());
 					}else{
 						JOptionPane.showMessageDialog(null,"No es posible eliminar el robot del servicio "+app.getAlias());
 
