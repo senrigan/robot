@@ -1,5 +1,6 @@
 package com.gdc.nms.robot.gui;
 
+import java.awt.Checkbox;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -61,6 +62,7 @@ public class NewConfigurationPanel extends JFrame {
 	private boolean ubicationChange;
 	private boolean restarChange;
 	private boolean passworChange;
+	private JButton configRestarRobot;
 
 	/**
 	 * Launch the application.
@@ -177,6 +179,15 @@ public class NewConfigurationPanel extends JFrame {
 		gbc_restarRobotCheckBox.gridy = 4;
 		contentPane.add(restarRobotCheckBox, gbc_restarRobotCheckBox);
 		
+		configRestarRobot = new JButton(Language.get("webservices.configuration.autorestar.button "));
+		configRestarRobot.setEnabled(false);
+
+		GridBagConstraints gbc_configRestarRobot = new GridBagConstraints();
+		gbc_configRestarRobot.insets = new Insets(0, 0, 5, 0);
+		gbc_configRestarRobot.gridx = 4;
+		gbc_configRestarRobot.gridy = 4;
+		contentPane.add(configRestarRobot, gbc_configRestarRobot);
+		
 		encriptationImacrosLabel = new JLabel(Language.get("webservices.configuration.setmasterpassword.check"));
 		GridBagConstraints gbc_encriptationImacrosLabel = new GridBagConstraints();
 		gbc_encriptationImacrosLabel.anchor = GridBagConstraints.WEST;
@@ -234,6 +245,7 @@ public class NewConfigurationPanel extends JFrame {
 		initWindowsListener();
 		saveButtonListener();
 		changeFielDListener();
+		configAutoRestarListener();
 		
 	}
 	private void changeFielDListener(){
@@ -260,6 +272,17 @@ public class NewConfigurationPanel extends JFrame {
 			@Override
 			public void changedUpdate(DocumentEvent e) {
 				ubicationChange=true;
+			}
+		});
+	}
+	
+	
+	private void configAutoRestarListener(){
+		configRestarRobot.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
 			}
 		});
 	}
@@ -468,6 +491,11 @@ public class NewConfigurationPanel extends JFrame {
 			public void stateChanged(ChangeEvent e) {
 //				restarChange=true;
 				restarChange=(!restarChange);
+				if(((JCheckBox)e.getSource()).isSelected()){
+					configRestarRobot.setEnabled(true);
+				}else{
+					configRestarRobot.setEnabled(false);
+				}
 				
 			}
 		});
